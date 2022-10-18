@@ -129,6 +129,6 @@ dmypy.jsona
 .pyre/
 
 # File size limmit
-GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/processed/data.pt
-GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/raw/dgraph.npz
-GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/raw/dgraph1.npz
+MP2_GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/processed/data.pt
+MP2_GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/raw/dgraph.npz
+MP2_GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/raw/dgraph1.npz
