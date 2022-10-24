@@ -118,7 +118,7 @@ if __name__ == "__main__":
     我们不会保证您的代码将在哪些测试上运行，但是如果它运行在 pentomino 套装上你应该没问题。
     """
     board = instances.board_6x10
-    pents = instances.triominos
+    pents = instances.pentnominos
     sol_list = solve(board, pents)
     if check_correctness(sol_list, board, pents):
         print("PASSED!")
