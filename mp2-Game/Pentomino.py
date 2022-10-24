@@ -8,6 +8,8 @@ from solve import solve
 def get_pent_idx(pent):
     """
     Returns the index of a pentomino.
+
+    返回五联牌的索引。
     """
     pidx = 0
     for i in range(pent.shape[0]):
@@ -24,6 +26,8 @@ def get_pent_idx(pent):
 def is_pentomino(pent, pents):
     """
     Checks if a pentomino pent is part of pents
+
+    检查 pentomino pent 是否是 pents 的一部分。
     """
     pidx = get_pent_idx(pent)
     if pidx == -1:
@@ -47,6 +51,10 @@ def add_pentomino(board, pent, coord, check_pent=False, valid_pents=None):
     column index. 
     
     check_pent will also check if the pentomino is part of the valid pentominos.
+    
+    将五联骨牌添加到板上。五联骨牌的放置方式是coord[0] 是 pent 的最低行索引， coord[1] 是最低的列索引。
+    
+    check_pent 还将检查 pentomino 是否是有效 pentomino 的一部分。
     """
     if check_pent and not is_pentomino(pent, valid_pents):
         return False
@@ -65,11 +73,15 @@ def remove_pentomino(board, pent_idx):
 def check_correctness(sol_list, board, pents):
     """
     Sol is a list of pentominos (possibly rotated) and their upper left coordinate
+
+    Sol 是五联骨牌（可能已旋转）及其左上角坐标的列表.
     """
     # All tiles used
+    # 使用的所有瓷砖
     if len(sol_list) != len(pents):
         return False
     # Construct board
+    # 构造板
     sol_board = np.zeros(board.shape)
     seen_pents = [0]*len(pents)
     for pent, coord in sol_list:
@@ -82,9 +94,11 @@ def check_correctness(sol_list, board, pents):
             return False
             
     # Check same number of squares occupied
+    # 检查占用的相同数量的方格
     if np.count_nonzero(board) != np.count_nonzero(sol_board):
         return False
     # Check overlap
+    # 检查重叠
     if np.count_nonzero(board) != np.count_nonzero(np.multiply(board, sol_board)):
         return False
     
@@ -98,9 +112,13 @@ if __name__ == "__main__":
     
     We won't gaurantee which tests your code will be run on, however if it runs
     well on the pentomino set you should be fine. 
+
+    运行 python Pentomino.py 来检查你的解决方案。您可以替换“board”和用你自己的板子'pents'。您可以从简单的多米诺骨牌开始轻松。
+    
+    我们不会保证您的代码将在哪些测试上运行，但是如果它运行在 pentomino 套装上你应该没问题。
     """
     board = instances.board_6x10
-    pents = instances.dominos
+    pents = instances.triominos
     sol_list = solve(board, pents)
     if check_correctness(sol_list, board, pents):
         print("PASSED!")

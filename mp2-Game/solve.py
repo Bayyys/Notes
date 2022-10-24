@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 
+import imp
+
+
 def solve(board, pents):
     """
     This is the function you will implement. It will take in a numpy array of the board
@@ -14,5 +17,67 @@ def solve(board, pents):
     
     -You may assume there will always be a solution.
     """
+
+    import numpy as np
+    from Pentomino import get_pent_idx, is_pentomino, add_pentomino, remove_pentomino, check_correctness
+
+    def add_pentomino(board, pent, coord, check_pent=False, valid_pents=None):
+        """
+        Adds a pentomino pent to the board. The pentomino will be placed such that
+        coord[0] is the lowest row index of the pent and coord[1] is the lowest
+        column index.
+
+        check_pent will also check if the pentomino is part of the valid pentominos.
+        """
+        if check_pent and not is_pentomino(pent, valid_pents):
+            return False
+        for row in range(pent.shape[0]):
+            for col in range(pent.shape[1]):
+                if pent[row][col] != 0:
+                    if (coord[0] + row >= board.shape[0]) or (coord[1] + col >= board.shape[1]) or (board[coord[0] + row][coord[1] + col] != 0):  # Overlap
+                        return False
+                    else:
+                        board[coord[0] + row][coord[1] + col] = pent[row][col]
+        return True
+
+    num_solve = 0
+    visited = [0] * len(pents)
+    sol_board = np.zeros(board.shape)
+
+    def solve_helper(board, pents, sol_list, visited):
+        nonlocal num_solve
+        if len(sol_list) == len(pents):
+            # num_solve += 1
+            return sol_list
+        for i in range(len(pents)):
+            if visited[i] == 1:
+                continue
+            for flipnum in range(3):
+                p = np.copy(pents[i])
+                if flipnum > 0:
+                    p = np.flip(pents[i], flipnum-1)
+                for rot_num in range(4):
+                    for row in range(board.shape[0]):
+                        for col in range(board.shape[1]):
+                            board_copy = np.copy(board)
+                            if add_pentomino(board_copy, p, (row, col), check_pent=False, valid_pents=pents):
+                                board = board_copy
+                                visited[i] = 1
+                                sol_list.append((p, (row, col)))
+                                sol = solve_helper(board, pents, sol_list, visited)
+                                if sol is not None:
+                                    return sol
+                                visited[i] = 0
+                                sol_list.pop()
+                                remove_pentomino(board, i)
+                    p = np.rot90(p)
+        return None
+
+    sol_list = solve_helper(sol_board, pents, [], visited)
+    print(sol_list)
+    # print(sol_board)
     
-    raise NotImplementedError
+    if sol_list is None:
+        return NotImplementedError
+    else:
+        return sol_list
