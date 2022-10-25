@@ -91,7 +91,7 @@ def solve(board, pents):
                                 board_copy = np.copy(board)
                                 if add_pentomino(board_copy, p, (i, j)) and board_copy[i][j] != 0:
                                     board = board_copy
-                                    # print(board)
+                                    print(board)
                                     visited[k] = 1
                                     sol_list.append((p, (i, j)))
                                     sol = CSP(board, pents, sol_list, visited)
