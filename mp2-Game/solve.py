@@ -83,11 +83,15 @@ def solve(board, pents):
                     for k in range(len(pents)):
                         if visited[k] == 1:
                             continue
+                        shape = []
                         for flipnum in range(2):
                             p = np.copy(pents[k])
                             if flipnum > 0:
                                 p = np.flip(pents[k], flipnum-1)
                             for rot_num in range(4):
+                                if p.tolist() in shape:
+                                    continue
+                                shape.append(p.tolist())
                                 board_copy = np.copy(board)
                                 if add_pentomino(board_copy, p, (i, j)) and board_copy[i][j] != 0:
                                     board = board_copy
