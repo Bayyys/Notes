@@ -203,7 +203,6 @@ class ultimateTicTacToe:
         return 0
 
     def alphabeta(self, depth, currBoardIdx, alpha, beta, isMax):
-        # TODO: alphabeta
         """
         This function implements alpha-beta algorithm for ultimate tic-tac-toe game.
         input args:
@@ -216,12 +215,53 @@ class ultimateTicTacToe:
         output:
         bestValue(float):the bestValue that current player may have
         """
-        # YOUR CODE HERE
-        bestValue = 0.0
-        return bestValue
+        moves = list((x, y) for x in range(3) for y in range(3))  # list of all possible moves
+
+        if depth == self.maxDepth:
+            if self.currPlayer:
+                return self.evaluatePredifined(isMax)
+            else:
+                return self.evaluateDesigned(isMax)
+
+        x, y = self.globalIdx[currBoardIdx]  # get the global index of the local board
+
+        if (isMax and depth == 1) or (not isMax and depth == 2):
+            # maxPlayer's first move or minPlayer's second move
+            # the situation where we look for the minimum value
+            player = 'O'
+            curr_best = float('inf')
+        else:
+            # minPlayer's first move or maxPlayer's second move
+            # the situation where we look for the maximum value
+            player = 'X'
+            curr_best = -float('inf')
+
+        for i, j in moves:
+            if self.board[x + i][y + j] != '_':
+                # the move is not legal
+                continue
+
+            self.board[x + i][y + j] = player   # make the move
+            self.expandedNodes += 1  # update the number of expanded nodes
+            board_idx = i * 3 + j   # update the local board index
+            new_value = self.alphabeta(depth + 1, board_idx, alpha, beta, isMax)    # recursive call
+            self.board[x + i][y + j] = '_'  # undo the move
+
+            if (isMax and depth == 1) or (not isMax and depth == 2):
+                curr_best = min(curr_best, new_value)
+                if curr_best <= alpha:
+                    return curr_best
+                beta = min(beta, curr_best)
+
+            else:
+                curr_best = max(curr_best, new_value)
+                if curr_best >= beta:
+                    return curr_best
+                alpha = max(alpha, curr_best)
+
+        return curr_best
 
     def minimax(self, depth, currBoardIdx, isMax):
-        # TODO: minimax
         """
         This function implements minimax algorithm for ultimate tic-tac-toe game.
         input args:
@@ -234,9 +274,46 @@ class ultimateTicTacToe:
         output:
         bestValue(float):the bestValue that current player may have
         """
-        # YOUR CODE HERE
-        bestValue = 0.0
-        return bestValue
+        moves = list((x, y) for x in range(3) for y in range(3))    # list of all possible moves
+
+        if depth == self.maxDepth:
+            if self.currPlayer:
+                return self.evaluatePredifined(isMax)
+            else:
+                return self.evaluateDesigned(isMax)
+
+        x, y = self.globalIdx[currBoardIdx]  # get the global index of the current local board
+
+        if (isMax and depth == 1) or (not isMax and depth == 2):
+            # maxPlayer's first move or minPlayer's second move
+            # the situation where we look for the minimum value
+            player = 'O'
+            curr_best = float('inf')
+        else:
+            # minPlayer's first move or maxPlayer's second move
+            # the situation where we look for the maximum value
+            player = 'X'
+            curr_best = float('-inf')
+
+        for i, j in moves:
+            if self.board[x + i][y + j] != '_':
+                # the move is not legal
+                continue
+
+            self.board[x + i][y + j] = player   # make the move
+            self.expandedNodes += 1  # increase the number of expanded nodes
+            board_idx = i * 3 + j   # update the local board index
+            new_value = self.minimax(depth + 1, board_idx, isMax)  # recursive call
+            self.board[x + i][y + j] = '_'  # undo the move
+
+            if (isMax and depth == 1) or (not isMax and depth == 2):
+                # maxPlayer's first move or minPlayer's second move
+                curr_best = min(curr_best, new_value)
+            else:
+                # minPlayer's first move or maxPlayer's second move
+                curr_best = max(curr_best, new_value)
+
+        return curr_best
 
     def getBoardIdx(self, best_x, best_y):
         """
@@ -252,6 +329,7 @@ class ultimateTicTacToe:
             if x <= best_x < x + 3 and y <= best_y < y + 3:
                 return boardIdx
             boardIdx += 1
+
     def playGamePredifinedAgent(self, maxFirst, isMinimaxOffensive, isMinimaxDefensive):
         """
         This function implements the processes of the game of predifined offensive agent vs defensive agent.
@@ -269,82 +347,87 @@ class ultimateTicTacToe:
         gameBoards(list of 2d lists): list of game board positions at each move
         winner(int): 1 for maxPlayer is the winner, -1 for minPlayer is the winner, and 0 for tie.
         """
-        # YOUR CODE HERE
-        bestMove = []
-        bestValue = []
+        bestMove = []   # list of bestMove coordinates at each step
+        bestValue = []  # list of bestValue at each move
 
-        moves = list((x, y) for x in range(3) for y in range(3))
+        moves = list((x, y) for x in range(3) for y in range(3))    # list of all possible moves
 
         if maxFirst:
-            isMax = True
+            isMax = True    # maxPlayer plays first
         else:
-            isMax = False
+            isMax = False   # minPlayer plays first
 
         if isMinimaxOffensive:
-            offensive = self.minimax
+            offensive = self.minimax    # offensive agent uses minimax
         else:
-            offensive = self.alphabeta
+            offensive = self.alphabeta  # offensive agent uses alpha-beta pruning
 
         if isMinimaxDefensive:
-            defensive = self.minimax
+            defensive = self.minimax    # defensive agent uses minimax
         else:
-            defensive = self.alphabeta
+            defensive = self.alphabeta  # defensive agent uses alpha-beta pruning
 
-        board_idx = self.startBoardIdx
+        board_idx = self.startBoardIdx  # current local board index
 
         while self.checkMovesLeft():
-            self.printGameBoard()
+            self.printGameBoard()   # debug: print current game board
+
             if self.checkWinner():
+                # if there is a winner, break the loop
                 break
 
             if isMax:
+                # maxPlayer's turn
                 player = 'X'
                 algorithm = offensive
-                curr_best = -float('inf')
+                curr_best = -float('inf')   # initialize bestValue to -infinity
             else:
+                # minPlayer's turn
                 player = 'O'
                 algorithm = defensive
-                curr_best = float('inf')
+                curr_best = float('inf')    # initialize bestValue to infinity
 
-            x, y = self.globalIdx[board_idx]
-            best_x, best_y = x, y
+            x, y = self.globalIdx[board_idx]    # get the global board index
+            best_x, best_y = x, y   # initialize bestMove to the first move in the local board
 
             for i, j in moves:
                 if self.board[x + i][y + j] != '_':
+                    # check if the move is valid
                     continue
 
-                self.board[x + i][y + j] = player
-                self.expandedNodes += 1
+                self.board[x + i][y + j] = player   # make the move
+                self.expandedNodes += 1  # increment the number of expanded nodes
 
                 if algorithm == self.minimax:
-                    new_value = algorithm(0, board_idx, isMax)
+                    new_value = algorithm(1, board_idx, isMax)  # call minimax
                 else:
-                    new_value = algorithm(0, board_idx, -float('inf'), float('inf'), isMax)
+                    new_value = algorithm(1, board_idx, -float('inf'), float('inf'), isMax)  # call alphabeta
 
-                self.board[x + i][y + j] = '_'
+                self.board[x + i][y + j] = '_'  # undo the move
 
                 if isMax:
-                    if new_value > curr_best:
-                        curr_best = new_value
-                        best_x, best_y = x + i, y + j
+                    # maxPlayer's turn
+                    if new_value > curr_best:   # check if the new value is better than the current best value
+                        curr_best = new_value   # update the current best value
+                        best_x, best_y = x + i, y + j   # update the best move
                 else:
-                    if new_value < curr_best:
-                        curr_best = new_value
-                        best_x, best_y = x + i, y + j
+                    # minPlayer's turn
+                    if new_value < curr_best:   # check if the new value is better than the current best value
+                        curr_best = new_value   # update the current best value
+                        best_x, best_y = x + i, y + j   # update the best move
 
-            self.board[best_x][best_y] = player
+            self.board[best_x][best_y] = player  # make the best move
 
-            bestMove.append((best_x, best_y))
-            bestValue.append(curr_best)
+            bestMove.append((best_x, best_y))   # append the best move to the list
+            bestValue.append(curr_best)  # append the best value to the list
 
-            isMax = not isMax
+            isMax = not isMax   # switch the player
             # board_idx = self.getBoardIdx(best_x, best_y)
-            board_idx = (best_x - x) * 3 + (best_y - y)
+            board_idx = (best_x - x) * 3 + (best_y - y)  # update the local board index
 
         return self.board, bestMove, self.expandedNodes, bestValue, self.checkWinner()
 
     def playGameYourAgent(self):
-        # TODO: playGameYourAgent
         """
         This function implements the processes of the game of your own agent vs predifined offensive agent.
         input args:
@@ -354,65 +437,65 @@ class ultimateTicTacToe:
         winner(int): 1 for maxPlayer is the winner, -1 for minPlayer is the winner, and 0 for tie.
         """
         # YOUR CODE HERE
-        bestMove = []
+        bestMove = []   # list of bestMove coordinates at each step
 
-        moves = list((x, y) for x in range(3) for y in range(3))
+        moves = list((x, y) for x in range(3) for y in range(3))    # list of all possible moves
 
-        algorithm = self.alphabeta
-
-        board_idx = randint(0, 8)
-        isMax = randint(0, 1)
+        board_idx = randint(0, 8)   # randomize the current local board index
+        isMax = randint(0, 1)   # randomize who plays first
 
         if isMax:
-            curr_evaluation = self.evaluatePredifined
+            # agent plays first and use the predifined evaluation function
+            self.currPlayer = True
         else:
-            curr_evaluation = self.evaluateDesigned
+            # human plays first and use the designed evaluation function
+            self.currPlayer = False
 
         while self.checkMovesLeft():
             if self.checkWinner():
+                # if there is a winner, break the loop
                 break
 
             if isMax:
-                player = 'X'
-                curr_best = -float('inf')
+                player = 'X'    # agent's turn
+                curr_best = -float('inf')   # initialize bestValue to -infinity
             else:
-                player = 'O'
-                curr_best = float('inf')
+                player = 'O'    # human's turn
+                curr_best = float('inf')    # initialize bestValue to infinity
 
-            x, y = self.globalIdx[board_idx]
-            best_x, best_y = x, y
+            x, y = self.globalIdx[board_idx]    # get the global board index
+            best_x, best_y = x, y   # initialize bestMove to the first move in the local board
 
             for i, j in moves:
                 if self.board[x + i][y + j] != '_':
+                    # check if the move is valid
                     continue
 
-                self.board[x + i][y + j] = player
-                self.expandedNodes += 1
+                self.board[x + i][y + j] = player   # make the move
+                self.expandedNodes += 1  # increment the number of expanded nodes
 
-                new_value = algorithm(0, board_idx, -float('inf'), float('inf'), isMax, curr_evaluation)
+                new_value = self.alphabeta(1, board_idx, -float('inf'), float('inf'), isMax)    # call alphabeta
 
-                self.board[x + i][y + j] = '_'
+                self.board[x + i][y + j] = '_'  # undo the move
 
                 if isMax:
                     if new_value > curr_best:
-                        curr_best = new_value
-                        best_x, best_y = x + i, y + j
+                        # check if the new value is better than the current best value
+                        curr_best = new_value   # update the current best value
+                        best_x, best_y = x + i, y + j   # update the best move
                 else:
                     if new_value < curr_best:
-                        curr_best = new_value
-                        best_x, best_y = x + i, y + j
+                        # check if the new value is better than the current best value
+                        curr_best = new_value   # update the current best value
+                        best_x, best_y = x + i, y + j   # update the best move
 
-            self.board[best_x][best_y] = player
+            self.board[best_x][best_y] = player  # make the best move
 
-            bestMove.append((best_x, best_y))
+            bestMove.append((best_x, best_y))   # append the best move to the list
 
-            isMax = not isMax
-            board_idx = (best_x - x) * 3 + (best_y - y)
-
-            if curr_evaluation == self.evaluatePredifined:
-                curr_evaluation = self.evaluateDesigned
-            else:
-                curr_evaluation = self.evaluatePredifined
+            isMax = not isMax   # switch the player
+            self.currPlayer = not self.currPlayer  # switch the evaluation function
+            board_idx = (best_x - x) * 3 + (best_y - y)  # update the local board index
 
         return self.board, bestMove, self.checkWinner()
 
