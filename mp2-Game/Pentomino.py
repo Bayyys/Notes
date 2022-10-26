@@ -91,7 +91,7 @@ def check_correctness(sol_list, board, pents):
             return False
         else:
             seen_pents[pidx] = 1
-        if not add_pentomino(sol_board, pent, coord, True, pents): 
+        if not add_pentomino(sol_board, pent, coord, True, pents):
             return False
             
     # Check same number of squares occupied
@@ -121,7 +121,7 @@ if __name__ == "__main__":
     time1 = time.time()
 
     board = instances.board_6x10
-    pents = instances.pentnominos
+    pents = instances.triominos
     sol_list = solve(board, pents)
     print("Time_1：", time.time() - time1)
     if check_correctness(sol_list, board, pents):

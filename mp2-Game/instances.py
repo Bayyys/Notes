@@ -4,7 +4,7 @@
 import numpy as np
 
 dominos = [np.array([[i],[i]]) for i in range(1,31)]
-triominos = [np.array([[i,0],[i,i]]) for i in range(1,5)]
+triominos = [np.array([[i,0],[i,i]]) for i in range(1,21)]
 
 pentnominos = [np.array([[0,1,1],
                    [1,1,0],
@@ -46,8 +46,8 @@ pentnominos = [np.array([[0,1,1],
         np.array([[12,12,0],
                   [0,12,0],
                   [0,12,12]])]
-        
-        
+
+
 board_6x10 = np.ones((6,10))
 board_6x5 = np.ones((6,5))
 board_2x6 = np.ones((2,6))
