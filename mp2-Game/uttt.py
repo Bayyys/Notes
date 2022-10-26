@@ -251,7 +251,6 @@ class ultimateTicTacToe:
 
             return utility
 
-
     def checkMovesLeft(self):
         """
         This function checks whether any legal move remains on the board.
@@ -441,7 +440,7 @@ class ultimateTicTacToe:
 
     def getBoardIdx(self, best_x, best_y):
         """
-        This function converts the global board index to local board index.
+        This function converts the global board index to boardIdx.
         input args:
         best_x(int): x coordinate of the move
         best_y(int): y coordinate of the move
@@ -552,7 +551,7 @@ class ultimateTicTacToe:
             isMax = not isMax  # switch the player
             board_idx = self.getBoardIdx(best_x, best_y)
 
-        self.printGameBoard()
+        # self.printGameBoard()
 
         return self.board, bestMove, self.expandedNodes, bestValue, self.checkWinner()
 
@@ -576,7 +575,7 @@ class ultimateTicTacToe:
         else:
             player = 'O'  # human's turn
 
-        print(f"从第{board_idx + 1}个棋盘开始，先行方为:" + player)
+        # print(f"从第{board_idx + 1}个棋盘开始，先行方为:" + player)
 
         if isMax:
             # agent plays first and use the predifined evaluation function
@@ -676,7 +675,8 @@ class ultimateTicTacToe:
 
                 if self.checkLocalLeft(self.globalIdx[board_idx]):
                     # if there are moves left in the local board
-                    best_x, best_y = self.globalIdx[board_idx]  # initialize bestMove to the first move in the local board
+                    best_x, best_y = self.globalIdx[
+                        board_idx]  # initialize bestMove to the first move in the local board
                     moves = self.local2Global(self.globalIdx[board_idx])  # get the moves in the local board
                 else:
                     # if there are no moves left in the local board
@@ -703,7 +703,7 @@ class ultimateTicTacToe:
                         # check if the new value is better than the current best value
                         curr_best = new_value  # update the current best value
                         best_x, best_y = i, j  # update the best move
-            else:   # human's turn
+            else:  # human's turn
                 player = 'O'  # agent's turn
 
                 if self.checkLocalLeft(self.globalIdx[board_idx]):
@@ -722,14 +722,15 @@ class ultimateTicTacToe:
                     best_x, best_y = map(int, input().split())
 
                     right_way = False
-                    while right_way:
+                    while not right_way:
                         if self.board[best_x][best_y] != '_':
                             print("该位置已经有棋子了, 请重新输入:")
                             best_x, best_y = map(int, input().split())
-                        if self.globalIdx[board_idx] != (best_x, best_y):
+                        elif self.globalIdx[board_idx] != (best_x, best_y):
                             print("该位置不在当前棋盘上, 请重新输入:")
                             best_x, best_y = map(int, input().split())
-                        right_way = True
+                        else:
+                            right_way = True
 
                 else:
                     # if there are no moves left in the local board
@@ -754,7 +755,7 @@ class ultimateTicTacToe:
 
 
 if __name__ == "__main__":
-    uttt = ultimateTicTacToe()
+    # uttt = ultimateTicTacToe()
     # uttt.board = [['X', '_', 'X', '_', '_', '_', '_', '_', '_'],
     #               ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
     #               ['O', '_', 'X', '_', '_', '_', '_', '_', '_'],
@@ -767,14 +768,49 @@ if __name__ == "__main__":
     # uttt.printGameBoard()
     # feel free to write your own test code
     # gameBoards, bestMove, expandedNodes, bestValue, winner = uttt.playGamePredifinedAgent(True, True, True)
-    gameBoards, bestMove, winner = uttt.playGameHuman()
+    # gameBoards, bestMove, winner = uttt.playGameHuman()
     # print(bestMove)
     # print(bestValue)
-    uttt.printGameBoard()
-    if winner == 1:
-        print("The winner is maxPlayer!!!")
-    elif winner == -1:
-        print("The winner is minPlayer!!!")
-    else:
-        print("Tie. No winner:(")
+    # uttt.printGameBoard()
+    # if winner == 1:
+    #     print("The winner is maxPlayer!!!")
+    # elif winner == -1:
+    #     print("The winner is minPlayer!!!")
+    # else:
+    #     print("Tie. No winner:(")
+    print("Run the UTTT task!!!!")
+    print("Taks 1: Play with the evaluatePredifined x 4 times")
+    print("Task 2: Play with the evaluateDesigned x 20 times")
+    print("Task 3: Play with human x 10 times")
+    task = input("Please input task number: ")
 
+    if task == '1':
+        for opponent, defense in ((True, True), (True, False), (False, True), (False, False)):
+            uttt = ultimateTicTacToe()
+            gameBoards, bestMove, expandedNodes, bestValue, winner = uttt.playGamePredifinedAgent(opponent, opponent, defense)
+            print("---------------------The divider---------------------")
+            print(f"opponent: " + ("Minimax" if opponent else "Alpha-beta") + f"  VS  defense: " + ("Minimax" if opponent else "Alpha-beta"))
+            uttt.printGameBoard()
+            print(f"expandedNodes: {expandedNodes}")
+            print(f"And the winner is" + (" maxPlayer" if winner == 1 else " minPlayer") + "!!!")
+
+    elif task == "2":
+        times = int(input("Choose the times of the match:"))
+        win = 0
+        print("running")
+        for i in range(times):
+            uttt = ultimateTicTacToe()
+            gameBoards, bestMove, winner = uttt.playGameYourAgent()
+            if winner == -1:
+                win += 1
+            print(f"Run the {i + 1} times...    " + f"and the winner is " + ('PredifinedAgent' if (winner == 1) else ("Tie" if (winner == 0) else "YourAgent")) + f"    " + f"and your agent win {win} / {(i + 1)} times")
+
+        print("In 100 games, your agent winning times:")
+        print(win)
+
+    elif task == "3":
+        pass
+
+    else:
+        print("Wrong input")
+        exit(0)
