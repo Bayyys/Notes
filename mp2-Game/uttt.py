@@ -1,6 +1,44 @@
+import time
 from time import sleep
 from math import inf
 from random import randint
+
+"""
+This is the main file for the Ultimate Tic-Tac-Toe game.
+函数说明：| __init__ : 初始化函数(自带，无需修改)
+        | printGameBoard : 打印游戏棋盘(自带，无需修改)
+        | | twoInRow : 判断是否有两个棋子在一行
+        | | corner : 判断是否有棋子在角落
+        | | center : 判断是否有棋子在中心
+        | | side : 判断是否有棋子在边中心处
+        | evaluatePredifined : 根据作业要求完成的评估函数，用于评估落子当前位置的益损值，评价指标包括：1. 产生获胜者； 2. 是否有两个棋子在一行，是否有棋子在角落
+        | evaluateDesigned : 个人另外设计的评估函数，用于评估落子当前位置的益损值，评价指标包括：1. 产生获胜者； 2. 是否有两个棋子在一行，是否有棋子在角落，是否有棋子在中心，是否有棋子在边中心处
+                            创新点：增加评价指标，对棋盘中的所有位置进行评估，从而使得AI能够更好的选择落子位置
+        | | checkMovesLeft : 检查棋盘上是否还有空位
+        | | checkLocalLeft : 检查当前本地棋盘上是否还有空位
+        | | local2Global : 将本地棋盘上的坐标转换为全局棋盘上的坐标
+        | | checkWinner : 检查当前落子下，棋盘上是否有获胜者
+        | alphaBeta : alpha-beta剪枝算法，用于计算当前落子下，AI的最佳落子位置
+        | minimax : minimax算法，用于计算当前落子下，AI的最佳落子位置
+        | | getBoardIdx : 获取当前落子位置对应小棋盘的索引
+        | playGamePredifined : 作业1要求的函数，用于完成minimax算法与alpha-beta剪枝算法的比较，共完成4局游戏，每局游戏分别使用minimax算法与alpha-beta剪枝算法进行落子，最后输出每局游戏的胜负情况
+                                1. minimax(maxPlayer) vs minimax(minPlayer)
+                                2. minimax(maxPlayer) vs alpha-beta(minPlayer)
+                                3. alpha-beta(minPlayer) vs minimax(maxPlayer)
+                                4. alpha-beta(minPlayer) vs alpha-beta(maxPlayer)
+                                * 需要结果：四局游戏的最终棋盘位置，扩展节点数和最终获胜者
+                                * 相应操作：任务选择_1_
+        | playGameYourAgent : 作业2要求的函数，用于完成个人设计的评估函数与作业1要求的评估函数的比较，，每局游戏分别使用个人设计的评估函数与作业1要求的评估函数进行落子，最后输出每局游戏的胜负情况
+                                需要设定游戏局数，每局游戏分别使用个人设计的评估函数与作业1要求的评估函数进行落子，预设评估函数为alpha-beta剪枝算法
+                                随机选择先手或后手，并随机开始小棋盘位置，最后输出每局游戏的胜负情况(个人设计评估函数获胜局数 / 总局数)
+                                * 需要结果：每局游戏的获胜时间百分比和扩展节点数，并选择3-5个典型的棋盘局面
+                                * 相应操作：任务选择_2_，输入游戏局数，输出每局游戏的获胜时间百分比和扩展节点数，并选择3-5个典型的棋盘局面(截图)
+        | playGameHuman ： 作业3要求的函数，用于完成人机对战，每局游戏分别由人类与AI进行落子，预设评估函数为alpha-beta剪枝算法， 使用个人设计的评估函数
+                            随机选择先手或后手，并随机开始小棋盘位置，最后输出每局游戏的胜负情况
+                            * 需要结果：选择3-5个典型的棋盘局面
+                            * 相应操作：任务选择_3_，和电脑进行10局游戏(已经设置10次循环，无需重复运行函数)，选择3-5个典型的最终棋盘局面(截图)
+        | main : 主函数，用于调用playGamePredifined、playGameYourAgent、playGameHuman函数，并输出相应的提示信息
+"""
 
 
 class ultimateTicTacToe:
@@ -32,15 +70,13 @@ class ultimateTicTacToe:
         self.twoInARowMaxUtility = 500
         self.preventThreeInARowMaxUtility = 100
         self.centerMaxUtility = 70
-        self.sideMaxUtility = 50
-        self.cornerMaxUtility = 30
+        self.cornerMaxUtility = 50
 
         self.winnerMinUtility = -10000
         self.twoInARowMinUtility = -100
         self.preventThreeInARowMinUtility = -500
         self.centerMinUtility = -70
-        self.sideMinUtility = -50
-        self.cornerMinUtility = -30
+        self.cornerMinUtility = -50
 
         self.expandedNodes = 0
         self.currPlayer = True
@@ -48,6 +84,9 @@ class ultimateTicTacToe:
         self.globalMoves = list(
             (x, y) for x in range(9) for y in range(9))  # list of all possible moves in global board
         self.localMoves = list((x, y) for x in range(3) for y in range(3))  # list of all possible moves in local board
+
+        self.maxTime = 0  # maxPlyaer time
+        self.minTime = 0  # minPlyaer time
 
     def printGameBoard(self):
         """
@@ -182,7 +221,6 @@ class ultimateTicTacToe:
             return self.corner(isMax) * self.cornerMinUtility
 
     def evaluateDesigned(self, isMax):
-        # TODO: evaluateDesigned
         """
         This function implements the evaluation function for ultimate tic tac toe for your own agent.
         input args:
@@ -205,20 +243,20 @@ class ultimateTicTacToe:
             # two-in-a-row
             mine_unblocked, yours_blocked = self.twoInRow(isMax)
             if mine_unblocked or yours_blocked:
-                utility += mine_unblocked * 200 + yours_blocked * 100
+                utility += mine_unblocked * 500 + yours_blocked * 250
 
             yours_unblocked, mine_blocked = self.twoInRow(not isMax)
             if mine_unblocked or yours_blocked:
-                utility += yours_unblocked * (-200) + mine_blocked * (-100)
+                utility += yours_unblocked * (-500) + mine_blocked * (-250)
 
             # corner
-            utility += self.corner(isMax) * 30 + self.corner(not isMax) * (-30)
+            utility += self.corner(isMax) * 100 + self.corner(not isMax) * (-50)
 
             # center
-            utility += self.center(isMax) * 60 + self.center(not isMax) * (-60)
+            utility += self.center(isMax) * 60 + self.center(not isMax) * (-30)
 
             # side
-            utility += self.side(isMax) * 10 + self.side(not isMax) * (-10)
+            utility += self.side(isMax) * 80 + self.side(not isMax) * (-40)
 
             return utility
 
@@ -234,20 +272,20 @@ class ultimateTicTacToe:
             # two-in-a-row
             mine_unblocked, yours_blocked = self.twoInRow(not isMax)
             if mine_unblocked or yours_blocked:
-                utility += mine_unblocked * 200 + yours_blocked * 100
+                utility += mine_unblocked * 500 + yours_blocked * 250
 
             yours_unblocked, mine_blocked = self.twoInRow(isMax)
             if mine_unblocked or yours_blocked:
-                utility += yours_unblocked * (-200) + mine_blocked * (-100)
+                utility += yours_unblocked * (-500) + mine_blocked * (-250)
 
             # corner
-            utility += self.corner(not isMax) * 30 + self.corner(isMax) * (-30)
+            utility += self.corner(not isMax) * 100 + self.corner(isMax) * (-50)
 
             # center
-            utility += self.center(not isMax) * 60 + self.center(not isMax) * (-60)
+            utility += self.center(not isMax) * 60 + self.center(not isMax) * (-30)
 
             # side
-            utility += self.side(not isMax) * 10 + self.side(isMax) * (-10)
+            utility += self.side(not isMax) * 80 + self.side(isMax) * (40)
 
             return utility
 
@@ -577,14 +615,11 @@ class ultimateTicTacToe:
 
         # print(f"从第{board_idx + 1}个棋盘开始，先行方为:" + player)
 
-        if isMax:
-            # agent plays first and use the predifined evaluation function
-            self.currPlayer = True
-        else:
-            # human plays first and use the designed evaluation function
-            self.currPlayer = False
+        self.maxTimeStart = self.minTimeStart = time.time()
 
         while self.checkMovesLeft():
+            time_start = time.time()
+            times = 0
             if self.checkWinner():
                 # if there is a winner, break the loop
                 break
@@ -595,6 +630,13 @@ class ultimateTicTacToe:
             else:
                 player = 'O'  # human's turn
                 curr_best = float('inf')  # initialize bestValue to infinity
+
+            if isMax:
+                # agent plays first and use the predifined evaluation function
+                self.currPlayer = True
+            else:
+                # human plays first and use the designed evaluation function
+                self.currPlayer = False
 
             if self.checkLocalLeft(self.globalIdx[board_idx]):
                 # if there are moves left in the local board
@@ -636,14 +678,17 @@ class ultimateTicTacToe:
 
             bestMove.append((best_x, best_y))  # append the best move to the list
 
+            times = time.time() - time_start
+            if isMax:
+                self.maxTime += times
+            else:
+                self.minTime += times
             isMax = not isMax  # switch the player
-            self.currPlayer = not self.currPlayer  # switch the evaluation function
             board_idx = self.getBoardIdx(best_x, best_y)  # update the local board index
 
         return self.board, bestMove, self.checkWinner()
 
     def playGameHuman(self):
-        # TODO: playGameHuman
         """
         This function implements the processes of the game of your own agent vs a human.
         output:
@@ -718,16 +763,18 @@ class ultimateTicTacToe:
                             block.append((x + 1, y + 1))
                     print(block)
 
-                    print(f"请输入下一步的坐标(请放置在第{board_idx + 1}块棋盘上):")
+                    print(f"请输入下一步的坐标(请放置在第{board_idx + 1}块棋盘上, 数字以空格分割):")
                     best_x, best_y = map(int, input().split())
 
                     right_way = False
                     while not right_way:
-                        if self.board[best_x][best_y] != '_':
+                        if self.board[best_x - 1][best_y - 1] != '_':
                             print("该位置已经有棋子了, 请重新输入:")
                             best_x, best_y = map(int, input().split())
-                        elif self.globalIdx[board_idx] != (best_x, best_y):
+                        elif (best_x - 1, best_y - 1) not in self.local2Global(self.globalIdx[board_idx]):
                             print("该位置不在当前棋盘上, 请重新输入:")
+                            print(self.getBoardIdx(best_x - 1, best_y - 1))
+                            print(board_idx)
                             best_x, best_y = map(int, input().split())
                         else:
                             right_way = True
@@ -755,29 +802,6 @@ class ultimateTicTacToe:
 
 
 if __name__ == "__main__":
-    # uttt = ultimateTicTacToe()
-    # uttt.board = [['X', '_', 'X', '_', '_', '_', '_', '_', '_'],
-    #               ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
-    #               ['O', '_', 'X', '_', '_', '_', '_', '_', '_'],
-    #               ['_', '_', '_', 'O', 'X', 'O', '_', '_', '_'],
-    #               ['_', '_', '_', 'O', '_', 'X', '_', '_', '_'],
-    #               ['_', '_', '_', 'X', 'O', 'O', '_', '_', '_'],
-    #               ['O', '_', '_', '_', '_', '_', '_', '_', '_'],
-    #               ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
-    #               ['_', '_', '_', '_', '_', 'O', 'O', 'X', 'X']]
-    # uttt.printGameBoard()
-    # feel free to write your own test code
-    # gameBoards, bestMove, expandedNodes, bestValue, winner = uttt.playGamePredifinedAgent(True, True, True)
-    # gameBoards, bestMove, winner = uttt.playGameHuman()
-    # print(bestMove)
-    # print(bestValue)
-    # uttt.printGameBoard()
-    # if winner == 1:
-    #     print("The winner is maxPlayer!!!")
-    # elif winner == -1:
-    #     print("The winner is minPlayer!!!")
-    # else:
-    #     print("Tie. No winner:(")
     print("Run the UTTT task!!!!")
     print("Taks 1: Play with the evaluatePredifined x 4 times")
     print("Task 2: Play with the evaluateDesigned x 20 times")
@@ -787,9 +811,11 @@ if __name__ == "__main__":
     if task == '1':
         for opponent, defense in ((True, True), (True, False), (False, True), (False, False)):
             uttt = ultimateTicTacToe()
-            gameBoards, bestMove, expandedNodes, bestValue, winner = uttt.playGamePredifinedAgent(opponent, opponent, defense)
-            print("---------------------The divider---------------------")
-            print(f"opponent: " + ("Minimax" if opponent else "Alpha-beta") + f"  VS  defense: " + ("Minimax" if opponent else "Alpha-beta"))
+            gameBoards, bestMove, expandedNodes, bestValue, winner = uttt.playGamePredifinedAgent(opponent, opponent,
+                                                                                                  defense)
+            print("\n---------------------The divider---------------------")
+            print(f"opponent: " + ("Minimax" if opponent else "Alpha-beta") + f"  VS  defense: " + (
+                "Minimax" if opponent else "Alpha-beta"))
             uttt.printGameBoard()
             print(f"expandedNodes: {expandedNodes}")
             print(f"And the winner is" + (" maxPlayer" if winner == 1 else " minPlayer") + "!!!")
@@ -798,18 +824,32 @@ if __name__ == "__main__":
         times = int(input("Choose the times of the match:"))
         win = 0
         print("running")
+        Boards = []
         for i in range(times):
             uttt = ultimateTicTacToe()
             gameBoards, bestMove, winner = uttt.playGameYourAgent()
+            Boards.append(gameBoards)
             if winner == -1:
                 win += 1
-            print(f"Run the {i + 1} times...    " + f"and the winner is " + ('PredifinedAgent' if (winner == 1) else ("Tie" if (winner == 0) else "YourAgent")) + f"    " + f"and your agent win {win} / {(i + 1)} times")
-
-        print("In 100 games, your agent winning times:")
-        print(win)
+            print("\n---------------------The divider---------------------")
+            print(f"Run the {i + 1} times...    " + f"and the winner is " + ('PredifinedAgent' if (winner == 1) else (
+                "Tie" if (winner == 0) else "YourAgent")) + f"    " + f"and your agent win {win} / {(i + 1)} times")
+            print(
+                f"Your agent uses {round(uttt.minTime, 4)} seconds to make the move     " + f"and the Predifined Agent uses {round(uttt.maxTime, 4)} seconds")
+            print("Your gent held the whole time is {:.2%}".format(uttt.minTime / (uttt.minTime + uttt.maxTime)))
+            print(f"The final board is:")
+            uttt.printGameBoard()
+        print("---------------------Final result---------------------")
+        print(f"In {i + 1} games, your agent winning times:" + str(win))
 
     elif task == "3":
-        pass
+        for i in range(10):
+            uttt = ultimateTicTacToe()
+            print("\n---------------------The divider---------------------")
+            print(f"Run the {i + 1} times match...    ")
+            gameBoards, bestMove, winner = uttt.playGameHuman()
+            uttt.printGameBoard()
+            print(f"And the winner is " + ("Agent" if winner == 1 else "human") + "!!!")
 
     else:
         print("Wrong input")

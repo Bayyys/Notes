@@ -591,24 +591,24 @@ if __name__ == "__main__":
                   ['O', '_', '_', '_', '_', '_', '_', '_', '_'],
                   ['_', '_', '_', '_', '_', '_', '_', 'O', '_'],
                   ['_', '_', '_', '_', '_', 'O', 'O', 'X', 'X']]
-    uttt.printGameBoard()
-
-    # print(uttt.checkWinner())
-    print(uttt.checkMovesLeft())
-    # print(uttt.evaluatePredifined(True))
-    # print(uttt.evaluatePredifined(False))
-    # print(uttt.playGamePredifinedAgent(True, True, True))
-    # board, steps, winner = uttt.playGameYourAgent()
-    # print(steps)
+    # uttt.printGameBoard()
     #
-    gameBoards, bestMove, expandedNodes, bestValue, winner=uttt.playGamePredifinedAgent(True, True, True)
-    uttt.printGameBoard()
-    if winner == 1:
-        print("The winner is maxPlayer!!!")
-    elif winner == -1:
-        print("The winner is minPlayer!!!")
-    else:
-        print("Tie. No winner:(")
+    # # print(uttt.checkWinner())
+    # print(uttt.checkMovesLeft())
+    # # print(uttt.evaluatePredifined(True))
+    # # print(uttt.evaluatePredifined(False))
+    # # print(uttt.playGamePredifinedAgent(True, True, True))
+    # # board, steps, winner = uttt.playGameYourAgent()
+    # # print(steps)
+    # #
+    # gameBoards, bestMove, expandedNodes, bestValue, winner=uttt.playGamePredifinedAgent(True, True, True)
+    # uttt.printGameBoard()
+    # if winner == 1:
+    #     print("The winner is maxPlayer!!!")
+    # elif winner == -1:
+    #     print("The winner is minPlayer!!!")
+    # else:
+    #     print("Tie. No winner:(")
 
     # win = 0
     # print("running")
@@ -619,3 +619,121 @@ if __name__ == "__main__":
     #
     # print("In 100 games, your agent winning times:")
     # print(win)
+
+    import tkinter as tk
+
+    '''
+    一个小的窗口，有3*3的9个方块 （棋盘格式布局）
+    鼠标点击在方块里放下一个X或O（奇数偶数）
+    3个一行的一方胜利（给每个方框标记）
+    '''
+
+    d = {}  # 九个格子的label占用的字典
+    X = [0, 200, 400]
+    Y = [0, 0, 0, 200, 200, 200, 400, 400, 400]  # 确定每个label的位置用
+    k = []  # 确定哪个格子已经点击过的列表
+    h = {}  # 记录每个格子的状态
+    for i in range(9):
+        h[str(i + 1)] = 0
+
+
+    class game:
+        def __init__(self):
+            self.win = tk.Tk()
+            self.win.geometry("600x600+0+0")
+            self.photo1 = tk.PhotoImage(file=r"C:\Users\ADMIN\Desktop\python\井字游戏\新建图像.gif")
+            self.photo2 = tk.PhotoImage(file=r"C:\Users\ADMIN\Desktop\python\井字游戏\新建图像2.gif")
+            self.photo3 = tk.PhotoImage(file=r"C:\Users\ADMIN\Desktop\python\井字游戏\新建图像3.gif")  # 1是圆2是叉3是无
+            self.frame = tk.Frame(self.win, width=600, height=600)
+            self.frame.pack()
+            for i in range(9):
+                d["self.label" + str(i + 1)] = tk.Label(self.frame,
+                                                        image=self.photo3)
+
+                d["self.label" + str(i + 1)].place(x=X[i % 3], y=Y[i])  # 建立label
+                d["self.label" + str(i + 1)].bind("<Button-1>",
+                                                  self.clickAdaptor(self.click, num=str(i + 1)))  # 点击发送的事件
+            self.label_w = tk.Label(self.frame, font=("'Arial'", 30), text="游戏进行中")  # 提示游戏进度的label
+            self.label_w.place(x=0, y=560)
+
+            self.j = 0  # 用于判断这次是谁下笔
+            self.win.mainloop()
+
+        # bind适配器
+        def clickAdaptor(self, func, **kwds):
+            return lambda event, func=func, kwds=kwds: func(event, **kwds)
+
+        # 点击发生的事件
+        def click(self, event, num):
+
+            if self.j % 2 == 0:
+                if num in k:  # 是否点击过
+                    pass
+                else:
+                    k.append(num)  # 记录点击过的
+                    d["self.label" + str(num)]["image"] = self.photo1  # 图像转变
+                    h[str(num)] = 1  # 记录该位置是什么
+                    self.j += 1  # 标记这一次点了什么
+                    self.no_winner()  # 平局检验
+                    if self.who_win(1):  # 检验胜利
+                        self.gameover(1)
+                    else:
+                        pass
+            # 同理
+            else:
+                if num in k:
+                    pass
+                else:
+                    d["self.label" + str(num)]["image"] = self.photo2
+                    h[str(num)] = 2
+                    k.append(num)
+                    self.j += 1
+                    self.no_winner()
+                    if self.who_win(2):
+                        self.gameover(2)
+                    else:
+                        pass
+
+        def who_win(self, a):
+            for i in range(3):  # 横
+                if h[str(1 + 3 * i)] == h[str(2 + 3 * i)] == h[str(3 + 3 * i)] == a:
+                    return True
+            for i in range(3):  # 竖
+                if h[str(1 + i)] == h[str(4 + i)] == h[str(7 + i)] == a:
+                    return True
+            if h["1"] == h["5"] == h["9"] == a or h["3"] == h["5"] == h["7"] == a:  # 斜着
+                return True
+            return False
+
+            # 使游戏结束后双方不能动
+
+        def gameover(self, winner):
+            if winner == 1:
+                self.label_w["text"] = "圆圈胜利游戏结束"
+            elif winner == 2:
+                self.label_w["text"] = "叉叉胜利游戏结束"
+            else:
+                self.label_w["text"] = "平局游戏结束"
+            for i in range(9):
+                d["self.label" + str(i + 1)].bind("<Button-1>", self.Pass)
+
+            # 判断游戏是否平局
+
+        def no_winner(self):
+            a = 0
+            for i in range(9):
+                if h[str(i + 1)] != 0:
+                    a += 1
+                else:
+                    break
+            if a == 9:
+                self.gameover(3)  # 平局
+            else:
+                pass
+
+        # 给gameover用的pass
+        def Pass(self, event):
+            pass
+
+
+    game()
