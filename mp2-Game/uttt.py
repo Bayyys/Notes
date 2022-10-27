@@ -92,10 +92,6 @@ class ultimateTicTacToe:
         """
         This function prints the current game board.
         """
-        # print('\n'.join([' '.join([str(cell) for cell in row]) for row in self.board[:3]]) + '\n' + '\n')
-        # print('\n'.join([' '.join([str(cell) for cell in row]) for row in self.board[3:6]]) + '\n')
-        # print('\n'.join([' '.join([str(cell) for cell in row]) for row in self.board[6:9]]) + '\n')
-
         print('\n'.join([' '.join([str(cell) for cell in row]) for row in self.board[:3]]) + '\n')
         print('\n'.join([' '.join([str(cell) for cell in row]) for row in self.board[3:6]]) + '\n')
         print('\n'.join([' '.join([str(cell) for cell in row]) for row in self.board[6:9]]) + '\n')
@@ -376,7 +372,7 @@ class ultimateTicTacToe:
             else:
                 return self.evaluateDesigned(isMax)
 
-        if (isMax and depth == 1) or (not isMax and depth == 2):
+        if (isMax and depth % 2 == 1) or (not isMax and depth % 2 == 0):
             # maxPlayer's first move or minPlayer's second move
             # the situation where we look for the minimum value
             player = 'O'
@@ -467,7 +463,7 @@ class ultimateTicTacToe:
             new_value = self.minimax(depth + 1, board_idx, isMax)  # recursive call
             self.board[i][j] = '_'  # undo the move
 
-            if (isMax and depth == 1) or (not isMax and depth == 2):
+            if (isMax and depth % 2 == 1) or (not isMax and depth % 2 == 0):
                 # maxPlayer's first move or minPlayer's second move
                 curr_best = min(curr_best, new_value)
             else:
