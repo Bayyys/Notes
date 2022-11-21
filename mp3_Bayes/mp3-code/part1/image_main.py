@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 
+
 def load_dataset(data_dir=''):
     """Load the train and test examples 
     """
@@ -16,6 +17,7 @@ def load_dataset(data_dir=''):
     y_test = np.load("data/y_test.npy")
 
     return x_train, y_train, x_test, y_test
+
 
 def plot_visualization(images, classes, cmap):
     """Plot the visualizations 
@@ -84,10 +86,8 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 
 
 if __name__ == '__main__':
-
     # Load dataset.
     x_train, y_train, x_test, y_test = load_dataset()
-
 
     # Initialize naive bayes model.
     num_class = len(np.unique(y_train))
@@ -97,8 +97,6 @@ if __name__ == '__main__':
 
     # Train model.
     NB.train(x_train, y_train, k_smooth = 0.1)
-    # NB.save_model('prior_10.npy', 'likelihood_10.npy')
-    # NB.load_model('prior_0.1.npy', 'likelihood_0.1.npy')
 
     # Feature likelihood for high intensity pixels. 
     feature_likelihoods = NB.intensity_feature_likelihoods(NB.likelihood)
@@ -107,9 +105,10 @@ if __name__ == '__main__':
                             "4", "5", "6", "7", "8", "9"])
     plot_visualization(feature_likelihoods, class_names, "Greys")
 
+
     # Classify the test sets.
     accuracy, y_pred = NB.test(x_test, y_test)
-    print(accuracy)
+    print('average classification rate is {}'.format(accuracy))
 
     # Plot confusion matrix.
     plot_confusion_matrix(y_test, y_pred, classes=class_names, normalize=True,

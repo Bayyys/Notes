@@ -35,3 +35,4 @@ def mkdata(N, noisy=None):
         y[0, idx] = -y[0, idx] # make some samples be missclassified
 
     return X, y, w
+

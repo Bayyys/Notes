@@ -7,6 +7,7 @@
 #
 # Created by Dhruv Agarwal (dhruva2@illinois.edu) on 02/21/2019
 
+import os
 import csv
 from TextClassifier import TextClassifier
 import string
@@ -14,6 +15,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 import numpy as np
+import os
 
 """
 This file contains the main application that is run for this part of the MP.
@@ -94,9 +96,12 @@ def compute_results(actual_labels, pred_labels):
 
     f1 = [2 * (p * r) / (p + r) if (p + r) != 0.0 else 0.0 for p, r in zip(precision, recall)]
 
-    print("Precision for all classes :", precision)
-    print("Recall for all classes:", recall)
-    print("F1 Score for all classes:", f1)
+    print("Precision for all classes :")
+    print(precision)
+    print("Recall for all classes:")
+    print(recall)
+    print("F1 Score for all classes:")
+    print(f1)
 
 
 # 这个函数从part1中copy过来的
@@ -159,13 +164,14 @@ if __name__ == '__main__':
     # y_train is a list have 3865 value
     # x_test have 483 sublist
     x_train, y_train, x_test, y_test = load_dataset()
+    
 
     MNB = TextClassifier()
     MNB.fit(x_train, y_train)
     # print(MNB.likelihood)
 
     accuracy, pred = MNB.predict(x_test, y_test)
-    print(pred)
+    # print(pred)
     compute_results(y_test, pred)
 
     print("Accuracy {0:.4f}".format(accuracy))
@@ -189,7 +195,7 @@ if __name__ == '__main__':
     for i in range(len(top_word)):
         for j in range(len(top_word[i])):
             word_idx = top_idx[i, j]
-            print(likelihood[i, j])
+            # print(likelihood[i, j])
             top_word[i][j] = MNB.word_bag[word_idx]
 
 
