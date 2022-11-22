@@ -111,11 +111,11 @@ class TextClassifier(object):
 
         for i in range(len(class_prob)):
             for j in range(len(class_prob[i])):
-                class_prob[i][j] = self.prior[j]
+                # class_prob[i][j] = self.prior[j]
                 # 若为均匀分布
                 # class_prob[i][j] = 1 / 14
                 # 若去掉先验概率
-                # class_prob[i][j] = 0
+                class_prob[i][j] = 0
 
         # 将x_set中出现的word的属于每个class的likelihood分别加入
         for i in range(len(x_set)):

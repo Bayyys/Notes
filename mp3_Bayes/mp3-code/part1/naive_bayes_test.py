@@ -24,7 +24,7 @@ class NaiveBayes(object):
         self.prior = np.zeros(num_class)
         self.likelihood = np.zeros((feature_dim, num_value, num_class))
 
-    def train(self, train_set, train_label):
+    def train(self, train_set, train_label, k_smooth):
         """ Train naive bayes model (self.prior and self.likelihood) with training dataset.
             self.prior(numpy.ndarray): training set class prior (in log) with a dimension of (# of class,),
             self.likelihood(numpy.ndarray): traing set likelihood (in log) with a dimension of
@@ -35,6 +35,7 @@ class NaiveBayes(object):
             train_set(numpy.ndarray): training examples with a dimension of (# of examples, feature_dim)
             train_label(numpy.ndarray): training labels with a dimension of (# of examples, )
         """
+        # k_smooth是拉普拉斯平滑处理，分别取了0 0.1 0.5 1 5 10
 
         # 计算prior，获取10个class的image数，除以总image数，得到各个class的prior
         # 共10类
@@ -56,7 +57,7 @@ class NaiveBayes(object):
             self.likelihood[i % self.feature_dim, x[i, 0].astype('int'), label] += 1
 
         for i in range(self.likelihood.shape[0]):
-            self.likelihood[i] = (self.likelihood[i] + 0.1) / (np.sum(self.likelihood[i], axis=0) + 0.1)
+            self.likelihood[i] = (self.likelihood[i] + k_smooth) / (np.sum(self.likelihood[i], axis=0) + k_smooth)
         self.likelihood = np.log(self.likelihood)
 
 
