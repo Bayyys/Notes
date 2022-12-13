@@ -29,6 +29,8 @@ def main(args):
     print("Loading dataset...")
     train_set = utils.load_dataset(args.training_file)
     test_set = utils.load_dataset(args.test_file)
+    # train_set = [utils.load_dataset(args.training_file)[1]]
+    # test_set = [utils.load_dataset(args.test_file)[1]]
     print("Loaded dataset")
     print()
 
@@ -37,6 +39,7 @@ def main(args):
     
     print("Running {}...".format(args.algorithm))
     testtag_predictions = algorithm(train_set, utils.strip_tags(test_set))
+
     baseline_acc, correct_wordtagcounter, wrong_wordtagcounter = utils.evaluate_accuracies(testtag_predictions,
                                                                                            test_set)
     multitags_acc, unseen_acc, = utils.specialword_accuracies(train_set, testtag_predictions, test_set)
@@ -52,9 +55,9 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='CS440 MP4 HMM')
-    parser.add_argument('--train', dest='training_file', type=str,
+    parser.add_argument('--train', dest='training_file', type=str, default="data/brown-training.txt",
                         help='the file of the training data')
-    parser.add_argument('--test', dest='test_file', type=str,
+    parser.add_argument('--test', dest='test_file', type=str, default="data/brown-dev.txt",
                         help='the file of the testing data')
     parser.add_argument('--algorithm', dest='algorithm', type=str, default="baseline",
                         help='which algorithm to run: baseline, viterbi_1, viterbi_2, viterbi_ec')
