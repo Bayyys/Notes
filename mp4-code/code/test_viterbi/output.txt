@@ -1,1 +1,0 @@
-[("Janet","NNP"), ("will","MD"), ("back","VB"), ("the","DT"), ("bill","NN")]
