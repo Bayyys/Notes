@@ -46,24 +46,24 @@ Snake是一款著名的电子游戏，起源于1976年的街机游戏《封锁�
 
 在这部分作业中，你将创建一个蛇代理，学习如何在不死亡的情况下尽可能多地获得食物。为了做到这一点，你必须使用Q-learning。实施 `TD Q-learning` 算法，并在上述的MDP上训练它。
 $$
-Q(s,a) \gets Q(s,a) + \alpha(R(s)+\gamma\underset{a'}{max}-Q(s,a))
+Q(s,a) \gets Q(s,a) + \alpha(R(s)+\gamma\underset{a'}{max}Q(s',a')-Q(s,a))
 $$
 另外，使用课堂上提到的探索政策，用**1**表示**R+**:
 $$
-a=\underset{a'\in A(s)}{argmax} \underset{ \underset{exploration function}{\uparrow}}{f}(A(s,a'), \underset{\underset{Number of times we've taken action a' in state s}{\uparrow}}{N(s,a')})
+a=\underset{a'\in A(s)}{argmax} \underset{ \underset{exploration function}{\uparrow}}{f}(A(s,a'), \underset{\underset{\underset{taken \quad action \quad in \quad states}{Number \quad of \quad times \quad we've}}{\uparrow}}{N(s,a')})
 $$
 
 $$
 f(u,n)=
 \begin{cases}
-R^+ & if \quad n<N_e \quad (optimistic reward estimate)\\
+R^+ & if \quad n<N_e \quad (optimistic \quad reward \quad estimate)\\
 u &otherwise\\
 \end{cases}
 $$
 
 在训练过程中，你的代理需要先更新你的Q表(当初始状态和行动为无时，这一步会被跳过)，使用上述探索策略获得下一个行动，然后用该行动更新N表。如果游戏结束了，也就是当死亡变量变成真的时候，你只需要更新你的Q表，并重置游戏。在测试期间，你的代理只需要使用Q表给出最佳行动。只要你认为有必要，就训练它，计算你的代理人能得到的平均分。在1000个测试游戏中，你的平均分应该至少是20分。 
 
-**为了评分的目的，请提交带有上述探索策略、状态配置和奖励模型的代码。我们将用不同的参数(Ne、C、gamma)初始化你的代理类，用不同的初始蛇和食物位置初始化环境，并在训练时比较第一个食物被吃掉时的Q表结果(Q表生成细节见Snake_main.py)。**
+**为了评分的目的，请提交带有上述探索策略、状态配置和奖励模型的代码。我们将用不同的参数(Ne、C、$\gamma$)初始化你的代理类，用不同的初始蛇和食物位置初始化环境，并在训练时比较第一个食物被吃掉时的Q表结果(Q表生成细节见Snake_main.py)。**
 
 一旦你有了这个工作，你将需要调整学习率α(一个固定的学习率或其他C值如何？)、贴现因子γ以及你用来权衡探索与开发的设置。
 
@@ -73,7 +73,7 @@ $$
 
 **提示**
 
-- 为了更好地理解Q学习算法，请阅读教科书的第21.3节。
+- 为了更好地理解Q-Learning算法，请阅读教科书的第21.3节。
 
 - 最初，所有的Q值估计值都应该是0。
 - 学习率应该以 $C/(C+N(s,a))$ 的方式衰减，其中N(s,a)是你看到给定状态-动作对的次数。
@@ -160,13 +160,12 @@ $$
 - **agent.py** - 这是你将进行所有工作的文件。该文件包含代理类。这是你要实现的在蛇的环境中行动的代理。下面是Agent类中的实例变量和函数的列表。
 
   - **self._train**: 这是一个布尔标志变量，你应该用它来确定代理是处于训练还是测试模式。在训练模式下，代理应该根据Q表进行探索(基于探索函数)和利用。在测试模式下，代理应该纯粹地利用，并始终采取最佳行动。
-
-  - **train()** : 这个函数将self._train设为True。这个函数在snake_main.py的训练循环运行之前被调用 o test()。这个函数将self._train设置为False。这个函数在snake_main.py的测试循环运行前被调用。 o save_model(): 这个函数保存self.Q表。在snake_main.py的训练循环之后调用。
-
+  - **train()** : 这个函数将self._train设为True。这个函数在snake_main.py的训练循环运行之前被调用 
+  - **test():** 这个函数将self._train设置为False。这个函数在snake_main.py的测试循环运行前被调用。
+  - **save_model():** 这个函数保存self.Q表。在snake_main.py的训练循环之后调用。
   - **load_model()** : 这个函数加载self.Q表。在snake_main.py的测试循环之前调用。
-
   - **act(state, points, dead)** : 这是你要实现的主要函数，在游戏运行时由**snake_main.py**反复调用。"state "是来自蛇环境的状态，是一个[snake_head_x, snake_head_y, snake_body, food_x, food_y]的列表(**注意，在act函数中，你首先需要将其离散化为我们上面定义的状态配置**)。"点 "是蛇吃过的食物的数量。"死 "是一个布尔值，表示蛇是否已经死亡。"积分"、"死亡 "应该用来定义你的奖励函数。 act应该从{0,1,2,3}的集合中返回一个数字。返回0将使蛇代理向上移动，返回1将使蛇代理向下移动，而返回2将使代理向左移动，返回3将使代理向右移动。如果**self._train**是True，这个函数应该更新Q表并返回一个动作(**注意，如果探索函数的动作得分相等，优先级应该是右>左>下>上**)。如果**self._train**是假的，代理应该简单地返回基于Q表的最佳行动。
-
+  
 - **snake_main.py** - 这是启动程序的主文件。这个文件运行蛇形游戏，你实现的代理在其中行动。该代码先运行一些训练游戏，然后运行一些测试游戏，最后显示示例游戏。
 
 **你只需要修改agent.py即可。**
@@ -182,11 +181,8 @@ $$
   -  **\_\_init\_\_()** 是你需要构建网络结构的地方。有多种方法可以做到这一点。
 
     - 一种方法是使用 [Linear]([Linear — PyTorch 1.13 documentation](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html)) 和 [Sequential]([Sequential — PyTorch 1.13 documentation](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html)) 对象。请记住，Linear使用Kaiming He统一初始化来初始化权重矩阵，并将偏置项设置为全零。
-
-
     - 另一种方法是明确定义权重矩阵$W_1,W_2,\ldots$和偏置项$b_1,b_2,\ldots$，将它们定义为[Tensors]([torch.Tensor — PyTorch 1.13 documentation](https://pytorch.org/docs/stable/tensors.html))。这种方法更容易上手，可以让你选择自己的初始化。然而，对于这项任务来说，何凯明统一初始化应该足够了，应该是一个不错的选择。
-
-    此外，你可以在这个函数中初始化一个[optimizer]([torch.optim — PyTorch 1.13 documentation](https://pytorch.org/docs/stable/optim.html))对象，用于在`step()`函数中优化你的网络。
+    - 此外，你可以在这个函数中初始化一个[optimizer]([torch.optim — PyTorch 1.13 documentation](https://pytorch.org/docs/stable/optim.html))对象，用于在`step()`函数中优化你的网络。
 
   - **forward() **应该在你的网络中执行一个前向传递。这意味着它应该明确地评估㼿㼿$F_W(x)$。这可以通过简单地调用你在`__init__()`中定义的Sequential对象或者(如果你选择明确地定义张量)用你的数据乘以权重矩阵来完成。
 
@@ -208,7 +204,7 @@ $$
 
 - **q_agent.npy** 你用上述相同的状态配置训练的最佳numpy阵列。(可以通过在snake_main.py中传递"`--model_name q_agent.npy `"来保存)。**请注意，上面的这个模型应该在不修改agent.py以外的任何代码文件的情况下工作。**
 
-- **neuralnet.py ** 于第二部分。
+- **neuralnet.py** 于第二部分。
 
 - **report.pdf**
 
@@ -219,7 +215,7 @@ $$
 1. 简要描述你的代理蛇的实施。
 
    - 代理在训练阶段是如何行动的？ 
-   - 代理在测试阶段是如何行动的？2. 
+   - 代理在测试阶段是如何行动的？ 
 
 2. 使用你认为最好的Ne, C (或固定的alpha?), gamma。在训练收敛后，在1000个测试游戏上运行你的算法，并报告平均点。
 
@@ -234,7 +230,7 @@ $$
 
 3. 描述你对你的MDP所做的修改(状态配置、探索策略和奖励模型)，**至少要对状态配置进行修改**。报告性能(1000个测试游戏的平均分)。注意，训练你修改后的状态空间应该在1000个测试游戏中给你至少10分的平均分。解释为什么这些改变是合理的，观察蛇在改变后的行为，分析它们的积极和消极影响。**再次注意，确保你提交的agent.py和q_agent.npy没有这些变化，你改变的MDP不应该被提交。**
 
- Part 2 
+##  Part 2 
 
 1. 报告你的实现的平均分类率、精确度、召回率和F1分数。
 
