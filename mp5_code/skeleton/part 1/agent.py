@@ -4,10 +4,10 @@ import random
 
 
 class Agent:
-    
+
     def __init__(self, actions, Ne, C, gamma):
         self.actions = actions
-        self.Ne = Ne # used in exploration function
+        self.Ne = Ne  # used in exploration function
         self.C = C
         self.gamma = gamma
         self.reset()
@@ -18,16 +18,16 @@ class Agent:
 
     def train(self):
         self._train = True
-        
+
     def eval(self):
         self._train = False
 
     # At the end of training save the trained model
-    def save_model(self,model_path):
+    def save_model(self, model_path):
         utils.save(model_path, self.Q)
 
     # Load the trained model for evaluation
-    def load_model(self,model_path):
+    def load_model(self, model_path):
         self.Q = utils.load(model_path)
 
     def reset(self):
@@ -37,19 +37,15 @@ class Agent:
 
     # Function to discretize state
     def discretize(self, state):
+        """
+        Discretize the state to the state space defined on the webpage
+        :param state: a list of [snake_head_x, snake_head_y, snake_body, food_x, food_y] from environment.
+        :return: the discretize state (tuple)
+        """
         # print(state)
-        snake_head_x = state[0]
-        snake_head_y = state[1]
-        snake_body = state[2]
-        food_x = state[3]
-        food_y = state[4]
-        # x,y: 40, 520 due to walls.
+        snake_head_x, snake_head_y, snake_body, food_x, food_y = state
 
-        # print("snake_head_x: {}".format(snake_head_x))
-        # print("snake_head_y: {}".format(snake_head_y))
-        # print("food_x: {}".format(food_x))
-        # print("food_y: {}".format(food_y))
-        # print("snake_body: {}".format(snake_body))
+        # x,y: 40, 520 due to walls.
 
         # Adjoining_wall_x
         if snake_head_x <= 40:
@@ -91,7 +87,7 @@ class Agent:
             food_dir_y = 0
 
         # Checks if there is snake body in adjoining square of snake head
-        # print("snake_body: {}".format(snake_body))
+
 
         # adjoining top square has snake body
         if (snake_head_x, snake_head_y - 40) in snake_body:
@@ -117,20 +113,32 @@ class Agent:
         else:
             adjoining_body_right = 0
 
-        state_tuple = (
-        adjoining_wall_x, adjoining_wall_y, food_dir_x, food_dir_y, adjoining_body_top, adjoining_body_bottom,
-        adjoining_body_left, adjoining_body_right)
-
-        return state_tuple
+        return (adjoining_wall_x, adjoining_wall_y, food_dir_x,
+                food_dir_y, adjoining_body_top, adjoining_body_bottom,
+                adjoining_body_left, adjoining_body_right)
 
     # Computing the reward
-    def compute_reward(self, points, dead):
+    def reward(self, points, dead):
+        """
+        Computes the reward for the current state
+        :param points: the current points
+        :param dead: whether the snake is dead or not
+        :return: the reward
+        """
         if dead:
             return -1
         elif points > self.points:
             return 1
         else:
             return -0.1
+
+    def max_action(self, state):
+        """
+        Returns the action with the highest Q value for the given state
+        :param state: the state to get the action for (discretized)
+        :return: the action with the highest Q value
+        """
+        return np.argmax(self.Q[state])
 
     def act(self, state, points, dead):
         """
@@ -145,54 +153,54 @@ class Agent:
         (Note that [adjoining_wall_x=0, adjoining_wall_y=0] is also the case when snake runs out of the 480x480 board)
         """
 
-        s_prime = self.discretize(state)
+        state = self.discretize(state)
         action = self.a
 
         # compute rewards
-        reward = self.compute_reward(points, dead)
+        reward = self.reward(points, dead)
+
         # if training
         if self._train:
             # if last state is not none
-            if self.s != None:
+            if self.s is not None:
                 # Update q table with best action (which maximize Q)
+                next_q = np.max(self.Q[state])
+                curr_q = self.Q[self.s][action]
 
-                next_q = np.max(self.Q[s_prime])
-                # print("next_q: {}".format(next_q))
+                alpha = self.C / (self.C + self.N[self.s][action])
 
-                alpha = self.C / (self.C + self.N[self.s + (action,)])
-                curr_q = self.Q[self.s + (action,)]
-                # print("curr_q: {}".format(curr_q))
-                self.Q[self.s + (action,)] += alpha * (reward + self.gamma * next_q - curr_q)
+                self.Q[self.s][action] += alpha * (reward + self.gamma * next_q - curr_q)
 
             # Compute next action with exploration (prepare to return this one)
             max_val = float('-inf')
             best_action = 0
             for a in range(3, -1, -1):
-                # print("action: {}".format(a))
-
                 # returns 1 if n is less than a tuning parameter N
-                if self.N[s_prime + (a,)] < self.Ne:
+                if self.N[state][a] < self.Ne:
                     curr_f = 1
                 # returns u
                 else:
-                    curr_f = self.Q[s_prime + (a,)]
+                    curr_f = self.Q[state][a]
 
                 if curr_f > max_val:
                     max_val = curr_f
                     best_action = a
 
-            # Update N table if not dead (for s_prime and next? action)
+            # Update N table if not dead (for state and next? action)
             if not dead:
-                self.N[s_prime + (best_action,)] += 1
+                self.N[state + (best_action,)] += 1
                 self.points = points
                 # Cache of system state
-            self.s = s_prime
+            self.s = state
             self.a = best_action
 
+        # if testing
         else:
             # Compute best action (which maximize Q) (prepare to return this one)
-            best_action = np.argmax(self.Q[s_prime])
+            best_action = self.max_action(state)
+
         # Reset system if dead
         if dead:
             self.reset()
+
         return best_action
