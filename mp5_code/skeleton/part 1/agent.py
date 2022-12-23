@@ -134,7 +134,7 @@ class Agent:
 
     def max_action(self, state):
         """
-        Returns the action with the highest Q value for the given state
+        Returns the action with the highest Q value for the given state.
         :param state: the state to get the action for (discretized)
         :return: the action with the highest Q value
         """
