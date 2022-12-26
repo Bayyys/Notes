@@ -91,9 +91,6 @@ def main(args):
         print('The architecture matches with the given one')
     else:
         print('The architecture used is different than what was asked for')
-
-
-
     torch.save(net, "net.model")
 
 if __name__ == "__main__":
