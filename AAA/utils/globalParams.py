@@ -1,5 +1,7 @@
 from PyQt5.QtCore  import QMutex
-from utils.decodeUtil import signalDecode
+from decodeUtil import signalDecode
+import numpy as np 
+import pandas as pd
 
 scan = None # 扫描 type: bool
 connected = None    # 连接 type: bool
@@ -16,7 +18,7 @@ def __init__():
     scan = False
     connected = False
     ser = None
-    history = []
+    history = [str(i + 1) for i in range(100)]
     data = []
     mutex_history = QMutex()
     mutex_data = QMutex()
@@ -100,7 +102,20 @@ def set_com(value):
     global com
     com = value
 
+def save_data():
+    try:
+        np.savetxt('test.txt', np.array(history), fmt='%s', delimiter='\t\n', newline='', header='', footer='', comments='# ', encoding=None)
+        print(np.array(history))
+        print(np.array(history).shape)
+    except Exception as e:
+        print("error")
+    ...
 
 
-if __init__ == "__main__":
+if __name__ == '__main__':
+    __init__()
+    test = pd.DataFrame(history)
+    df = test.to_csv('test.csv', mode='a', index=False, header=False)
+    print(test)
+    print(pd.read_csv('test.csv', header=None))
     ...
