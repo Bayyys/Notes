@@ -5,14 +5,14 @@ import serial.tools.list_ports
 from tkinter import ttk
 import serialPortFile
 import time
-import dataprocess  # 对自定义原始数据包(肌电)进行解析
+import dataprocess
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import matplotlib.transforms as tr
 import threading
-import twoplot_new  # 对自定义原始数据包进行解析
-import getpicture   # 腿部图片的获取
+import twoplot_new
+import getpicture
 import openpyxl
 from collections import deque
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -32,50 +32,46 @@ stinum = {
     "0d": chr(0x0d).encode("utf-8")
 }
 
-
 def show():
-    global ser, emgFlag # 定义全局变量
+    global ser, emgFlag
     text1.delete(1.0, END)  # 删除原来信息重新覆盖
     try:
-        emgFlag = True  # 串口已经打开
+        emgFlag = True
         serialPort_emg = combo_com.get()  # 串口    每触发一次， 开启一次串口再立马关闭
-        baudRate_emg = combo_bps.get()  # 波特率
-        ss = serial.Serial(serialPort_emg, baudRate_emg)    # 打开串口
-        serial_list.append(ss)  # 串口号数组
-        ser = serial_list[-1]   # 获取最后一个串口号
+        baudRate_emg = combo_bps.get()
+        ss = serial.Serial(serialPort_emg, baudRate_emg)
+        serial_list.append(ss)
+        ser = serial_list[-1]
         time.sleep(0.1)
     except:
-        text1.delete('1.0', 'end')  # 删除原来信息重新覆盖
-        text1.insert(INSERT, "\n串口被占用或串口参数设置不合理")    # 插入信息
+        text1.delete('1.0', 'end')
+        text1.insert(INSERT, "\n串口被占用或串口参数设置不合理")
         ser.flushInput()  # 清空串口缓存
     else:
-        test_healthyside()  # 测试健侧
-
-
-# 动态展示部分
+        test_healthyside()
 def show_plot():
-    global ser  # 定义全局变量
+    global ser
     try:
         # 打开串口，并得到串口对象
         serialPort_plot = combo_com.get()  # 串口    每触发一次， 开启一次串口再立马关闭
-        baudRate_plot = combo_bps.get() # 波特率
-        ss = serial.Serial(serialPort_plot, baudRate_plot)  # 打开串口
-        serial_list.append(ss)      # 串口号数组
-        ser = serial_list[-1]    # 获取最后一个串口号
+        baudRate_plot = combo_bps.get()
+        ss = serial.Serial(serialPort_plot, baudRate_plot)
+        serial_list.append(ss)
+        ser = serial_list[-1]
         # ser = serial.Serial(serialPort, baudRate)
         # 避免上次关闭窗口可能出现的未传送完整数据，而板子还在等待od的出现
         time.sleep(0.1)
     except:
-        text3.delete('1.0', 'end')  # 删除原来信息重新覆盖
-        text3.insert(INSERT, "\n串口被占用或串口参数设置不合理")    # 插入信息
+        text3.delete('1.0', 'end')
+        text3.insert(INSERT, "\n串口被占用或串口参数设置不合理")
         ser.flushInput()  # 清空串口缓存
         # print(traceback.format_exc())  # 查看报错信息
     else:
         # imu_on.config(text="退出动态展示", command=close_plot)
-        tk.Button(frame7, text="退出动态展示", font=(10), width=13, command=close_plot).grid(row=21, column=4, padx=5, pady=5)  # 退出动态展示
-        test_twoplot()  # 测试动态展示
+        tk.Button(frame7, text="退出动态展示", font=(10), width=13, command=close_plot).grid(row=21, column=4, padx=5, pady=5)
+        test_twoplot()
 
-# 串口接收数据
+
 def plot_durations3(y1,y2,y3):
     y = []
     y.append(np.array([y1,y2,y3]))
@@ -91,11 +87,10 @@ def plot_durations3(y1,y2,y3):
     plt.ylabel("RMS/uV")
     plt.plot(y3)
     plt.pause(0.01)
-
 def close():
     global emgFlag
     try:
-        ser_now = serial_list[-1]   # 获取最后一个串口号
+        ser_now = serial_list[-1]
         ser_now.flushOutput()  # 终止当前写操作，并丢弃发送缓存中的数据。
         text1.delete('1.0', 'end')
         text1.insert(INSERT, "\n已退出肌电检测！")
@@ -118,32 +113,31 @@ def close_plot():
         text3.insert(INSERT, "\n已退出动态展示（可以再次点击\"开启动态展示\"按钮！）；")
         # imu_on.config(text="关节动态展示", command=show_plot)
 
-# 串口接收数据
 def test_healthyside():  # 1.进行健侧肌电电刺激反馈阶段
     global Qmax, Qmin, Imax
     global ser, data_health_rms, emgFlag
     ser.write([0XFE, 0X04, 0X00, 0X01, 0X00, 0X04, 0X08, 0XCB, 0XD6, 0X16])
     data_health_usefully, data_health_usefully_rms, data_health_usefully_afterfilter = [], [], []
-    time.sleep(3)   # 等待3秒
-    ser.flushInput()    # 清空串口缓存
+    time.sleep(3)
+    ser.flushInput()
     while emgFlag:
-        time_start = time.time()    # 开始计时
+        time_start = time.time()
         count = ser.inWaiting()  # 获取串口缓冲区数据
         if count != 0:
-            recv = ser.read(ser.in_waiting).hex()   # 读取数据
-            data_health = dataprocess.decode(recv)  # 解码
-            print(f"1:::{recv}")    # 打印接收到的数据
+            recv = ser.read(ser.in_waiting).hex()
+            data_health = dataprocess.decode(recv)
+            print(f"1:::{recv}")
             if data_health == None or data_health[3] == []:
-                data_health_usefully_rms.append(0)  # 无数据时，补0
+                data_health_usefully_rms.append(0)
             else:
-                data_health_usefully_rms.append(data_health[3]) # 有数据时，添加数据
-                data_health_rms = max(data_health_usefully_rms) # 获取最大值
-                data_health_usefully.extend(data_health[2]) # 有数据时，添加数据
-                data_health_usefully_afterfilter.extend(data_health[4]) # 有数据时，添加数据
-            plt.ion()   # 开启交互模式
-            plot_durations3(data_health_usefully, data_health_usefully_afterfilter, data_health_usefully_rms)   # 画图
+                data_health_usefully_rms.append(data_health[3])
+                data_health_rms = max(data_health_usefully_rms)
+                data_health_usefully.extend(data_health[2])
+                data_health_usefully_afterfilter.extend(data_health[4])
+            plt.ion()
+            plot_durations3(data_health_usefully, data_health_usefully_afterfilter, data_health_usefully_rms)
         time.sleep(0.1)  # 延时0.1秒，免得CPU出问题
-        time_end = time.time()  # 结束计时
+        time_end = time.time()
 
 # 进行imu检测
 def test_twoplot():
@@ -292,22 +286,21 @@ def renew_com():
     else:
         text0.delete('1.0', 'end')
         text0.insert(INSERT, "读取串口成功！")
-
 def thread_it(func, *args):
     """将函数打包进线程"""
     # 创建
     t = threading.Thread(target=func, args=args)
     # 守护 !!!
-    t.daemon = True # 如果不设置为守护线程，主线程结束后，子线程会继续执行，直到子线程执行完毕
+    t.daemon = True
     # 启动
-    t.start()   # 启动线程
+    t.start()
     # 阻塞--卡死界面！
-    # t.join()  # 如果需要阻塞线程，可以使用join方法
+    # t.join()
     
 if __name__ == "__main__":
-    global e11,e21,e31,e32,e33,e34,e41,e51,e61,e71,e81,e131,e141,Ir_fes # 全局变量
-    root = tk.Tk()  # 创建窗口对象的背景色
-    root.title("ZJU-Rehabilitation-Test")   # 添加标题
+    global e11,e21,e31,e32,e33,e34,e41,e51,e61,e71,e81,e131,e141,Ir_fes
+    root = tk.Tk()
+    root.title("ZJU-Rehabilitation-Test")
     root.geometry('700x350+340+240')  # 规定窗口大小以及位置
     # root.resizable(False, False)  # 规定窗口不可缩放
     wid_in = 15  # 和前面一列之间的宽度
@@ -316,7 +309,7 @@ if __name__ == "__main__":
 
     # -------------------------------------------------------------------------
     # 容器设置（三大板块：串口设置、肌电检测、姿态检测）
-    frame_root = Frame(root)    # 根容器
+    frame_root = Frame(root)
     frame_left = Frame(frame_root)  # 左半边
     frame_right = Frame(frame_root)  # 右半边
     widd = 200
@@ -355,7 +348,7 @@ if __name__ == "__main__":
 
     # 串口号
     # 接下来是串口号的combobox的设置，其中serialPortFile.GetCom()是获取所有串口号的函数，接下来会讲解
-    varPort = StringVar()   # 串口号
+    varPort = StringVar()
     combo_com = ttk.Combobox(frame1, textvariable=varPort, width=8, height=2, justify=CENTER)  # 下拉下选框的宽度和高度
     serial_com = serialPortFile.GetCom()
     combo_com['values'] = serial_com
@@ -401,7 +394,7 @@ if __name__ == "__main__":
     # 全局变量
     emgFlag = False
     # 按键与文本框设置
-    EMGtest = tk.Button(frame5, text="开始检测", font=(10), width=13, command=lambda: thread_it(show)).grid(row=19, column=2, padx=5, pady=5)# "开始检测"按钮 用于开始检测
+    EMGtest = tk.Button(frame5, text="开始检测", font=(10), width=13, command=lambda: thread_it(show)).grid(row=19, column=2, padx=5, pady=5)# , font=("宋体", 15)
     tk.Button(frame5, text="结束检测", font=(10), width=13, command=lambda: thread_it(close)).grid(row=19, column=3, padx=5, pady=5)
     text1 = tk.Text(frame5, width=50, height=5)
     text1.grid(row=20, column=2, padx=10, pady=5, columnspan=3)
