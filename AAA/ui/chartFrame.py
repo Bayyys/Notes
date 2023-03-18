@@ -3,6 +3,7 @@ from PyQt5.QtChart import QChartView, QChart, QSplineSeries, QValueAxis
 from PyQt5.QtCore import Qt, QMargins
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QPainter
+from PyQt5.QtCore import QPointF
 import sys
 
 
@@ -13,8 +14,8 @@ class chartFrame(QFrame):
         self.initChart()
         self.ChartView.setChart(self.chart)
         self.setLayout(self.horizontalLayout)
-        self.ChartView.setRenderHint(QPainter.Antialiasing)   # 抗锯齿
-        self.ChartView.setRubberBand(QChartView.RectangleRubberBand)  
+        # self.ChartView.setRenderHint(QPainter.Antialiasing)   # 抗锯齿
+        self.ChartView.setRubberBand(QChartView.RectangleRubberBand)    # 框选 
         
     def setupUi(self):
         self.horizontalLayout = QHBoxLayout()
@@ -29,29 +30,35 @@ class chartFrame(QFrame):
     def initChart(self):
         self.chart = QChart()
         self.chart.setMargins(QMargins(0, 0, 0, 0))
-        self.chart.setBackgroundRoundness(0)
+        self.chart.setBackgroundRoundness(0)    # 设置背景圆角
 
         self.series = QSplineSeries()
+        # self.series.append([0, 0], [1,1])
+        # x = QPointF(0, 0, 1, 2)
+        # self.series.replace(QPointF, QPointF[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        # self.series.useOpenGL()
         self.chart.addSeries(self.series)
 
         self.dataAxisX = QValueAxis()
         self.dataAxisX.setMax(0)
         self.dataAxisX.setTickCount(11)
         self.dataAxisX.setMinorTickCount(3)
-        self.dataAxisX.setRange(-10, 0)
+        self.dataAxisX.setRange(0, 10)
 
         self.valueAxisY = QValueAxis()
-        self.valueRange = 50
+        self.valueRange = 200000
         self.valueAxisY.setRange(-(self.valueRange * 1.1),
                                  self.valueRange * 1.1)
         self.valueAxisY.setLabelFormat('%.1f')
         self.valueAxisY.setTickCount(6)
         self.valueAxisY.setMinorTickCount(2)
+        self.valueAxisY.setVisible(False)
 
         self.chart.addAxis(self.dataAxisX, Qt.AlignBottom)
         self.chart.addAxis(self.valueAxisY, Qt.AlignLeft)
         self.chart.legend().hide()
         # self.chart.setAnimationOptions(QChart.SeriesAnimations)    # 设置动画：chart中启用了所有动画类型。
+        self.chart.setAnimationOptions(QChart.NoAnimation)    # 设置动画：chart中启用了所有动画类型。
         # self.chart.createDefaultAxes()  # 创建默认轴 可用在加载数据时使用
 
         self.series.attachAxis(self.dataAxisX)

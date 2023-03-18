@@ -47,7 +47,7 @@
             <x>0</x>
             <y>0</y>
             <width>770</width>
-            <height>744</height>
+            <height>747</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -195,7 +195,7 @@
                    <string notr="true"/>
                   </property>
                   <property name="text">
-                   <string>等待连接</string>
+                   <string>等待连接...</string>
                   </property>
                  </widget>
                 </item>
@@ -267,7 +267,7 @@
                 <item>
                  <widget class="QLabel" name="lb_start">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                     <horstretch>2</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -341,7 +341,7 @@
                    </sizepolicy>
                   </property>
                   <property name="currentIndex">
-                   <number>1</number>
+                   <number>2</number>
                   </property>
                   <item>
                    <property name="text">
@@ -351,6 +351,11 @@
                   <item>
                    <property name="text">
                     <string>115200</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>4608000</string>
                    </property>
                   </item>
                  </widget>
@@ -584,7 +589,7 @@
      <x>0</x>
      <y>0</y>
      <width>1103</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

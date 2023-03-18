@@ -61,9 +61,42 @@ def serialClose(ser):
         print("serialClose: 串口不存在")
         return
 
+
+class serialRead_original(QThread):
+    dateReadUpdate = pyqtSignal(str)
+    serDisconnect = pyqtSignal()
+
+    def run(self):
+        """读取串口数据
+        args: NONE
+        return: NONE
+        """
+        print("serialRead start")
+        glo.ser.flushInput()
+        while(glo.connected):
+            if serialIsOpen(glo.ser) == False:
+                print("serialRead stop")
+                self.serDisconnect.emit()
+                serialClose(glo.ser)
+                break
+            count = glo.ser.inWaiting()
+            print("count: ", count)
+            if count != 0:
+                str0 = glo.ser.readline(glo.ser.in_waiting)
+                str = str0.decode(encoding='utf-8', errors='ignore')
+                self.dateReadUpdate.emit(str)
+                # print('data:', data)
+            sleep(1)
+
 class serialRead(QThread):
     dateReadUpdate = pyqtSignal(str)
     serDisconnect = pyqtSignal()
+    dateReadUpdate_new = pyqtSignal(list)
+    rest = b''
+    index_1 = 104
+    index_2 = 108
+    count = 0
+
     def run(self):
         """读取串口数据
         args: NONE
@@ -79,10 +112,52 @@ class serialRead(QThread):
                 break
             count = glo.ser.inWaiting()
             if count != 0:
-                str0 = glo.ser.read(glo.ser.in_waiting)
-                str = str0.decode(encoding='utf-8', errors='ignore')
-                self.dateReadUpdate.emit(str)
-            sleep(0.1)
+                # str0 = glo.ser.readline(glo.ser.in_waiting)
+                # str = str0.decode(encoding='utf-8', errors='ignore')
+                # self.dateReadUpdate.emit(str)
+                data = glo.ser.read(glo.ser.in_waiting)
+                # print(data)
+                # print('data:', data)
+                self.dateReadUpdate_new.emit(self.bytesSplit(data))
+                print(self.count)
+
+    def bytesSplit(self, data):
+        num_list = []
+        if len(self.rest) > 0:
+            data = self.rest + data
+        while len(data) > 144:
+            find = data.find(b'\xa5Z')
+            if find != -1 and len(data) > find + 144:
+                index_s = data.find(b'\xa5Z') - 4
+                index_e = index_s + 144
+                get = data[index_s: index_e]
+                num1 = self.bytestoFloat(get[self.index_1: self.index_2])
+                num2 = self.bytestoFloat(get[self.index_2: self.index_2 + 4])
+                self.count += 1
+                num_list.append([num1, num2])
+                self.rest = data[index_e:]
+                data = data[index_e:]
+            else:
+                break
+        return num_list
+
+    def bytestoFloat(self, data):
+        start_index = 0
+        try:
+            if data[3] > 128:
+                    tmp1 = (~data[start_index]) & 0xff
+                    tmp2 = ((~data[start_index + 1]) & 0xff) << 8
+                    tmp3 = ((~data[start_index + 2]) & 0xff) << 16
+                    data = -(tmp1 + tmp2 + tmp3 + 1)
+                    data = data / 24
+            else:
+                data = int((data[start_index]) + (data[start_index + 1] << 8) + (data[start_index + 2] << 16)
+                        + (data[start_index + 3] << 24))
+                data = data / 24
+            # print(data)
+            return data
+        except:
+            return 0
 
 if __name__ == '__main__':
     port_list = list(serial.tools.list_ports.comports())

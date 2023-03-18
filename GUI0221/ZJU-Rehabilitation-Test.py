@@ -132,6 +132,7 @@ def test_healthyside():  # 1.进行健侧肌电电刺激反馈阶段
         if count != 0:
             recv = ser.read(ser.in_waiting).hex()   # 读取数据
             data_health = dataprocess.decode(recv)  # 解码
+            print("start" + recv)
             print(f"1:::{recv}")    # 打印接收到的数据
             if data_health == None or data_health[3] == []:
                 data_health_usefully_rms.append(0)  # 无数据时，补0
