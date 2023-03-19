@@ -110,8 +110,9 @@ class serialRead(QThread):
                 self.serDisconnect.emit()
                 serialClose(glo.ser)
                 break
-            count = glo.ser.inWaiting()
-            if count != 0:
+            # count = glo.ser.inWaiting()
+            # if count != 0:
+            if glo.ser.inWaiting():
                 # str0 = glo.ser.readline(glo.ser.in_waiting)
                 # str = str0.decode(encoding='utf-8', errors='ignore')
                 # self.dateReadUpdate.emit(str)
@@ -122,7 +123,7 @@ class serialRead(QThread):
                 print(self.count)
 
     def bytesSplit(self, data):
-        num_list = []
+        num_list = [[],[]]
         if len(self.rest) > 0:
             data = self.rest + data
         while len(data) > 144:
@@ -132,9 +133,10 @@ class serialRead(QThread):
                 index_e = index_s + 144
                 get = data[index_s: index_e]
                 num1 = self.bytestoFloat(get[self.index_1: self.index_2])
+                num_list[0].append(num1)
                 num2 = self.bytestoFloat(get[self.index_2: self.index_2 + 4])
+                num_list[1].append(num2)
                 self.count += 1
-                num_list.append([num1, num2])
                 self.rest = data[index_e:]
                 data = data[index_e:]
             else:

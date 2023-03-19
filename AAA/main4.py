@@ -12,8 +12,6 @@ import utils.globalParams as glo
 # 自定义控件
 # 图表 Frame 控件
 from ui.chartFrame import chartFrame
-import threading
-from time import sleep
 
 
 class MyWindow(QMainWindow):
@@ -142,12 +140,9 @@ class MyWindow(QMainWindow):
                                        self.box_bps.currentText(),  # 波特率
                                        self.box_timex.currentText()))   # 超时时间
         if serUtil.serialIsOpen(glo.get_ser()):    # 连接成功
-            self.mythread = threading.Thread(target=self.updateChart_new)
-            self.mythread.daemon = True
-            self.mythread.start()
             self.connSuccess()
             self.connSeialThread()
-            # self.connChartTimer()
+            self.connChartTimer()
         else:   # 连接失败
             glo.set_connected(False)
             serUtil.serialClose(glo.get_ser())
@@ -185,7 +180,7 @@ class MyWindow(QMainWindow):
             self.stop_clicked)    # 信号连接: 串口断开 -> 停止按钮点击事件
         self.serialRead.dateReadUpdate_new.connect(self.updateData_new)   # 信号连接: 串口读取数据 -> 更新图表
         self.serialRead.dateReadUpdate_new.connect(self.updateEt_new)   # 信号连接: 串口读取数据 -> 更新文本框
-        # self.serialRead.dateReadUpdate_new.connect(self.updateChart_new)   # 信号连接: 串口读取数据 -> 更新图表
+        self.serialRead.dateReadUpdate_new.connect(self.updateChart_new)   # 信号连接: 串口读取数据 -> 更新图表
         self.serialRead.start()  # 开启串口读取线程
 
     def updateData_new(self, data_list):
@@ -198,11 +193,11 @@ class MyWindow(QMainWindow):
         self.et_text.moveCursor(self.et_text.textCursor().End)
         ...
 
-    # def connChartTimer(self):   # 连接图表定时器
-        # self.updateChartTimer = QTimer()    # 更新图表定时器
-        # self.updateChartTimer.timeout.connect(
-        #     self.updateChart_new)    # 信号连接: 定时器 -> 更新图表
-        # self.updateChartTimer.start(2)
+    def connChartTimer(self):   # 连接图表定时器
+        self.updateChartTimer = QTimer()    # 更新图表定时器
+        self.updateChartTimer.timeout.connect(
+            self.updateChart_new)    # 信号连接: 定时器 -> 更新图表
+        self.updateChartTimer.start(2)
 
     def updateEt(self, str_list):   # 更新文本框
         self.et_text.append(str_list)
@@ -245,33 +240,26 @@ class MyWindow(QMainWindow):
 
     def updateChart_new(self):  # 更新图表_new
         # 更新折线上的点的坐标
-        while True:
-            if glo.dataNotEmpty() and glo.get_connected():
-                y_list = glo.get_data()
-                for i in range(len(y_list)):
-                    x = glo.get_time()
-                    if x % 30 == 0:
-                        x = x * 0.001
-                        self.chartFrameList[0].series.append(
-                            x, y_list[i][0])
-                        self.chartFrameList[0].dataAxisX.setMin(x - 1)
-                        self.chartFrameList[0].dataAxisX.setMax(x)
-                        QApplication.processEvents()
-                        self.chartFrameList[1].series.append(
-                            x, y_list[i][1])
-                        self.chartFrameList[1].dataAxisX.setMin(x - 1)
-                        self.chartFrameList[1].dataAxisX.setMax(x)
-                        QApplication.processEvents()
-                    # if len(glo.history) > 1000:
-                    #     self.chartFrameList[0].series.remove(
-                    #         0)
-                    #     self.chartFrameList[1].series.remove(
-                    #         0)
-                # print("当前点数:", int(x * 1000))
-                # print("总点数：" , len(glo.history))
-                # print(len(glo.history))
-                # self.chart.scroll(1, 0)
-            sleep(0.001)
+        if glo.dataNotEmpty() and glo.get_connected():
+            y_list = glo.get_data()
+            for i in range(len(y_list)):
+                x = glo.get_time()
+                if x % 30 == 0:
+                    x = x * 0.001
+                    self.chartFrameList[0].series.append(
+                        x, y_list[i][0])
+                    self.chartFrameList[0].dataAxisX.setMin(x - 1)
+                    self.chartFrameList[0].dataAxisX.setMax(x)
+                    QApplication.processEvents()
+                    self.chartFrameList[1].series.append(
+                        x, y_list[i][1])
+                    self.chartFrameList[1].dataAxisX.setMin(x - 1)
+                    self.chartFrameList[1].dataAxisX.setMax(x)
+                    QApplication.processEvents()
+            # print("当前点数:", int(x * 1000))
+            # print("总点数：" , len(glo.history))
+            # print(len(glo.history))
+            # self.chart.scroll(1, 0)
 
     def keyPressEvent(self, e):  # 重写键盘事件: 按下ESC键关闭串口
         if e.key() == Qt.Key_Escape:
@@ -295,9 +283,6 @@ class MyWindow(QMainWindow):
         #     self.chart.scroll(0, 1000)
         # elif e.key() == Qt.Key_Down:
         #     self.chart.scroll(0, -1000)
-    
-    def closeEvent(self, event):
-        self.serialRead.terminate()
 
 
 if __name__ == '__main__':

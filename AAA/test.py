@@ -37,7 +37,7 @@ all = ""
 # data = ''
 
 # print(ser)
-
+from time import sleep
 
 class myThread(QThread):
     sig = pyqtSignal(bytes)
@@ -52,6 +52,7 @@ class myThread(QThread):
 
     def go(self):
         self.flag = True
+        self.ser.flush()
         print("start")
 
     def stop(self):
@@ -59,15 +60,17 @@ class myThread(QThread):
         print("stop")
 
     def run(self):
+        self.ser.flush()
         while True:
             # print(self.flag)
             if self.flag and self.ser.in_waiting:
                 data = self.ser.read(self.ser.in_waiting)
-                # self.sig.emit(data)
+                self.sig.emit(data)
                 print("--------------------")
                 self.bytesSplit(data)
                 # self.count += 1
                 print('count' + str(self.count))
+                sleep(0.000125)
 
     def bytesSplit(self, data):
         if len(self.rest) > 0:

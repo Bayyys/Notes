@@ -41,9 +41,9 @@ class chartFrame(QFrame):
 
         self.dataAxisX = QValueAxis()
         self.dataAxisX.setMax(0)
-        self.dataAxisX.setTickCount(11)
+        self.dataAxisX.setTickCount(6)
         self.dataAxisX.setMinorTickCount(3)
-        self.dataAxisX.setRange(0, 10)
+        self.dataAxisX.setRange(0, 1)
 
         self.valueAxisY = QValueAxis()
         self.valueRange = 200000
