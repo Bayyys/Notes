@@ -89,7 +89,6 @@ class serialRead_original(QThread):
             sleep(1)
 
 class serialRead(QThread):
-    dateReadUpdate = pyqtSignal(str)
     serDisconnect = pyqtSignal()
     dateReadUpdate_new = pyqtSignal(list)
     rest = b''
@@ -112,12 +111,7 @@ class serialRead(QThread):
                 break
             # if count != 0:
             if glo.ser.inWaiting():
-                # str0 = glo.ser.readline(glo.ser.in_waiting)
-                # str = str0.decode(encoding='utf-8', errors='ignore')
-                # self.dateReadUpdate.emit(str)
                 data = glo.ser.read(glo.ser.in_waiting)
-                # print(data)
-                # print('data:', data)
                 self.dateReadUpdate_new.emit(self.bytesSplit(data))
                 print(self.count)
 
@@ -155,14 +149,12 @@ class serialRead(QThread):
                 data = int((data[start_index]) + (data[start_index + 1] << 8) + (data[start_index + 2] << 16)
                         + (data[start_index + 3] << 24))
                 data = data / 24
-            # print(data)
             return data
         except:
             return 0
 
 if __name__ == '__main__':
     port_list = list(serial.tools.list_ports.comports())
-    # ser = serialOpen('COM6', 115200, 5)
     print(type(port_list))
     print(port_list)
     print([port_list[0][i] + ' ' + port_list[1][i] for i in range(len(port_list[0]))])

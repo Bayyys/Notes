@@ -1,19 +1,13 @@
 import sys
 import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
-from PyQt5.QtCore import Qt, QTimer, QDateTime
+from PyQt5.QtCore import Qt, QDateTime
 from PyQt5 import uic
 # 串口操作
 import utils.serialUtil as serUtil
-# 全局变量
-# connected: 连接状态
-# ser: 串口对象
 import utils.globalParams as glo
-# 自定义控件
-# 图表 Frame 控件
 from ui.drawFrame import drawFrame
 import threading
-from time import sleep
 
 
 class MyWindow(QMainWindow):
@@ -179,43 +173,24 @@ class MyWindow(QMainWindow):
 
     def connSeialThread(self):  # 连接串口读取线程
         self.serialRead = serUtil.serialRead()  # 串口读取线程
-        self.serialRead.dateReadUpdate.connect(
-            self.updateData)   # 信号连接: 串口读取数据 -> 更新数据
-        self.serialRead.dateReadUpdate.connect(
-            self.updateEt)   # 信号连接: 串口读取数据 -> 更新文本框
         self.serialRead.serDisconnect.connect(
             self.stop_clicked)    # 信号连接: 串口断开 -> 停止按钮点击事件
-        self.serialRead.dateReadUpdate_new.connect(self.updateData_new)   # 信号连接: 串口读取数据 -> 更新图表
-        self.serialRead.dateReadUpdate_new.connect(self.updateEt_new)   # 信号连接: 串口读取数据 -> 更新文本框
-        # self.serialRead.dateReadUpdate_new.connect(self.updateChart_new)   # 信号连接: 串口读取数据 -> 更新图表
+        self.serialRead.dateReadUpdate_new.connect(self.updateData)   # 信号连接: 串口读取数据 -> 更新图表
+        self.serialRead.dateReadUpdate_new.connect(self.updateEt)   # 信号连接: 串口读取数据 -> 更新文本框
         self.serialRead.start()  # 开启串口读取线程
 
-    def updateData_new(self, data_list):
+    def updateData(self, data_list):    # 更新数据及图表
         glo.add_history(data_list)
         for i in range(len(self.chartFrameList)):
             if len(data_list[i]) > 0:
                 self.chartFrameList[i].addData(data_list[i])
         ...
 
-    def updateEt_new(self, data_list):
+    def updateEt(self, data_list):  # 更新文本框
         self.et_text.append(str(data_list))
         # self.et_text.append(123)
         self.et_text.moveCursor(self.et_text.textCursor().End)
         ...
-
-    # def connChartTimer(self):   # 连接图表定时器
-        # self.updateChartTimer = QTimer()    # 更新图表定时器
-        # self.updateChartTimer.timeout.connect(
-        #     self.updateChart_new)    # 信号连接: 定时器 -> 更新图表
-        # self.updateChartTimer.start(2)
-
-    def updateEt(self, str_list):   # 更新文本框
-        self.et_text.append(str_list)
-        self.et_text.moveCursor(self.et_text.textCursor().End)
-        ...
-
-    def updateData(self, str_list):   # 更新本次数据(串口读取数据)
-        glo.add_history(str_list)
 
     def filePath_clicked(self, Filepath):   # 文件路径按钮点击事件
         path = QFileDialog.getExistingDirectory(
@@ -228,55 +203,6 @@ class MyWindow(QMainWindow):
             chartFrame.btn_reset_clicked()
             # chartFrame.chart.zoomReset()
         ...
-
-    def updateChart(self):  # 更新图表
-        # 更新折线上的点的坐标
-        if glo.dataNotEmpty() and glo.get_connected():
-            y_list = glo.get_data()
-            index = 1
-            for i in range(len(y_list)):
-                # self.chart.scroll(self.chart.plotArea().width() / 50000, 0)
-                x = glo.get_time() * 0.001
-                if i % 10 == 0:
-                    y = float(y_list[i])
-                    self.chartFrameList[index].series.append(x, y)
-                    self.chartFrameList[index].dataAxisX.setMin(x - 5)
-                    self.chartFrameList[index].dataAxisX.setMax(x)
-                    QApplication.processEvents()
-                    # print("当前点数:", int(x * 1000))
-                    print("总点数：", len(glo.history))
-                    # print(len(glo.history))
-                    # self.chart.scroll(1, 0)
-
-    def updateChart_new(self):  # 更新图表_new
-        # 更新折线上的点的坐标
-        while True:
-            if glo.dataNotEmpty() and glo.get_connected():
-                y_list = glo.get_data()
-                for i in range(len(y_list)):
-                    x = glo.get_time()
-                    if x % 30 == 0:
-                        x = x * 0.001
-                        self.chartFrameList[0].series.append(
-                            x, y_list[i][0])
-                        self.chartFrameList[0].dataAxisX.setMin(x - 1)
-                        self.chartFrameList[0].dataAxisX.setMax(x)
-                        QApplication.processEvents()
-                        self.chartFrameList[1].series.append(
-                            x, y_list[i][1])
-                        self.chartFrameList[1].dataAxisX.setMin(x - 1)
-                        self.chartFrameList[1].dataAxisX.setMax(x)
-                        QApplication.processEvents()
-                    # if len(glo.history) > 1000:
-                    #     self.chartFrameList[0].series.remove(
-                    #         0)
-                    #     self.chartFrameList[1].series.remove(
-                    #         0)
-                # print("当前点数:", int(x * 1000))
-                # print("总点数：" , len(glo.history))
-                # print(len(glo.history))
-                # self.chart.scroll(1, 0)
-            sleep(0.001)
 
     def keyPressEvent(self, e):  # 重写键盘事件: 按下ESC键关闭串口
         if e.key() == Qt.Key_Escape:

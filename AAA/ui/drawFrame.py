@@ -17,6 +17,8 @@ class MyMplCanvas(FigureCanvas):
     def __init__(self):
         self.initChart()
         self.initUpdataTimer()
+        self.setFocusPolicy( Qt.ClickFocus )
+        self.setFocus()
         
     
     def initChart(self):
@@ -41,6 +43,7 @@ class MyMplCanvas(FigureCanvas):
 
         self.fig.canvas.mpl_connect('scroll_event', self.call_back)
         self.fig.canvas.mpl_connect('button_press_event', self.call_back)
+        self.fig.canvas.mpl_connect('key_press_event', self.call_back)
     
     def initUpdataTimer(self):
         # threading.Thread(target=self.update_figure).start()
@@ -61,17 +64,26 @@ class MyMplCanvas(FigureCanvas):
         # print(time.time())
         ...
 
-    def call_back(self, event):
+    def call_back(self, event): # 鼠标滚轮事件
         axtemp = event.inaxes
         y_min, y_max = axtemp.get_ylim()
         y_dis = (y_max - y_min) / 10
-        if event.button == 'up':
-            axtemp.set(ylim=(y_min + y_dis, y_max - y_dis))
-            # print('up')
-        elif event.button == 'down':
-            axtemp.set(ylim=(y_min - y_dis, y_max + y_dis))
-            # print('down')
-        self.fig.canvas.draw_idle()  # 绘图动作实时反映在图像上
+        x_min, x_max = axtemp.get_xlim()
+        x_dis = (x_max - x_min) / 10
+        # if event.button == 'up' and event.key == 'shift':
+        #     axtemp.set(ylim=(y_min + y_dis, y_max - y_dis))
+        #     print('up')
+        # # elif event.button == 'down':
+        # #     axtemp.set(ylim=(y_min - y_dis, y_max + y_dis))
+        # #     print('down')
+        # if event.dblclick == True and event.button == 3:
+        #     axtemp.set(xlim=(x_min - x_dis, x_max + x_dis))
+        #     print('left')
+        if event.key == 'shift':
+            if event.button == 1:
+                axtemp.set(xlim=(x_min + x_dis, x_max - x_dis))
+                print('right')
+        # self.fig.canvas.draw_idle()  # 绘图动作实时反映在图像上
 
     def zoomReset(self):
         self.ax.set_xlim(0, self.xdis)
@@ -92,18 +104,11 @@ class drawFrame(QFrame, Ui_Form):
         self.btn_close.clicked.connect(lambda: self.setVisible(False))
         ...
 
-    # def initData(self):
-    #     global xdata, ydata
-    #     xdata = np.arange(0, 2000, 1)
-    #     ydata = np.zeros(2000)
-    #     self.canvas.line.set_data(xdata, ydata)
-    #     ...
-    def btn_reset_clicked(self):
+    def btn_reset_clicked(self):    # 重置按钮
         self.canvas.zoomReset()
     
-    def addData(self, data):
+    def addData(self, data):    # 添加数据
         len_data = len(data)
-        
         # self.canvas.ydata = np.append(self.canvas.ydata, data)
         # len_data = len(self.canvas.ydata)
         # self.canvas.xdata = np.arange(0, len_data, 1)
