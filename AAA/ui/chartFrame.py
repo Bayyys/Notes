@@ -42,11 +42,11 @@ class chartFrame(QFrame):
         self.initData()
     
     def initUI(self):
-        self.canvas = MyMplCanvas()
+        # self.canvas = MyMplCanvas()
         self.chartWidget = drawFrame()
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.chartWidget)
-        self.chartWidget.canvasLayout.addWidget(self.canvas)
+        # self.chartWidget.canvasLayout.addWidget(self.canvas)
         self.setLayout(self.layout)
     
     def initData(self):

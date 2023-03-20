@@ -92,8 +92,9 @@ class serialRead(QThread):
     serDisconnect = pyqtSignal()
     dateReadUpdate_new = pyqtSignal(list)
     rest = b''
-    index_1 = 104
-    index_2 = 108
+    index_25 = 104
+    index_26 = 108
+    index_27 = 112
     count = 0
 
     def run(self):
@@ -125,9 +126,9 @@ class serialRead(QThread):
                 index_s = data.find(b'\xa5Z') - 4
                 index_e = index_s + 144
                 get = data[index_s: index_e]
-                num1 = self.bytestoFloat(get[self.index_1: self.index_2])
+                num1 = self.bytestoFloat(get[self.index_25: self.index_26])
                 num_list[0].append(num1)
-                num2 = self.bytestoFloat(get[self.index_2: self.index_2 + 4])
+                num2 = self.bytestoFloat(get[self.index_26: self.index_27])
                 num_list[1].append(num2)
                 self.count += 1
                 self.rest = data[index_e:]
