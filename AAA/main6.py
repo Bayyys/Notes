@@ -11,7 +11,7 @@ import utils.serialUtil as serUtil
 import utils.globalParams as glo
 # 自定义控件
 # 图表 Frame 控件
-from ui.chartFrame3 import chartFrame
+from ui.chartFrame import chartFrame
 import threading
 from time import sleep
 
@@ -190,9 +190,6 @@ class MyWindow(QMainWindow):
 
     def updateData_new(self, data_list):
         glo.add_history(data_list)
-        for i in range(len(self.chartFrameList)):
-            if len(data_list[i]) > 0:
-                self.chartFrameList[i].addData(data_list[i])
         ...
 
     def updateEt_new(self, data_list):

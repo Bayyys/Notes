@@ -11,7 +11,7 @@ import utils.serialUtil as serUtil
 import utils.globalParams as glo
 # 自定义控件
 # 图表 Frame 控件
-from ui.chartFrame import chartFrame
+from ui.drawFrame import drawFrame
 import threading
 from time import sleep
 
@@ -52,9 +52,11 @@ class MyWindow(QMainWindow):
 
     def initChartFrame(self):   # 初始化图表 Frame
         for i in range(self.winNum):
-            chartFrameItem = chartFrame()
+            chartFrameItem = drawFrame()
+            chartFrameItem.lb_min.setText(str(i))
             self.chartFrameList.append(chartFrameItem)
             self.layoutChart.addWidget(chartFrameItem)
+            
 
     def searchCom(self):    # 启动更新串口号线程
         self.getComThread = serUtil.getCom()
@@ -190,6 +192,9 @@ class MyWindow(QMainWindow):
 
     def updateData_new(self, data_list):
         glo.add_history(data_list)
+        for i in range(len(self.chartFrameList)):
+            if len(data_list[i]) > 0:
+                self.chartFrameList[i].addData(data_list[i])
         ...
 
     def updateEt_new(self, data_list):
@@ -220,8 +225,8 @@ class MyWindow(QMainWindow):
 
     def reset_clicked(self):    # 重置按钮点击事件
         for chartFrame in self.chartFrameList:
-            chartFrame.setVisible(True)
-            chartFrame.chart.zoomReset()
+            chartFrame.btn_reset_clicked()
+            # chartFrame.chart.zoomReset()
         ...
 
     def updateChart(self):  # 更新图表
@@ -297,7 +302,10 @@ class MyWindow(QMainWindow):
         #     self.chart.scroll(0, -1000)
     
     def closeEvent(self, event):
-        self.serialRead.terminate()
+        try:
+            self.serialRead.terminate()
+        except:
+            ...
 
 
 if __name__ == '__main__':

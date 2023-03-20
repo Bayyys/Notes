@@ -72,17 +72,17 @@ class serialRead_original(QThread):
         return: NONE
         """
         print("serialRead start")
-        glo.ser.flushInput()
+        glo.ser.flushInput()    # 清空缓冲区
         while(glo.connected):
             if serialIsOpen(glo.ser) == False:
                 print("serialRead stop")
                 self.serDisconnect.emit()
                 serialClose(glo.ser)
                 break
-            count = glo.ser.inWaiting()
+            count = glo.ser.inWaiting() # 获取缓冲区字符
             print("count: ", count)
             if count != 0:
-                str0 = glo.ser.readline(glo.ser.in_waiting)
+                str0 = glo.ser.readline(glo.ser.in_waiting) # 读取内容并回显
                 str = str0.decode(encoding='utf-8', errors='ignore')
                 self.dateReadUpdate.emit(str)
                 # print('data:', data)
@@ -110,7 +110,6 @@ class serialRead(QThread):
                 self.serDisconnect.emit()
                 serialClose(glo.ser)
                 break
-            # count = glo.ser.inWaiting()
             # if count != 0:
             if glo.ser.inWaiting():
                 # str0 = glo.ser.readline(glo.ser.in_waiting)
