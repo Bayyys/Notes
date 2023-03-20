@@ -138,9 +138,9 @@ class MyWindow(QMainWindow):
                                        self.box_bps.currentText(),  # 波特率
                                        self.box_timex.currentText()))   # 超时时间
         if serUtil.serialIsOpen(glo.get_ser()):    # 连接成功
-            self.mythread = threading.Thread(target=self.updateChart_new)
-            self.mythread.daemon = True
-            self.mythread.start()
+            # self.mythread = threading.Thread(target=self.updateChart)
+            # self.mythread.daemon = True
+            # self.mythread.start()
             self.connSuccess()
             self.connSeialThread()
             # self.connChartTimer()
@@ -150,7 +150,15 @@ class MyWindow(QMainWindow):
             self.lb_info.setText('连接失败')
 
     def stop_clicked(self):  # 停止按钮点击事件: 关闭串口、停止线程
+        for i in range(3):
+            try:
+                glo.ser.write(glo.send_stop)
+            except:
+                ...
+            finally:
+                print("发送停止指令")
         serUtil.serialClose(glo.get_ser())
+        self.serialRead.terminate()
         self.btn_stop.setEnabled(False)
         self.lb_start.setText('已暂停')
         self.lb_start.setStyleSheet('color: red')

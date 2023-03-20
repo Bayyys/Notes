@@ -100,30 +100,64 @@ class mainWin(QWidget):
         self.resize(400, 300)
         self.setWindowTitle('test')
         layout = QVBoxLayout()
-        self.btn = QPushButton('start', self)
-        self.btn.clicked.connect(self.test)
+        self.btn_start = QPushButton('start', self)
+        self.btn_start.clicked.connect(self.btn_start_clicked)
         self.btn_stop = QPushButton('stop', self)
-        self.btn_stop.clicked.connect(self.threadStop)
+        self.btn_stop.clicked.connect(self.btn_stop_clicked)
         self.text = QTextEdit(self)
-        layout.addWidget(self.btn)
+        layout.addWidget(self.btn_start)
         layout.addWidget(self.text)
         layout.addWidget(self.btn_stop)
+        self.btn_send_start = QPushButton('send start', self)
+        self.btn_send_start.clicked.connect(self.btn_send_start_clicked)
+        self.btn_send_stop = QPushButton('send stop', self)
+        self.btn_send_stop.clicked.connect(self.btn_send_stop_clicked)
+        layout.addWidget(self.btn_send_start)
+        layout.addWidget(self.btn_send_stop)
         self.setLayout(layout)
         self.mythread = myThread()
         self.mythread.sig.connect(self.textAppend)
         self.mythread.start()
+    
+    def btn_send_start_clicked(self):
+        start_massage = 'AA 06 01'
+        send_start = []
+        for mas in start_massage.split(' '):
+            send_start += bytes.fromhex(mas)
+        print(send_start)
+        self.mythread.ser.write(send_start)
+        self.mythread.ser.flush()
+        print("start")
+    
+    def btn_send_stop_clicked(self):
+        
+        massage_stop = 'AA 06 00'
+        send_stop = []
+        for mas in massage_stop.split(' '):
+            send_stop += bytes.fromhex(mas)
+        self.mythread.ser.write(send_stop)
+        self.mythread.ser.write('\r\n'.encode('utf-8'))
+        print(send_stop)
+        self.mythread.ser.flush()
+        print("stop")
 
-    def test(self):
+    def btn_start_clicked(self):
+        self.flag = True
         self.mythread.go()
 
-    def threadStop(self):
+    def btn_stop_clicked(self):
+        self.flag = False
         self.mythread.stop()
 
-    def textAppend(self):
+    def textAppend(self, data):
         if self.flag:
-            data = self.ser.readline()
-            print(data)
-            self.text.append(data)
+            self.text.append(str(data))
+            ...
+    
+    def closeEvent(self, event):
+        self.mythread.ser.close()
+        self.mythread.quit()
+        print("close")
 
 
 

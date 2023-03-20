@@ -167,6 +167,7 @@ class MyApp(QMainWindow):
 
         # 滤波处理
         if len(ydata) > max(len(a), len(b)):
+            print(len(ydata), len(a), len(b))
             ydata = np.append(ydata[1:], filtfilt(b, a, ydata)[-1])
 
         # 更新绘图

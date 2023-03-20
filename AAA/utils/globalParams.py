@@ -12,10 +12,16 @@ mutex_history = None    # 互斥锁    type: QMutex
 mutex_data = None   # 互斥锁    type: QMutex
 time = None  # 时间 type: QDateTime
 com = None  # 当前连接串口号 type: str
+massage_start = ''
+massage_stop = ''
+massage_sampleRate = ''
+send_start = []
+send_stop = []
+send_sampleRate = []
 
 
 def __init__():
-    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com
+    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, massage_start, massage_stop, massage_sampleRate, send_start, send_stop, send_sampleRate
     scan = False
     connected = False
     ser = None
@@ -25,6 +31,15 @@ def __init__():
     mutex_data = QMutex()
     time = 1
     com = ""
+    massage_start = 'AA 06 01'
+    massage_stop = 'AA 06 00'
+    massage_sampleRate = 'AA 03 01'
+    for mas in massage_start.split(' '):
+        send_start += bytes.fromhex(mas)
+    for mas in massage_stop.split(' '):
+        send_stop += bytes.fromhex(mas)
+    for mas in massage_sampleRate.split(' '):
+        send_sampleRate += bytes.fromhex(mas)
 
 
 def get_scan():

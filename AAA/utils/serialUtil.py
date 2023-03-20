@@ -104,6 +104,7 @@ class serialRead(QThread):
         """
         print("serialRead start")
         glo.ser.flushInput()
+        glo.ser.write(glo.send_start)
         while(glo.connected):
             if serialIsOpen(glo.ser) == False:
                 print("serialRead stop")
@@ -114,7 +115,7 @@ class serialRead(QThread):
             if glo.ser.inWaiting():
                 data = glo.ser.read(glo.ser.in_waiting)
                 self.dateReadUpdate_new.emit(self.bytesSplit(data))
-                print(self.count)
+                # print(self.count)
 
     def bytesSplit(self, data):
         num_list = [[],[]]
