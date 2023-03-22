@@ -1,5 +1,6 @@
+from PyQt5.QtWidgets import QFrame, QGridLayout
 from PyQt5.QtCore import QThread, pyqtSignal, QTimer
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QTextEdit, QApplication
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QTextEdit, QApplication, QLineEdit, QHBoxLayout
 import sys
 import time
 import serial
@@ -46,7 +47,9 @@ class myThread(QThread):
         port='COM3',  # 串口
         baudrate=4608000,  # 波特率
         stopbits=1,
-        bytesize=8)
+        bytesize=8,
+        parity='N',
+        )
     count = 0
     rest = b''
 
@@ -80,7 +83,7 @@ class myThread(QThread):
                 index_s = data.find(b'\xa5Z') - 4
                 index_e = index_s + 144
                 get = data[index_s: index_e]
-                print(get)
+                # print(get)
                 self.count += 1
                 # print(len(get))
                 self.rest = data[index_e:]
@@ -112,13 +115,43 @@ class mainWin(QWidget):
         self.btn_send_start.clicked.connect(self.btn_send_start_clicked)
         self.btn_send_stop = QPushButton('send stop', self)
         self.btn_send_stop.clicked.connect(self.btn_send_stop_clicked)
+        self.sendFrame = QFrame(self)
+        self.sendLayout  = QGridLayout()
+
+        self.btn_send_61 = QPushButton('开始', self)
+        self.btn_send_61.clicked.connect(self.btn_send_61_clicked)
+        self.btn_send_60 = QPushButton('停止', self)
+        self.btn_send_60.clicked.connect(self.btn_send_60_clicked)
+
+        self.et_send = QLineEdit(self)
+        self.btn_send = QPushButton('send', self)
+        self.btn_send.clicked.connect(self.btn_send_clicked)
+        self.sendLayout.addWidget(self.btn_send_61, 0, 0)
+        self.sendLayout.addWidget(self.btn_send_60, 0, 1)
         layout.addWidget(self.btn_send_start)
         layout.addWidget(self.btn_send_stop)
+        self.sendLayout.addWidget(self.et_send, 1, 0, 1, 2)
+        self.sendLayout.addWidget(self.btn_send, 2, 0, 1, 2)
+        self.sendFrame.setLayout(self.sendLayout)
+        layout.addWidget(self.sendFrame)
         self.setLayout(layout)
         self.mythread = myThread()
         self.mythread.sig.connect(self.textAppend)
         self.mythread.start()
     
+    def btn_send_clicked(self):
+        massage = self.et_send.text()
+        # send = bytearray()
+        # for mas in massage.split(' '):
+            # send.append(hex(int(mas, 16)))
+            # send = bytes.fromhex(mas)
+            # print(send)
+        # print("send: ", send) 
+        self.mythread.ser.flushInput()
+        self.mythread.ser.flushOutput()
+        self.mythread.ser.write(b'\xaa\x06\x00\r\n')
+
+
     def btn_send_start_clicked(self):
         start_massage = 'AA 06 01'
         send_start = []
@@ -129,14 +162,31 @@ class mainWin(QWidget):
         self.mythread.ser.flush()
         print("start")
     
+    def btn_send_61_clicked(self):
+        self.mythread.ser.flushInput()
+        self.mythread.ser.flushOutput()
+        self.mythread.ser.write([0xaa, 0x08, 0x01])
+        self.mythread.ser.write([0xaa, 0x03, 0x01, 0x95])
+        self.mythread.ser.write([0xaa, 0x07, 0x32])
+        self.mythread.ser.write([0xaa, 0x06, 0x01])
+        print("write 0x AA 06 01")
+
+    
+    def btn_send_60_clicked(self):
+        self.mythread.ser.flushInput()
+        self.mythread.ser.flushOutput()
+        self.mythread.ser.write([0xaa, 0x06, 0x00])
+        print("write 0x AA 06 00")
+
     def btn_send_stop_clicked(self):
-        
         massage_stop = 'AA 06 00'
         send_stop = []
         for mas in massage_stop.split(' '):
             send_stop += bytes.fromhex(mas)
-        self.mythread.ser.write(send_stop)
-        self.mythread.ser.write('\r\n'.encode('utf-8'))
+        for i in range(3):
+            self.mythread.ser.flushInput()
+            self.mythread.ser.flushOutput()
+            self.mythread.ser.write(send_stop)
         print(send_stop)
         self.mythread.ser.flush()
         print("stop")
@@ -152,6 +202,7 @@ class mainWin(QWidget):
     def textAppend(self, data):
         if self.flag:
             self.text.append(str(data))
+            self.text.append("-----------------")
             ...
     
     def closeEvent(self, event):

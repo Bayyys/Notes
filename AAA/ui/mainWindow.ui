@@ -52,7 +52,11 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <layout class="QVBoxLayout" name="layoutChart"/>
+            <layout class="QVBoxLayout" name="layoutChart">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -553,7 +557,7 @@
                  <number>0</number>
                 </property>
                 <item row="0" column="0">
-                 <widget class="QLabel" name="lb_minmax">
+                 <widget class="QLabel" name="lb_ydis">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                     <horstretch>2</horstretch>
@@ -565,54 +569,8 @@
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2">
-                 <widget class="QLabel" name="lb_xdis1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                    <horstretch>1</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>时基：</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="3">
-                 <widget class="QComboBox" name="box_xdis">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                    <horstretch>2</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="currentIndex">
-                   <number>1</number>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>500</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>1000</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>2000</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>5000</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
                 <item row="0" column="1">
-                 <widget class="QComboBox" name="box_minmax">
+                 <widget class="QComboBox" name="box_ydis">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>2</horstretch>
@@ -675,6 +633,151 @@
                   <property name="text">
                    <string>ms</string>
                   </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="lb_xdis1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <horstretch>1</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>时基：</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QComboBox" name="box_xdis">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>2</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="currentIndex">
+                   <number>1</number>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>500</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>1000</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>2000</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>5000</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QCheckBox" name="ck_band">
+                  <property name="text">
+                   <string>带通</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QCheckBox" name="ck_low">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>低通</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1" colspan="3">
+                 <widget class="QCheckBox" name="ck_notch">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>限波(50Hz)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLabel" name="lb_sample_rate">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <horstretch>1</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>采样率：</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2" colspan="3">
+                 <widget class="QComboBox" name="box_sample_rate">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>2</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="currentIndex">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>250</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>500</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>1000</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>2000</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>4000</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>6000</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>8000</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>16000</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                </layout>
@@ -751,9 +854,9 @@
     <property name="title">
      <string>文件</string>
     </property>
-    <addaction name="actionopen"/>
-    <addaction name="actionsave"/>
-    <addaction name="actionexit"/>
+    <addaction name="action_open"/>
+    <addaction name="action_save"/>
+    <addaction name="action_exit"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -770,19 +873,19 @@
    <addaction name="menu_3"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionopen">
+  <action name="action_open">
    <property name="text">
-    <string>open</string>
+    <string>打开</string>
    </property>
   </action>
-  <action name="actionsave">
+  <action name="action_save">
    <property name="text">
-    <string>save</string>
+    <string>保存</string>
    </property>
   </action>
-  <action name="actionexit">
+  <action name="action_exit">
    <property name="text">
-    <string>exit</string>
+    <string>退出</string>
    </property>
   </action>
  </widget>

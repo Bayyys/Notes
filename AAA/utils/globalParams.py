@@ -1,4 +1,6 @@
-from PyQt5.QtCore import QMutex
+import sys
+sys.path.append('..')
+from PyQt5.QtCore import QMutex, pyqtSignal
 from utils.decodeUtil import signalDecode
 import numpy as np
 import pandas as pd
@@ -12,20 +14,30 @@ mutex_history = None    # 互斥锁    type: QMutex
 mutex_data = None   # 互斥锁    type: QMutex
 time = None  # 时间 type: QDateTime
 com = None  # 当前连接串口号 type: str
-massage_start = ''
-massage_stop = ''
-massage_sampleRate = ''
-send_start = []
-send_stop = []
-send_sampleRate = []
+massage_start = ''  # 开始采集命令 type: str
+massage_stop = ''   # 停止采集命令 type: str
+massage_sampleRate = '' # 采样率命令 type: str
+send_start = [] # 开始采集命令 type: bytes
+send_stop = []  # 停止采集命令 type: bytes
+send_sampleRate = []    # 采样率命令 type: bytes
+isHighPassFilter = False    # 是否开启高通滤波 type: bool
+isNotchFilter = False   # 是否开启陷波滤波 type: bool
+isBandPassFilter = False    # 是否开启带通滤波 type: bool
+XDIS = 8000 # X轴显示范围 type: int
+YDIS = 200000   # Y轴显示范围 type: int
+SAMPLE_RATE = 1000  # 采样率 type: int
+XDIS_SIGNAL = None
+YDIS_SIGNAL = None
+SAMPLE_RATE_SIGNAL = None
+
 
 
 def __init__():
-    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, massage_start, massage_stop, massage_sampleRate, send_start, send_stop, send_sampleRate
+    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, massage_start, massage_stop, massage_sampleRate, send_start, send_stop, send_sampleRate, isHighPassFilter, isNotchFilter, isBandPassFilter, XDIS, YDIS, SAMPLE_RATE, XDIS_SIGNAL, YDIS_SIGNAL, SAMPLE_RATE_SIGNAL
     scan = False
     connected = False
     ser = None
-    history = []
+    history = np.array([[], []])
     data = []
     mutex_history = QMutex()
     mutex_data = QMutex()
@@ -40,6 +52,12 @@ def __init__():
         send_stop += bytes.fromhex(mas)
     for mas in massage_sampleRate.split(' '):
         send_sampleRate += bytes.fromhex(mas)
+    isHighPassFilter = False
+    isNotchFilter = False
+    isBandPassFilter = False
+    XDIS = 8000
+    YDIS = 200000
+    SAMPLE_RATE = 1000
 
 
 def get_scan():
@@ -81,12 +99,18 @@ def set_ser(value):
 #     history = value
 #     mutex_history.unlock()
 
+def init_history():
+    global history
+    mutex_history.lock()
+    history = np.array([[], []])
+    mutex_history.unlock()
 
 def add_history(value):
     global history
+    # add_data(value)
     mutex_history.lock()
-    history += value
-    add_data(value)
+    history = np.concatenate((history, value), axis=1)
+    # print(history)
     mutex_history.unlock()
 
 
@@ -137,16 +161,32 @@ def save_data(fileName, type):
         if type == "CSV(*.csv)":
             pd.DataFrame(history).to_csv(fileName, mode='a', index=False, header=False)
         elif type == "纯文本(*.txt)":
-            np.savetxt(fileName, np.array(history), fmt='%s ', delimiter=' ',
-                   newline='', header='', footer='', comments='# ', encoding=None)
-            print(np.array(history))
-            print(np.array(history).shape)
+            np.savetxt(fileName, np.array(history), fmt='%lf', delimiter=' ',
+                   newline='\n', header='', footer='', comments='# ', encoding=None)
+        # print(np.array(history))
+        print(np.array(history).shape)
         return True
     except Exception as e:
         print("error")
         return False
     ...
 
+def open_data(fileName, type):
+    global history
+    try:
+        if type == "CSV(*.csv)":
+            data = pd.read_csv(fileName, header=None)
+            history = np.array(data.values)
+            return True
+        elif type == "纯文本(*.txt)":
+            history = np.loadtxt(fileName, dtype=float)
+            return True
+        else:
+            return False
+    except Exception as e:
+        print("error")
+        return False
+    ...
 
 if __name__ == '__main__':
     __init__()
@@ -155,11 +195,15 @@ if __name__ == '__main__':
     # print(test)
     # data = pd.read_csv('test.csv', header=None)
     # print(data.loc[:, 0])
-    history = [str(i + 1) for i in range(100)]
-    data = np.array(history)
-    print(data)
-    np.savetxt('test.txt', data, fmt='%.2lf', delimiter='\t\n',
-               newline='', header='', footer='', comments='# ', encoding=None)
-    data2 = np.loadtxt('test.txt', dtype=str)
-    print(data2)
+    # history = [str(i + 1) for i in range(100)]
+    # data = np.array(history)
+    # print(data)
+    # np.savetxt('test.txt', data, fmt='%.2lf', delimiter='\t\n',
+    #            newline='', header='', footer='', comments='# ', encoding=None)
+    # data2 = np.loadtxt('test.txt', dtype=str)
+    # print(data2)
+    print(history.shape)
+    add_history([[1,2], [3,4]])
+    add_history([[5,6], [7,8]])
+    print(history)
     ...
