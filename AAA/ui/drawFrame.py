@@ -12,10 +12,9 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import threading
 from ui.draw import Ui_Form
 import utils.globalParams as glo
-
+from matplotlib.widgets import SpanSelector
 
 class MyMplCanvasFile(FigureCanvas):
-    """A canvas that updates itself every second with a new plot."""
 
     XMAX = 5000
     Xdis = 1000
@@ -178,8 +177,8 @@ class drawFrameFile(QFrame, Ui_Form):
         ...
 
 class MyMplCanvas(FigureCanvas):
-    """A canvas that updates itself every second with a new plot."""
-
+    start_point = (0, 0)
+    end_point = (0, 0)
     XMAX = 5000
     Xdis = 1000
     Ydis = 200000
@@ -195,7 +194,7 @@ class MyMplCanvas(FigureCanvas):
         self.setFocus()
 
     def initChart(self):
-        self.fig, self.ax = plt.subplots()
+        self.fig, (self.ax, self.ax2) = plt.subplots(2)
         self.ax.set_ylim(-self.Ydis, self.Ydis)
         self.ax.set_xlim(self.XMAX - self.Xdis, self.XMAX)
         self.ax.set_xlim(self.XMAX - glo.XDIS, self.XMAX)
@@ -207,7 +206,7 @@ class MyMplCanvas(FigureCanvas):
         # self.ax.set_yticks([])  # 去掉y轴刻度
         # self.ax.set_autoscaley_on(False)    # 关闭自动缩放
         # self.ax.set_axes_locator(None)  # 去掉坐标轴
-        self.ax.set_axis_off()
+        # self.ax.set_axis_off()
         # self.ax.grid(True)
         # self.ax.set_xmargin(0)
         # self.ax.set_ymargin(0)
@@ -216,15 +215,39 @@ class MyMplCanvas(FigureCanvas):
         self.ax.set_ylabel('Voltage (μV)')
         self.ax.set_xlabel('Time (ms)')
         self.line, = self.ax.plot([], [])
+        self.line2, = self.ax2.plot([], [])
+        self.span = SpanSelector(
+            self.ax,
+            self.onselect,
+            "horizontal",
+            useblit=True,
+            props=dict(alpha=0.5, facecolor="tab:blue"),
+            interactive=True,
+            drag_from_anywhere=True
+        )
         FigureCanvas.__init__(self, self.fig)
 
         # self.fig.set_constrained_layout_pads(w_pad=0, h_pad=0, wspace=0, hspace=0)   # 自动调整子图间距
         self.fig.set_constrained_layout(True)   # 自动调整子图间距
 
         self.fig.canvas.mpl_connect('scroll_event', self.button_call_back)
-        self.fig.canvas.mpl_connect(
-            'button_press_event', self.button_call_back)
         self.fig.canvas.mpl_connect('key_press_event', self.button_call_back)
+        # self.fig.canvas.mpl_connect("button_press_event", self.on_press)
+        # self.fig.canvas.mpl_connect("button_release_event", self.on_release)
+        self.fig.canvas.mpl_connect("motion_notify_event", self.on_move)
+
+    def onselect(self, xmin, xmax):
+        indmin, indmax = np.searchsorted(self.xdata, (xmin, xmax))
+        indmax = min(len(self.xdata) - 1, indmax)
+
+        region_x = self.xdata[indmin:indmax]
+        region_y = self.ydata[indmin:indmax]
+
+        if len(region_x) >= 2:
+            self.line2.set_data(region_x, region_y)
+            self.ax2.set_xlim(region_x[0], region_x[-1])
+            self.ax2.set_ylim(region_y.min(), region_y.max())
+            self.fig.canvas.draw_idle()
 
     def initData(self):
         self.xdata = np.arange(0, self.XMAX, 1)
@@ -245,6 +268,28 @@ class MyMplCanvas(FigureCanvas):
             self.draw()
             # self.flush_events()
             # print("use time:", time.time() - time1)
+        ...
+
+    def on_press(self, event):  # 鼠标按下事件
+        if event.inaxes:  # 判断鼠标是否在axes内
+            if event.button == 1:  # 判断按下为鼠标左键
+                self.start_point = (event.xdata, event.ydata) # 获取鼠标按下的坐标
+                print(self.start_point)
+        ...
+
+    def on_move(self, event):  # 鼠标移动事件
+        ...
+
+    def on_release(self, event):  # 鼠标释放事件
+        if event.inaxes:  # 判断鼠标是否在axes内
+            if event.button == 1:   # 判断松开为鼠标左键
+                self.end_point = (event.xdata, event.ydata) # 获取鼠标释放的坐标
+                print(self.end_point)
+                self.ax.set_xlim(min(self.start_point[0], self.end_point[0]), max(self.start_point[0], self.end_point[0]))
+                self.ax.set_ylim(min(self.start_point[1], self.end_point[1]), max(self.start_point[1], self.end_point[1]))
+                self.draw()
+                # print("x_lim: ", (min(self.start_point[0], self.end_point[0]), max(self.start_point[0], self.end_point[0])))
+                # print("y_lim: ", (min(self.start_point[1], self.end_point[1]), max(self.start_point[1], self.end_point[1])))
         ...
 
     def button_call_back(self, event):  # 鼠标滚轮事件
@@ -277,7 +322,6 @@ class MyMplCanvas(FigureCanvas):
         #     if ymin_new >= ymax_new:
         #         ymin_new = ymax_new - y_test
         #     axtemp.set(xlim=(xmin_new, xmax_new), ylim=(ymin_new, ymax_new))
-
         if event.button == 'up' and event.key == 'shift':
             axtemp.set(xlim=(x_min + x_dis, x_max - x_dis))
             print('right')
@@ -421,8 +465,8 @@ if __name__ == '__main__':
     data_o = np.loadtxt("txt.txt")
     data1 = data_o[::2]
     data2 = data_o[1::2]
-    data = np.vstack((data1, data2))
-    np.savetxt("data.txt", data)
+    # data = np.vstack((data1, data2))
+    # np.savetxt("data.txt", data)
     # print(data)
     # print(data_o.shape, data1.shape, data2.shape)
     # print(data_o)
@@ -436,8 +480,8 @@ if __name__ == '__main__':
     # plt.plot(np.arange(0, len(data3) / 8000, 1 / 8000), data3)
     # plt.show()
 
-    # app = QApplication(sys.argv)
-    # ex = drawFrame()
+    app = QApplication(sys.argv)
+    ex = drawFrame()
     # data2 = sosfilt(glo.sos_high, data3)
     # plt.plot(np.arange(0, len(data2) / 8000, 1 / 8000), data2)
     # plt.show()
@@ -447,16 +491,16 @@ if __name__ == '__main__':
     # data = sosfilt(glo.sos_band, data4)
     # plt.plot(np.arange(0, len(data) / 8000, 1 / 8000), data)
     # plt.show()
-    # data = data[2000:]
-    # ex.canvas.ydata = data
-    # ymax = np.max(data)
-    # ymin = np.min(data)
-    # ex.canvas.xdata = np.arange(0, len(data) / 8000, 1 / 8000)
-    # ex.canvas.line.set_data(ex.canvas.xdata, ex.canvas.ydata)
-    # ex.canvas.ax.set_xlim(0, np.max(ex.canvas.xdata) + 1)
-    # ex.canvas.ax.set_ylim(ymin, ymax)
-    # ex.canvas.draw()
+    data = data1[2000:]
+    ex.canvas.ydata = data
+    ymax = np.max(data)
+    ymin = np.min(data)
+    ex.canvas.xdata = np.arange(0, len(data) / 8000, 1 / 8000)
+    ex.canvas.line.set_data(ex.canvas.xdata, ex.canvas.ydata)
+    ex.canvas.ax.set_xlim(0, np.max(ex.canvas.xdata) + 1)
+    ex.canvas.ax.set_ylim(ymin, ymax)
+    ex.canvas.draw()
     # print(data[-100:])
-    # ex.show()
-    # sys.exit(app.exec_())
+    ex.show()
+    sys.exit(app.exec_())
     ...

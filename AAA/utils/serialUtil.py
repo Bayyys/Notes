@@ -3,9 +3,10 @@ import serial.tools.list_ports
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime
 from time import sleep
 import utils.globalParams as glo
+import utils.decodeUtil as decodeUtil
 import time
 
-class getCom(QThread):
+class getCom(QThread):  # 获取串口号线程
     '''获取串口号线程
 
     Signal: comUpdate: 串口号更新信号
@@ -30,8 +31,78 @@ class getCom(QThread):
     def port_listUpdate(self, port_list):
         self.port_list_orignal = port_list
 
+class serialRead(QThread):  # 读取串口数据线程
+    '''读取串口数据线程
+    
+    Signal: dateReadUpdate_new: 读取到的数据更新信号
+            emit: None
+    Signal: serDisconnect: 串口断开信号
+            emit: num_list: 读取到的数据列表
+    
+    (读取串口数据, 并进行解码, 发送更新数据信号)
+    '''
+    serDisconnect = pyqtSignal()
+    dateReadUpdate = pyqtSignal(list)
+    rest = b''
+    index_1 = 8 # 1号通道数据起始位置
+    index_2 = 12    # 2号通道数据起始位置
+    index_3 = 16    # 3号通道数据起始位置
+    index_25 = 104  # 25号通道数据起始位置
+    index_26 = 108  # 26号通道数据起始位置
+    index_27 = 112  # 27号通道数据起始位置
+    index_p = 136  # 通道连接状态起始位置
+    index_n = 140  # 通道连接状态起始位置
+    count = 0
 
-def serialOpen(com, bps, timex):
+    def run(self):
+        print("serialRead start")
+        glo.ser.flushInput()
+        glo.ser.write(glo.send_start)
+        while(glo.connected):
+            if serialIsOpen(glo.ser) == False:
+                print("serialRead stop")
+                self.serDisconnect.emit()
+                serialClose(glo.ser)
+                break
+            if glo.ser.inWaiting():
+                data = glo.ser.read(glo.ser.in_waiting)
+                get = self.bytesSplit(data)
+                self.dateReadUpdate.emit(self.bytesSplit(data))
+                # print(self.count)
+
+    def bytesSplit(self, data):
+        '''解码数据
+        
+        args: data: 读取到的数据
+        
+        return: num_list: 解码后的数据列表'''
+        num_list = [[], []]
+        if len(self.rest) > 0:
+            data = self.rest + data
+        while len(data) > 144:
+            find = data.find(b'\xa5Z')
+            if find != -1 and len(data) > find + 144:
+                index_s = data.find(b'\xa5Z') - 4
+                index_e = index_s + 144
+                get = data[index_s: index_e]
+                if data[self.index_p] & 0x80 == 0:
+                    num1 = 0
+                else:
+                    num1 = decodeUtil.bytestoFloat(get[self.index_1: self.index_2])
+                num_list[0].append(num1)
+                if data[self.index_p] & 0x40 == 0:
+                    num2 = 0
+                else:
+                    num2 = decodeUtil.bytestoFloat(get[self.index_2: self.index_3])
+                num_list[1].append(num2)
+                self.count += 1
+                data = data[index_e:]
+            else:
+                break
+        self.rest = data
+        return num_list
+
+def serialOpen(com, bps, timex):    # 打开串口
     """打开串口
 
     args: com: 串口号; bps: 波特率; timex: 超时时间
@@ -52,7 +123,7 @@ def serialOpen(com, bps, timex):
     finally:
         ...
 
-def serialIsOpen(ser) -> bool:
+def serialIsOpen(ser) -> bool:  # 判断串口是否打开
     ''' 判断串口是否打开
     
     args: ser: 串口对象
@@ -64,7 +135,7 @@ def serialIsOpen(ser) -> bool:
     except:
         return False
 
-def serialClose(ser):
+def serialClose(ser):   # 关闭串口
     '''关闭串口
     
     args: ser: 串口对象'''
@@ -75,121 +146,7 @@ def serialClose(ser):
         print("serialClose: 串口不存在")
         return
 
-
-class serialRead_original(QThread):
-    dateReadUpdate = pyqtSignal(str)
-    serDisconnect = pyqtSignal()
-
-    def run(self):
-        """读取串口数据
-        args: NONE
-        return: NONE
-        """
-        print("serialRead start")
-        glo.ser.flushInput()    # 清空缓冲区
-        while(glo.connected):
-            if serialIsOpen(glo.ser) == False:
-                print("serialRead stop")
-                self.serDisconnect.emit()
-                serialClose(glo.ser)
-                break
-            count = glo.ser.inWaiting() # 获取缓冲区字符
-            print("count: ", count)
-            if count != 0:
-                str0 = glo.ser.readline(glo.ser.in_waiting) # 读取内容并回显
-                str = str0.decode(encoding='utf-8', errors='ignore')
-                self.dateReadUpdate.emit(str)
-            sleep(1)
-
-class serialRead(QThread):
-    '''读取串口数据线程
-    
-    Signal: dateReadUpdate_new: 读取到的数据更新信号
-            emit: None
-    Signal: serDisconnect: 串口断开信号
-            emit: num_list: 读取到的数据列表
-    
-    (读取串口数据, 并进行解码, 发送更新数据信号)
-    '''
-    serDisconnect = pyqtSignal()
-    dateReadUpdate_new = pyqtSignal(list)
-    rest = b''
-    index_25 = 8  # 25号通道数据起始位置
-    index_26 = 12  # 26号通道数据起始位置
-    index_27 = 16  # 27号通道数据起始位置
-    count = 0
-
-    def run(self):
-        print("serialRead start")
-        glo.ser.flushInput()
-        glo.ser.write(glo.send_start)
-        while(glo.connected):
-            if serialIsOpen(glo.ser) == False:
-                print("serialRead stop")
-                self.serDisconnect.emit()
-                serialClose(glo.ser)
-                break
-            if glo.ser.inWaiting():
-                data = glo.ser.read(glo.ser.in_waiting)
-                get = self.bytesSplit(data)
-                self.dateReadUpdate_new.emit(self.bytesSplit(data))
-                # print(self.count)
-
-    def bytesSplit(self, data):
-        '''解码数据
-        
-        args: data: 读取到的数据
-        
-        return: num_list: 解码后的数据列表'''
-        num_list = [[],[]]
-        if len(self.rest) > 0:
-            data = self.rest + data
-        while len(data) > 144:
-            find = data.find(b'\xa5Z')
-            if find != -1 and len(data) > find + 144:
-                index_s = data.find(b'\xa5Z') - 4
-                index_e = index_s + 144
-                get = data[index_s: index_e]
-                if data[-2] & 0x01 == 0:
-                    num1 = 0
-                else:
-                    num1 = self.bytestoFloat(get[self.index_25: self.index_26])
-                num_list[0].append(num1)
-                if data[-2] & 0x02 == 0:
-                    num2 = 0
-                else:
-                    num2 = self.bytestoFloat(get[self.index_26: self.index_27])
-                num_list[1].append(num2)
-                self.count += 1
-                data = data[index_e:]
-            else:
-                break
-        self.rest = data
-        return num_list
-
-    def bytestoFloat(self, data):
-        '''将字节转换为浮点数
-        
-        args: data: 读取到的数据
-        
-        return: data: 转换后的数据'''
-        start_index = 0
-        try:
-            if data[3] > 128:
-                    tmp1 = (~data[start_index]) & 0xff
-                    tmp2 = ((~data[start_index + 1]) & 0xff) << 8
-                    tmp3 = ((~data[start_index + 2]) & 0xff) << 16
-                    data = -(tmp1 + tmp2 + tmp3 + 1)
-                    data = data / 24
-            else:
-                data = int((data[start_index]) + (data[start_index + 1] << 8) + (data[start_index + 2] << 16)
-                        + (data[start_index + 3] << 24))
-                data = data / 24
-            return data
-        except:
-            return 0
-
-class updateFig(QThread):
+class updateFig(QThread):   # WAIT
     def __init__(self, chartList):
         super().__init__()
         self.chartList = chartList
@@ -205,7 +162,8 @@ class updateFig(QThread):
             print(time.time() - time1)
             # print(len(glo.history))
             # sleep(1)
-class processFig(QThread):
+
+class processFig(QThread):  # WAIT
     def __init__(self, chart):
         super().__init__()
         self.chart = chart

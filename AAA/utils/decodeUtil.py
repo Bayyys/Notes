@@ -10,7 +10,27 @@ def signalDecode(str):
     # return [ float(i) for i in re.findall('-?\d+\.?\d*', str)]
     return re.findall('-?\d+\.?\d*', str)
 
-# class signalProcess():
+def bytestoFloat(data):
+    '''将字节转换为浮点数
+    
+    args: data: 读取到的数据
+    
+    return: data: 转换后的数据'''
+    start_index = 0
+    try:
+        if data[3] > 128:
+            tmp1 = (~data[start_index]) & 0xff
+            tmp2 = ((~data[start_index + 1]) & 0xff) << 8
+            tmp3 = ((~data[start_index + 2]) & 0xff) << 16
+            data = -(tmp1 + tmp2 + tmp3 + 1)
+            data = data / 24
+        else:
+            data = int((data[start_index]) + (data[start_index + 1] << 8) + (data[start_index + 2] << 16)
+                        + (data[start_index + 3] << 24))
+            data = data / 24
+        return data
+    except:
+        return 0
 
 def HighPassFilter(cutoffFreq, fs, N=8, ripple=1): # 高通滤波
     # 高通滤波

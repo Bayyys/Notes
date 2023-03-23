@@ -183,8 +183,8 @@ class MyWindow(QMainWindow):
             self.updateEt)   # 信号连接: 串口读取数据 -> 更新文本框
         self.serialRead.serDisconnect.connect(
             self.stop_clicked)    # 信号连接: 串口断开 -> 停止按钮点击事件
-        self.serialRead.dateReadUpdate_new.connect(self.updateData_new)   # 信号连接: 串口读取数据 -> 更新图表
-        self.serialRead.dateReadUpdate_new.connect(self.updateEt_new)   # 信号连接: 串口读取数据 -> 更新文本框
+        self.serialRead.dateReadUpdate.connect(self.updateData_new)   # 信号连接: 串口读取数据 -> 更新图表
+        self.serialRead.dateReadUpdate.connect(self.updateEt_new)   # 信号连接: 串口读取数据 -> 更新文本框
         # self.serialRead.dateReadUpdate_new.connect(self.updateChart_new)   # 信号连接: 串口读取数据 -> 更新图表
         self.serialRead.start()  # 开启串口读取线程
 
