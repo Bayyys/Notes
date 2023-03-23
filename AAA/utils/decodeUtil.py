@@ -1,10 +1,40 @@
+import sys
+sys.path.append('..')
 import re, struct
 import serial
 import time
+from scipy.signal import cheby2, sosfilt
+import utils.globalParams as glo
 
 def signalDecode(str):
     # return [ float(i) for i in re.findall('-?\d+\.?\d*', str)]
     return re.findall('-?\d+\.?\d*', str)
+
+# class signalProcess():
+
+def HighPassFilter(cutoffFreq, fs, N=8, ripple=1): # 高通滤波
+    # 高通滤波
+    print("HighPassFilter Changed!")
+    return cheby2(N=N, rs=ripple,
+                    Wn=cutoffFreq,
+                    btype='highpass', fs=fs,
+                    analog=False, output='sos')
+
+def NotchFilter(cutoffFreq, filterParam, fs, N=8, ripple=1):    # 陷波滤波
+    # 陷波滤波
+    print("NotchFilter Changed!")
+    return cheby2(N=N, rs=ripple,
+                    Wn=[cutoffFreq - filterParam, cutoffFreq + filterParam],
+                    btype='bandstop', fs=fs,
+                    analog=False, output='sos')
+
+def BandPassFilter(passbandFreq, stopbandFreq, fs, N=8, ripple=1):  # 带通滤波
+    # 带通滤波
+    print("BandPassFilter Changed!")
+    return cheby2(N=N, rs=ripple,
+                    Wn=[passbandFreq, stopbandFreq],
+                    btype='bandpass', fs=fs,
+                    analog=False, output='sos')
 
 
 if __name__ == '__main__':

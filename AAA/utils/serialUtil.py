@@ -3,6 +3,7 @@ import serial.tools.list_ports
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime
 from time import sleep
 import utils.globalParams as glo
+import time
 
 class getCom(QThread):
     '''获取串口号线程
@@ -113,9 +114,9 @@ class serialRead(QThread):
     serDisconnect = pyqtSignal()
     dateReadUpdate_new = pyqtSignal(list)
     rest = b''
-    index_25 = 104  # 25号通道数据起始位置
-    index_26 = 108  # 26号通道数据起始位置
-    index_27 = 112  # 27号通道数据起始位置
+    index_25 = 8  # 25号通道数据起始位置
+    index_26 = 12  # 26号通道数据起始位置
+    index_27 = 16  # 27号通道数据起始位置
     count = 0
 
     def run(self):
@@ -196,12 +197,25 @@ class updateFig(QThread):
 
     def run(self):
         while glo.connected:
-            for fig in self.chartList:
-                fig.canvas.draw()
-                # fig.canvas.flush_events()
+            time1 = time.time()
+            # for fig in self.chartList:
+            #     fig.canvas.draw()
+            #     fig.canvas.flush_events()
+            self.chartList.canvas.draw()
+            print(time.time() - time1)
             # print(len(glo.history))
             # sleep(1)
-
+class processFig(QThread):
+    def __init__(self, chart):
+        super().__init__()
+        self.chart = chart
+        # print(self.parent)
+    
+    def run(self):
+        while glo.connected:
+            self.chart.processData()
+            ...
+            
 
 if __name__ == '__main__':
     port_list = list(serial.tools.list_ports.comports())

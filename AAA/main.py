@@ -1,12 +1,12 @@
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QComboBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QComboBox, QVBoxLayout
 from PyQt5.QtCore import Qt, QDateTime, pyqtSignal
 from PyQt5 import uic
 # 串口操作
 import utils.serialUtil as serUtil
 import utils.globalParams as glo
-from ui.drawFrame import drawFrame
+from ui.drawFrame import drawFrame, drawFrameFile
 import threading
 import time
 
@@ -21,65 +21,125 @@ class MyWindow(QMainWindow):
         # self.ui = Ui_MainWindow()
         # self.ui.setupUi(self)
         self.ui = uic.loadUi('ui/mainWindow.ui', self)
-        self.winNum = 2
         # self.iii = 0
         # self.flag = False
         self.time = 0
         self.initUI()
+        self.initDATA()
+    
+    def initDATA(self):
+        # 串口参数设置部分
+        self.searchCom()
+        # 连接部分
+        self.lb_connect.setStyleSheet('QLabel{color: gray}')
+        self.lb_start.setStyleSheet('QLabel{color: gray}')
+        # 信息显示部分
+        self.et_filePath.setText(os.getcwd())
+        self.lb_info.setText('信息显示')
+        self.et_text.setText('设置参数信息并点击开始按钮进行测量')
+        # 信号处理部分
+        glo.YDIS = int(self.box_ydis.currentText())
+        glo.XDIS = int(self.box_xdis.currentText())
+        glo.isHighPassFilter = self.ck_high.isChecked()
+        glo.isNotchFilter = self.ck_notch.isChecked()
+        glo.isBandPassFilter = self.ck_band.isChecked()
+        glo.sample_rate = int(self.box_sample_rate.currentText())
+        # 图表显示列表部分
+        self.chartFrameList = []
+        self.initChartFrame()
 
     def initUI(self):
         # 菜单栏部分
         self.action_open.triggered.connect(self.action_open_clicked)
         self.action_save.triggered.connect(self.saveFile)
         self.action_exit.triggered.connect(self.action_exit_clicked)
-        # 参数设置部分
-        self.searchCom()
         # 连接部分
-        self.lb_connect.setStyleSheet('QLabel{color: gray}')
-        self.lb_start.setStyleSheet('QLabel{color: gray}')
         self.btn_connect.clicked.connect(self.connect_clicked)
         self.btn_disconnect.clicked.connect(self.disconnect_clicked)
         # 按钮部分
         self.btn_start.clicked.connect(self.start_clicked)
         self.btn_stop.clicked.connect(self.stop_clicked)
-        # 信息显示部分
-        self.et_filePath.setText(os.getcwd())
-        self.lb_info.setText('信息显示')
-        self.et_text.setText('设置参数信息并点击开始按钮进行测量')
         # 其他部分
         self.btn_filePath.clicked.connect(self.filePath_clicked)
         self.btn_reset.clicked.connect(self.reset_clicked)
         # 信号处理部分
-        self.box_ydis.currentIndexChanged.connect(self.box_DIS_changed)
-        glo.YDIS = int(self.box_ydis.currentText())
-        self.box_xdis.currentIndexChanged.connect(self.box_DIS_changed)
-        glo.XDIS = int(self.box_xdis.currentText())
-        self.ck_low.clicked.connect(self.ck_low_clicked)
-        glo.isHighPassFilter = self.ck_low.isChecked()
-        self.ck_notch.clicked.connect(self.ck_notch_clicked)
-        glo.isNotchFilter = self.ck_notch.isChecked()
-        self.ck_band.clicked.connect(self.ck_band_clicked)
-        glo.isBandPassFilter = self.ck_band.isChecked()
+        self.box_ydis.currentIndexChanged.connect(self.box_all_DIS_changed)
+        self.box_xdis.currentIndexChanged.connect(self.box_all_DIS_changed)
+        self.ck_high.clicked.connect(self.ck_all_filter_clicked)
+        self.sb_high.valueChanged.connect(self.sb_high_valueChanged)  # TODO
+        self.sb_notch_cutoff.valueChanged.connect(self.sb_notch_valueChanged)  # TODO
+        self.sb_notch_param.valueChanged.connect(self.sb_notch_valueChanged)  # TODO
+        self.sb_band_pass.valueChanged.connect(self.sb_band_valueChanged)  # TODO
+        self.sb_band_stop.valueChanged.connect(self.sb_band_valueChanged)  # TODO
+        self.ck_notch.clicked.connect(self.ck_all_filter_clicked)
+        self.ck_band.clicked.connect(self.ck_all_filter_clicked)
         self.box_sample_rate.currentIndexChanged.connect(self.box_sample_rate_changed)
-        glo.SAMPLE_RATE = int(self.box_sample_rate.currentText())
-        # 图表显示部分
-        self.chartFrameList = []
-        self.initChartFrame()
+        # Tab 部分
+        self.tabWidget.setCurrentIndex(0)
+        # tab_file 部分
+        self.file_btn_open.clicked.connect(self.action_open_clicked)
+        self.file_btn_draw.clicked.connect(self.file_btn_draw_clicked)
+
+    def initDATAFile(self):
+        # 信号处理部分
+        glo.YDIS = int(self.file_box_ydis.currentText())
+        glo.XDIS = int(self.file_box_xdis.currentText())
+        glo.isHighPassFilter = self.file_ck_high.isChecked()
+        glo.isNotchFilter = self.file_ck_notch.isChecked()
+        glo.isBandPassFilter = self.file_ck_band.isChecked()
+        glo.sample_rate = int(self.file_box_sample_rate.currentText())
+
+    def file_btn_draw_clicked(self):
+        for i in range(glo.channel_num):
+            self.chartFrameList[i].history = glo.history[i, :]
+            self.chartFrameList[i].drawFile()
+
+    def sb_high_valueChanged(self):
+        glo.highFilter_high = self.sb_high.value()
+        glo.highFilterUpdate()
+
+    def sb_notch_valueChanged(self):
+        glo.notchFilter_cutoff = self.sb_notch_cutoff.value()
+        glo.notchFilter_param = self.sb_notch_param.value()
+        glo.notchFilterUpdate()
     
+    def sb_band_valueChanged(self):
+        glo.bandFilter_pass = self.sb_band_pass.value()
+        glo.bandFilter_stop = self.sb_band_stop.value()
+        glo.bandFilterUpdate()
+
     def action_open_clicked(self):  # 打开文件事件
         if glo.connected:
             print('请先断开连接')
             return
         dirpath, type = QFileDialog.getOpenFileName(self,
                                                     caption='打开文件', directory=self.et_filePath.text(),
-                                                    filter='CSV(*.csv) ;; 纯文本(*.txt) ;; All Files (*) ', initialFilter='CSV(*.csv)')
+                                                    filter='纯文本(*.txt) ;; CSV(*.csv) ;; All Files (*) ', initialFilter='纯文本(*.txt)')
         if glo.open_data(dirpath, type):
+            self.tabWidget.setCurrentIndex(1)
+            self.file_et_path.setText(dirpath)
+            self.group_tab_file.setEnabled(True)
+            glo.initFilterParams()
+            self.initDATAFile()
+            for i in range(glo.channel_num):
+                self.chartFrameList[i].close()
+            self.chartFrameList.clear()
+            # 清空垂直布局内的表格
+            self.chartFrameList = []
+            self.initChartFrameFile()
             self.et_filePath.setText(dirpath)
             self.lb_info.setText('文件打开成功')
             self.et_text.setText('文件打开成功')
             print(glo.history.shape)
         ...
     
+    def initChartFrameFile(self):
+        for i in range(glo.channel_num):
+            chartFrameItem = drawFrameFile()
+            self.chartFrameList.append(chartFrameItem)
+            self.layoutChart.addWidget(chartFrameItem)
+        ...
+
     def saveFile(self):  # 保存文件
         if glo.history.shape[1] < 2:
             print("请先测量数据")
@@ -94,7 +154,7 @@ class MyWindow(QMainWindow):
     def action_exit_clicked(self):  # 退出事件
         ...
     
-    def box_DIS_changed(self): # 坐标轴轴显示范围改变事件
+    def box_all_DIS_changed(self): # 坐标轴轴显示范围改变事件
         if self.sender().objectName() == 'box_ydis':
             glo.YDIS = int(self.box_ydis.currentText())
             self.YDIS_SIGNAL.emit()
@@ -104,33 +164,31 @@ class MyWindow(QMainWindow):
             self.XDIS_SIGNAL.emit()
             print(glo.XDIS)
         ...
-    
-    def ck_low_clicked(self):   # 低通滤波器选择事件
-        glo.isHighPassFilter = self.ck_low.isChecked()
-        print("HighPassFilter: ", glo.isHighPassFilter)
-        ...
-    
-    def ck_notch_clicked(self): # 带阻滤波器选择事件
-        glo.isNotchFilter = self.ck_notch.isChecked()
-        print("NotchFilter: ", glo.isNotchFilter)
-        ...
 
-    def ck_band_clicked(self):  # 带通滤波器选择事件
-        glo.isBandPassFilter = self.ck_band.isChecked()
-        print("BandPassFilter", glo.isBandPassFilter)
-        ...
-    
+    def ck_all_filter_clicked(self): # 滤波器选择事件
+        if self.sender().objectName() == 'ck_low':
+            glo.isHighPassFilter = self.ck_low.isChecked()
+            print("HighPassFilter: ", glo.isHighPassFilter)
+        
+        elif self.sender().objectName() == 'ck_notch':
+            glo.isNotchFilter = self.ck_notch.isChecked()
+            print("NotchFilter: ", glo.isNotchFilter)
+        
+        elif self.sender().objectName() == 'ck_band':
+            glo.isBandPassFilter = self.ck_band.isChecked()
+            print("BandPassFilter", glo.isBandPassFilter)
+
     def box_sample_rate_changed(self):  # 采样率改变事件
-        glo.SAMPLE_RATE = int(self.box_sample_rate.currentText())
-        print(glo.SAMPLE_RATE)
+        glo.sample_rate = int(self.box_sample_rate.currentText())
+        print(glo.sample_rate)
         ...
 
     def initChartFrame(self):   # 初始化图表 Frame
-        for i in range(self.winNum):
+        for i in range(glo.channel_num):
             chartFrameItem = drawFrame()
             self.XDIS_SIGNAL.connect(chartFrameItem.updateXlim)
             self.YDIS_SIGNAL.connect(chartFrameItem.updateYlim)
-            chartFrameItem.lb_min.setText(str(i))
+            # chartFrameItem.lb_min.setText(str(i))
             self.chartFrameList.append(chartFrameItem)
             self.layoutChart.addWidget(chartFrameItem)
 
@@ -170,6 +228,7 @@ class MyWindow(QMainWindow):
             self.box_bps.currentText(),  # 波特率
             self.box_timex.currentText()))  # 超时时间
         if serUtil.serialIsOpen(glo.get_ser()):    # 连接成功
+            self.group_tab_file.setEnabled(False)
             glo.set_scan(True)
             glo.set_com(self.box_com.currentText().split(' ')[0])
             self.btn_start.setEnabled(True)
@@ -223,9 +282,11 @@ class MyWindow(QMainWindow):
             # self.mythread = threading.Thread(target=self.updateChart)
             # self.mythread.daemon = True
             # self.mythread.start()
+            glo.initFilterParams()
             self.connSuccess()
             self.connSeialThread()
-            self.updateFigThread()
+            self.box_sample_rate.setEnabled(False)
+            # self.updateFigThread()
             # self.connChartTimer()
         else:   # 连接失败
             glo.set_connected(False)
@@ -245,6 +306,7 @@ class MyWindow(QMainWindow):
         self.btn_stop.setEnabled(False)
         self.lb_start.setText('已暂停')
         self.lb_start.setStyleSheet('color: red')
+        self.box_sample_rate.setEnabled(True)
 
     def connSuccess(self):  # 连接成功
         glo.set_connected(True)  # 设置连接状态
@@ -264,8 +326,12 @@ class MyWindow(QMainWindow):
         self.serialRead.start()  # 开启串口读取线程
 
     def updateFigThread(self):  # 更新图表线程
-        self.figThread = serUtil.updateFig(self.chartFrameList)
-        self.figThread.start()
+        for chart in self.chartFrameList:
+            figThread = serUtil.updateFig(chart)
+            # figThread = serUtil.processFig(chart)
+            figThread.start()
+        # self.figThread = serUtil.updateFig(self.chartFrameList)
+        # self.figThread.start()
 
     def updateData(self, data_list):    # 更新数据及图表
         glo.add_history(data_list)
