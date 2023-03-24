@@ -85,15 +85,15 @@ class serialRead(QThread):  # 读取串口数据线程
                 index_s = data.find(b'\xa5Z') - 4
                 index_e = index_s + 144
                 get = data[index_s: index_e]
-                if data[self.index_p] & 0x80 == 0:
+                if data[self.index_1 + self.index_p] & 0x80 == 0:
                     num1 = 0
                 else:
-                    num1 = decodeUtil.bytestoFloat(get[self.index_1: self.index_2])
+                    num1 = self.bytestoFloat(get[self.index_1: self.index_2])
                 num_list[0].append(num1)
-                if data[self.index_p] & 0x40 == 0:
+                if data[self.index_1 + self.index_p] & 0x40 == 0:
                     num2 = 0
                 else:
-                    num2 = decodeUtil.bytestoFloat(get[self.index_2: self.index_3])
+                    num2 = self.bytestoFloat(get[self.index_2: self.index_3])
                 num_list[1].append(num2)
                 self.count += 1
                 data = data[index_e:]
@@ -101,6 +101,28 @@ class serialRead(QThread):  # 读取串口数据线程
                 break
         self.rest = data
         return num_list
+    
+    def bytestoFloat(self, data):
+        '''将字节转换为浮点数
+        
+        args: data: 读取到的数据
+        
+        return: data: 转换后的数据'''
+        start_index = 0
+        try:
+            if data[3] > 128:
+                tmp1 = (~data[start_index]) & 0xff
+                tmp2 = ((~data[start_index + 1]) & 0xff) << 8
+                tmp3 = ((~data[start_index + 2]) & 0xff) << 16
+                data = -(tmp1 + tmp2 + tmp3 + 1)
+                data = data / 24
+            else:
+                data = int((data[start_index]) + (data[start_index + 1] << 8) + (data[start_index + 2] << 16)
+                            + (data[start_index + 3] << 24))
+                data = data / 24
+            return data
+        except:
+            return 0
 
 def serialOpen(com, bps, timex):    # 打开串口
     """打开串口

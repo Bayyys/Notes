@@ -20,6 +20,7 @@ massage_sampleRate = '' # 采样率命令 type: str    # TODO
 send_start = [] # 开始采集命令 type: bytes    # TODO
 send_stop = []  # 停止采集命令 type: bytes    # TODO
 send_sampleRate = []    # 采样率命令 type: bytes    # TODO
+isBaseline = True  # 是否开启基线 type: bool
 isHighPassFilter = False    # 是否开启高通滤波 type: bool
 isNotchFilter = False   # 是否开启陷波滤波 type: bool
 isBandPassFilter = False    # 是否开启带通滤波 type: bool
@@ -28,7 +29,7 @@ YDIS = 200000   # Y轴显示范围 type: int
 sample_rate = 1000  # 采样率 type: int
 
 def __init__():
-    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, massage_start, massage_stop, massage_sampleRate, send_start, send_stop, send_sampleRate, isHighPassFilter, isNotchFilter, isBandPassFilter, XDIS, YDIS, sample_rate, channel_num,  sos_high, sos_notch, sos_band, highFilter_high, notchFilter_cutoff, notchFilter_param, bandFilter_pass, bandFilter_stop
+    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, massage_start, massage_stop, massage_sampleRate, send_start, send_stop, send_sampleRate, isBaseline, isHighPassFilter, isNotchFilter, isBandPassFilter, XDIS, YDIS, sample_rate, channel_num,  sos_high, sos_notch, sos_band, highFilter_high, notchFilter_cutoff, notchFilter_param, bandFilter_pass, bandFilter_stop
     scan = False
     connected = False
     ser = None
@@ -47,6 +48,7 @@ def __init__():
         send_stop += bytes.fromhex(mas) # TODO
     for mas in massage_sampleRate.split(' '):
         send_sampleRate += bytes.fromhex(mas)   # TODO
+    isBaseline = True
     isHighPassFilter = False
     isNotchFilter = False
     isBandPassFilter = False

@@ -30,6 +30,11 @@ class MyWindow(QMainWindow):
         self.action_open.triggered.connect(self.action_open_clicked)    # 菜单栏-打开文件
         self.action_save.triggered.connect(self.action_save_clicked)           # 菜单栏-保存文件
         self.action_exit.triggered.connect(self.action_exit_clicked)    # 菜单栏-退出
+        # Tab 部分
+        self.tabWidget.setCurrentIndex(0)   # 默认显示实时检测部分
+
+        #=========== 实时检测部分 ===========#
+
         # 连接部分
         self.btn_connect.clicked.connect(self.btn_connect_clicked)   # 连接按钮
         self.btn_disconnect.clicked.connect(self.btn_disconnect_clicked)    # 断开连接按钮
@@ -43,6 +48,7 @@ class MyWindow(QMainWindow):
         # 信号处理部分
         self.box_ydis.currentIndexChanged.connect(self.box_all_DIS_changed) # Y轴显示范围
         self.box_xdis.currentIndexChanged.connect(self.box_all_DIS_changed) # X轴显示范围
+        self.ck_baseline.clicked.connect(self.ck_all_filter_clicked)    # 基线开关
         self.ck_high.clicked.connect(self.ck_all_filter_clicked)    # 高通滤波器开关
         self.ck_notch.clicked.connect(self.ck_all_filter_clicked)   # 陷波滤波器开关
         self.ck_band.clicked.connect(self.ck_all_filter_clicked)    # 带通滤波器开关
@@ -52,11 +58,35 @@ class MyWindow(QMainWindow):
         self.sb_band_pass.valueChanged.connect(self.sb_band_valueChanged)   # 带通滤波器通带频率
         self.sb_band_stop.valueChanged.connect(self.sb_band_valueChanged)   # 带通滤波器阻带频率
         self.box_sample_rate.currentIndexChanged.connect(self.box_sample_rate_changed)  # 采样率
-        # Tab 部分
-        self.tabWidget.setCurrentIndex(0)   # 默认显示实时检测部分
-        # tab_file 部分
+
+        #=========== 历史数据部分 ===========#
+
+        # 文件操作部分
         self.file_btn_open.clicked.connect(self.action_open_clicked)    # 打开文件按钮
         self.file_btn_draw.clicked.connect(self.file_btn_draw_clicked)  # 绘制按钮
+        self.file_btn_reset.clicked.connect(self.file_btn_reset_clicked)    # 重置按钮
+        # 信号处理部分
+        self.file_box_ydis.currentIndexChanged.connect(
+            self.file_box_all_DIS_changed)  # Y轴显示范围
+        self.file_box_xdis.currentIndexChanged.connect(
+            self.file_box_all_DIS_changed)  # X轴显示范围
+        self.file_ck_baseline.clicked.connect(self.file_ck_all_filter_clicked)    # 基线开关
+        self.file_ck_high.clicked.connect(self.file_ck_all_filter_clicked)    # 高通滤波器开关
+        self.file_ck_notch.clicked.connect(self.file_ck_all_filter_clicked)   # 陷波滤波器开关
+        self.file_ck_band.clicked.connect(
+            self.file_ck_all_filter_clicked)    # 带通滤波器开关
+        self.file_sb_high.valueChanged.connect(
+            self.sb_high_valueChanged)  # 高通滤波器截止频率
+        self.file_sb_notch_cutoff.valueChanged.connect(
+            self.sb_notch_valueChanged)   # 陷波滤波器截止频率
+        self.file_sb_notch_param.valueChanged.connect(
+            self.sb_notch_valueChanged)  # 陷波滤波器参数
+        self.file_sb_band_pass.valueChanged.connect(
+            self.sb_band_valueChanged)   # 带通滤波器通带频率
+        self.file_sb_band_stop.valueChanged.connect(
+            self.sb_band_valueChanged)   # 带通滤波器阻带频率
+        self.file_box_sample_rate.currentIndexChanged.connect(
+            self.box_sample_rate_changed)  # 采样率
 
     #============================= 实时检测界面 =============================#
 
@@ -116,7 +146,7 @@ class MyWindow(QMainWindow):
             self.et_filePath.setText(dirpath)
             self.lb_info.setText('文件打开成功')
             self.et_text.setText('文件打开成功')
-            print(glo.history.shape)
+            # print(glo.history.shape)
         ...
 
     def action_save_clicked(self):  # 保存文件
@@ -253,7 +283,10 @@ class MyWindow(QMainWindow):
         ...
 
     def ck_all_filter_clicked(self):  # 滤波器选择事件
-        if self.sender().objectName() == 'ck_low':
+        if self.render().objectName() == 'ck_baseline':
+            glo.isBaseline = self.ck_baseline.isChecked()
+            print("Baseline: ", glo.isBaseline)
+        elif self.sender().objectName() == 'ck_low':
             glo.isHighPassFilter = self.ck_low.isChecked()
             print("HighPassFilter: ", glo.isHighPassFilter)
 
@@ -361,15 +394,57 @@ class MyWindow(QMainWindow):
     def initChartFrameFile(self):   # 初始化历史数据界面的图表显示列表
         for i in range(glo.channel_num):
             chartFrameItem = drawFrameFile()
+            self.YDIS_SIGNAL.connect(chartFrameItem.updateYlim)
             self.chartFrameList.append(chartFrameItem)
             self.layoutChart.addWidget(chartFrameItem)
         ...
 
     def file_btn_draw_clicked(self):    # 历史数据绘制按钮事件
-        for i in range(glo.channel_num):
-            self.chartFrameList[i].history = glo.history[i, :]
-            self.chartFrameList[i].drawFile()
+        if self.file_btn_draw.text() == '绘制':
+            for i in range(glo.channel_num):
+                self.chartFrameList[i].history = glo.history[i, :]
+                self.chartFrameList[i].drawFile()
+            self.file_btn_draw.setText('重新绘制')
+        else:
+            for i in range(glo.channel_num):
+                self.chartFrameList[i].drawFileAgain()
+                print("重新绘制")
+        ...
     
+    def file_btn_reset_clicked(self):    # 重置按钮点击事件
+        for chartFrame in self.chartFrameList:
+            chartFrame.canvas.zoomReset()
+            chartFrame.setVisible(True)
+            # chartFrame.chart.zoomReset()
+        ...
+
+    def file_box_all_DIS_changed(self):  # 坐标轴轴显示范围改变事件
+        if self.sender().objectName() == 'file_box_ydis':
+            glo.YDIS = int(self.file_box_ydis.currentText())
+            self.YDIS_SIGNAL.emit()
+            print(glo.YDIS)
+        elif self.sender().objectName() == 'file_box_xdis':
+            glo.XDIS = int(self.file_box_xdis.currentText())
+            # self.XDIS_SIGNAL.emit()
+            print(glo.XDIS)
+        ...
+
+    def file_ck_all_filter_clicked(self):  # 滤波器选择事件
+        if self.sender().objectName() == 'file_ck_baseline':
+            glo.isBaseline = self.file_ck_baseline.isChecked()
+            print("Baseline: ", glo.isBaseline)
+        elif self.sender().objectName() == 'file_ck_low':
+            glo.isHighPassFilter = self.file_ck_low.isChecked()
+            print("HighPassFilter: ", glo.isHighPassFilter)
+
+        elif self.sender().objectName() == 'file_ck_notch':
+            glo.isNotchFilter = self.file_ck_notch.isChecked()
+            print("NotchFilter: ", glo.isNotchFilter)
+
+        elif self.sender().objectName() == 'file_ck_band':
+            glo.isBandPassFilter = self.file_ck_band.isChecked()
+            print("BandPassFilter", glo.isBandPassFilter)
+
     #============================ 窗口线程重写 ============================#
 
     def keyPressEvent(self, e):  # 重写键盘事件: 按下ESC键关闭串口
