@@ -1,1 +1,1 @@
-group_tab_file
+class MyWindow(QMainWindow, Ui_MainWindow):

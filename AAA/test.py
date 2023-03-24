@@ -63,14 +63,14 @@ class myThread(QThread):
         print("stop")
 
     def run(self):
-        self.ser.flush()
+        self.ser.flushInput()
         while True:
             # print(self.flag)
             if self.flag and self.ser.in_waiting:
                 data = self.ser.read(self.ser.in_waiting)
                 self.sig.emit(data)
                 print("--------------------")
-                self.bytesSplit(data)
+                self.bytesSplit2(data)
                 # self.count += 1
                 print('count' + str(self.count))
                 sleep(0.000125)
@@ -81,7 +81,7 @@ class myThread(QThread):
         while len(data) > 144:
             if data.find(b'\xa5Z') != -1:
                 index_s = data.find(b'\xa5Z') - 4
-                index_e = index_s + 144
+                index_e = index_s + 24
                 get = data[index_s: index_e]
                 # print(get)
                 self.count += 1
@@ -91,6 +91,20 @@ class myThread(QThread):
             else:
                 break
         print(self.rest)
+
+    def bytesSplit2(self, data):
+        if len(self.rest) > 0:
+            data = self.rest + data
+        while len(data) > 24:
+            find = data.find(b'\xa5Z')
+            if find != -1 and len(data) > find + 24:
+                index_s = data.find(b'\xa5Z') + 4
+                index_e = index_s + 10
+                get = data[index_s: index_e]
+                # print(get)
+                self.count += 1
+            else:
+                break
 
 
 class mainWin(QWidget):

@@ -5,7 +5,7 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import butter, filtfilt, cheby1, cheby2, sosfilt, detrend
-from PyQt5.QtCore import Qt, QTimer, QCoreApplication, QThread, QMutex
+from PyQt5.QtCore import Qt, QTimer, QCoreApplication, QThread, QMutex, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QMainWindow, QSizePolicy, QVBoxLayout, QHBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFrame, QCheckBox
 from PyQt5 import uic
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -13,6 +13,58 @@ import threading
 from ui.draw import Ui_Form
 import utils.globalParams as glo
 from matplotlib.widgets import SpanSelector
+
+class FFTThread(QThread):
+    fftSignal = pyqtSignal(np.ndarray, np.ndarray)
+    def __init__(self, parent=None):
+        super(FFTThread, self).__init__(parent)
+        self.mutex = QMutex()
+        self.mutex.lock()
+        self.data = []
+        self.mutex.unlock()
+
+    def run(self):
+        while(glo.connected):
+            # self.mutex.lock()
+            # if len(self.data) > 0:
+                # data = self.data
+                # self.data = []
+                # self.mutex.unlock()
+                # data = np.array(data)
+                # data = data[:, 1]
+            # data = data.astype(np.float)
+            if glo.history.shape[1] > glo.sample_rate:
+                data = glo.history[0, -glo.sample_rate:]
+                data = data - np.mean(data)
+                data = data * np.hamming(len(data))
+                data = np.abs(np.fft.fft(data))
+                data = data[0:int(len(data) / 2)]
+                data = data / max(data) if max(data) != 0 else np.arange(len(data))
+                data = data * 100
+                xdata = np.linspace(0, glo.sample_rate / 2, len(data))
+                ydata = data
+                self.fftSignal.emit(xdata, ydata)
+            # else:
+                # self.mutex.unlock()
+            time.sleep(0.1)
+
+# 绘制 频谱图
+class FFTCanvas(FigureCanvas):
+    def __init__(self, parent=None):
+        self.fig, self.ax = plt.subplots()
+        self.ax.set_xlim(0, 100)
+        self.ax.set_ylim(0, 100)
+        self.line, = self.ax.plot([], [])
+        self.fig.set_constrained_layout(True)   # 自动调整子图间距
+        FigureCanvas.__init__(self, self.fig)
+        self.setParent(parent)
+        FigureCanvas.setSizePolicy(self, QSizePolicy.Expanding, QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
+
+    def updateFFT(self, xdata, ydata):
+        self.line.set_xdata(xdata)
+        self.line.set_ydata(ydata)
+        self.draw()
 
 class MyMplCanvasFile(FigureCanvas):
 
@@ -121,11 +173,11 @@ class drawFrameFile(QFrame, Ui_Form):
 
     def __init__(self):
         super().__init__()
-        # self.setupUi(self)
-        try:
-            self.ui = uic.loadUi('ui/draw.ui', self)
-        except:
-            self.ui = uic.loadUi('draw.ui', self)
+        self.setupUi(self)
+        # try:
+        #     self.ui = uic.loadUi('ui/draw.ui', self)
+        # except:
+        #     self.ui = uic.loadUi('draw.ui', self)
         self.initUI()
 
     def initUI(self):
@@ -157,6 +209,8 @@ class drawFrameFile(QFrame, Ui_Form):
         if glo.isBaseline:
             data_process = detrend(data_process, type='constant')
             data_process = detrend(data_process, type='linear')
+        if glo.isLowPassFilter:
+            data_process = sosfilt(glo.sos_low, data_process)
         if glo.isHighPassFilter:
             data_process = sosfilt(glo.sos_high, data_process)
         if glo.isNotchFilter:
@@ -172,45 +226,7 @@ class drawFrameFile(QFrame, Ui_Form):
         # print(self.canvas.YMIN, self.canvas.YMAX)
         self.canvas.line.set_data(self.canvas.xdata, data_process)
         self.canvas.draw()
-
-    def addData(self, data):    # 添加数据
-        if self.detrendFlag == True:
-            data = detrend(data, type='constant')
-        self.data_process = np.append(self.data_process, data)
-        if self.data_process.size <= 100:
-            return
-        data = self.data_process.copy()
-        self.data_process = np.array([])
-        len_data = len(data)
-        time1 = time.time()
-        self.history = np.append(self.history, data)[-8000:]
-        # print(self.history.shape)
-        if (glo.isHighPassFilter or glo.isNotchFilter or glo.
-                isBandPassFilter) and glo.len_history() > 1000:
-            data_filter = self.history.copy()
-            if glo.isHighPassFilter:
-                data_filter = sosfilt(glo.sos_high, data_filter)
-            if glo.isNotchFilter:
-                data_filter = sosfilt(glo.sos_notch, data_filter)
-            if glo.isBandPassFilter:
-                data_filter = sosfilt(glo.sos_band, data_filter)
-            data = data_filter[-len_data:]
-
-        self.canvas.ydata[:-len_data] = self.canvas.ydata[len_data:]
-        self.canvas.ydata[-len_data:] = data
-        # self.canvas.ydata[-len_data:] = self.history[-len_data:]
-        # print(self.detrendFlag)
-        # if self.detrendFlag == True:
-        #     print("detrend")
-        #     self.canvas.ydata = detrend(self.canvas.ydata, type='constant')
-
-        self.canvas.line.set_ydata(self.canvas.ydata)
-        self.lb_min.setText(str(np.round(min(self.canvas.ydata[-500:]), 3)))
-        self.lb_max.setText(str(np.round(max(self.canvas.ydata[-500:]), 3)))
-        self.lb_rms.setText(
-            str(np.round(np.sqrt(np.mean(self.canvas.ydata[-500:]**2)), 3)))
-        # print("time: ", time.time() - time1)
-
+    
     def updateYlim(self):   # 更新Y轴范围
         self.canvas.ax.set_ylim(-glo.YDIS, glo.YDIS)
         # self.canvas.Ydis = glo.YDIS
@@ -233,7 +249,7 @@ class drawFrameFile(QFrame, Ui_Form):
 class MyMplCanvas(FigureCanvas):
     start_point = (0, 0)
     end_point = (0, 0)
-    XMAX = 5000
+    XMAX = 8000
     Xdis = 1000
     Ydis = 200000
     xdata = np.array([])
@@ -290,18 +306,18 @@ class MyMplCanvas(FigureCanvas):
         # self.fig.canvas.mpl_connect("button_release_event", self.on_release)
         # self.fig.canvas.mpl_connect("motion_notify_event", self.on_move)
 
-    # def onselect(self, xmin, xmax):
-    #     indmin, indmax = np.searchsorted(self.xdata, (xmin, xmax))
-    #     indmax = min(len(self.xdata) - 1, indmax)
+        # def onselect(self, xmin, xmax):
+        #     indmin, indmax = np.searchsorted(self.xdata, (xmin, xmax))
+        #     indmax = min(len(self.xdata) - 1, indmax)
 
-    #     region_x = self.xdata[indmin:indmax]
-    #     region_y = self.ydata[indmin:indmax]
+        #     region_x = self.xdata[indmin:indmax]
+        #     region_y = self.ydata[indmin:indmax]
 
-    #     if len(region_x) >= 2:
-    #         self.line2.set_data(region_x, region_y)
-    #         self.ax2.set_xlim(region_x[0], region_x[-1])
-    #         self.ax2.set_ylim(region_y.min(), region_y.max())
-    #         self.fig.canvas.draw_idle()
+        #     if len(region_x) >= 2:
+        #         self.line2.set_data(region_x, region_y)
+        #         self.ax2.set_xlim(region_x[0], region_x[-1])
+        #         self.ax2.set_ylim(region_y.min(), region_y.max())
+        #         self.fig.canvas.draw_idle()
 
     def initData(self):
         self.xdata = np.arange(0, self.XMAX, 1)
@@ -406,13 +422,14 @@ class MyMplCanvas(FigureCanvas):
 class drawFrame(QFrame, Ui_Form):
     history = np.array([])
     data_process = np.array([])
+
     def __init__(self):
         super().__init__()
-        # self.setupUi(self)
-        try:
-            self.ui = uic.loadUi('ui/draw.ui', self)
-        except:
-            self.ui = uic.loadUi('draw.ui', self)
+        self.setupUi(self)
+        # try:
+        #     self.ui = uic.loadUi('ui/draw.ui', self)
+        # except:
+        #     self.ui = uic.loadUi('draw.ui', self)
         self.initUI()
         # ani = animation(self.canvas.fig, self.test, interval = 50)
         # self.initData()
@@ -432,31 +449,36 @@ class drawFrame(QFrame, Ui_Form):
         # self.btn_close.clicked.connect(self.dataTimer)
         ...
     
-
-
     def addData(self, data):    # 添加数据
-        self.data_process = np.append(self.data_process, data)
-        if self.data_process.size <= 10:
-            return
-        if glo.isBaseline == True:
-            self.data_process = detrend(self.data_process, type='constant')
-        data = self.data_process.copy()
-        self.data_process = np.array([])
+        # self.data_process = np.append(self.data_process, data)
+        # if self.data_process.size <= glo.sample_rate / 100:
+            # return
+        # self.data_process = self.data_process[-100:]
+        # if glo.isBaseline == True:
+        #     self.data_process = detrend(self.data_process, type='constant')
+        # data = self.data_process.copy()
+        # self.data_process = np.array([])
         len_data = len(data)
-        time1 = time.time()
+        # time1 = time.time()
         self.history = np.append(self.history, data)[-8000:]
         # print(self.history.shape)
-        if (glo.isHighPassFilter or glo.isNotchFilter or glo.
-                isBandPassFilter) and glo.len_history() > 1000:
+        # if (glo.isHighPassFilter or glo.isNotchFilter or glo.
+        #         isBandPassFilter) and glo.len_history() > 1000:
             # data_filter = self.history.copy()
-            process = np.append(self.history, data)[-200:].copy()
-            if glo.isHighPassFilter:
-                process = sosfilt(glo.sos_high, process)
-            if glo.isNotchFilter:
-                process = sosfilt(glo.sos_notch, process)
-            if glo.isBandPassFilter:
-                process = sosfilt(glo.sos_band, process)
-            data = process[-len_data:]
+        if glo.isBaseline:
+            data_filter = detrend(self.history[-glo.sample_rate:].copy(), type='constant')
+        else:
+            data_filter = self.history.copy()
+        process = data_filter
+        if glo.isLowPassFilter:
+            process = sosfilt(glo.sos_low, process)
+        if glo.isHighPassFilter:
+            process = sosfilt(glo.sos_high, process)
+        if glo.isNotchFilter:
+            process = sosfilt(glo.sos_notch, process)
+        if glo.isBandPassFilter:
+            process = sosfilt(glo.sos_band, process)
+        data = process[-len_data:]
 
         self.canvas.ydata[:-len_data] = self.canvas.ydata[len_data:]
         self.canvas.ydata[-len_data:] = data

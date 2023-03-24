@@ -1,4 +1,4 @@
-from utils.decodeUtil import HighPassFilter, NotchFilter, BandPassFilter
+from utils import decodeUtil
 import sys
 sys.path.append('..')
 from PyQt5.QtCore import QMutex, pyqtSignal
@@ -21,6 +21,7 @@ send_start = [] # 开始采集命令 type: bytes    # TODO
 send_stop = []  # 停止采集命令 type: bytes    # TODO
 send_sampleRate = []    # 采样率命令 type: bytes    # TODO
 isBaseline = True  # 是否开启基线 type: bool
+ifLowPassFilter = False # 是否开启低通滤波 type: bool
 isHighPassFilter = False    # 是否开启高通滤波 type: bool
 isNotchFilter = False   # 是否开启陷波滤波 type: bool
 isBandPassFilter = False    # 是否开启带通滤波 type: bool
@@ -29,7 +30,7 @@ YDIS = 200000   # Y轴显示范围 type: int
 sample_rate = 1000  # 采样率 type: int
 
 def __init__():
-    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, massage_start, massage_stop, massage_sampleRate, send_start, send_stop, send_sampleRate, isBaseline, isHighPassFilter, isNotchFilter, isBandPassFilter, XDIS, YDIS, sample_rate, channel_num,  sos_high, sos_notch, sos_band, highFilter_high, notchFilter_cutoff, notchFilter_param, bandFilter_pass, bandFilter_stop
+    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, massage_start, massage_stop, massage_sampleRate, send_start, send_stop, send_sampleRate, isBaseline, isLowPassFilter, isHighPassFilter, isNotchFilter, isBandPassFilter, XDIS, YDIS, sample_rate, channel_num, sos_low, sos_high, sos_notch, sos_band, lowFilter_low, highFilter_low, highFilter_high, notchFilter_cutoff, notchFilter_param, bandFilter_pass, bandFilter_stop
     scan = False
     connected = False
     ser = None
@@ -49,16 +50,19 @@ def __init__():
     for mas in massage_sampleRate.split(' '):
         send_sampleRate += bytes.fromhex(mas)   # TODO
     isBaseline = True
+    isLowPassFilter = False
     isHighPassFilter = False
     isNotchFilter = False
     isBandPassFilter = False
     XDIS = 8000
     YDIS = 200000
     sample_rate = 1000
-    channel_num = 2
+    channel_num = 32
+    sos_low = None
     sos_high = None
     sos_notch = None
     sos_band = None
+    lowFilter_low = 50
     highFilter_high = 1
     notchFilter_cutoff = 50
     notchFilter_param = 10
@@ -67,21 +71,26 @@ def __init__():
 
 def initFilterParams():
     global sos_high, sos_notch, sos_band
-    sos_high = HighPassFilter(highFilter_high, sample_rate)
-    sos_notch = NotchFilter(notchFilter_cutoff, notchFilter_param, sample_rate)
-    sos_band = BandPassFilter(bandFilter_pass, bandFilter_stop, sample_rate)
+    sos_low = decodeUtil.LowPassFilter(lowFilter_low, sample_rate)
+    sos_high = decodeUtil.HighPassFilter(highFilter_high, sample_rate)
+    sos_notch = decodeUtil.NotchFilter(notchFilter_cutoff, notchFilter_param, sample_rate)
+    sos_band = decodeUtil.BandPassFilter(bandFilter_pass, bandFilter_stop, sample_rate)
+
+def lowFilterUpdate():
+    global sos_low, lowFilter_low
+    sos_low = decodeUtil.LowPassFilter(lowFilter_low, sample_rate)
 
 def highFilterUpdate():
     global sos_high, highFilter_high
-    sos_high = HighPassFilter(highFilter_high, sample_rate)
+    sos_high = decodeUtil.HighPassFilter(highFilter_high, sample_rate)
 
 def notchFilterUpdate():
     global sos_notch, notchFilter_cutoff, notchFilter_param
-    sos_notch = NotchFilter(notchFilter_cutoff, notchFilter_param, sample_rate)
+    sos_notch = decodeUtil.NotchFilter(notchFilter_cutoff, notchFilter_param, sample_rate)
 
 def bandFilterUpdate():
     global sos_band, bandFilter_pass, bandFilter_stop
-    sos_band = BandPassFilter(bandFilter_pass, bandFilter_stop, sample_rate)
+    sos_band = decodeUtil.BandPassFilter(bandFilter_pass, bandFilter_stop, sample_rate)
 
 def get_scan():
     return scan
