@@ -326,7 +326,6 @@ class drawFrame(QFrame, Ui_Form):
         self.canvasLayout.addWidget(self.canvas)
         self.btn_reset.clicked.connect(lambda: self.canvas.zoomReset())
         self.btn_close.clicked.connect(lambda: self.setVisible(False))
-        self.btn_test.clicked.connect(self.testFunc)
         # self.canvas2 = MyMplCanvas2()
         # self.frame1Layout.addWidget(self.canvas2)
         # self.canvas3 = MyMplCanvas2()
@@ -336,11 +335,8 @@ class drawFrame(QFrame, Ui_Form):
         # self.btn_close.clicked.connect(self.dataTimer)
         ...
     
-    def testFunc(self):
-        self.detrendFlag = not self.detrendFlag
-
     def addData(self, data):    # 添加数据
-        if self.detrendFlag == True:
+        if glo.isBaseline == True:
             data = detrend(data, type='constant')
         self.data_process = np.append(self.data_process, data)
         if self.data_process.size <= 100:

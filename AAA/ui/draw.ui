@@ -192,13 +192,6 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_test">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="btn_reset">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">

@@ -146,6 +146,9 @@ class drawFrameFile(QFrame, Ui_Form):
         # print(self.canvas.YMIN, self.canvas.YMAX)
         self.canvas.ax.set_xlim(self.canvas.xdata[0], self.canvas.xdata[-1])
         self.canvas.ax.set_ylim(-self.canvas.YMAX, self.canvas.YMAX)
+        self.lb_max.setText(str(np.round(max(self.canvas.ydata), 2)))
+        self.lb_min.setText(str(np.round(min(self.canvas.ydata), 2)))
+        self.lb_rms.setText(str(np.round(np.sqrt(np.mean(self.canvas.ydata ** 2)), 2)))
         self.canvas.line.set_data(self.canvas.xdata, self.canvas.ydata)
         self.canvas.draw()
     
@@ -163,6 +166,9 @@ class drawFrameFile(QFrame, Ui_Form):
         self.canvas.Ydis = glo.YDIS
         self.canvas.YMIN = data_process.min()
         self.canvas.YMAX = data_process.max()
+        self.lb_max.setText(str(np.round(max(data_process), 2)))
+        self.lb_min.setText(str(np.round(min(data_process), 2)))
+        self.lb_rms.setText(str(np.round(np.sqrt(np.mean(data_process ** 2)), 2)))
         # print(self.canvas.YMIN, self.canvas.YMAX)
         self.canvas.line.set_data(self.canvas.xdata, data_process)
         self.canvas.draw()
@@ -417,7 +423,6 @@ class drawFrame(QFrame, Ui_Form):
         self.canvasLayout.addWidget(self.canvas)
         self.btn_reset.clicked.connect(lambda: self.canvas.zoomReset())
         self.btn_close.clicked.connect(lambda: self.setVisible(False))
-        self.btn_test.clicked.connect(self.testFunc)
         # self.canvas2 = MyMplCanvas2()
         # self.frame1Layout.addWidget(self.canvas2)
         # self.canvas3 = MyMplCanvas2()
@@ -427,12 +432,9 @@ class drawFrame(QFrame, Ui_Form):
         # self.btn_close.clicked.connect(self.dataTimer)
         ...
     
-    def testFunc(self):
-        self.detrendFlag = not self.detrendFlag
+
 
     def addData(self, data):    # 添加数据
-        # if self.detrendFlag == True:
-        #     data = detrend(data, type='constant')
         self.data_process = np.append(self.data_process, data)
         if self.data_process.size <= 10:
             return

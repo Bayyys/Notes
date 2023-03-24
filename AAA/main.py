@@ -7,6 +7,7 @@ from PyQt5 import uic
 import utils.serialUtil as serUtil
 import utils.globalParams as glo
 from ui.drawFrame import drawFrame, drawFrameFile
+from ui.mainWindow import Ui_MainWindow
 import threading
 import time
 
@@ -63,6 +64,8 @@ class MyWindow(QMainWindow):
 
         # 文件操作部分
         self.file_btn_open.clicked.connect(self.action_open_clicked)    # 打开文件按钮
+        self.file_btn_dataload.setVisible(False)    # 数据加载按钮: 隐藏
+        self.file_btn_dataload.clicked.connect(self.file_btn_dataload_clicked)  # 数据加载按钮
         self.file_btn_draw.clicked.connect(self.file_btn_draw_clicked)  # 绘制按钮
         self.file_btn_reset.clicked.connect(self.file_btn_reset_clicked)    # 重置按钮
         # 信号处理部分
@@ -135,6 +138,7 @@ class MyWindow(QMainWindow):
             self.tabWidget.setCurrentIndex(1)
             self.file_et_path.setText(dirpath)
             self.group_tab_file.setEnabled(True)
+            self.group_setting_file.setEnabled(True)
             glo.initFilterParams()
             self.initDATAFile()
             for i in range(glo.channel_num):
@@ -159,6 +163,7 @@ class MyWindow(QMainWindow):
         dirpath, type = QFileDialog.getSaveFileName(self,
                                                     directory=self.et_filePath.text()+QDateTime.currentDateTime().toString('/yy-MM-dd-hhmmss'), caption='保存文件', filter='CSV(*.csv) ;;纯文本(*.txt)', initialFilter='CSV(*.csv)')
         glo.save_data(dirpath, type)
+        self.file_btn_dataload.setVisible(True) # 保存成功后, 打开数据加载按钮
 
     def action_exit_clicked(self):  # 退出事件
         ...
@@ -251,7 +256,6 @@ class MyWindow(QMainWindow):
         self.btn_stop.setEnabled(False)
         self.lb_start.setText('已暂停')
         self.lb_start.setStyleSheet('color: red')
-        self.box_sample_rate.setEnabled(True)
 
     def box_com_changed(self):  # 串口号改变事
         if glo.get_scan():  # 当前已经连接, 避免重复连接
@@ -381,6 +385,22 @@ class MyWindow(QMainWindow):
 
 
     #============================ 历史数据界面 ============================#
+
+    def file_btn_dataload_clicked(self):  # 历史数据界面：数据加载按钮点击事件
+        self.file_btn_dataload.setVisible(False)
+        self.file_et_path.setText("实时检测数据")
+        self.group_tab_file.setEnabled(True)
+        self.group_setting_file.setEnabled(True)
+        glo.initFilterParams()
+        self.initDATAFile()
+        for i in range(glo.channel_num):
+            self.chartFrameList[i].close()
+        self.chartFrameList.clear()
+        # 清空垂直布局内的表格
+        self.chartFrameList = []
+        self.initChartFrameFile()
+        self.lb_info.setText('文件打开成功')
+        self.et_text.setText('文件打开成功')
 
     def initDATAFile(self): # 历史数据界面初始化数据
         # 信号处理部分
