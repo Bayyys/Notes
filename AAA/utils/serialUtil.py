@@ -27,6 +27,7 @@ class getCom(QThread):  # 获取串口号线程
                     exit()
                 else:
                     self.comUpdate.emit(port_list)
+            sleep(1)
                 
     def port_listUpdate(self, port_list):
         self.port_list_orignal = port_list

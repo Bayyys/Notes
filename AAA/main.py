@@ -1,85 +1,111 @@
 import sys
 import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QComboBox, QVBoxLayout
-from PyQt5.QtCore import Qt, QDateTime, pyqtSignal
+from PyQt5.QtCore import Qt, QDateTime, pyqtSignal, QThread, QMutex
 from PyQt5 import uic
 # 串口操作
 import utils.serialUtil as serUtil
 import utils.globalParams as glo
 from ui.drawFrame import drawFrame, drawFrameFile, FFTCanvas, FFTThread
 from ui.mainWindow import Ui_MainWindow
+import numpy as np
 import threading
 import time
 
 
-class MyWindow(QMainWindow, Ui_MainWindow):
+class MyWindow(QMainWindow):
     XDIS_SIGNAL = pyqtSignal()
     YDIS_SIGNAL = pyqtSignal()
     SAMPLE_RATE_SIGNAL = pyqtSignal()
+    data_process_list = np.array([[], []])
+    data_list1_mutex = QMutex()
+    data_list2_mutex = QMutex()
 
     def __init__(self):
         super().__init__()
-        # self.ui = Ui_MainWindow()
-        self.setupUi(self)
-        # self.ui = uic.loadUi('ui/mainWindow.ui', self)
-        self.time = 0
+        # self.setupUi(self)
+        self.ui = uic.loadUi('ui/mainWindow.ui', self)
         self.initUI()   # 初始化UI界面
         self.initDATA() # 初始化数据
     
     def initUI(self):
-        # 菜单栏部分
+        self.initMenuUI()   # 菜单栏初始化
+        self.initRealTimeUI()   # 实时检测界面初始化
+        self.initFileUI()   # 文件处理界面初始化
+
+    def initMenuUI(self):  # 菜单栏初始化
+         # 菜单栏部分
         self.action_open.triggered.connect(self.action_open_clicked)    # 菜单栏-打开文件
         self.action_save.triggered.connect(self.action_save_clicked)           # 菜单栏-保存文件
         self.action_exit.triggered.connect(self.action_exit_clicked)    # 菜单栏-退出
         # Tab 部分
         self.tabWidget.setCurrentIndex(0)   # 默认显示实时检测部分
-
+    
+    def initRealTimeUI(self):  # 实时检测界面初始化
         #=========== 实时检测部分 ===========#
-
         # 连接部分
         self.btn_connect.clicked.connect(self.btn_connect_clicked)   # 连接按钮
-        self.btn_disconnect.clicked.connect(self.btn_disconnect_clicked)    # 断开连接按钮
-        self.box_com.currentIndexChanged.connect(self.box_com_changed)  # Com 端口选择
+        self.btn_disconnect.clicked.connect(
+            self.btn_disconnect_clicked)    # 断开连接按钮
+        self.box_com.currentIndexChanged.connect(
+            self.box_com_changed)  # Com 端口选择
         # 按钮部分
         self.btn_start.clicked.connect(self.btn_start_clicked)  # 开始按钮
         self.btn_stop.clicked.connect(self.btn_stop_clicked)    # 停止按钮
         # 其他部分
-        self.btn_filePath.clicked.connect(self.btn_filePath_clicked)    # 文件路径按钮
+        self.btn_filePath.clicked.connect(
+            self.btn_filePath_clicked)    # 文件路径按钮
         self.btn_reset.clicked.connect(self.btn_reset_clicked)  # 重置按钮
         # 信号处理部分
-        self.box_ydis.currentIndexChanged.connect(self.box_all_DIS_changed) # Y轴显示范围
-        self.box_xdis.currentIndexChanged.connect(self.box_all_DIS_changed) # X轴显示范围
+        self.box_ydis.currentIndexChanged.connect(
+            self.box_all_DIS_changed)  # Y轴显示范围
+        self.box_xdis.currentIndexChanged.connect(
+            self.box_all_DIS_changed)  # X轴显示范围
         self.ck_baseline.clicked.connect(self.ck_all_filter_clicked)    # 基线开关
         self.ck_low.clicked.connect(self.ck_all_filter_clicked)    # 低通滤波器开关
         self.ck_high.clicked.connect(self.ck_all_filter_clicked)    # 高通滤波器开关
         self.ck_notch.clicked.connect(self.ck_all_filter_clicked)   # 陷波滤波器开关
         self.ck_band.clicked.connect(self.ck_all_filter_clicked)    # 带通滤波器开关
-        self.sb_low.valueChanged.connect(self.sb_low_valueChanged) # 高通滤波器截止频率
-        self.sb_high.valueChanged.connect(self.sb_high_valueChanged) # 高通滤波器截止频率
-        self.sb_notch_cutoff.valueChanged.connect(self.sb_notch_valueChanged)   # 陷波滤波器截止频率 
-        self.sb_notch_param.valueChanged.connect(self.sb_notch_valueChanged) # 陷波滤波器参数
-        self.sb_band_pass.valueChanged.connect(self.sb_band_valueChanged)   # 带通滤波器通带频率
-        self.sb_band_stop.valueChanged.connect(self.sb_band_valueChanged)   # 带通滤波器阻带频率
-        self.box_sample_rate.currentIndexChanged.connect(self.box_sample_rate_changed)  # 采样率
-        self.box_channel_num.currentIndexChanged.connect(self.box_channel_num_changed)  # 通道数
-
+        self.sb_low.valueChanged.connect(self.sb_low_valueChanged)  # 高通滤波器截止频率
+        self.sb_high.valueChanged.connect(
+            self.sb_high_valueChanged)  # 高通滤波器截止频率
+        self.sb_notch_cutoff.valueChanged.connect(
+            self.sb_notch_valueChanged)   # 陷波滤波器截止频率
+        self.sb_notch_param.valueChanged.connect(
+            self.sb_notch_valueChanged)  # 陷波滤波器参数
+        self.sb_band_pass.valueChanged.connect(
+            self.sb_band_valueChanged)   # 带通滤波器通带频率
+        self.sb_band_stop.valueChanged.connect(
+            self.sb_band_valueChanged)   # 带通滤波器阻带频率
+        self.box_sample_rate.currentIndexChanged.connect(
+            self.box_sample_rate_changed)  # 采样率
+        self.box_channel_num.currentIndexChanged.connect(
+            self.box_channel_num_changed)  # 通道数
+    
+    def initFileUI(self):  # 文件处理界面初始化
         #=========== 历史数据部分 ===========#
-
         # 文件操作部分
-        self.file_btn_open.clicked.connect(self.action_open_clicked)    # 打开文件按钮
+        self.file_btn_open.clicked.connect(
+            self.action_open_clicked)    # 打开文件按钮
         self.file_btn_dataload.setVisible(False)    # 数据加载按钮: 隐藏
-        self.file_btn_dataload.clicked.connect(self.file_btn_dataload_clicked)  # 数据加载按钮
+        self.file_btn_dataload.clicked.connect(
+            self.file_btn_dataload_clicked)  # 数据加载按钮
         self.file_btn_draw.clicked.connect(self.file_btn_draw_clicked)  # 绘制按钮
-        self.file_btn_reset.clicked.connect(self.file_btn_reset_clicked)    # 重置按钮
+        self.file_btn_reset.clicked.connect(
+            self.file_btn_reset_clicked)    # 重置按钮
         # 信号处理部分
         self.file_box_ydis.currentIndexChanged.connect(
             self.file_box_all_DIS_changed)  # Y轴显示范围
         self.file_box_xdis.currentIndexChanged.connect(
             self.file_box_all_DIS_changed)  # X轴显示范围
-        self.file_ck_baseline.clicked.connect(self.file_ck_all_filter_clicked)    # 基线开关
-        self.file_ck_low.clicked.connect(self.file_ck_all_filter_clicked)    # 高通滤波器开关
-        self.file_ck_high.clicked.connect(self.file_ck_all_filter_clicked)    # 高通滤波器开关
-        self.file_ck_notch.clicked.connect(self.file_ck_all_filter_clicked)   # 陷波滤波器开关
+        self.file_ck_baseline.clicked.connect(
+            self.file_ck_all_filter_clicked)    # 基线开关
+        self.file_ck_low.clicked.connect(
+            self.file_ck_all_filter_clicked)    # 高通滤波器开关
+        self.file_ck_high.clicked.connect(
+            self.file_ck_all_filter_clicked)    # 高通滤波器开关
+        self.file_ck_notch.clicked.connect(
+            self.file_ck_all_filter_clicked)   # 陷波滤波器开关
         self.file_ck_band.clicked.connect(
             self.file_ck_all_filter_clicked)    # 带通滤波器开关
         self.file_sb_low.valueChanged.connect(
@@ -95,8 +121,8 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.file_sb_band_stop.valueChanged.connect(
             self.sb_band_valueChanged)   # 带通滤波器阻带频率
         self.file_box_sample_rate.currentIndexChanged.connect(
-            self.box_sample_rate_changed)  # 采样率
-
+            self.file_box_sample_rate_changed)  # 采样率
+    
     #============================= 实时检测界面 =============================#
 
     #-------------------------------  初始化 -------------------------------#
@@ -132,6 +158,40 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             self.chartFrameList.append(chartFrameItem)
             self.layoutChart.addWidget(chartFrameItem)
 
+    def initUIDate(self):
+        #----------------- 实时检测部分 -----------------#
+        self.box_ydis.setCurrentIndex(4)
+        self.box_xdis.setCurrentIndex(1)
+        self.box_sample_rate.setCurrentIndex(2)
+        self.box_channel_num.setCurrentIndex(0)
+        self.ck_baseline.setChecked(True)
+        self.ck_low.setChecked(False)
+        self.ck_high.setChecked(False)
+        self.ck_notch.setChecked(False)
+        self.ck_band.setChecked(False)
+        self.sb_low.setValue(50)
+        self.sb_high.setValue(1)
+        self.sb_notch_cutoff.setValue(50)
+        self.sb_notch_param.setValue(1)
+        self.sb_band_pass.setValue(1)
+        self.sb_band_stop.setValue(50)
+        #----------------- 文件检测部分 -----------------#
+        self.file_box_ydis.setCurrentIndex(4)
+        self.file_box_xdis.setCurrentIndex(1)
+        self.file_box_sample_rate.setCurrentIndex(2)
+        self.file_box_channel_num.setCurrentIndex(0)
+        self.file_ck_baseline.setChecked(True)
+        self.file_ck_low.setChecked(False)
+        self.file_ck_high.setChecked(False)
+        self.file_ck_notch.setChecked(False)
+        self.file_ck_band.setChecked(False)
+        self.file_sb_low.setValue(50)
+        self.file_sb_high.setValue(1)
+        self.file_sb_notch_cutoff.setValue(50)
+        self.file_sb_notch_param.setValue(1)
+        self.file_sb_band_pass.setValue(1)
+        self.file_sb_band_stop.setValue(50)
+        ...
 
     #------------------------------- 控件事件 -------------------------------#
  
@@ -143,6 +203,8 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                                                     caption='打开文件', directory=self.et_filePath.text(),
                                                     filter='纯文本(*.txt) ;; CSV(*.csv) ;; All Files (*) ', initialFilter='纯文本(*.txt)')
         if glo.load_data(dirpath, type):
+            self.file_btn_draw.setText('绘制')
+            self.initUIDate()
             self.tabWidget.setCurrentIndex(1)
             self.file_et_path.setText(dirpath)
             self.group_tab_file.setEnabled(True)
@@ -179,6 +241,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             print("已连接, 无需重复连接")
             return
         # 连接串口
+
         glo.set_ser(serUtil.serialOpen(
             self.box_com.currentText().split(' ')[0],    # 串口号
             self.box_bps.currentText(),  # 波特率
@@ -193,7 +256,9 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             self.lb_connect.setStyleSheet('color: balck')
             self.lb_start.setText('Waiting...')
             self.lb_start.setStyleSheet('color: green')
+            self.initUIDate()
             serUtil.serialClose(glo.get_ser)
+            self.initConnectParams()
             print("连接成功")
         else:
             print(glo.get_ser)
@@ -236,6 +301,9 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             # self.mythread = threading.Thread(target=self.updateChart)
             # self.mythread.daemon = True
             # self.mythread.start()
+            print("开始发送指令")
+            glo.sendMessage('start', glo.message['usb'], glo.message[glo.sample_rate], glo.message[glo.channel_num])
+            print("发送指令完毕")
             glo.initFilterParams()
             self.connSuccess()
             self.connSeialThread()
@@ -248,15 +316,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             serUtil.serialClose(glo.get_ser())
 
     def btn_stop_clicked(self):  # 停止按钮点击事件: 关闭串口、停止线程
-        for i in range(3):
-            try:
-                glo.ser.OutputFlush()
-                glo.ser.InputFlush()
-                glo.ser.write(glo.send_stop)
-            except:
-                ...
-            finally:
-                print("发送停止指令")
+        glo.sendMessage('stop')
         serUtil.serialClose(glo.get_ser())
         self.serialRead.terminate()
         self.btn_stop.setEnabled(False)
@@ -269,7 +329,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             self.btn_disconnect_clicked()
             self.btn_connect_clicked()
 
-    def btn_filePath_clicked(self, Filepath):   # 文件路径按钮点击事件
+    def btn_filePath_clicked(self):   # 文件路径按钮点击事件
         path = QFileDialog.getExistingDirectory(
             None, "选取文件夹", self.et_filePath.text())  # 起始路径
         if path != "":
@@ -336,7 +396,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             self.box_xdis.setCurrentIndex(4)
             self.box_xdis.setEnabled(False)
         else:
-            self.box_xdis.setCurrentIndex(0)
+            self.box_xdis.setCurrentIndex(1)
             self.box_xdis.setEnabled(True)
         ...
 
@@ -373,6 +433,9 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.lb_start.setText('正在测量')
         self.lb_start.setStyleSheet('color: green')
 
+    def initConnectParams(self):  # 初始化连接参数  --> 连接按钮点击事件：连接成功时触发
+        ...
+
     def connSeialThread(self):  # 连接串口读取线程  --> 连接按钮点击事件：连接成功时触发
         if glo.channel_num == 2:
             self.serialRead = serUtil.serialRead2()  # 串口读取线程-双通道
@@ -385,7 +448,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         self.serialRead.start()  # 开启串口读取线程
 
     def fftThread(self):
-        self.fftthread = FFTThread()
+        self.fftthread = FFTThread(self)
         self.fftthread.fftSignal.connect(self.fftcanvas.updateFFT)
         self.fftthread.start()
 
@@ -403,8 +466,19 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         for i in range(len(self.chartFrameList)):
             if len(data_list[i]) > 0:
                 self.chartFrameList[i].addData(data_list[i])
+                # self.data_process_list[i] = np.append(self.data_process_list[i], data_list[i])[-8000:]
         # print("更新数据耗时:", time.time()-time1)
         ...
+    
+    # class drawFig(QThread):
+    #     def __init__(self, chartFrame):
+    #         super().__init__()
+    #         self.chartFrame = chartFrame
+        
+    #     def run(self):
+            
+            
+            
 
     def updateEt(self, data_list):  # 更新文本框    --> 串口读取线程：串口读取数据时触发 # WAIT
         self.et_text.append(str(data_list))
@@ -440,7 +514,9 @@ class MyWindow(QMainWindow, Ui_MainWindow):
     def initChartFrameFile(self):   # 初始化历史数据界面的图表显示列表
         for i in range(2):
             chartFrameItem = drawFrameFile()
+            self.XDIS_SIGNAL.connect(chartFrameItem.updateXlim)
             self.YDIS_SIGNAL.connect(chartFrameItem.updateYlim)
+            self.SAMPLE_RATE_SIGNAL.connect(chartFrameItem.updateSampleRate)
             self.chartFrameList.append(chartFrameItem)
             self.layoutChart.addWidget(chartFrameItem)
         ...
@@ -463,6 +539,11 @@ class MyWindow(QMainWindow, Ui_MainWindow):
             chartFrame.setVisible(True)
             # chartFrame.chart.zoomReset()
         ...
+
+    def file_box_sample_rate_changed(self):
+        glo.sample_rate = int(self.file_box_sample_rate.currentText())
+        self.SAMPLE_RATE_SIGNAL.emit()
+        print(glo.sample_rate)
 
     def file_box_all_DIS_changed(self):  # 坐标轴轴显示范围改变事件
         if self.sender().objectName() == 'file_box_ydis':

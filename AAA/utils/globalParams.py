@@ -86,7 +86,7 @@ def sendMessage(self, state, connect='usb', sample_rate=1000, channel=32):
             sleep(0.05)
 
 def initFilterParams():
-    global sos_high, sos_notch, sos_band
+    global sos_low, sos_high, sos_notch, sos_band
     sos_low = decodeUtil.LowPassFilter(lowFilter_low, sample_rate)
     sos_high = decodeUtil.HighPassFilter(highFilter_high, sample_rate)
     sos_notch = decodeUtil.NotchFilter(notchFilter_cutoff, notchFilter_param, sample_rate)

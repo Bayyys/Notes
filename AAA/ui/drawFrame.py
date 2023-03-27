@@ -16,12 +16,13 @@ from matplotlib.widgets import SpanSelector
 
 class FFTThread(QThread):
     fftSignal = pyqtSignal(np.ndarray, np.ndarray)
-    def __init__(self, parent=None):
-        super(FFTThread, self).__init__(parent)
+    def __init__(self, mainWin):
+        super().__init__()
+        self.mainWin = mainWin
         self.mutex = QMutex()
-        self.mutex.lock()
-        self.data = []
-        self.mutex.unlock()
+        self.data = np.array([[], []])
+        self.xdata = np.array([[], []])
+        self.ydata = np.array([[], []])
 
     def run(self):
         while(glo.connected):
@@ -34,16 +35,18 @@ class FFTThread(QThread):
                 # data = data[:, 1]
             # data = data.astype(np.float)
             if glo.history.shape[1] > glo.sample_rate:
-                data = glo.history[0, -glo.sample_rate:]
-                data = data - np.mean(data)
-                data = data * np.hamming(len(data))
-                data = np.abs(np.fft.fft(data))
-                data = data[0:int(len(data) / 2)]
-                data = data / max(data) if max(data) != 0 else np.arange(len(data))
-                data = data * 100
-                xdata = np.linspace(0, glo.sample_rate / 2, len(data))
-                ydata = data
-                self.fftSignal.emit(xdata, ydata)
+                self.data[0] = self.mainWin.chartFrameList[0].canvas.ydata
+                self.data[1] = self.mainWin.chartFrameList[1].canvas.ydata
+                for i in range(2):
+                    self.data[i] = self.data[i] - np.mean(self.data[i])
+                    self.data[i] = self.data[i] * np.hamming(len(self.data[i]))
+                    self.data[i] = np.abs(np.fft.fft(self.data[i]))
+                    self.data[i] = self.data[i][0:int(len(self.data[i]) / 2)]
+                    self.data[i] = self.data[i] / max(self.data[i]) if max(self.data[i]) != 0 else np.arange(len(self.data[i]))
+                    self.data[i] = self.data[i] * 100
+                    self.xdata[i] = np.linspace(0, glo.sample_rate / 2, len(self.data[i]))
+                    self.ydata[i] = self.data[i]
+                self.fftSignal.emit(self.xdata, self.ydata)
             # else:
                 # self.mutex.unlock()
             time.sleep(0.1)
@@ -69,6 +72,7 @@ class FFTCanvas(FigureCanvas):
 class MyMplCanvasFile(FigureCanvas):
 
     XMAX = 5000
+    YMIN = 0
     YMAX = 2000
     Xdis = 1000
     Ydis = 200000
@@ -157,7 +161,7 @@ class MyMplCanvasFile(FigureCanvas):
 
     def zoomReset(self):
         self.ax.set_xlim(0, self.XMAX)
-        self.ax.set_ylim(self.YMIN, self.YMAX)
+        self.ax.set_ylim(-self.YMAX, self.YMAX)
         self.fig.canvas.draw_idle()
 
     def close_event(self, event) -> None:
@@ -190,7 +194,7 @@ class drawFrameFile(QFrame, Ui_Form):
     def drawFile(self):
         self.canvas.ydata = self.history.copy()
         if glo.isBaseline:
-            self.canvas.ydata = detrend(self.canvas.ydata)
+            self.canvas.ydata = detrend(self.canvas.ydata, type='linear')
             ...
         self.canvas.xdata = np.arange(0, self.history.size / glo.sample_rate, 1 / glo.sample_rate)
         self.canvas.XMAX = self.canvas.xdata[-1]
@@ -207,8 +211,11 @@ class drawFrameFile(QFrame, Ui_Form):
     def drawFileAgain(self):
         data_process = self.history.copy()
         if glo.isBaseline:
+            try:
+                data_process = detrend(data_process, type='linear')
+            except:
+                ...
             data_process = detrend(data_process, type='constant')
-            data_process = detrend(data_process, type='linear')
         if glo.isLowPassFilter:
             data_process = sosfilt(glo.sos_low, data_process)
         if glo.isHighPassFilter:
@@ -235,6 +242,12 @@ class drawFrameFile(QFrame, Ui_Form):
     def updateXlim(self):  # 更新X轴范围
         self.canvas.ax.set_xlim(self.canvas.XMAX - glo.XDIS, self.canvas.XMAX)
         self.canvas.Xdis = glo.XDIS
+        self.canvas.fig.canvas.draw_idle()
+    def updateSampleRate(self):
+        self.canvas.XMAX = self.history.size / glo.sample_rate
+        self.canvas.xdata = np.arange(0, self.canvas.XMAX, 1 / glo.sample_rate)
+        self.canvas.ax.set_xlim(self.canvas.xdata[0], self.canvas.xdata[-1])
+        self.canvas.zoomReset()
         self.canvas.fig.canvas.draw_idle()
 
     def keyPressEvent(self, e) -> None:  # 键盘事件
@@ -466,7 +479,7 @@ class drawFrame(QFrame, Ui_Form):
         #         isBandPassFilter) and glo.len_history() > 1000:
             # data_filter = self.history.copy()
         if glo.isBaseline:
-            data_filter = detrend(self.history[-glo.sample_rate:].copy(), type='constant')
+            data_filter = detrend(self.history.copy(), type='constant')
         else:
             data_filter = self.history.copy()
         process = data_filter

@@ -35,40 +35,40 @@ def bytestoFloat(data):
 def LowPassFilter(cutoffFreq, fs, N=8, ripple=1):  # 低通滤波
     # 低通滤波
     print("LowPassFilter Changed!")
-    # return cheby2(N=N, rs=ripple,
-    #                 Wn=cutoffFreq,
-    #                 btype='lowpass', fs=fs,
-    #                 analog=False, output='sos')
-    return butter(N=N, Wn=2 * cutoffFreq / fs, btype='lowpass', output='sos')
+    return cheby2(N=N, rs=ripple,
+                    Wn=cutoffFreq,
+                    btype='lowpass', fs=fs,
+                    analog=False, output='sos')
+    # return butter(N=N, Wn=2 * cutoffFreq / fs, btype='lowpass', output='sos')
 
 def HighPassFilter(cutoffFreq, fs, N=8, ripple=1): # 高通滤波
     # 高通滤波
     print("HighPassFilter Changed!")
-    # return cheby2(N=N, rs=ripple,
-    #                 Wn=cutoffFreq,
-    #                 btype='highpass', fs=fs,
-    #                 analog=False, output='sos')
-    return butter(N=N, Wn=2 * cutoffFreq / fs, btype='highpass', output='sos')
+    return cheby2(N=N, rs=ripple,
+                    Wn=cutoffFreq,
+                    btype='highpass', fs=fs,
+                    analog=False, output='sos')
+    # return butter(N=N, Wn=2 * cutoffFreq / fs, btype='highpass', output='sos')
 
 def NotchFilter(cutoffFreq, filterParam, fs, N=8, ripple=1):    # 陷波滤波
     # 陷波滤波
     print("NotchFilter Changed!")
-    # return cheby2(N=N, rs=ripple,
-    #                 Wn=[cutoffFreq - filterParam, cutoffFreq + filterParam],
-    #                 btype='bandstop', fs=fs,
-    #                 analog=False, output='sos')
-    return butter(N=N, Wn=[2*(cutoffFreq-filterParam)/fs, 2*(cutoffFreq+filterParam)/fs],
-                  btype='bandstop', output='sos')
+    return cheby2(N=N, rs=ripple,
+                    Wn=[cutoffFreq - filterParam, cutoffFreq + filterParam],
+                    btype='bandstop', fs=fs,
+                    analog=False, output='sos')
+    # return butter(N=N, Wn=[2*(cutoffFreq-filterParam)/fs, 2*(cutoffFreq+filterParam)/fs],
+                #   btype='bandstop', output='sos')
 
 def BandPassFilter(passbandFreq, stopbandFreq, fs, N=8, ripple=1):  # 带通滤波
     # 带通滤波
     print("BandPassFilter Changed!")
-    # return cheby2(N=N, rs=ripple,
-    #                 Wn=[passbandFreq, stopbandFreq],
-    #                 btype='bandpass', fs=fs,
-    #                 analog=False, output='sos')
-    return butter(N=N, Wn=[2*passbandFreq/fs, 2*stopbandFreq/fs],
-                  btype='bandstop', output='sos')
+    return cheby2(N=N, rs=ripple,
+                    Wn=[passbandFreq, stopbandFreq],
+                    btype='bandpass', fs=fs,
+                    analog=False, output='sos')
+    # return butter(N=N, Wn=[2*passbandFreq/fs, 2*stopbandFreq/fs],
+                #   btype='bandstop', output='sos')
 
 
 if __name__ == '__main__':
