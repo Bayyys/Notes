@@ -89,7 +89,7 @@ if __name__ == '__main__':
     global flag, ser
     flag = False
     ser = serial.Serial(  # 下面这些参数根据情况修改
-        port='COM3',  # 串口
+        port='COM2',  # 串口
         baudrate=4608000,  # 波特率
         stopbits=1,
         bytesize=8)

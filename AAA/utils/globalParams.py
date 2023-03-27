@@ -4,15 +4,14 @@ sys.path.append('..')
 from PyQt5.QtCore import QMutex, pyqtSignal
 import numpy as np
 import pandas as pd
+from time import sleep
 
 scan = None  # 扫描 type: bool
 connected = None    # 连接 type: bool
 ser = None  # 串口对象 type: serial.Serial
 history = []   # 数据 type: list
-data = []   # 数据 type: list   # WAIT
 mutex_history = None    # 互斥锁    type: QMutex
 mutex_data = None   # 互斥锁    type: QMutex
-time = None  # 时间 type: QDateTime # WAIT
 com = None  # 当前连接串口号 type: str
 massage_start = ''  # 开始采集命令 type: str    # TODO
 massage_stop = ''   # 停止采集命令 type: str    # TODO
@@ -30,25 +29,14 @@ YDIS = 200000   # Y轴显示范围 type: int
 sample_rate = 1000  # 采样率 type: int
 
 def __init__():
-    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, massage_start, massage_stop, massage_sampleRate, send_start, send_stop, send_sampleRate, isBaseline, isLowPassFilter, isHighPassFilter, isNotchFilter, isBandPassFilter, XDIS, YDIS, sample_rate, channel_num, sos_low, sos_high, sos_notch, sos_band, lowFilter_low, highFilter_low, highFilter_high, notchFilter_cutoff, notchFilter_param, bandFilter_pass, bandFilter_stop
+    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, isBaseline, isLowPassFilter, isHighPassFilter, isNotchFilter, isBandPassFilter, XDIS, YDIS, sample_rate, channel_num, sos_low, sos_high, sos_notch, sos_band, lowFilter_low, highFilter_low, highFilter_high, notchFilter_cutoff, notchFilter_param, bandFilter_pass, bandFilter_stop, message
     scan = False
     connected = False
     ser = None
     history = np.array([[], []])
-    data = []   # WAIT
     mutex_history = QMutex()
     mutex_data = QMutex()
-    time = 1    # WAIT
     com = ""
-    massage_start = 'AA 06 01'  # TODO
-    massage_stop = 'AA 06 00'   # TODO
-    massage_sampleRate = 'AA 03 01' # TODO
-    for mas in massage_start.split(' '):
-        send_start += bytes.fromhex(mas)    # TODO
-    for mas in massage_stop.split(' '):
-        send_stop += bytes.fromhex(mas) # TODO
-    for mas in massage_sampleRate.split(' '):
-        send_sampleRate += bytes.fromhex(mas)   # TODO
     isBaseline = True
     isLowPassFilter = False
     isHighPassFilter = False
@@ -68,6 +56,34 @@ def __init__():
     notchFilter_param = 10
     bandFilter_pass = 1
     bandFilter_stop = 50
+    message = {'usb':[0xaa, 0x08, 0x01], 'wifi':[0xaa, 0x08, 0x02], # 连接方式: 0xAA 0x08 + 0x01:usb, 0x02:wifi
+           250:[0xaa, 0x03, 0x01, 0x96], 500:[0xaa, 0x03, 0x01, 0x95], 1000:[0xaa, 0x03, 0x01, 0x94], 2000:[0xaa, 0x03, 0x01, 0x93], 4000:[0xaa, 0x03, 0x01, 0x92], 8000:[0xaa, 0x03, 0x01, 0x91], 16000:[0xaa, 0x03, 0x01, 0x90],  # 采样率: 0xAA 0x03 + 0x01 + 0x96:250Hz, 0x95:500Hz, 0x94:1000Hz, 0x93:2000Hz, 0x92:4000Hz, 0x91:8000Hz, 0x90:16000Hz
+           32:[0xaa, 0x07, 0x20], 2:[0xaa, 0x07, 0x02], # 通道数: 0xAA 0x07 + 0x20:32, 0x02:2
+           'stop':[0xaa, 0x06, 0x00], 'start':[0xaa, 0x06, 0x01]}   # 开始/停止采集: 0xAA 0x06 + 0x00:stop, 0x01:start
+
+
+def sendMessage(self, state, connect='usb', sample_rate=1000, channel=32):
+    '''发送命令
+    state: start/stop
+    connect: usb/wifi
+    sample_rate: 250/500/1000/2000/4000/8000/16000
+    channel: 32/2'''
+    global ser, message
+    ser.flushInput()
+    ser.flushOutput()
+    if state == 'start':
+        ser.write(self.message[connect])
+        sleep(0.05)
+        ser.write(self.message[sample_rate])
+        sleep(0.05)
+        ser.write(self.message[channel])
+        sleep(0.05)
+        ser.write(self.message['start'])
+        sleep(0.05)
+    elif state == 'stop':
+        for i in range(3):
+            ser.write(self.message['stop'])
+            sleep(0.05)
 
 def initFilterParams():
     global sos_high, sos_notch, sos_band
@@ -118,19 +134,6 @@ def set_ser(value):
     global ser
     ser = value
 
-# def get_history():
-#     global history
-#     mutex_history.lock()
-#     ret = history
-#     mutex_history.unlock()
-#     return ret
-
-# def set_history(value):
-#     global history
-#     mutex_history.lock()
-#     history = value
-#     mutex_history.unlock()
-
 def init_history():
     global history
     mutex_history.lock()
@@ -149,40 +152,6 @@ def len_history():
     global history
     return history.shape[1]
 
-# WAIT
-def dataNotEmpty():
-    global data
-    return len(data) != 0
-
-# WAIT
-def get_data():
-    global data
-    mutex_data.lock()
-    ret = data
-    clear_data()
-    mutex_data.unlock()
-    return ret
-
-# WAIT
-def clear_data():
-    global data
-    data = []
-
-# WAIT
-def add_data(value):
-    global data
-    mutex_data.lock()
-    data += value
-    mutex_data.unlock()
-
-# WAIT
-def get_time():
-    global time
-    ret = time
-    time += 1
-    return ret
-
-
 def get_com():
     return com
 
@@ -190,7 +159,6 @@ def get_com():
 def set_com(value):
     global com
     com = value
-
 
 def save_data(fileName, type):
     try:
@@ -207,7 +175,7 @@ def save_data(fileName, type):
         return False
     ...
 
-def open_data(fileName, type):
+def load_data(fileName, type):
     global history
     try:
         if type == "CSV(*.csv)":

@@ -142,7 +142,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         dirpath, type = QFileDialog.getOpenFileName(self,
                                                     caption='打开文件', directory=self.et_filePath.text(),
                                                     filter='纯文本(*.txt) ;; CSV(*.csv) ;; All Files (*) ', initialFilter='纯文本(*.txt)')
-        if glo.open_data(dirpath, type):
+        if glo.load_data(dirpath, type):
             self.tabWidget.setCurrentIndex(1)
             self.file_et_path.setText(dirpath)
             self.group_tab_file.setEnabled(True)

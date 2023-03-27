@@ -55,11 +55,12 @@ class myThread(QThread):
 
     def go(self):
         self.flag = True
-        self.ser.flush()
+        self.ser.flushInput()
         print("start")
 
     def stop(self):
         self.flag = False
+        self.ser.flushInput()
         print("stop")
 
     def run(self):
@@ -70,7 +71,7 @@ class myThread(QThread):
                 data = self.ser.read(self.ser.in_waiting)
                 self.sig.emit(data)
                 print("--------------------")
-                self.bytesSplit2(data)
+                self.bytesSplit(data)
                 # self.count += 1
                 print('count' + str(self.count))
                 sleep(0.000125)
@@ -83,9 +84,9 @@ class myThread(QThread):
                 index_s = data.find(b'\xa5Z') - 4
                 index_e = index_s + 24
                 get = data[index_s: index_e]
-                # print(get)
+                print(get)
                 self.count += 1
-                # print(len(get))
+                print(len(get))
                 self.rest = data[index_e:]
                 data = data[index_e:]
             else:
@@ -108,6 +109,14 @@ class myThread(QThread):
 
 
 class mainWin(QWidget):
+    mes = [[[0xaa, 0x08, 0x01], [0xaa, 0x08, 0x02]],    # 0连接方式：0-usb串口，1-wifi
+               [[0xaa, 0x03, 0x01, 0x96], [0xaa, 0x03, 0x01, 0x95], [0xaa, 0x03, 0x01, 0x94], [0xaa, 0x03, 0x01, 0x93], [0xaa, 0x03, 0x01, 0x92], [0xaa, 0x03, 0x01, 0x91], [0xaa, 0x03, 0x01, 0x90]],  # 1采样率：0-250，1-500，2-1k，3-2k，4-4k，5-8k，6-16k
+               [[0xaa, 0x07, 0x20], [0xaa, 0x07, 0x02]],    # 2通道数：0-32，1-2
+               [[0xaa, 0x06, 0x00], [0xaa, 0x06, 0x01]]]    # 3启停：0-停止，1-启动
+    message = {'usb':[0xaa, 0x08, 0x01], 'wifi':[0xaa, 0x08, 0x02],
+           250:[0xaa, 0x03, 0x01, 0x96], 500:[0xaa, 0x03, 0x01, 0x95], 1000:[0xaa, 0x03, 0x01, 0x94], 2000:[0xaa, 0x03, 0x01, 0x93], 4000:[0xaa, 0x03, 0x01, 0x92], 8000:[0xaa, 0x03, 0x01, 0x91], 16000:[0xaa, 0x03, 0x01, 0x90],
+           32:[0xaa, 0x07, 0x20], 2:[0xaa, 0x07, 0x02],
+           'stop':[0xaa, 0x06, 0x00], 'start':[0xaa, 0x06, 0x01]}
     def __init__(self):
         super().__init__()
         self.initUI()
@@ -132,16 +141,9 @@ class mainWin(QWidget):
         self.sendFrame = QFrame(self)
         self.sendLayout  = QGridLayout()
 
-        self.btn_send_61 = QPushButton('开始', self)
-        self.btn_send_61.clicked.connect(self.btn_send_61_clicked)
-        self.btn_send_60 = QPushButton('停止', self)
-        self.btn_send_60.clicked.connect(self.btn_send_60_clicked)
-
         self.et_send = QLineEdit(self)
         self.btn_send = QPushButton('send', self)
         self.btn_send.clicked.connect(self.btn_send_clicked)
-        self.sendLayout.addWidget(self.btn_send_61, 0, 0)
-        self.sendLayout.addWidget(self.btn_send_60, 0, 1)
         layout.addWidget(self.btn_send_start)
         layout.addWidget(self.btn_send_stop)
         self.sendLayout.addWidget(self.et_send, 1, 0, 1, 2)
@@ -153,56 +155,66 @@ class mainWin(QWidget):
         self.mythread.sig.connect(self.textAppend)
         self.mythread.start()
     
+    def sendMessage(self, state, connect='usb', sample_rate=1000, channel=32):
+        self.mythread.ser.flushInput()
+        self.mythread.ser.flushOutput()
+        if state == 'start':
+            self.mythread.ser.write(self.message[connect])
+            sleep(0.05)
+            self.mythread.ser.write(self.message[sample_rate])
+            sleep(0.05)
+            self.mythread.ser.write(self.message[channel])
+            sleep(0.05)
+            self.mythread.ser.write(self.message['start'])
+            sleep(0.05)
+        elif state == 'stop':
+            for i in range(3):
+                self.mythread.ser.write(self.message['stop'])
+                sleep(0.05)
+
+    def startMessage(self, rate, channel):
+        self.mythread.ser.flushInput()
+        self.mythread.ser.flushOutput()
+        self.mythread.ser.write(self.message[0][0])
+        sleep(0.1)
+        self.mythread.ser.write(self.message[1][rate])
+        sleep(0.1)
+        self.mythread.ser.write(self.message[2][channel])
+        sleep(0.1)
+        self.mythread.ser.write(self.message[3][1])
+        sleep(0.1)
+    
+    def stopMessage(self):
+        self.mythread.ser.flushInput()
+        self.mythread.ser.flushOutput()
+        for i in range(3):
+            self.mythread.ser.write(self.message[3][0])
+            sleep(0.05)
+
     def btn_send_clicked(self):
         massage = self.et_send.text()
         # send = bytearray()
-        # for mas in massage.split(' '):
-            # send.append(hex(int(mas, 16)))
-            # send = bytes.fromhex(mas)
-            # print(send)
-        # print("send: ", send) 
+        send = []
+        for mas in massage.split(' '):
+            send.append(int(mas, 16))
+        print(send)
         self.mythread.ser.flushInput()
         self.mythread.ser.flushOutput()
-        self.mythread.ser.write(b'\xaa\x06\x00\r\n')
+        self.mythread.ser.write(send)
 
 
     def btn_send_start_clicked(self):
-        start_massage = 'AA 06 01'
-        send_start = []
-        for mas in start_massage.split(' '):
-            send_start += bytes.fromhex(mas)
-        print(send_start)
-        self.mythread.ser.write(send_start)
-        self.mythread.ser.flush()
+        self.mythread.ser.flushInput()
+        self.mythread.ser.flushOutput()
+        self.sendMessage('start', 'usb', 1000, 32)
+        print("write 0x AA 06 01")
         print("start")
     
-    def btn_send_61_clicked(self):
-        self.mythread.ser.flushInput()
-        self.mythread.ser.flushOutput()
-        self.mythread.ser.write([0xaa, 0x08, 0x01])
-        self.mythread.ser.write([0xaa, 0x03, 0x01, 0x95])
-        self.mythread.ser.write([0xaa, 0x07, 0x32])
-        self.mythread.ser.write([0xaa, 0x06, 0x01])
-        print("write 0x AA 06 01")
-
-    
-    def btn_send_60_clicked(self):
-        self.mythread.ser.flushInput()
-        self.mythread.ser.flushOutput()
-        self.mythread.ser.write([0xaa, 0x06, 0x00])
-        print("write 0x AA 06 00")
-
     def btn_send_stop_clicked(self):
-        massage_stop = 'AA 06 00'
-        send_stop = []
-        for mas in massage_stop.split(' '):
-            send_stop += bytes.fromhex(mas)
-        for i in range(3):
-            self.mythread.ser.flushInput()
-            self.mythread.ser.flushOutput()
-            self.mythread.ser.write(send_stop)
-        print(send_stop)
-        self.mythread.ser.flush()
+        self.mythread.ser.flushInput()
+        self.mythread.ser.flushOutput()
+        self.sendMessage('stop')
+        print("write 0x AA 06 00")
         print("stop")
 
     def btn_start_clicked(self):
