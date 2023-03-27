@@ -839,7 +839,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setCurrentIndex(0)
         self.box_bps.setCurrentIndex(2)
         self.box_timex.setCurrentIndex(5)
-        self.box_ydis.setCurrentIndex(4)
+        self.box_ydis.setCurrentIndex(5)
         self.box_channel_num.setCurrentIndex(1)
         self.box_sample_rate.setCurrentIndex(2)
         self.box_xdis.setCurrentIndex(1)

@@ -1,6 +1,6 @@
 import serial
 import serial.tools.list_ports
-from PyQt5.QtCore import QThread, pyqtSignal, QDateTime
+from PyQt5.QtCore import QThread, pyqtSignal
 from time import sleep
 import utils.globalParams as glo
 import utils.decodeUtil as decodeUtil
@@ -85,9 +85,13 @@ class serialRead2(QThread):  # 读取串口数据线程
                 get = data[index_s: index_e]
                 # print(get)
                 # print(len(get))
-                num1 = self.bytestoFloat(get[self.index_1: self.index_2]) / 24.0
+                num1 = self.bytestoFloat(get[self.index_1: self.index_2])
+                if num1 > 100000:
+                    num1 = 0
                 num_list[0].append(num1)
-                num2 = self.bytestoFloat(get[self.index_2: self.index_3]) / 24.0
+                num2 = self.bytestoFloat(get[self.index_2: self.index_3])
+                if num2 > 100000:
+                    num2 = 0
                 num_list[1].append(num2)
                 self.count += 1
                 data = data[index_e:]

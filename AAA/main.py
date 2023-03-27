@@ -9,11 +9,9 @@ import utils.globalParams as glo
 from ui.drawFrame import drawFrame, drawFrameFile, FFTCanvas, FFTThread
 from ui.mainWindow import Ui_MainWindow
 import numpy as np
-import threading
-import time
 
 
-class MyWindow(QMainWindow):
+class MyWindow(QMainWindow, Ui_MainWindow):
     XDIS_SIGNAL = pyqtSignal()
     YDIS_SIGNAL = pyqtSignal()
     SAMPLE_RATE_SIGNAL = pyqtSignal()
@@ -23,8 +21,8 @@ class MyWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        # self.setupUi(self)
-        self.ui = uic.loadUi('ui/mainWindow.ui', self)
+        self.setupUi(self)
+        # self.ui = uic.loadUi('ui/mainWindow.ui', self)
         self.initUI()   # 初始化UI界面
         self.initDATA() # 初始化数据
     
@@ -154,6 +152,8 @@ class MyWindow(QMainWindow):
             chartFrameItem = drawFrame()
             self.XDIS_SIGNAL.connect(chartFrameItem.updateXlim)
             self.YDIS_SIGNAL.connect(chartFrameItem.updateYlim)
+            if i == 2:
+                chartFrameItem.canvas.line.set_color('orange')
             # chartFrameItem.lb_min.setText(str(i))
             self.chartFrameList.append(chartFrameItem)
             self.layoutChart.addWidget(chartFrameItem)
@@ -172,7 +172,7 @@ class MyWindow(QMainWindow):
         self.sb_low.setValue(50)
         self.sb_high.setValue(1)
         self.sb_notch_cutoff.setValue(50)
-        self.sb_notch_param.setValue(1)
+        self.sb_notch_param.setValue(10)
         self.sb_band_pass.setValue(1)
         self.sb_band_stop.setValue(50)
         #----------------- 文件检测部分 -----------------#
@@ -188,7 +188,7 @@ class MyWindow(QMainWindow):
         self.file_sb_low.setValue(50)
         self.file_sb_high.setValue(1)
         self.file_sb_notch_cutoff.setValue(50)
-        self.file_sb_notch_param.setValue(1)
+        self.file_sb_notch_param.setValue(10)
         self.file_sb_band_pass.setValue(1)
         self.file_sb_band_stop.setValue(50)
         ...
@@ -229,7 +229,7 @@ class MyWindow(QMainWindow):
             print('请先断开连接')
             return
         dirpath, type = QFileDialog.getSaveFileName(self,
-                                                    directory=self.et_filePath.text()+QDateTime.currentDateTime().toString('/yy-MM-dd-hhmmss'), caption='保存文件', filter='CSV(*.csv) ;;纯文本(*.txt)', initialFilter='CSV(*.csv)')
+                                                    directory=self.et_filePath.text()+QDateTime.currentDateTime().toString('/yy-MM-dd-hhmmss'), caption='保存文件', filter='CSV(*.csv) ;;纯文本(*.txt)', initialFilter='纯文本(*.txt)')
         glo.save_data(dirpath, type)
         self.file_btn_dataload.setVisible(True) # 保存成功后, 打开数据加载按钮
 
@@ -284,6 +284,7 @@ class MyWindow(QMainWindow):
             self.btn_start.setEnabled(False)
             self.btn_stop.setEnabled(False)
             self.action_save_clicked()
+            self.box_sample_rate.setEnabled(True)
             glo.set_scan(False)
         else:
             print("未连接, 无需断开连接")
@@ -302,7 +303,7 @@ class MyWindow(QMainWindow):
             # self.mythread.daemon = True
             # self.mythread.start()
             print("开始发送指令")
-            glo.sendMessage('start', glo.message['usb'], glo.message[glo.sample_rate], glo.message[glo.channel_num])
+            glo.sendMessage('start', 'usb', glo.sample_rate, glo.channel_num)
             print("发送指令完毕")
             glo.initFilterParams()
             self.connSuccess()
@@ -385,8 +386,10 @@ class MyWindow(QMainWindow):
         glo.notchFilterUpdate()
 
     def sb_band_valueChanged(self):    # 带通滤波器通带频率和阻带频率改变事件
-        glo.bandFilter_pass = self.sb_band_pass.value()
+        glo.bandFilter_pass = self.sb_band_pass.value() # 
         glo.bandFilter_stop = self.sb_band_stop.value()
+        if glo.bandFilter_stop < glo.bandFilter_pass:
+            glo.bandFilter_stop += glo.bandFilter_pass
         glo.bandFilterUpdate()
 
     def box_sample_rate_changed(self):  # 采样率改变事件
@@ -489,6 +492,8 @@ class MyWindow(QMainWindow):
     #============================ 历史数据界面 ============================#
 
     def file_btn_dataload_clicked(self):  # 历史数据界面：数据加载按钮点击事件
+        self.file_btn_draw.setText('绘制')
+        self.initUIDate()
         self.file_btn_dataload.setVisible(False)
         self.file_et_path.setText("实时检测数据")
         self.group_tab_file.setEnabled(True)
@@ -516,7 +521,10 @@ class MyWindow(QMainWindow):
             chartFrameItem = drawFrameFile()
             self.XDIS_SIGNAL.connect(chartFrameItem.updateXlim)
             self.YDIS_SIGNAL.connect(chartFrameItem.updateYlim)
+            if i == 2:
+                chartFrameItem.canvas.line.set_color('orange')
             self.SAMPLE_RATE_SIGNAL.connect(chartFrameItem.updateSampleRate)
+            chartFrameItem.history = glo.history[i, :]
             self.chartFrameList.append(chartFrameItem)
             self.layoutChart.addWidget(chartFrameItem)
         ...
@@ -524,7 +532,7 @@ class MyWindow(QMainWindow):
     def file_btn_draw_clicked(self):    # 历史数据绘制按钮事件
         if self.file_btn_draw.text() == '绘制':
             for i in range(2):
-                self.chartFrameList[i].history = glo.history[i, :]
+                # self.chartFrameList[i].history = glo.history[i, :]
                 self.chartFrameList[i].drawFile()
             self.file_btn_draw.setText('重新绘制')
         else:
@@ -542,6 +550,7 @@ class MyWindow(QMainWindow):
 
     def file_box_sample_rate_changed(self):
         glo.sample_rate = int(self.file_box_sample_rate.currentText())
+
         self.SAMPLE_RATE_SIGNAL.emit()
         print(glo.sample_rate)
 

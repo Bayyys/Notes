@@ -1,7 +1,7 @@
 from utils import decodeUtil
 import sys
 sys.path.append('..')
-from PyQt5.QtCore import QMutex, pyqtSignal
+from PyQt5.QtCore import QMutex
 import numpy as np
 import pandas as pd
 from time import sleep
@@ -62,7 +62,7 @@ def __init__():
            'stop':[0xaa, 0x06, 0x00], 'start':[0xaa, 0x06, 0x01]}   # 开始/停止采集: 0xAA 0x06 + 0x00:stop, 0x01:start
 
 
-def sendMessage(self, state, connect='usb', sample_rate=1000, channel=32):
+def sendMessage(state, connect='usb', sample_rate=1000, channel=32):
     '''发送命令
     state: start/stop
     connect: usb/wifi
@@ -72,17 +72,18 @@ def sendMessage(self, state, connect='usb', sample_rate=1000, channel=32):
     ser.flushInput()
     ser.flushOutput()
     if state == 'start':
-        ser.write(self.message[connect])
+        print(connect)
+        ser.write(message[connect])
         sleep(0.05)
-        ser.write(self.message[sample_rate])
+        ser.write(message[sample_rate])
         sleep(0.05)
-        ser.write(self.message[channel])
+        ser.write(message[channel])
         sleep(0.05)
-        ser.write(self.message['start'])
+        ser.write(message['start'])
         sleep(0.05)
     elif state == 'stop':
         for i in range(3):
-            ser.write(self.message['stop'])
+            ser.write(message['stop'])
             sleep(0.05)
 
 def initFilterParams():

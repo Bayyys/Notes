@@ -1,18 +1,16 @@
-import matplotlib.animation as animation
 import sys
 sys.path.append("..")  # 将上级目录加入到搜索路径中
 import time
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.signal import butter, filtfilt, cheby1, cheby2, sosfilt, detrend
-from PyQt5.QtCore import Qt, QTimer, QCoreApplication, QThread, QMutex, pyqtSignal
-from PyQt5.QtWidgets import QApplication, QMainWindow, QSizePolicy, QVBoxLayout, QHBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFrame, QCheckBox
+from scipy.signal import sosfilt, detrend
+from PyQt5.QtCore import Qt, QTimer, QThread, QMutex, pyqtSignal
+from PyQt5.QtWidgets import QApplication, QSizePolicy, QFrame
 from PyQt5 import uic
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-import threading
 from ui.draw import Ui_Form
 import utils.globalParams as glo
-from matplotlib.widgets import SpanSelector
+from matplotlib.lines import Line2D
 
 class FFTThread(QThread):
     fftSignal = pyqtSignal(np.ndarray, np.ndarray)
@@ -20,9 +18,12 @@ class FFTThread(QThread):
         super().__init__()
         self.mainWin = mainWin
         self.mutex = QMutex()
-        self.data = np.array([[], []])
-        self.xdata = np.array([[], []])
-        self.ydata = np.array([[], []])
+        self.data1 = np.array([])
+        self.data2 = np.array([])
+        self.xdata1 = np.array([])
+        self.xdata2 = np.array([])
+        self.ydata1 = np.array([])
+        self.ydata2 = np.array([])
 
     def run(self):
         while(glo.connected):
@@ -35,21 +36,32 @@ class FFTThread(QThread):
                 # data = data[:, 1]
             # data = data.astype(np.float)
             if glo.history.shape[1] > glo.sample_rate:
-                self.data[0] = self.mainWin.chartFrameList[0].canvas.ydata
-                self.data[1] = self.mainWin.chartFrameList[1].canvas.ydata
-                for i in range(2):
-                    self.data[i] = self.data[i] - np.mean(self.data[i])
-                    self.data[i] = self.data[i] * np.hamming(len(self.data[i]))
-                    self.data[i] = np.abs(np.fft.fft(self.data[i]))
-                    self.data[i] = self.data[i][0:int(len(self.data[i]) / 2)]
-                    self.data[i] = self.data[i] / max(self.data[i]) if max(self.data[i]) != 0 else np.arange(len(self.data[i]))
-                    self.data[i] = self.data[i] * 100
-                    self.xdata[i] = np.linspace(0, glo.sample_rate / 2, len(self.data[i]))
-                    self.ydata[i] = self.data[i]
-                self.fftSignal.emit(self.xdata, self.ydata)
+                self.data1 = self.mainWin.chartFrameList[0].canvas.ydata[-4000:]
+                self.data2 = self.mainWin.chartFrameList[1].canvas.ydata[-4000:]
+                
+                self.data1 = self.data1 - np.mean(self.data1)
+                self.data1 = self.data1 * np.hamming(len(self.data1))
+                self.data1 = np.abs(np.fft.fft(self.data1))
+                self.data1 = self.data1[0:int(len(self.data1) / 2)]
+                self.data1 = self.data1 / max(self.data1) if max(self.data1) != 0 else np.arange(len(self.data1))
+                self.data1 = self.data1* 100
+                self.xdata1 = np.linspace(0, glo.sample_rate / 2, len(self.data1))
+                self.ydata1 = self.data1
+
+                self.data2 = self.data2 - np.mean(self.data2)
+                self.data2 = self.data2 * np.hamming(len(self.data2))
+                self.data2 = np.abs(np.fft.fft(self.data2))
+                self.data2 = self.data2[0:int(len(self.data2) / 2)]
+                self.data2 = self.data2 / max(self.data2) if max(self.data2) != 0 else np.arange(len(self.data2))
+                self.data2 = self.data2* 100
+                self.xdata2 = np.linspace(0, glo.sample_rate / 2, len(self.data2))
+                self.ydata2 = self.data2
+                xdata = np.array([self.xdata1, self.xdata2])
+                ydata = np.array([self.ydata1, self.ydata2])
+                self.fftSignal.emit(xdata, ydata)
             # else:
                 # self.mutex.unlock()
-            time.sleep(0.1)
+            time.sleep(0.5)
 
 # 绘制 频谱图
 class FFTCanvas(FigureCanvas):
@@ -57,7 +69,11 @@ class FFTCanvas(FigureCanvas):
         self.fig, self.ax = plt.subplots()
         self.ax.set_xlim(0, 100)
         self.ax.set_ylim(0, 100)
-        self.line, = self.ax.plot([], [])
+        self.line1 = Line2D([], [])
+        self.line2 = Line2D([], [])
+        self.line2.set_color('orange')
+        self.ax.add_line(self.line1)
+        self.ax.add_line(self.line2)
         self.fig.set_constrained_layout(True)   # 自动调整子图间距
         FigureCanvas.__init__(self, self.fig)
         self.setParent(parent)
@@ -65,8 +81,8 @@ class FFTCanvas(FigureCanvas):
         FigureCanvas.updateGeometry(self)
 
     def updateFFT(self, xdata, ydata):
-        self.line.set_xdata(xdata)
-        self.line.set_ydata(ydata)
+        self.line1.set_data(xdata[0], ydata[0])
+        self.line2.set_data(xdata[1], ydata[1])
         self.draw()
 
 class MyMplCanvasFile(FigureCanvas):
@@ -93,8 +109,9 @@ class MyMplCanvasFile(FigureCanvas):
         self.ax.set_xlim(self.XMAX - glo.XDIS, self.XMAX)
         self.ax.set_ylim(-glo.YDIS, glo.YDIS)
         # self.ax.set_axis_off()
+        self.ax.grid(True)
         self.ax.set_ylabel('Voltage (μV)')
-        self.ax.set_xlabel('Time (ms)')
+        self.ax.set_xlabel('Time (s)')
         self.line, = self.ax.plot([], [])
         FigureCanvas.__init__(self, self.fig)
 
@@ -245,6 +262,7 @@ class drawFrameFile(QFrame, Ui_Form):
         self.canvas.fig.canvas.draw_idle()
     def updateSampleRate(self):
         self.canvas.XMAX = self.history.size / glo.sample_rate
+        print(self.history.size)
         self.canvas.xdata = np.arange(0, self.canvas.XMAX, 1 / glo.sample_rate)
         self.canvas.ax.set_xlim(self.canvas.xdata[0], self.canvas.xdata[-1])
         self.canvas.zoomReset()
@@ -278,59 +296,23 @@ class MyMplCanvas(FigureCanvas):
 
     def initChart(self):
         self.fig, self.ax = plt.subplots()
-        self.ax.set_ylim(-self.Ydis, self.Ydis)
-        self.ax.set_xlim(self.XMAX - self.Xdis, self.XMAX)
         self.ax.set_xlim(self.XMAX - glo.XDIS, self.XMAX)
         self.ax.set_ylim(-glo.YDIS, glo.YDIS)
-        # self.ax.set_xticklabels([])  # 去掉x轴刻度
-        # self.ax.set_yticklabels([])  # 去掉y轴刻度
-        # self.ax.set_xticks([])  # 去掉x轴刻度
-        # self.ax.set_autoscalex_on(False)    # 关闭自动缩放
-        # self.ax.set_yticks([])  # 去掉y轴刻度
-        # self.ax.set_autoscaley_on(False)    # 关闭自动缩放
-        # self.ax.set_axes_locator(None)  # 去掉坐标轴
         self.ax.set_axis_off()
-        # self.ax.grid(True)
-        # self.ax.set_xmargin(0)
-        # self.ax.set_ymargin(0)
-        # self.ax.get_xaxis().set_visible(False)
-        # self.ax.get_yaxis().set_visible(False)
         self.ax.set_ylabel('Voltage (μV)')
         self.ax.set_xlabel('Time (ms)')
         self.line, = self.ax.plot([], [])
-        # self.line2, = self.ax2.plot([], [])
-        # self.span = SpanSelector(
-        #     self.ax,
-        #     self.onselect,
-        #     "horizontal",
-        #     useblit=True,
-        #     props=dict(alpha=0.5, facecolor="tab:blue"),
-        #     interactive=True,
-        #     drag_from_anywhere=True
-        # )
         FigureCanvas.__init__(self, self.fig)
 
-        # self.fig.set_constrained_layout_pads(w_pad=0, h_pad=0, wspace=0, hspace=0)   # 自动调整子图间距
         self.fig.set_constrained_layout(True)   # 自动调整子图间距
 
+        # self.fig.canvas.mpl_connect('scroll_event', self.button_call_back)
+        # self.fig.canvas.mpl_connect('key_press_event', self.button_call_back)
         self.fig.canvas.mpl_connect('scroll_event', self.button_call_back)
         self.fig.canvas.mpl_connect('key_press_event', self.button_call_back)
-        # self.fig.canvas.mpl_connect("button_press_event", self.on_press)
-        # self.fig.canvas.mpl_connect("button_release_event", self.on_release)
-        # self.fig.canvas.mpl_connect("motion_notify_event", self.on_move)
-
-        # def onselect(self, xmin, xmax):
-        #     indmin, indmax = np.searchsorted(self.xdata, (xmin, xmax))
-        #     indmax = min(len(self.xdata) - 1, indmax)
-
-        #     region_x = self.xdata[indmin:indmax]
-        #     region_y = self.ydata[indmin:indmax]
-
-        #     if len(region_x) >= 2:
-        #         self.line2.set_data(region_x, region_y)
-        #         self.ax2.set_xlim(region_x[0], region_x[-1])
-        #         self.ax2.set_ylim(region_y.min(), region_y.max())
-        #         self.fig.canvas.draw_idle()
+        self.fig.canvas.mpl_connect("button_press_event", self.on_press)
+        self.fig.canvas.mpl_connect("button_release_event", self.on_release)
+        self.fig.canvas.mpl_connect("motion_notify_event", self.on_move)
 
     def initData(self):
         self.xdata = np.arange(0, self.XMAX, 1)
@@ -352,6 +334,26 @@ class MyMplCanvas(FigureCanvas):
             # self.flush_events()
             # print("use time:", time.time() - time1)
         ...
+
+    def on_press(self, event):  # 鼠标按下事件
+        if event.inaxes:  # 判断鼠标是否在axes内
+            if event.button == 1:  # 判断按下为鼠标左键
+                self.start_point = (event.xdata, event.ydata)  # 获取鼠标按下的坐标
+                print(self.start_point)
+
+    def on_move(self, event):  # 鼠标移动事件
+        ...
+
+    def on_release(self, event):  # 鼠标释放事件
+        if event.inaxes:  # 判断鼠标是否在axes内
+            if event.button == 1:   # 判断松开为鼠标左键
+                self.end_point = (event.xdata, event.ydata)  # 获取鼠标释放的坐标
+                print(self.end_point)
+                self.ax.set_xlim(min(self.start_point[0], self.end_point[0]), max(
+                    self.start_point[0], self.end_point[0]))
+                self.ax.set_ylim(min(self.start_point[1], self.end_point[1]), max(
+                    self.start_point[1], self.end_point[1]))
+                self.draw()
 
     def on_press(self, event):  # 鼠标按下事件
         if event.inaxes:  # 判断鼠标是否在axes内
@@ -385,26 +387,7 @@ class MyMplCanvas(FigureCanvas):
         y_mouse = event.ydata
         x_test = (x_max - x_min) / 2
         y_test = (y_max - y_min) / 2
-        # if event.button == 'up':
-        #     xmin_new = x_mouse - x_test + x_dis if x_mouse - x_test + x_dis > 0 else 0
-        #     xmax_new = x_mouse + x_test - x_dis if x_mouse + x_test - x_dis < self.XMAX else self.XMAX
-        #     if xmin_new >= xmax_new:
-        #         xmin_new = xmax_new - x_test
-        #     ymin_new = y_mouse - y_test + y_dis if y_mouse - y_test + y_dis > -20000 else -20000
-        #     ymax_new = y_mouse + y_test - y_dis if y_mouse + y_test - y_dis < 20000 else 20000
-        #     if ymin_new >= ymax_new:
-        #         ymin_new = ymax_new - y_test
-        #     axtemp.set(xlim=(xmin_new, xmax_new), ylim=(ymin_new, ymax_new))
-        # if event.button == 'down':
-        #     xmin_new = x_mouse - x_test - x_dis if x_mouse - x_test - x_dis > 0 else 0
-        #     xmax_new = x_mouse + x_test + x_dis if x_mouse + x_test + x_dis < self.XMAX else self.XMAX
-        #     if xmin_new >= xmax_new:
-        #         xmin_new = xmax_new - x_test
-        #     ymin_new = y_mouse - y_test - y_dis if y_mouse - y_test - y_dis > -20000 else -20000
-        #     ymax_new = y_mouse + y_test + y_dis if y_mouse + y_test + y_dis < 20000 else 20000
-        #     if ymin_new >= ymax_new:
-        #         ymin_new = ymax_new - y_test
-        #     axtemp.set(xlim=(xmin_new, xmax_new), ylim=(ymin_new, ymax_new))
+       
         if event.button == 'up' and event.key == 'shift':
             axtemp.set(xlim=(x_min + x_dis, x_max - x_dis))
             print('right')
@@ -453,13 +436,6 @@ class drawFrame(QFrame, Ui_Form):
         self.canvasLayout.addWidget(self.canvas)
         self.btn_reset.clicked.connect(lambda: self.canvas.zoomReset())
         self.btn_close.clicked.connect(lambda: self.setVisible(False))
-        # self.canvas2 = MyMplCanvas2()
-        # self.frame1Layout.addWidget(self.canvas2)
-        # self.canvas3 = MyMplCanvas2()
-        # self.frame2Layout.addWidget(self.canvas3)
-        # self.frame1.layout.addWidget(self.canvas2)
-        # self.btn_close.clicked.connect(lambda: self.setVisible(False))
-        # self.btn_close.clicked.connect(self.dataTimer)
         ...
     
     def addData(self, data):    # 添加数据
@@ -472,12 +448,7 @@ class drawFrame(QFrame, Ui_Form):
         # data = self.data_process.copy()
         # self.data_process = np.array([])
         len_data = len(data)
-        # time1 = time.time()
-        self.history = np.append(self.history, data)[-8000:]
-        # print(self.history.shape)
-        # if (glo.isHighPassFilter or glo.isNotchFilter or glo.
-        #         isBandPassFilter) and glo.len_history() > 1000:
-            # data_filter = self.history.copy()
+        self.history = np.append(self.history, data)[-glo.sample_rate:]
         if glo.isBaseline:
             data_filter = detrend(self.history.copy(), type='constant')
         else:

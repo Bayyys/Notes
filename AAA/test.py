@@ -206,7 +206,7 @@ class mainWin(QWidget):
     def btn_send_start_clicked(self):
         self.mythread.ser.flushInput()
         self.mythread.ser.flushOutput()
-        self.sendMessage('start', 'usb', 1000, 32)
+        self.sendMessage('start', 'usb', 8000, 2)
         print("write 0x AA 06 01")
         print("start")
     
