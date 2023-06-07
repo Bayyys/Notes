@@ -59,6 +59,8 @@ class FFTThread(QThread):
                 xdata = np.array([self.xdata1, self.xdata2])
                 ydata = np.array([self.ydata1, self.ydata2])
                 self.fftSignal.emit(xdata, ydata)
+                time_all = int(glo.history.shape[1] / glo.sample_rate)
+                self.mainWin.lb_connect.setText('Time: ' + str(time_all) + 's')
             # else:
                 # self.mutex.unlock()
             time.sleep(0.5)
@@ -95,8 +97,9 @@ class MyMplCanvasFile(FigureCanvas):
     xdata = np.array([])
     ydata = np.array([])
 
-    def __init__(self):
+    def __init__(self, parent=None):
         super().__init__()
+        self.mainWin = parent
         self.initChart()
         self.initData()
         self.setFocusPolicy(Qt.ClickFocus)
@@ -133,8 +136,8 @@ class MyMplCanvasFile(FigureCanvas):
         if event.inaxes:  # 判断鼠标是否在axes内
             if event.button == 1:  # 判断按下为鼠标左键
                 self.start_point = (event.xdata, event.ydata) # 获取鼠标按下的坐标
-                print(self.start_point)
-        ...
+                self.mainWin.statusBar.showMessage(
+                    'x: %d, y: %d' % (event.xdata, event.ydata), 3000)
 
     def on_move(self, event):  # 鼠标移动事件
         ...
@@ -143,13 +146,18 @@ class MyMplCanvasFile(FigureCanvas):
         if event.inaxes:  # 判断鼠标是否在axes内
             if event.button == 1:   # 判断松开为鼠标左键
                 self.end_point = (event.xdata, event.ydata) # 获取鼠标释放的坐标
-                print(self.end_point)
-                self.ax.set_xlim(min(self.start_point[0], self.end_point[0]), max(self.start_point[0], self.end_point[0]))
-                self.ax.set_ylim(min(self.start_point[1], self.end_point[1]), max(self.start_point[1], self.end_point[1]))
+                axtemp = event.inaxes
+                y_min, y_max = axtemp.get_ylim()
+                y_dis = (y_max - y_min) / 10
+                x_min, x_max = axtemp.get_xlim()
+                x_dis = (x_max - x_min) / 10
+                x_lim_new = (min(self.start_point[0], self.end_point[0]), max(self.start_point[0], self.end_point[0]))
+                y_lim_new = (min(self.start_point[1], self.end_point[1]), max(self.start_point[1], self.end_point[1]))
+                if x_lim_new[1] - x_lim_new[0] < x_dis and y_lim_new[1] - y_lim_new[0] < y_dis:
+                    return 
+                self.ax.set_xlim(x_lim_new)
+                self.ax.set_ylim(y_lim_new)
                 self.draw()
-                # print("x_lim: ", (min(self.start_point[0], self.end_point[0]), max(self.start_point[0], self.end_point[0])))
-                # print("y_lim: ", (min(self.start_point[1], self.end_point[1]), max(self.start_point[1], self.end_point[1])))
-        ...
 
     def button_call_back(self, event):  # 鼠标滚轮事件
         axtemp = event.inaxes
@@ -163,17 +171,25 @@ class MyMplCanvasFile(FigureCanvas):
         y_test = (y_max - y_min) / 2
 
         if event.button == 'up' and event.key == 'shift':
+            if x_min - x_dis < 0:
+                x_min = 0
+            if x_max + x_dis > self.XMAX:
+                x_max = self.XMAX
             axtemp.set(xlim=(x_min + x_dis, x_max - x_dis))
-            print('right')
+            self.mainWin.statusBar.showMessage('横轴放大', 3000)
         elif event.button == 'up':
             axtemp.set(ylim=(y_min + y_dis, y_max - y_dis))
-            print('up')
+            self.mainWin.statusBar.showMessage('纵轴放大', 3000)
         if event.button == 'down' and event.key == 'shift':
+            if x_min - x_dis < 0:
+                x_min = 0
+            if x_max + x_dis > self.XMAX:
+                x_max = self.XMAX
             axtemp.set(xlim=(x_min - x_dis, x_max + x_dis))
-            print('left')
+            self.mainWin.statusBar.showMessage('横轴缩小', 3000)
         elif event.button == 'down':
             axtemp.set(ylim=(y_min - y_dis, y_max + y_dis))
-            print('down')
+            self.mainWin.statusBar.showMessage('纵轴缩小', 3000)
         self.draw()
 
     def zoomReset(self):
@@ -192,8 +208,9 @@ class MyMplCanvasFile(FigureCanvas):
 class drawFrameFile(QFrame, Ui_Form):
     history = np.array([])  # 历史数据
 
-    def __init__(self):
+    def __init__(self, parent=None):
         super().__init__()
+        self.mainWin = parent
         self.setupUi(self)
         # try:
         #     self.ui = uic.loadUi('ui/draw.ui', self)
@@ -202,7 +219,7 @@ class drawFrameFile(QFrame, Ui_Form):
         self.initUI()
 
     def initUI(self):
-        self.canvas = MyMplCanvasFile()
+        self.canvas = MyMplCanvasFile(self.mainWin)
         self.canvasLayout.addWidget(self.canvas)
         self.btn_reset.clicked.connect(lambda: self.canvas.zoomReset())
         self.btn_close.clicked.connect(lambda: self.setVisible(False))
@@ -213,7 +230,7 @@ class drawFrameFile(QFrame, Ui_Form):
         if glo.isBaseline:
             self.canvas.ydata = detrend(self.canvas.ydata, type='linear')
             ...
-        self.canvas.xdata = np.arange(0, self.history.size / glo.sample_rate, 1 / glo.sample_rate)
+        self.canvas.xdata = np.arange(0, self.history.size, 1) / glo.sample_rate
         self.canvas.XMAX = self.canvas.xdata[-1]
         self.canvas.YMAX = max(abs(self.canvas.ydata.max()), abs(self.canvas.ydata.min()))
         # print(self.canvas.YMIN, self.canvas.YMAX)
@@ -262,7 +279,6 @@ class drawFrameFile(QFrame, Ui_Form):
         self.canvas.fig.canvas.draw_idle()
     def updateSampleRate(self):
         self.canvas.XMAX = self.history.size / glo.sample_rate
-        print(self.history.size)
         self.canvas.xdata = np.arange(0, self.canvas.XMAX, 1 / glo.sample_rate)
         self.canvas.ax.set_xlim(self.canvas.xdata[0], self.canvas.xdata[-1])
         self.canvas.zoomReset()
@@ -286,8 +302,9 @@ class MyMplCanvas(FigureCanvas):
     xdata = np.array([])
     ydata = np.array([])
 
-    def __init__(self):
+    def __init__(self, parent=None):
         super().__init__()
+        self.mainWin = parent
         self.initChart()
         self.initData()
         self.initUpdataTimer()
@@ -339,7 +356,7 @@ class MyMplCanvas(FigureCanvas):
         if event.inaxes:  # 判断鼠标是否在axes内
             if event.button == 1:  # 判断按下为鼠标左键
                 self.start_point = (event.xdata, event.ydata)  # 获取鼠标按下的坐标
-                print(self.start_point)
+                self.mainWin.statusBar.showMessage(str(self.start_point), 3000)
 
     def on_move(self, event):  # 鼠标移动事件
         ...
@@ -348,7 +365,6 @@ class MyMplCanvas(FigureCanvas):
         if event.inaxes:  # 判断鼠标是否在axes内
             if event.button == 1:   # 判断松开为鼠标左键
                 self.end_point = (event.xdata, event.ydata)  # 获取鼠标释放的坐标
-                print(self.end_point)
                 self.ax.set_xlim(min(self.start_point[0], self.end_point[0]), max(
                     self.start_point[0], self.end_point[0]))
                 self.ax.set_ylim(min(self.start_point[1], self.end_point[1]), max(
@@ -359,8 +375,6 @@ class MyMplCanvas(FigureCanvas):
         if event.inaxes:  # 判断鼠标是否在axes内
             if event.button == 1:  # 判断按下为鼠标左键
                 self.start_point = (event.xdata, event.ydata) # 获取鼠标按下的坐标
-                # print(self.start_point)
-        ...
 
     def on_move(self, event):  # 鼠标移动事件
         ...
@@ -368,14 +382,21 @@ class MyMplCanvas(FigureCanvas):
     def on_release(self, event):  # 鼠标释放事件
         if event.inaxes:  # 判断鼠标是否在axes内
             if event.button == 1:   # 判断松开为鼠标左键
-                self.end_point = (event.xdata, event.ydata) # 获取鼠标释放的坐标
-                # print(self.end_point)
-                self.ax.set_xlim(min(self.start_point[0], self.end_point[0]), max(self.start_point[0], self.end_point[0]))
-                self.ax.set_ylim(min(self.start_point[1], self.end_point[1]), max(self.start_point[1], self.end_point[1]))
+                self.end_point = (event.xdata, event.ydata)  # 获取鼠标释放的坐标
+                axtemp = event.inaxes
+                y_min, y_max = axtemp.get_ylim()
+                y_dis = (y_max - y_min) / 10
+                x_min, x_max = axtemp.get_xlim()
+                x_dis = (x_max - x_min) / 10
+                x_lim_new = (min(self.start_point[0], self.end_point[0]), max(
+                    self.start_point[0], self.end_point[0]))
+                y_lim_new = (min(self.start_point[1], self.end_point[1]), max(
+                    self.start_point[1], self.end_point[1]))
+                if x_lim_new[1] - x_lim_new[0] < x_dis and y_lim_new[1] - y_lim_new[0] < y_dis:
+                    return
+                self.ax.set_xlim(x_lim_new)
+                self.ax.set_ylim(y_lim_new)
                 self.draw()
-                # print("x_lim: ", (min(self.start_point[0], self.end_point[0]), max(self.start_point[0], self.end_point[0])))
-                # print("y_lim: ", (min(self.start_point[1], self.end_point[1]), max(self.start_point[1], self.end_point[1])))
-        ...
 
     def button_call_back(self, event):  # 鼠标滚轮事件
         axtemp = event.inaxes
@@ -389,17 +410,21 @@ class MyMplCanvas(FigureCanvas):
         y_test = (y_max - y_min) / 2
        
         if event.button == 'up' and event.key == 'shift':
+            if x_min - x_dis < 0:
+                x_min = 0
+            if x_max + x_dis > self.XMAX:
+                x_max = self.XMAX
             axtemp.set(xlim=(x_min + x_dis, x_max - x_dis))
-            print('right')
         elif event.button == 'up':
             axtemp.set(ylim=(y_min + y_dis, y_max - y_dis))
-            print('up')
         if event.button == 'down' and event.key == 'shift':
+            if x_min - x_dis < 0:
+                x_min = 0
+            if x_max + x_dis > self.XMAX:
+                x_max = self.XMAX
             axtemp.set(xlim=(x_min - x_dis, x_max + x_dis))
-            print('left')
         elif event.button == 'down':
             axtemp.set(ylim=(y_min - y_dis, y_max + y_dis))
-            print('down')
         self.draw()
 
     def zoomReset(self):
@@ -410,7 +435,6 @@ class MyMplCanvas(FigureCanvas):
     def close_event(self, event) -> None:
         try:
             self.timer.stop()
-            # self.mythread.stop()
             self.mythread.terminate()
         except:
             ...
@@ -418,9 +442,12 @@ class MyMplCanvas(FigureCanvas):
 class drawFrame(QFrame, Ui_Form):
     history = np.array([])
     data_process = np.array([])
+    data_add = np.array([])
+    data_add_mutex = QMutex()
 
-    def __init__(self):
+    def __init__(self, parent=None):
         super().__init__()
+        self.mainWin = parent
         self.setupUi(self)
         # try:
         #     self.ui = uic.loadUi('ui/draw.ui', self)
@@ -431,22 +458,23 @@ class drawFrame(QFrame, Ui_Form):
         # self.initData()
 
     def initUI(self):
-        self.canvas = MyMplCanvas()
+        self.canvas = MyMplCanvas(self.mainWin)
         self.time = 0
         self.canvasLayout.addWidget(self.canvas)
         self.btn_reset.clicked.connect(lambda: self.canvas.zoomReset())
         self.btn_close.clicked.connect(lambda: self.setVisible(False))
+        self.processTimer = QTimer(self)
+        self.processTimer.timeout.connect(self.processData)
+        self.processTimer.start(1)
         ...
-    
-    def addData(self, data):    # 添加数据
-        # self.data_process = np.append(self.data_process, data)
-        # if self.data_process.size <= glo.sample_rate / 100:
-            # return
-        # self.data_process = self.data_process[-100:]
-        # if glo.isBaseline == True:
-        #     self.data_process = detrend(self.data_process, type='constant')
-        # data = self.data_process.copy()
-        # self.data_process = np.array([])
+    def processData(self):
+        self.data_add_mutex.lock()
+        data = self.data_add
+        if data.size == 0:
+            self.data_add_mutex.unlock()
+            return
+        self.data_add = np.array([])
+        self.data_add_mutex.unlock()
         len_data = len(data)
         self.history = np.append(self.history, data)[-glo.sample_rate:]
         if glo.isBaseline:
@@ -476,7 +504,50 @@ class drawFrame(QFrame, Ui_Form):
         self.lb_min.setText(str(np.round(min(self.canvas.ydata[-500:]), 3)))
         self.lb_max.setText(str(np.round(max(self.canvas.ydata[-500:]), 3)))
         self.lb_rms.setText(str(np.round(np.sqrt(np.mean(self.canvas.ydata[-500:]**2)), 3)))
-        # print("time: ", time.time() - time1)
+
+    def addData(self, data):    # 添加数据
+        # print(data)
+        # self.data_process = np.append(self.data_process, data)
+        # if self.data_process.size <= glo.sample_rate / 100:
+            # return
+        # self.data_process = self.data_process[-100:]
+        # if glo.isBaseline == True:
+        #     self.data_process = detrend(self.data_process, type='constant')
+        # data = self.data_process.copy()
+        # self.data_process = np.array([])
+        self.data_add_mutex.lock()
+        self.data_add = np.append(self.data_add, data)
+        self.data_add_mutex.unlock()
+        # len_data = len(data)
+        # self.history = np.append(self.history, data)[-glo.sample_rate:]
+        # if glo.isBaseline:
+        #     data_filter = detrend(self.history.copy(), type='constant')
+        # else:
+        #     data_filter = self.history.copy()
+        # process = data_filter
+        # if glo.isLowPassFilter:
+        #     process = sosfilt(glo.sos_low, process)
+        # if glo.isHighPassFilter:
+        #     process = sosfilt(glo.sos_high, process)
+        # if glo.isNotchFilter:
+        #     process = sosfilt(glo.sos_notch, process)
+        # if glo.isBandPassFilter:
+        #     process = sosfilt(glo.sos_band, process)
+        # data = process[-len_data:]
+
+        # self.canvas.ydata[:-len_data] = self.canvas.ydata[len_data:]
+        # self.canvas.ydata[-len_data:] = data
+        # # self.canvas.ydata[-len_data:] = self.history[-len_data:]
+        # # print(self.detrendFlag)
+        # # if self.detrendFlag == True:
+        # #     print("detrend")
+        # #     self.canvas.ydata = detrend(self.canvas.ydata, type='constant')
+
+        # self.canvas.line.set_ydata(self.canvas.ydata)
+        # self.lb_min.setText(str(np.round(min(self.canvas.ydata[-500:]), 3)))
+        # self.lb_max.setText(str(np.round(max(self.canvas.ydata[-500:]), 3)))
+        # self.lb_rms.setText(str(np.round(np.sqrt(np.mean(self.canvas.ydata[-500:]**2)), 3)))
+        # # print("time: ", time.time() - time1)
 
     def updateYlim(self):   # 更新Y轴范围
         self.canvas.ax.set_ylim(-glo.YDIS, glo.YDIS)

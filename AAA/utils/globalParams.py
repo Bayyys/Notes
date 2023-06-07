@@ -1,10 +1,10 @@
-from utils import decodeUtil
 import sys
 sys.path.append('..')
 from PyQt5.QtCore import QMutex
 import numpy as np
 import pandas as pd
 from time import sleep
+from utils import decodeUtil
 
 scan = None  # 扫描 type: bool
 connected = None    # 连接 type: bool
@@ -29,7 +29,7 @@ YDIS = 200000   # Y轴显示范围 type: int
 sample_rate = 1000  # 采样率 type: int
 
 def __init__():
-    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, isBaseline, isLowPassFilter, isHighPassFilter, isNotchFilter, isBandPassFilter, XDIS, YDIS, sample_rate, channel_num, sos_low, sos_high, sos_notch, sos_band, lowFilter_low, highFilter_low, highFilter_high, notchFilter_cutoff, notchFilter_param, bandFilter_pass, bandFilter_stop, message
+    global scan, connected, ser, history, data, mutex_history, mutex_data, time, com, isBaseline, isLowPassFilter, isHighPassFilter, isNotchFilter, isBandPassFilter, XDIS, YDIS, sample_rate, channel_num, sos_low, sos_high, sos_notch, sos_band, lowFilter_low, highFilter_low, highFilter_high, notchFilter_cutoff, notchFilter_param, bandFilter_pass, bandFilter_stop, message, time_all, time_temp
     scan = False
     connected = False
     ser = None
@@ -45,7 +45,7 @@ def __init__():
     XDIS = 8000
     YDIS = 200000
     sample_rate = 1000
-    channel_num = 32
+    channel_num = 2
     sos_low = None
     sos_high = None
     sos_notch = None
@@ -60,7 +60,8 @@ def __init__():
            250:[0xaa, 0x03, 0x01, 0x96], 500:[0xaa, 0x03, 0x01, 0x95], 1000:[0xaa, 0x03, 0x01, 0x94], 2000:[0xaa, 0x03, 0x01, 0x93], 4000:[0xaa, 0x03, 0x01, 0x92], 8000:[0xaa, 0x03, 0x01, 0x91], 16000:[0xaa, 0x03, 0x01, 0x90],  # 采样率: 0xAA 0x03 + 0x01 + 0x96:250Hz, 0x95:500Hz, 0x94:1000Hz, 0x93:2000Hz, 0x92:4000Hz, 0x91:8000Hz, 0x90:16000Hz
            32:[0xaa, 0x07, 0x20], 2:[0xaa, 0x07, 0x02], # 通道数: 0xAA 0x07 + 0x20:32, 0x02:2
            'stop':[0xaa, 0x06, 0x00], 'start':[0xaa, 0x06, 0x01]}   # 开始/停止采集: 0xAA 0x06 + 0x00:stop, 0x01:start
-
+    time_all = 0
+    time_temp = 0
 
 def sendMessage(state, connect='usb', sample_rate=1000, channel=32):
     '''发送命令
@@ -72,19 +73,21 @@ def sendMessage(state, connect='usb', sample_rate=1000, channel=32):
     ser.flushInput()
     ser.flushOutput()
     if state == 'start':
-        print(connect)
         ser.write(message[connect])
-        sleep(0.05)
+        sleep(0.1)
         ser.write(message[sample_rate])
-        sleep(0.05)
+        sleep(0.1)
         ser.write(message[channel])
-        sleep(0.05)
+        print(channel)
+        sleep(0.1)
         ser.write(message['start'])
-        sleep(0.05)
+        sleep(0.1)
     elif state == 'stop':
         for i in range(3):
             ser.write(message['stop'])
-            sleep(0.05)
+            sleep(0.1)
+    else:
+        print('error')
 
 def initFilterParams():
     global sos_low, sos_high, sos_notch, sos_band

@@ -48,12 +48,10 @@ class serialRead2(QThread):  # 读取串口数据线程
     index_1 = 0 # 1号通道数据起始位置
     index_2 = 4    # 2号通道数据起始位置
     index_3 = 8    # 3号通道数据起始位置
-    count = 0
-
+    
     def run(self):
         print("serialRead start")
         glo.ser.flushOutput()
-        glo.ser.write(glo.send_start)
         glo.ser.flushInput()
         while(glo.connected):
             if serialIsOpen(glo.ser) == False:
@@ -63,10 +61,7 @@ class serialRead2(QThread):  # 读取串口数据线程
                 break
             if glo.ser.inWaiting():
                 data = glo.ser.read(glo.ser.in_waiting)
-                # get = self.bytesSplit(data)
-                # print(data)
                 self.dateReadUpdate.emit(self.bytesSplit(data))
-                # print(self.count)
 
     def bytesSplit(self, data):
         '''解码数据
@@ -83,8 +78,6 @@ class serialRead2(QThread):  # 读取串口数据线程
                 index_s = data.find(b'\xa5Z') + 4
                 index_e = index_s + 10
                 get = data[index_s: index_e]
-                # print(get)
-                # print(len(get))
                 num1 = self.bytestoFloat(get[self.index_1: self.index_2])
                 if num1 > 100000:
                     num1 = 0
@@ -93,7 +86,6 @@ class serialRead2(QThread):  # 读取串口数据线程
                 if num2 > 100000:
                     num2 = 0
                 num_list[1].append(num2)
-                self.count += 1
                 data = data[index_e:]
             else:
                 break
@@ -143,12 +135,10 @@ class serialRead(QThread):  # 读取串口数据线程
     index_27 = 104  # 27号通道数据起始位置
     index_p = 128  # 通道连接状态起始位置
     index_n = 132  # 通道连接状态起始位置
-    count = 0
 
     def run(self):
         print("serialRead start")
         glo.ser.flushOutput()
-        glo.ser.write(glo.send_start)
         glo.ser.flushInput()
         while(glo.connected):
             if serialIsOpen(glo.ser) == False:
@@ -158,10 +148,7 @@ class serialRead(QThread):  # 读取串口数据线程
                 break
             if glo.ser.inWaiting():
                 data = glo.ser.read(glo.ser.in_waiting)
-                # get = self.bytesSplit(data)
-                # print(data)
                 self.dateReadUpdate.emit(self.bytesSplit(data))
-                # print(self.count)
 
     def bytesSplit(self, data):
         '''解码数据
@@ -178,19 +165,16 @@ class serialRead(QThread):  # 读取串口数据线程
                 index_s = data.find(b'\xa5Z') + 4
                 index_e = index_s + 136
                 get = data[index_s: index_e]
-                # print(get[self.index_p: index_e])
-                # print(len(get))
                 if get[self.index_p] & 0x01 and get[self.index_n] & 0x01:
                     num1 = 0
                 else:
-                    num1 = self.bytestoFloat(get[self.index_1: self.index_2]) / 24.0
+                    num1 = self.bytestoFloat(get[self.index_1: self.index_2])
                 num_list[0].append(num1)
                 if get[self.index_p] & 0x02 or get[self.index_n] & 0x02:
                     num2 = 0
                 else:
-                    num2 = self.bytestoFloat(get[self.index_2: self.index_3]) / 24.0
+                    num2 = self.bytestoFloat(get[self.index_2: self.index_3])
                 num_list[1].append(num2)
-                self.count += 1
                 data = data[index_e:]
             else:
                 break
@@ -271,15 +255,7 @@ class updateFig(QThread):   # WAIT
 
     def run(self):
         while glo.connected:
-            time1 = time.time()
-            # for fig in self.chartList:
-            #     fig.canvas.draw()
-            #     fig.canvas.flush_events()
             self.chartList.canvas.draw()
-            print(time.time() - time1)
-            # print(len(glo.history))
-            # sleep(1)
-
 class processFig(QThread):  # WAIT
     def __init__(self, chart):
         super().__init__()
