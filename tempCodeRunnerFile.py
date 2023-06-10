@@ -1,1 +1,0 @@
-str_recive

@@ -1,19 +1,31 @@
 import sys
 import datetime
 import time
+import traceback
 from PyQt5 import QtCore
 import serial
 import serial.tools.list_ports
+
+# ui_model
+from ui.sensor_info_ui.SensorInfo import SensorInfo
 
 # PyQt5
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtWidgets import QComboBox
+# QFrame
+from PyQt5.QtWidgets import QFrame
+# QWidget
+from PyQt5.QtWidgets import QWidget
+# QVBoxlayout
+from PyQt5.QtWidgets import QVBoxLayout
 
 class PacketDecode():
     '''数据包解析'''
 
-    def __init__(self) -> None:
+    def __init__(self, key: str) -> None:
+        self.key = key  # 数据包类型
+        # 字符串部分
         self.remain = ""  # 保存上一次解析的数据包的剩余部分
         self.str_show = ""  # 保存解析后的数据(文本描述)
         # IMU
@@ -25,6 +37,14 @@ class PacketDecode():
         # 压力传感器
         self.P_list = []    # 保存解析后的压力数据
         ...
+    
+    def decode(self, recive: str) -> dict:
+        ''' 解析数据
+        '''
+        if self.key == "H":
+            return self.decode_p(recive)
+        else:
+            return self.decode_imu(recive)
 
     def decode_imu(self, recive: str) -> dict:
         ''' 解析 IMU 数据
@@ -96,6 +116,7 @@ class PacketDecode():
             str_show(str): 解析后的数据
         '''
         code = packet[2:4]
+
         if code == "51":
             # self.print_packet(packet)
             # 加速度 Acc
@@ -113,12 +134,9 @@ class PacketDecode():
             ZAcc = self.complement_compute(packet[12:16]) / 32768 * 16
             Temp = self.complement_compute(packet[16:20]) / 100
             SUM = int(packet[20:22], 16)
-            # print("XAcc: %f, YAcc: %f, ZAcc: %f, Temp: %f, SUM: %f\n" %
-                #   (XAcc, YAcc, ZAcc, Temp, SUM))
             self.Acc_list.append([XAcc, YAcc, ZAcc])
             self.T_list.append(Temp)
             return str("XAcc: %f, YAcc: %f, ZAcc: %f, Temp: %f, SUM: %f\n" % (XAcc, YAcc, ZAcc, Temp, SUM))
-            # if SUM == 0x55 + 0x51 + int(packet[4:20], 16):
             # print("XAcc: %f, YAcc: %f, ZAcc: %f, Temp: %f" % (XAcc, YAcc, ZAcc, Temp))
 
         elif code == "52":
@@ -140,10 +158,7 @@ class PacketDecode():
             SUM = int(packet[20:22], 16)
             self.Gyro_list.append([XGyro, YGyro, ZGyro])
             self.T_list.append(Temp)
-            # print("XGyro: %f, YGyro: %f, ZGyro: %f, Temp: %f, SUM: %f\n" %
-            #       (XGyro, YGyro, ZGyro, Temp, SUM))
             return str("XGyro: %f, YGyro: %f, ZGyro: %f, Temp: %f, SUM: %f\n" % (XGyro, YGyro, ZGyro, Temp, SUM))
-            # if SUM == 0x55 + 0x52 + int(packet[4:20], 16):
             #     print("XGyro: %f, YGyro: %f, ZGyro: %f, Temp: %f" % (XGyro, YGyro, ZGyro, Temp))
 
         elif code == "53":
@@ -164,10 +179,7 @@ class PacketDecode():
             Version = int(packet[16:20], 16)
             SUM = int(packet[20:22], 16)
             self.Angle_list.append([Roll, Pitch, Yaw])
-            # print("Roll: %f, Pitch: %f, Yaw: %f, Version: %d, SUM: %f\n" %
-            #       (Roll, Pitch, Yaw, Version, SUM))
             return str("Roll: %f, Pitch: %f, Yaw: %f, Version: %d, SUM: %f\n" % (Roll, Pitch, Yaw, Version, SUM))
-            # if SUM == 0x55 + 0x53 + int(packet[4:20], 16):
             #     print("Roll: %f, Pitch: %f, Yaw: %f, Version: %d" % (Roll, Pitch, Yaw, Version))
 
         elif code == "54":
@@ -189,13 +201,11 @@ class PacketDecode():
             SUM = int(packet[20:22], 16)
             self.Mag_list.append([Hx, Hy, Hz])
             self.T_list.append(Temp)
-            # print("Hx: %d, Hy: %d, Hz: %d, Temp: %f, SUM: %f\n" %
-            #       (Hx, Hy, Hz, Temp, SUM))
             return str("Hx: %d, Hy: %d, Hz: %d, Temp: %f, SUM: %f\n" % (Hx, Hy, Hz, Temp, SUM))
-            # if SUM == 0x55 + 0x54 + int(packet[4:20], 16):
             #     print("Hx: %d, Hy: %d, Hz: %d, Temp: %f" % (Hx, Hy, Hz, Temp))
 
         else:
+            # 数据包类型错误
             ...
 
     def decode_p(self, recive:str) -> dict:
@@ -211,12 +221,11 @@ class PacketDecode():
         ----------
             dict: 解析后的数据
         '''
-        self.str_show = ""
-        self.P_list = []
+        self.str_show = ""  # 显示的字符串
+        self.P_list = []    # 气压数据
         # 剩余数据追加到头部
         recive = self.remain + recive
         # 按包头分段
-        num = 0
         while len(recive) >= 70:
             # 检查包头
             if recive[0:4] != "aa01":
@@ -228,7 +237,6 @@ class PacketDecode():
             recive = recive[70:]
             # 解析数据包
             try:
-                num += 1
                 self.str_show += self.decode_packet_p(packet) + "\n"
             except:
                 # 数据包解析错误
@@ -295,7 +303,6 @@ class ReadThread(QtCore.QThread):
     hex_signal = QtCore.pyqtSignal(str) # 十六进制信号
     str_signal = QtCore.pyqtSignal(str) # 字符串信号
     data_signal = QtCore.pyqtSignal(str, list) # 数据信号
-    pd = PacketDecode()
 
     def __init__(self, key: str, ser: serial.Serial, mainWin: QMainWindow) -> None:
         '''初始化线程
@@ -305,10 +312,11 @@ class ReadThread(QtCore.QThread):
             ser (serial.Serial): 串口对象
         '''
         super().__init__()
-        self.key = key
-        self.ser = ser
-        self.mainWin = mainWin
-        self.isRunning = True
+        self.key = key  # 串口关键字 -> ["A", "B", "C", "H"]
+        self.ser = ser  # 串口对象 -> serial.Serial
+        self.mainWin = mainWin  # 主窗口对象 -> QMainWindow
+        self.pd = PacketDecode(self.key) # 数据解析对象
+        self.isRunning = True   # 线程运行标志位
 
     def __del__(self):
         self.isRunning = False
@@ -317,35 +325,24 @@ class ReadThread(QtCore.QThread):
         while self.isRunning:
             if self.ser != None and self.ser.in_waiting >= 280:
                 recive = self.ser.read(self.ser.in_waiting) # 读取串口数据
-                if self.key != "H":
-                    # bytes转化为十六进制字符串
-                    recive = bytes(recive).hex()
-                    str_recive, data_recive = self.pd.decode_imu(recive) # 解析数据包
-                    str_recive = datetime.datetime.now().strftime("\n\n%Y-%m-%d %H:%M:%S:\n") + str_recive # 时间戳 + 字符串描述
-                    # print(self.pd.decode(recive))
-                    # 在行首添加时间戳
-                    recive = datetime.datetime.now().strftime("\n\n%Y-%m-%d %H:%M:%S:\n") + recive
-                    self.hex_signal.emit(recive)
-                    self.str_signal.emit(str_recive)
-                    self.data_signal.emit(self.key, data_recive)
-                else:
-                    recive = recive.hex()
-                    str_recive, data_recive = self.pd.decode_p(recive)
-                    str_recive = datetime.datetime.now().strftime("\n\n%Y-%m-%d %H:%M:%S:\n") + str_recive  # 时间戳 + 字符串描述
-                    self.hex_signal.emit(recive)
-                    self.str_signal.emit(str_recive)
-                    self.data_signal.emit(self.key, data_recive)
+                # bytes转化为十六进制字符串
+                recive = recive.hex()
+                str_recive, data_recive = self.pd.decode(recive) # 解析数据包
+                str_recive = datetime.datetime.now().strftime("\n\n%Y-%m-%d %H:%M:%S:\n") + str_recive # 时间戳 + 字符串描述
+                # 在行首添加时间戳
+                recive = datetime.datetime.now().strftime("\n\n%Y-%m-%d %H:%M:%S:\n") + recive
+                self.hex_signal.emit(recive)
+                self.str_signal.emit(str_recive)
+                self.data_signal.emit(self.key, data_recive)
 
 class UpdateThread(QtCore.QThread):
 
-    def __init__(self, mainWin: QApplication , key: str ,component: dict) -> None:
+    def __init__(self, sensorinfo) -> None:
         super().__init__()
-        self.mainWin = mainWin
-        self.key = key
-        self.component = component
+        self.sensorinfo = sensorinfo
         self.isRunning = True
         self.isUpdate = False
-        self.imu_key_list = ["Acc", "Gyr", "Angle", "Mag", "T"]
+        self.imu_key_list = ["Acc", "Gyr", "Angle", "Mag", "T"] # 
         self.data = []
     
     def __del__(self):
@@ -357,13 +354,9 @@ class UpdateThread(QtCore.QThread):
 
     def run(self):
         while self.isRunning:
-            if self.isUpdate:
+            if self.isUpdate:                    
                 try:
-                    if self.key == "H":
-                        self.update_presure_component()
-                        ...
-                    else:
-                        self.update_imu_component()
+                    self.sensorinfo.update(self.data)
                 except:
                     print(self.data)
                     print("更新失败")
@@ -383,30 +376,6 @@ class UpdateThread(QtCore.QThread):
             # palette.setColor(QPalette.Base, QColor(255, 0, 0, 255))
             # self.et_print.setPalette(palette)
 
-    def update_imu_component(self):
-        Acc, Gyr, Angle, Mag, T = self.data
-        for key in self.imu_key_list:
-            if key == "T":
-                self.component[key][0].setText(str(T[-1])+" ℃")
-                ...
-            elif key == "Acc":
-                self.component[key][0].setText("X: %.2f ×g" % float(Acc[-1][0]))
-                self.component[key][1].setText("Y: %.2f ×g" % float(Acc[-1][1]))
-                self.component[key][2].setText("Z: %.2f ×g" % float(Acc[-1][2]))
-            elif key == "Gyr":
-                self.component[key][0].setText("X: %.2f °/s" % float(Gyr[-1][0]))
-                self.component[key][1].setText("Y: %.2f °/s" % float(Gyr[-1][1]))
-                self.component[key][2].setText("Z: %.2f °/s" % float(Gyr[-1][2]))
-            elif key == "Angle":
-                self.component[key][0].setText("X: %.2f °" % float(Angle[-1][0]))
-                self.component[key][1].setText("Y: %.2f °" % float(Angle[-1][1]))
-                self.component[key][2].setText("Z: %.2f °" % float(Angle[-1][2]))
-            elif key == "Mag":
-                self.component[key][0].setText("X: %.2f uT" % float(Mag[-1][0]))
-                self.component[key][1].setText("Y: %.2f uT" % float(Mag[-1][1]))
-                self.component[key][2].setText("Z: %.2f uT" % float(Mag[-1][2]))
-                ...
-
 class IMU(QMainWindow):
 
     def __init__(self) -> None:
@@ -414,21 +383,25 @@ class IMU(QMainWindow):
         self.ui = uic.loadUi("./ui/sensors.ui", self)
         self.initValues()
         self.initUI()
-        self.initComponentDict()
     
     def initValues(self):
+        self.sensorInfo_list = {}
         self.ser = {} # 串口对象
         self.read_thread = {} # 读取线程
         self.update_thread = {} # 更新线程
         self.port_open_list = []
     
     def initUI(self):
+        sensor_key_list = ["A", "B", "C", "H"]
+        for key in sensor_key_list:
+            self.sensorInfo_list.update({key: SensorInfo(key)})
+            self.tab.layout().addWidget(self.sensorInfo_list[key])
+
+
         self.port_list_Init()   # 初始化串口列表
         self.cb_baudrate.addItems(["9600", "115200", "230400", "460800", "921600"]) # 初始化波特率列表
         # 美化文本框 et_print
         self.et_print.append("欢迎使用 IMU & 压力 传感器测试工具！\n\n")
-        self.cb = QComboBox(self)
-        self.cb.addItems(["Hex", "Str"])
 
         # 绑定按钮事件
         self.btn_start.clicked.connect(self.btn_start_clicked)
@@ -437,41 +410,6 @@ class IMU(QMainWindow):
         self.btn_print.clicked.connect(self.btn_print_clicked)
         self.btn_pause.clicked.connect(self.btn_pause_clicked)
         self.btn_port_all.clicked.connect(self.btn_port_all_clicked)
-    
-    def initComponentDict(self):
-        # 将组件打包成字典，供线程调用
-        # 组件包括 A,B,C 三个部分
-        # 每个部分分别包括 ACC、GYR、MAG、ANGLE、T 五个部分
-        self.component = {
-            "A": {
-                "Acc": [self.lb_A_XAcc, self.lb_A_YAcc, self.lb_A_ZAcc],  # 加速度
-                "Gyr": [self.lb_A_XGyro, self.lb_A_YGyro, self.lb_A_ZGyro],  # 角速度
-                "Angle": [self.lb_A_Roll, self.lb_A_Pitch, self.lb_A_Yaw],    # 角度
-                "Mag": [self.lb_A_Hx, self.lb_A_Hy, self.lb_A_Hz],  # 磁场
-                "T": [self.lb_A_Temperature]    # 温度
-            },
-            "B": {
-                "Acc": [self.lb_B_XAcc, self.lb_B_YAcc, self.lb_B_ZAcc],    # 加速度
-                "Gyr": [self.lb_B_XGyro, self.lb_B_YGyro, self.lb_B_ZGyro],  # 角速度
-                "Angle": [self.lb_B_Roll, self.lb_B_Pitch, self.lb_B_Yaw],   # 角度
-                "Mag": [self.lb_B_Hx, self.lb_B_Hy, self.lb_B_Hz],  # 磁场
-                "T": [self.lb_B_Temperature]    # 温度
-            },
-            "C": {
-                "Acc": [self.lb_C_XAcc, self.lb_C_YAcc, self.lb_C_ZAcc],    # 加速度
-                "Gyr": [self.lb_C_XGyro, self.lb_C_YGyro, self.lb_C_ZGyro],  # 角速度
-                "Angle": [self.lb_C_Roll, self.lb_C_Pitch, self.lb_C_Yaw],   # 角度
-                "Mag": [self.lb_C_Hx, self.lb_C_Hy, self.lb_C_Hz],  # 磁场
-                "T": [self.lb_C_Temperature]    # 温度
-            },
-            "H": {
-                # 从 p_1 到 p_16
-                "Pressure": [self.lb_p_1, self.lb_p_2, self.lb_p_3, self.lb_p_4,
-                             self.lb_p_5, self.lb_p_6, self.lb_p_7, self.lb_p_8,
-                             self.lb_p_9, self.lb_p_10, self.lb_p_11, self.lb_p_12,
-                             self.lb_p_13, self.lb_p_14, self.lb_p_15, self.lb_p_16]
-            }
-        }
     
     def port_list_Init(self, mode="identify"):
         '''初始化串口列表
@@ -603,8 +541,7 @@ class IMU(QMainWindow):
                 # self.read_thread[key].data_signal.connect(self.data_update)
                 self.read_thread[key].start()
                 self.read_thread[key].data_signal.connect(self.data_update)
-                self.update_thread[key] = UpdateThread(
-                    self, key, self.component[key])
+                self.update_thread[key] = UpdateThread(self.sensorInfo_list[key])
                 self.update_thread[key].start()
                 if key != "H":
                     # self.read_thread[key].data_signal.connect(self.data_update)
@@ -612,7 +549,8 @@ class IMU(QMainWindow):
                     # self.update_thread[key].start()
                     ...
                 else:
-                    self.read_thread[key].str_signal.connect(self.et_show_Update)
+                    ...
+                self.read_thread[key].str_signal.connect(self.et_show_Update)
             else:
                 print(key, "-> not start")
 
@@ -676,7 +614,11 @@ class IMU(QMainWindow):
         ----------
             recive (str): 串口接收到的数据
         '''
-        self.update_thread[key].update_data(data_recive)
+        try:
+            self.update_thread[key].update_data(data_recive)
+        except:
+            # 打印错误信息
+            print(traceback.format_exc())
         ...
 
     def closeEvent(self, event):
@@ -689,6 +631,7 @@ class IMU(QMainWindow):
         except:
             ...
     
+
 if __name__=='__main__':
     app = QApplication(sys.argv)
     imu = IMU()
