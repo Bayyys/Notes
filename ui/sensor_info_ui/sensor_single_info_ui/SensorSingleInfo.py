@@ -2,40 +2,48 @@ import sys
 sys.path.append('../../..')
 from PyQt5.QtWidgets import QApplication, QFrame, QVBoxLayout, QLabel
 from PyQt5.QtCore import Qt
-# from ui.sensor_info_ui.sensor_single_info_ui.SensorSingleInfo_ui import Ui_SensorSingleInfo
 
 
 class SensorSingleInfo(QFrame):
+    ''' 传感器数据单个信息界面 
+    用于显示传感器数据的单个信息, 即 加速度、角速度、角度、磁场 
+    
+    Args
+    ----------------
+        category[str]: 传感器数据类型
+    '''
     def __init__(self, category: str="加速度"):
         super().__init__()
-        self.category = category
+        self.category = category    # 传感器数据类型
         self.initUI()
     
     def initUI(self):
-        self.params_list = []
-        self.params = ["X", "Y", "Z"]
-        self.Vlayout = QVBoxLayout()
+        self.params_list = []   # 用于传感器数据标签
+        self.params = ["X", "Y", "Z"]   # 传感器数据 xyz 标签
+        self.Vlayout = QVBoxLayout()    # 垂直布局
         for i in range(3):
-            label = QLabel(self.params[i])
-            label.setAlignment(Qt.AlignCenter)
-            self.params_list.append(label)
-            self.Vlayout.addWidget(label)
-        label = QLabel(self.category)
-        label.setAlignment(Qt.AlignCenter)
-        self.Vlayout.addWidget(label)
-        self.Vlayout.setContentsMargins(0, 0, 0, 0)
-        self.setFrameShape(QFrame.Box)
-        self.setLayout(self.Vlayout)
+            label = QLabel(self.params[i])  # 传感器数据标签
+            label.setAlignment(Qt.AlignCenter)  # 居中对齐
+            self.params_list.append(label)  # 添加到列表
+            self.Vlayout.addWidget(label)   # 添加到布局
+        label = QLabel(self.category)   # 传感器数据类型标签, 根据 category 参数确定
+        label.setAlignment(Qt.AlignCenter)  # 居中对齐
+        self.Vlayout.addWidget(label)   # 添加到布局
+        self.Vlayout.setContentsMargins(0, 0, 0, 0) # 设置布局边距
+        self.setFrameShape(QFrame.Box)  # 设置边框
+        self.setLayout(self.Vlayout)    # 设置布局
         
-    
-    def update(self, data: dict, uinit: str):
+    def single_update_imu(self, data: dict, uint: str):
+        ''' 更新 imu 数据
+        由传感器信息界面调用，根据传感器数据类型更新界面
+
+        Args:
+        ----------------
+            data[dict]: 传感器数据
+            uint[str]: 单位
+        '''
         for i in range(len(data)):
-            self.params_list[i].setText(self.params[i] + ": %.2f " % data[i] + uinit)
-            ...
-        ...
-
-
-
+            self.params_list[i].setText(self.params[i] + ": %.2f " % data[i] + uint)
 
 if __name__ == '__main__':
     import sys
