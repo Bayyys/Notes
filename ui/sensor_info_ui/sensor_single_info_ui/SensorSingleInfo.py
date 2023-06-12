@@ -24,9 +24,17 @@ class SensorSingleInfo(QFrame):
         for i in range(3):
             label = QLabel(self.params[i])  # 传感器数据标签
             label.setAlignment(Qt.AlignCenter)  # 居中对齐
+            # 设置字号, 并加粗
+            font = label.font()
+            font.setPointSize(12)
+            label.setFont(font)
             self.params_list.append(label)  # 添加到列表
             self.Vlayout.addWidget(label)   # 添加到布局
         label = QLabel(self.category)   # 传感器数据类型标签, 根据 category 参数确定
+        font = label.font()
+        font.setBold(True)
+        font.setPointSize(12)
+        label.setFont(font)
         label.setAlignment(Qt.AlignCenter)  # 居中对齐
         self.Vlayout.addWidget(label)   # 添加到布局
         self.Vlayout.setContentsMargins(0, 0, 0, 0) # 设置布局边距

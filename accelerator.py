@@ -1,17 +1,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from mne.io import read_raw_brainvision
+# from mne.io import read_raw_brainvision
 
-filename = "D:\\LEARN\\MASTER\pre\\2023-04-08\\move.vhdr"
+# filename = "D:\\LEARN\\MASTER\pre\\2023-04-08\\move.vhdr"
 # 读取加速度计数据
-data_ACC = read_raw_brainvision(filename)
+# data_ACC = read_raw_brainvision(filename)
 # data_ACC = data_ACC.crop(tmin=20, tmax=315)
-data_ACC.load_data()
-data_ACC = data_ACC.pick_channels(["ACC30", "ACC31", "ACC32"])
-accelerometer_data, t = data_ACC[:, :]  # 从文件中读取加速度计数据，数据格式为每行一个时间点的三轴加速度值
+# data_ACC.load_data()
+# data_ACC = data_ACC.pick_channels(["ACC30", "ACC31", "ACC32"])
+accelerometer_data, t = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]  # 从文件中读取加速度计数据，数据格式为每行一个时间点的三轴加速度值
 # print(accelerometer_data[1, :])
 
-# init_accelerometer_data = np.mean(accelerometer_data[:, 0:250], axis=1)
+init_accelerometer_data = np.mean(accelerometer_data[:, 0:250], axis=1)
 # print(init_accelerometer_data)
 #
 # accelerometer_data = accelerometer_data.transpose() - init_accelerometer_data

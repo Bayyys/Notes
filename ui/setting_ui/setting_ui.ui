@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Setting</class>
+ <widget class="QWidget" name="Setting">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>317</width>
+    <height>99</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QPushButton" name="reset">
+     <property name="toolTip">
+      <string>恢复默认设置</string>
+     </property>
+     <property name="toolTipDuration">
+      <number>-1</number>
+     </property>
+     <property name="whatsThis">
+      <string>reset</string>
+     </property>
+     <property name="text">
+      <string>恢复设置</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QPushButton" name="sleep">
+     <property name="toolTip">
+      <string>设置传感器休眠</string>
+     </property>
+     <property name="whatsThis">
+      <string>sleep</string>
+     </property>
+     <property name="text">
+      <string>睡眠</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="algorithm">
+     <property name="toolTip">
+      <string>设置IMU算法(九轴、六轴)</string>
+     </property>
+     <property name="whatsThis">
+      <string>algorithm_6</string>
+     </property>
+     <property name="accessibleName">
+      <string>algorithm</string>
+     </property>
+     <property name="text">
+      <string>算法：九轴</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="direction">
+     <property name="toolTip">
+      <string>设置安装方向(水平、垂直)</string>
+     </property>
+     <property name="whatsThis">
+      <string>vertical</string>
+     </property>
+     <property name="accessibleName">
+      <string>direction</string>
+     </property>
+     <property name="text">
+      <string>安装方向：水平</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="angle_0">
+     <property name="toolTip">
+      <string>以当前角度设置角度参考</string>
+     </property>
+     <property name="whatsThis">
+      <string>angle_0</string>
+     </property>
+     <property name="text">
+      <string>设置角度参考</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="z_0">
+     <property name="toolTip">
+      <string>以当前位置设置Z轴零偏</string>
+     </property>
+     <property name="whatsThis">
+      <string>z_0</string>
+     </property>
+     <property name="text">
+      <string>Z轴角度置零</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

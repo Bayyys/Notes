@@ -87,67 +87,67 @@ def plot_durations3(y1, y2, y3, y11, y22):
     plt.subplot(313)
     plt.ylabel("yaw")
     plt.plot(y3)
-    # plt.pause(0.0001)  # pause a bit so that plots are updated
-    # plt.ioff()
+    plt.pause(0.0001)  # pause a bit so that plots are updated
+    plt.ioff()
     # plt.show()
 
 
 if __name__ == "__main__":
-    data_everychannel = [i for i in range(9)]  # imu实时数据
-
+    # data_everychannel = [i for i in range(9)]  # imu实时数据
+    #
     roll, pitch, yaw = deque([], maxlen=20000), deque([], maxlen=20000), deque([], maxlen=20000)
     x, y, z = deque([], maxlen=20000), deque([], maxlen=20000), deque([], maxlen=20000)
-    # 串口初始化
-    serialport = serial.Serial()
-    serialport.port = 'COM9'
-    serialport.baudrate = 256000
-    serialport.bytesize = 8
-    serialport.parity = serial.PARITY_NONE
-    serialport.stopbits = 1
-    serialport.timeout = 0.001
-    serialport.close()
-    if not serialport.is_open:
-        serialport.open()
-    time.sleep(0.05)  # 时间设置参考串口传输速率
-    num = serialport.inWaiting()
-    # ser = serial.Serial("COM6", 115200, timeout=5) # 这里写入对应串口
-    time.sleep(3)
-    serialport.flushInput()
-    # count = ser.inWaiting()
+    # # 串口初始化
+    # serialport = serial.Serial()
+    # serialport.port = 'COM9'
+    # serialport.baudrate = 256000
+    # serialport.bytesize = 8
+    # serialport.parity = serial.PARITY_NONE
+    # serialport.stopbits = 1
+    # serialport.timeout = 0.001
+    # serialport.close()
+    # if not serialport.is_open:
+    #     serialport.open()
+    # time.sleep(0.05)  # 时间设置参考串口传输速率
+    # num = serialport.inWaiting()
+    # # ser = serial.Serial("COM6", 115200, timeout=5) # 这里写入对应串口
+    # # time.sleep(3)
+    # serialport.flushInput()
+    # # count = ser.inWaiting()
     # time.sleep(1)
     # 数据采集处理与可视化绘图
     print(1)
     while True:
         init_time = time.time_ns()
-        count = serialport.inWaiting()
+        # count = serialport.inWaiting()
 
         # time.sleep(0.000001)
 
-        if count != 0:
+        if True:
             # read_data = (time.time_ns() - init_time) / 1e6
             # print(read_data)
-            recv = serialport.read(serialport.inWaiting()).hex()
+            # recv = serialport.read(serialport.inWaiting()).hex()
             # print(recv)
-            data_everychannel = decode(recv)
+            # data_everychannel = decode(recv)
             #
             # 读取大腿\小腿姿态角
-            roll.append(data_everychannel[6])  # roll
-            pitch.append(data_everychannel[7])  # pitch
-            yaw.append(data_everychannel[8])  # yaw
-            x.append(data_everychannel[0])  # roll
-            y.append(data_everychannel[1])  # pitch
-            z.append(data_everychannel[2])  # yaw
+            roll.append(0)  # roll
+            pitch.append(0)  # pitch
+            yaw.append(0)  # yaw
+            x.append(0)  # roll
+            y.append(0)  # pitch
+            z.append(0)  # yaw
             # 实时打印显示
             # print(f"roll={data_everychannel[6]}, pitch={data_everychannel[7]}, yaw={data_everychannel[8]}")
             # 绘制图象
-            if len(roll) >= 20000:
-                roll1 = np.arctan2(y, z) * 180 / np.pi
-                pitch1 = np.arctan2(-np.array(x),
-                                    np.sqrt(np.array(y) ** 2 + np.array(z) ** 2)) * 180 / np.pi
-                # plt.ion()
-                plot_durations3(pitch, roll, yaw, pitch1, roll1)
+            # if len(roll) >= 20000:
+            roll1 = np.arctan2(y, z) * 180 / np.pi
+            pitch1 = np.arctan2(-np.array(x),
+                                np.sqrt(np.array(y) ** 2 + np.array(z) ** 2)) * 180 / np.pi
+            plt.ion()
+            plot_durations3(pitch, roll, yaw, pitch1, roll1)
                 # print((time.time_ns() - init_time) / 1e6)
-                plt.show()
+            plt.show()
 
             # print((time.time_ns() - init_time) / 1e6)
         # time.sleep(0.1)  # 延时0.1秒，免得CPU出问题

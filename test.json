@@ -1,0 +1,11 @@
+{
+    "save": [
+        "0xffaa000000",
+        "0xffaa00ff00",
+        "0xffaa000100"
+    ],
+    "LED": [
+        "0xffaa1b0100",
+        "0xffaa1b0000"
+    ]
+}
