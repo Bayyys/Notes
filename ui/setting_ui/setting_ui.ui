@@ -49,7 +49,7 @@
       <string>设置IMU算法(九轴、六轴)</string>
      </property>
      <property name="whatsThis">
-      <string>algorithm_6</string>
+      <string>algorithm_9</string>
      </property>
      <property name="accessibleName">
       <string>algorithm</string>

@@ -170,7 +170,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab_data">
        <attribute name="title">
@@ -357,8 +357,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>612</width>
-             <height>604</height>
+             <width>98</width>
+             <height>28</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -471,7 +471,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QFrame" name="frame">
+         <widget class="QFrame" name="threeD_frame">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>

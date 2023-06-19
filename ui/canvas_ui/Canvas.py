@@ -52,7 +52,7 @@ class CanvasWidget(QFrame, Ui_Frame):
         self.btn_lb_X.setText(self.key)
         self.setContentsMargins(0, 0, 0, 0)
     
-    def update(self, datas):
+    def update_imu_data(self, datas):
         for data in datas:
             if self.cavas.is_not_full:
                 for i in range(3):

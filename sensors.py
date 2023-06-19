@@ -1,10 +1,8 @@
 import sys
-import datetime
-import os
 import time
 import traceback
 import numpy as np
-from PyQt5 import QtCore
+import scipy
 import serial
 import serial.tools.list_ports
 # ui_model
@@ -15,559 +13,22 @@ from ui.canvas_ui.Canvas import CanvasWidget
 from ui.setting_ui.Setting import SettingWidget
 # PyQt5
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QHBoxLayout, QOpenGLWidget
-import pyqtgraph.opengl as gl
-import pyqtgraph as pg
-# QAction
-from PyQt5.QtWidgets import QAction
-from scipy.interpolate import interp2d
-# cv2
-import cv2
-
-
-class PacketDecode:
-    """数据包解析
-    根据串口关键字类型, 解析串口数据包
-
-    Args:
-    ----------------
-        key(str): 串口关键字类型, "A" "B" "C" 为IMU, "H" 为Pressure
-    """
-
-    def __init__(self, key: str) -> None:
-        self.key = key  # 串口关键字类型
-        # 字符串部分
-        self.remain = ""  # 保存上一次解析的数据包的剩余部分
-        self.str_show = ""  # 保存解析后的数据(文本描述)
-        # IMU
-        self.Acc_list = []  # 保存解析后的加速度数据
-        self.Gyro_list = []  # 保存解析后的角速度数据
-        self.Angle_list = []  # 保存解析后的角度数据
-        self.Mag_list = []  # 保存解析后的磁场数据
-        self.T_list = []  # 保存解析后的温度数据
-        # 压力传感器
-        self.P_list = []  # 保存解析后的压力数据
-        ...
-
-    def decode(self, receive: str) -> list:
-        """ 解析数据
-        """
-        if self.key == "H":
-            return self.decode_p(receive)
-        else:
-            return self.decode_imu(receive)
-
-    def decode_imu(self, receive: str) -> list:
-        """ 解析 IMU 数据
-
-        将接收到的数据根据包头(0x55)进行分段, 然后解析数据包
-
-        Args:
-        ----------------
-            receive(str): 接收到的数据
-
-        Returns:
-        ----------------
-            str_show(str): 解析后的数据
-        """
-        self.str_show = ""
-        self.Acc_list = []
-        self.Gyro_list = []
-        self.Angle_list = []
-        self.Mag_list = []
-        self.T_list = []
-        # 从数据中提取出数据包
-        receive = self.remain + receive
-        while len(receive) >= 22:
-            # 搜索包头
-            if receive[0:2] != "55":
-                # 找到第一个 '55'
-                position = receive.find("55")
-                if position == -1:
-                    # 没有找到 '55'
-                    self.remain = ""
-                    return [self.str_show, [self.Acc_list, self.Gyro_list, self.Angle_list, self.Mag_list, self.T_list]]
-                else:
-                    # 找到了 '55'
-                    receive = receive[position:]
-                continue
-            # 提取数据包
-            packet = receive[:22]
-            # 解析数据包
-            try:
-                self.str_show += self.decode_packet_imu(packet)
-                receive = receive[22:]
-            except:
-                # 打印错误信息
-                print("IMU 数据包解析错误" + str(packet[:22]))
-                receive = receive[2:]
-
-        if len(receive) < 22:
-            self.remain = receive
-        return [self.str_show, [self.Acc_list, self.Gyro_list, self.Angle_list, self.Mag_list, self.T_list]]
-
-    def decode_packet_imu(self, packet) -> str:
-        """ 解析 IMU 数据包
-
-        数据包头为 0x55 0xXX, 其中 XX 为数据包类型
-
-        数据包类型:
-        ----------------
-            0x51 - 加速度 Acc;
-            0x52 - 角速度 Gyro;
-            0x53 - 角度 Angle;
-            0x54 - 磁场 Mag;
-
-        Args:
-        ----------------
-            packet(str): 分割后的数据包(长度为 22 个字符)
-
-        Returns:
-        ----------------
-            str_show(str): 解析后的数据
-        """
-        code = packet[2:4]
-
-        if code == "51":
-            # self.print_packet(packet)
-            # 加速度 Acc
-            # 数据格式为 - 0x55 0x52 AxL AxH AyL AyH AzL AzH TL TH SUM
-            # 加速度
-            # xAcc = ((AxH << 8) | AxL) / 32768 * 16 * g (g = 9.8 m/s^2)
-            # yAcc = ((AyH << 8) | AyL) / 32768 * 16 * g (g = 9.8 m/s^2)
-            # zAcc = ((AzH << 8) | AzL) / 32768 * 16 * g (g = 9.8 m/s^2)
-            # 温度
-            # temp = ((TH << 8) | TL) / 100 ℃
-            # 校验和
-            # SUM = 0x55 + 0x51 + AxL + AxH + AyL + AyH + AzL + AzH + TL + TH
-            XAcc = self.complement_compute(packet[4:8]) / 32768 * 16
-            YAcc = self.complement_compute(packet[8:12]) / 32768 * 16
-            ZAcc = self.complement_compute(packet[12:16]) / 32768 * 16
-            Temp = self.complement_compute(packet[16:20]) / 100
-            SUM = int(packet[20:22], 16)
-            self.Acc_list.append([XAcc, YAcc, ZAcc])
-            self.T_list.append(Temp)
-            return str("XAcc: %f, YAcc: %f, ZAcc: %f, Temp: %f, SUM: %f\n" % (XAcc, YAcc, ZAcc, Temp, SUM))
-
-        elif code == "52":
-            # self.print_packet(packet)
-            # 角速度 Gyro
-            # 数据格式为 - 0x55 0x52 wxL wxH wyL wyH wzL wzH TL TH SUM
-            # 角速度
-            # xGyro = ((wxH << 8) | wxL) / 32768 * 2000 °/s
-            # yGyro = ((wyH << 8) | wyL) / 32768 * 2000 °/s
-            # zGyro = ((wzH << 8) | wzL) / 32768 * 2000 °/s
-            # 温度
-            # temp = ((TH << 8) | TL) / 100 ℃
-            # 校验和
-            # SUM = 0x55 + 0x52 + wxL + wxH + wyL + wyH + wzL + wzH + TL + TH
-            XGyro = self.complement_compute(packet[4:8]) / 32768 * 2000
-            YGyro = self.complement_compute(packet[8:12]) / 32768 * 2000
-            ZGyro = self.complement_compute(packet[12:16]) / 32768 * 2000
-            Temp = self.complement_compute(packet[16:20]) / 100
-            SUM = int(packet[20:22], 16)
-            self.Gyro_list.append([XGyro, YGyro, ZGyro])
-            self.T_list.append(Temp)
-            return str("XGyro: %f, YGyro: %f, ZGyro: %f, Temp: %f, SUM: %f\n" % (XGyro, YGyro, ZGyro, Temp, SUM))
-
-        elif code == "53":
-            # self.print_packet(packet)
-            # 角度 Ang
-            # 数据格式为 - 0x55 0x53 RollL RollH PitchL PitchH YawL YawH VL VH SUM
-            # 角度
-            # 滚转角(x轴) Roll = ((RollH << 8) | RollL) / 32768 * 180 °
-            # 俯仰角(y轴) Pitch = ((PitchH << 8) | PitchL) / 32768 * 180 °
-            # 偏航角(z轴) Yaw = ((YawH << 8) | YawL) / 32768 * 180 °
-            # 固件版本
-            # Version = VH << 8 | VL
-            # 校验和
-            # SUM = 0x55 + 0x53 + RollL + RollH + PitchL + PitchH + YawL + YawH + VL + VH
-            Roll = self.complement_compute(packet[4:8]) / 32768 * 180
-            Pitch = self.complement_compute(packet[8:12]) / 32768 * 180
-            Yaw = self.complement_compute(packet[12:16]) / 32768 * 180
-            Version = int(packet[16:20], 16)
-            SUM = int(packet[20:22], 16)
-            self.Angle_list.append([Roll, Pitch, Yaw])
-            return str("Roll: %f, Pitch: %f, Yaw: %f, Version: %d, SUM: %f\n" % (Roll, Pitch, Yaw, Version, SUM))
-
-        elif code == "54":
-            # self.print_packet(packet)
-            # 磁场 Mag
-            # 数据格式为 - 0x55 0x54 HxL HxH HyL HyH HzL HzH TL TH SUM
-            # 磁场
-            # Hx = ((HxH << 8) | HxL)
-            # Hy = ((HyH << 8) | HyL)
-            # Hz = ((HzH << 8) | HzL)
-            # 温度
-            # temp = ((TH << 8) | TL) / 100 ℃
-            # 校验和
-            # SUM = 0x55 + 0x54 + HxL + HxH + HyL + HyH + HzL + HzH + TL + TH
-            Hx = self.complement_compute(packet[4:8]) / 1000
-            Hy = self.complement_compute(packet[8:12]) / 1000
-            Hz = self.complement_compute(packet[12:16]) / 1000
-            Temp = self.complement_compute(packet[16:20]) / 100
-            SUM = int(packet[20:22], 16)
-            self.Mag_list.append([Hx, Hy, Hz])
-            self.T_list.append(Temp)
-            return str("Hx: %d, Hy: %d, Hz: %d, Temp: %f, SUM: %f\n" % (Hx, Hy, Hz, Temp, SUM))
-
-        elif code == "5f":
-            print(packet)
-            return "1" + str(packet)
-
-        else:
-            # 数据包类型错误
-            ...
-
-    def decode_p(self, receive: str) -> list:
-        """ 解析气压数据
-
-        将得到的气压数据根据包头(0xAA)分段, 并解析成字典格式，方便后续处理
-
-        Args:
-        ----------
-            receive (str): 接收的数据
-        
-        Returns:
-        ----------
-            dict: 解析后的数据
-        """
-        self.str_show = ""  # 显示的字符串
-        self.P_list = []  # 气压数据
-        # 剩余数据追加到头部
-        receive = self.remain + receive
-        # 按包头分段
-        while len(receive) >= 70:
-            # 检查包头
-            if receive[0:4] != "aa01":
-                # 找到包头
-                receive = receive[2:]
-                continue
-            # 提取数据包
-            packet = receive[0:70]
-            receive = receive[70:]
-            # 解析数据包
-            try:
-                self.str_show += self.decode_packet_p(packet) + "\n"
-            except:
-                # 数据包解析错误
-                print("压力传感器数据包解析错误 ", sys.exc_info()[0])
-        return [self.str_show, self.P_list]
-
-    def decode_packet_p(self, packet: str) -> str:
-        """ 解析压力传感器数据包
-
-        数据包头为 0xaa 0x01, 分别为 帧头+数据包编号
-        B1     B2        B3       B4     ( B5  ~  B32 )   B35
-        AA     01        XX       XX     ( ...    ... )    XX
-        帧头 数据包编号 点1高八位 点1第八位 点?高八位 点?第八位 校验和
-
-        Args:
-        ----------
-            packet (str): 数据包
-        
-        Returns:
-        ----------
-            str: 解析后的字符串
-        """
-        data_list = []
-        point = 1
-        str_show = ""
-        for i in range(4, 68, 4):
-            p0 = int(packet[i:i + 2], 16) * 256 + int(packet[i + 2:i + 4], 16)
-            data_list.append(p0)
-            str_show += "P %2d:%4d; " % (point, p0)
-            point += 1
-        self.P_list.append(data_list)
-        return str_show
-
-    @staticmethod
-    def print_packet(packet: str) -> None:
-        """以十六进制打印数据包
-        AABBCC ===> AA BB CC
-
-        Args:
-        ----------
-            packet (str): 数据包
-        """
-        print(" ".join([packet[i:i + 2] for i in range(0, len(packet), 2)]))
-
-    @staticmethod
-    def complement_compute(hex_str) -> int:
-        """计算大端存储补码的十进制数
-        0x8000 - 0xFFFF 为负数
-        0x0000 - 0x7FFF 为正数
-
-        Args:
-        ----------
-            hex_str (str): 十六进制字符串
-        
-        Returns:
-        ----------
-            num (int): 十进制数
-        """
-        num = int(hex_str[2:4] + hex_str[0:2], 16)
-        if num & 0x8000:
-            num -= 0x10000
-        return num
-
-
-class ReadThread(QtCore.QThread):
-    """数据读取线程
-    根据串口对象读取数据，并解析成字符串、十六进制、数据三种格式
-
-    Args:
-    ----------
-        key (str): 串口关键字 -> ["A", "B", "C", "H"]
-        ser (serial.Serial): 串口对象
-        mainWin (QMainWindow): 主窗口对象
-
-    Signals:
-    ----------
-        hex_signal (str): 十六进制信号
-        str_signal (str): 字符串信号
-        data_signal (str, list): 数据信号 -> (串口关键字, 数据列表)
-    """
-    hex_signal = QtCore.pyqtSignal(str, str)  # 十六进制信号
-    str_signal = QtCore.pyqtSignal(str, str)  # 字符串信号
-    data_signal = QtCore.pyqtSignal(str, list)  # 数据信号
-
-    def __init__(self, key: str, ser: serial.Serial, mainWin: QMainWindow) -> None:
-        """初始化线程
-
-        Args:
-        ----------
-            ser (serial.Serial): 串口对象
-        """
-        super().__init__()
-        self.key = key  # 串口关键字 -> ["A", "B", "C", "H"]
-        self.ser = ser  # 串口对象 -> serial.Serial
-        self.mainWin = mainWin  # 主窗口对象 -> QMainWindow
-        self.pd = PacketDecode(self.key)  # 数据解析对象
-        self.isRunning = True  # 线程运行标志位
-        self.write_flag = False  # 写入标志位
-        self.instruction = ""  # 写入指令
-
-    def __del__(self):
-        self.isRunning = False
-    
-    def write_sensor(self, instruction: str) -> None:
-        """写入数据
-
-        Args:
-        ----------
-            data (str): 写入的数据
-        """
-        self.instruction = instruction
-        self.write_flag = True
-    
-    def write_to_sensor(self, instruction: str) -> None:
-        """写入十六进制数据
-
-        Args:
-        ----------
-            data (str): 写入的数据
-        """
-        dict =  {'unlock': 'ffaa6988b5',
-                    'sleep': 'ffaa220100',
-                    'save': 'ffaa000000', 'restart':'ffaa00ff00', 'reset':'ffaa000100',
-                    'led_off':'ffaa1b0100', 'led_on':'ffaa1b0000',
-                    'acc':'ffaa270200', 'gyr':'ffaa275500', 'angle':'ffaa276100', 'mag':'ffaa276100', 'temp':'ffaa00',
-                    'z_0':'ffaa010400', 'angle_0':'ffaa010800',
-                    'horizontal':'ffaa230000', 'vertical':'ffaa230100',
-                    'algorithm_9':'ffaa240000', 'algorithm_6':'ffaa240100'}
-        # 解锁
-        self.ser.write(bytes.fromhex(dict["unlock"]))
-        self.msleep(100)
-        self.ser.write(bytes.fromhex(dict[instruction]))
-        self.msleep(100)
-        self.ser.write(bytes.fromhex(dict["save"]))
-        self.msleep(100)
-
-    def run(self):
-        while self.isRunning:
-            if self.write_flag:
-                self.write_to_sensor(self.instruction)
-                self.write_flag = False
-                self.ser.flushInput()  # 清空缓冲区
-                continue
-            if self.ser is not None and self.ser.in_waiting >= 280:
-                receive = self.ser.read(self.ser.in_waiting)  # 读取串口数据
-                # bytes转化为十六进制字符串
-                receive = receive.hex()
-                str_receive, data_receive = self.pd.decode(receive)  # 解析数据包
-                str_receive = datetime.datetime.now().strftime("\n\n%Y-%m-%d %H:%M:%S:\n") + str_receive  # 时间戳 + 字符串描述
-                # 在行首添加时间戳
-                receive = datetime.datetime.now().strftime("\n\n%Y-%m-%d %H:%M:%S:\n") + receive
-                self.hex_signal.emit(self.key, receive)
-                self.str_signal.emit(self.key, str_receive)
-                self.data_signal.emit(self.key, data_receive)
-            self.msleep(10)
-
-
-class UpdateThread(QtCore.QThread):
-    """数据更新线程
-    用于更新 SensorInfo 数据
-
-    Args:
-    ----------
-        sensorinfo (SensorInfo): 传感器信息对象
-    """
-
-    def __init__(self, sensorinfo: SensorInfo) -> None:
-        super().__init__()
-        self.sensorinfo = sensorinfo
-        self.isRunning = True
-        self.isUpdate = False
-        self.imu_key_list = ["Acc", "Gyr", "Angle", "Mag", "T"]  # IMU数据关键字
-        self.data = []
-
-    def __del__(self):
-        self.isRunning = False
-
-    def update_data(self, data: list):
-        """ 数据更新线程 -> 更新数据
-
-        Args:
-        ----------
-            data (list): 数据列表 -> {"A" "B" "C": [Acc, Gyr, Angle, Mag, T], "H": [16 x data]}
-        """
-        self.data = data
-        self.isUpdate = True
-
-    def run(self):
-        while self.isRunning:
-            if self.isUpdate:
-                try:
-                    self.sensorinfo.update(self.data)  # 调用 SensorInfo.update() 更新数据
-                except Exception as e:
-                    # 更新失败 输出更新失败的数据
-                    print(self.data)
-                    print("更新失败")
-                self.isUpdate = False
-            self.msleep(100)  # 10ms更新一次
-
-
-class UpdateCanvasThread(QtCore.QThread):
-    def __init__(self, key: str, canvas: None):
-        super().__init__()
-        self.key = key
-        self.canvas = canvas
-        self.isRunning = True
-        self.isUpdate = False
-        self.data = []
-    
-    def __del__(self):
-        self.isRunning = False
-    
-    def update_data(self, data: list):
-        if self.data != []:
-            self.data += data
-        else:
-            self.data = data
-        self.isUpdate = True
-
-    def run(self):
-        while self.isRunning:
-            if self.isUpdate:
-                data = self.data
-                self.data = []
-                self.canvas.update(data)
-                self.isUpdate = False
-            self.msleep(100)
-    
-
-# 使用线程保存数据
-class SaveThread(QtCore.QThread):
-    """数据保存线程
-        用于保存数据, 线程创建时创建对应文件
-    Args:
-    ----------
-        key (str): 串口关键字 -> ["A", "B", "C", "H"]
-    """
-
-    def __init__(self, key: str) -> None:
-        super().__init__()
-        self.key = key
-        self.isRunning = True
-        self.data = np.array([])
-        self.Acc = np.array([])
-        self.Gyr = np.array([])
-        self.Angle = np.array([])
-        self.Mag = np.array([])
-        self.T = np.array([])
-        self.file_path = ""
-        self.save_create()
-
-    def __del__(self):
-        self.isRunning = False
-
-    def save_create(self):
-        """ 数据保存线程 -> 创建文件
-            文件存储路径为当前目录下的data文件夹
-            文件名为: 年-月-日 时-分-秒_串口关键字.txt
-        """
-        dir_path = os.getcwd() + "\\data"
-        if not os.path.exists(dir_path):
-            os.mkdir(dir_path)
-        if self.key == "H":
-            filename = datetime.datetime.now().strftime("\\%Y-%m-%d %H-%M-%S") + "_Pressure.txt"
-        else:
-            filename = datetime.datetime.now().strftime("\\%Y-%m-%d %H-%M-%S") + "_IMU_" + self.key + ".txt"
-        self.file_path = dir_path + filename
-        try:
-            with open(self.file_path, "a") as f:
-                print(filename + "创建文件成功")
-        except:
-            print(filename + "创建文件失败")
-
-    def update_data(self, data: list):
-        """数据保存线程 -> 更新数据
-
-        Args:
-        ----------
-            data (list): 数据列表 -> {"A" "B" "C": [Acc, Gyr, Angle, Mag, T], "H": [16 x data]}
-        """
-        if self.key == "H":
-            if self.data.shape[0] == 0:
-                self.data = np.array(data)
-            else:
-                self.data = np.append(self.data, data)
-        else:
-            Acc, Gyr, Angle, Mag, T = data
-            T = T[::4]
-            length = min(len(Acc), len(Gyr), len(Angle), len(Mag), len(T))
-            data = np.hstack(
-                (Acc[:length], Gyr[:length], Angle[:length], Mag[:length], np.array(T[:length]).reshape(-1, 1)))
-            if self.data.shape[0] == 0:
-                self.data = data
-            else:
-                self.data = np.vstack([self.data, data])
-
-    def run(self):
-        while self.isRunning:
-            if self.data.shape[0] != 0:
-                try:
-                    data = self.data
-                    # 保存数据
-                    with open(self.file_path, "a") as f:
-                        if self.key == "H":
-                            np.savetxt(f, data, fmt="%d")
-                        else:
-                            np.savetxt(f, data, fmt="%f")
-                    self.data = np.array([])
-                except Exception as e:
-                    print("保存失败" + str(e))
-            self.msleep(100)  # 10ms保存一次
-
+from PyQt5.QtWidgets import QMainWindow, QApplication, QVBoxLayout, QPushButton, QAction
+import vtk
+from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+# threads_model
+from threads.readThread import ReadThread
+from threads.updateThread import UpdateThread
+from threads.saveThread import SaveThread
+from threads.updateCanvasThread import UpdateCanvasThread
 
 class IMU(QMainWindow):
-
     def __init__(self) -> None:
         super().__init__()
         self.ui = uic.loadUi("./ui/sensors.ui", self)
         self.initValues()
         self.initUI()
+        self.three_d_test()
 
     def initValues(self) -> None:
         self.sensorInfo_list = {}  # 传感器数据 显示 字典
@@ -635,7 +96,7 @@ class IMU(QMainWindow):
     #     new_y = np.linspace(0, 8, 900)
 
     #     # 使用二维线性插值进行插值操作
-    #     interp = interp2d(x, y, output_array * 10, kind='linear')
+    #     interp = scipy.interpolate.interp2d(x, y, output_array * 10, kind='linear')
     #     output_array = interp(new_x, new_y)
     #     colors = np.ones((50, 50, 4), dtype=float)
     #     p1 = gl.GLSurfacePlotItem(
@@ -664,18 +125,30 @@ class IMU(QMainWindow):
         self.btn_test_2.clicked.connect(act.trigger)
         
     def setting(self, event):
-        if self.sender().accessibleName() == "algorithm":
-            self.sender().setText("算法：六轴") if self.sender().whatsThis() == "algorithm_9" else  self.sender().setText("算法：九轴")
-            self.sender().setWhatsThis("algorithm_6")if self.sender().whatsThis() == "algorithm_9" else self.sender().setWhatsThis("algorithm_9")
-        elif self.sender().accessibleName() == "direction":
-            self.sender().setText("安装方向：水平") if self.sender().whatsThis(
-            ) == "horizontal" else self.sender().setText("安装方向：垂直")
-            self.sender().setWhatsThis("vertical")if self.sender().whatsThis(
-            ) == "horizontal" else self.sender().setWhatsThis("horizontal")
-        print(self.sender().whatsThis())
-        for key in self.read_thread.keys():
-            self.read_thread[key].write_sensor(self.sender().whatsThis())
-    
+        if isinstance(self.sender(), QPushButton):
+            button = self.sender()
+            if button.property("accessibleName") == "algorithm":
+                if button.property("whatsThis") == "algorithm_9":
+                    button.setProperty("text", "算法：六轴")
+                else:
+                    button.setProperty("text", "算法：九轴")
+                if button.property("whatsThis") == "algorithm_9":
+                    button.setProperty("whatsThis", "algorithm_6")
+                else:
+                    button.setProperty("whatsThis", "algorithm_9")
+            elif button.property("accessibleName") == "direction":
+                if button.property("whatsThis") == "horizontal":
+                    button.setProperty("text", "安装方向：水平")
+                else:
+                    button.setProperty("text", "安装方向：垂直")
+                if button.property("whatsThis") == "horizontal":
+                    button.setProperty("whatsThis", "vertical")
+                else:
+                    button.setProperty("whatsThis", "horizontal")
+            print(button.property("whatsThis"))
+            for key in self.read_thread.keys():
+                self.read_thread[key].write_sensor(button.property("whatsThis"))
+
     def btn_test_clicked(self) -> None:
         for key in self.ser.keys():
             if self.ser[key] is not None and self.ser[key].is_open:
@@ -797,6 +270,7 @@ class IMU(QMainWindow):
                 self.read_thread[key].hex_signal.connect(self.et_print_Update)
                 self.read_thread[key].str_signal.connect(self.et_show_Update)
                 self.read_thread[key].data_signal.connect(self.data_update)
+                self.read_thread[key].test_signal.connect(self.test_update)
                 self.read_thread[key].start()
                 self.update_thread[key] = UpdateThread(self.sensorInfo_list[key])
                 self.update_thread[key].start()
@@ -828,7 +302,7 @@ class IMU(QMainWindow):
         self.save_thread = {}
         self.canvas_thread = {}
 
-    def et_print_Update(self, key: str = "A", receive: str = None) -> None:
+    def et_print_Update(self, key: str = "A", receive: str = "") -> None:
         """更新打印窗口
 
         Args:
@@ -838,7 +312,7 @@ class IMU(QMainWindow):
         """
         self.sensorPrint_list[key].update_hex(receive)
 
-    def et_show_Update(self, key: str = "A", str_receive: str = None) -> None:
+    def et_show_Update(self, key: str = "A", str_receive: str = "") -> None:
         """更新显示窗口
 
         Args:
@@ -848,7 +322,7 @@ class IMU(QMainWindow):
         """
         self.sensorPrint_list[key].update_str(str_receive)
 
-    def data_update(self, key: str = "A", data_receive=None) -> None:
+    def data_update(self, key: str = "A", data_receive=[]) -> None:
         """更新数据
 
         Args:
@@ -864,6 +338,133 @@ class IMU(QMainWindow):
         except Exception as e:
             # 打印错误信息
             print(traceback.format_exc())
+    
+    def three_d_test(self):
+
+
+        self.vl = QVBoxLayout()   # 垂直布局
+        self.vtkWidget = QVTKRenderWindowInteractor(
+            self.threeD_frame)  # 创建一个vtkWidget
+        self.vl.addWidget(self.vtkWidget)   # 将vtkWidget添加到垂直布局中
+
+        self.ren = vtk.vtkRenderer()    # 创建一个渲染器
+        self.vtkWidget.GetRenderWindow().AddRenderer(self.ren)  # 将渲染器添加到vtkWidget中
+        self.iren = self.vtkWidget.GetRenderWindow().GetInteractor()    # 获取vtkWidget的交互器
+        # 设置背景为白色
+        self.ren.SetBackground(1, 1, 1)
+        # 设置视角
+        # self.ren.GetActiveCamera().SetViewUp(-5, -5, -5)
+        # self.ren.GetActiveCamera().SetPosition(5, 5, 5)
+        # self.ren.GetActiveCamera().SetFocalPoint(0, 0, 0)
+        # self.ren.GetActiveCamera().ComputeViewPlaneNormal()
+
+
+
+        # 显示坐标轴
+        self.axes = vtk.vtkAxesActor()
+        self.axes.SetTotalLength(1, 1, 1)
+        self.axes.SetShaftType(0)   # 设置轴的类型
+        # self.axes.SetAxisLabels(0)  # 设置轴的标签
+        self.ren.AddActor(self.axes)    # 将坐标轴添加到渲染器中
+
+        lines = [[0, 0, 0], [0, 0, 2], [0, 3, 2], [0, 3, -1]]
+        # Create source
+        self.source1 = vtk.vtkLineSource()
+        self.source1.SetPoint1(lines[0])
+        self.source1.SetPoint2(lines[1])
+        self.source1.Update()
+        # 新建一个正方体
+        source = vtk.vtkCubeSource()    # 创建一个立方体
+        source.SetCenter(0, 0, 0)   # 设置立方体的中心
+        source.SetXLength(1)    # 设置立方体的长
+        source.SetYLength(1)    # 设置立方体的宽
+        source.SetZLength(1)    # 设置立方体的高
+        # 修改正方体朝向
+        transform = vtk.vtkTransform()  # 创建一个变换
+        transform.RotateWXYZ(30, 1, 0, 0)   # 设置旋转角度(角度, x, y, z)
+        transformFilter = vtk.vtkTransformPolyDataFilter()  # 创建一个变换滤波器
+        transformFilter.SetTransform(transform) # 设置变换
+        transformFilter.SetInputConnection(source.GetOutputPort())  # 设置输入
+        transformFilter.Update()    # 更新
+        # self.source2 = vtk.vtkLineSource()
+        # self.source2.SetPoint1(lines[1])
+        # self.source2.SetPoint2(lines[2])
+        # self.source2.Update()
+        # self.source3 = vtk.vtkLineSource()
+        # self.source3.SetPoint1(lines[2])
+        # self.source3.SetPoint2(lines[3])
+        # self.source3.Update()
+
+
+        # Create a mapper
+        mapper1 = vtk.vtkPolyDataMapper()
+        mapper1.SetInputConnection(self.source1.GetOutputPort())
+        # mapper2 = vtk.vtkPolyDataMapper()
+        # mapper2.SetInputConnection(self.source2.GetOutputPort())
+        # mapper3 = vtk.vtkPolyDataMapper()
+        # mapper3.SetInputConnection(self.source3.GetOutputPort())
+        mapper = vtk.vtkPolyDataMapper()
+        mapper.SetInputConnection(transformFilter.GetOutputPort())
+        mapper_source = vtk.vtkPolyDataMapper()
+        mapper_source.SetInputConnection(source.GetOutputPort())
+
+
+        # Create an actor
+        actor1 = vtk.vtkActor()
+        actor1.GetProperty().SetColor(255, 0, 0)
+        actor1.GetProperty().SetLineWidth(5)
+        actor1.SetMapper(mapper1)
+        # actor2 = vtk.vtkActor()
+        # actor2.GetProperty().SetColor(0, 255, 0)
+        # actor2.GetProperty().SetLineWidth(5)
+        # actor2.SetMapper(mapper2)
+        # actor3 = vtk.vtkActor()
+        # actor3.GetProperty().SetColor(0, 0, 255)
+        # actor3.GetProperty().SetLineWidth(5)
+        # actor3.SetMapper(mapper3)
+        actor = vtk.vtkActor()
+        actor.SetMapper(mapper)
+        actor_source = vtk.vtkActor()
+        actor_source.SetMapper(mapper_source)
+
+
+        # Add the actor to the scene
+        self.ren.AddActor(actor1)
+        # self.ren.AddActor(actor2)
+        # self.ren.AddActor(actor3)
+        self.ren.AddActor(actor)
+        self.ren.AddActor(actor_source)
+
+        # Render and interact
+        self.ren.ResetCamera()
+
+        self.threeD_frame.setLayout(self.vl)   # 将垂直布局添加到frame中
+
+        self.iren.Initialize()  # 初始化交互器
+
+        # timer = QTimer(self)
+        # timer.timeout.connect(self.update_line)
+        # timer.start(10)
+    
+    def test_update(self, angle):
+        start = self.source1.GetPoint1()
+        end = self.calculate_end_point(start, 2, angle)
+        self.source1.SetPoint2(end)
+        self.source1.Update()
+        self.vtkWidget.GetRenderWindow().Render()   # 刷新显示
+        # 打印当前时间
+        print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+        ...
+
+    @staticmethod 
+    def calculate_end_point(start_point, length, angles):
+        # 根据 roll、pitch 和 yaw 计算旋转矩阵
+        rotation_matrix = scipy.spatial.transform.Rotation.from_euler('xyz', angles, degrees=True).as_matrix()  # type: ignore
+        # 计算下一段骨骼的终点坐标
+        end_point = start_point + \
+        np.dot(rotation_matrix, np.array([length, 0, 0]))
+        return end_point
+        
 
     def closeEvent(self, event) -> None:
         try:
