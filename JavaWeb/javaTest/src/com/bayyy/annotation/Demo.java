@@ -14,6 +14,6 @@ public class Demo {
         String name = personInfo.name();
         int age = personInfo.age();
         String sex = personInfo.sex();
-        System.out.println(name+"==="+age+"==="+sex);
+        System.out.println(name + "===" + age + "===" + sex);
     }
 }

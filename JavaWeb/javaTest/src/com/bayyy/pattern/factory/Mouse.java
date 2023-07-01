@@ -1,6 +1,6 @@
 package com.bayyy.pattern.factory;
 
-public class Mouse implements Usb{
+public class Mouse implements Usb {
 
     @Override
     public void service() {

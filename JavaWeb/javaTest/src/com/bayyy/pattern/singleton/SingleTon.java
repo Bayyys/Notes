@@ -10,7 +10,10 @@ package com.bayyy.pattern.singleton;
  */
 public class SingleTon {
     private static final SingleTon INSTANCE = new SingleTon();
-    private SingleTon() {}
+
+    private SingleTon() {
+    }
+
     public static SingleTon getInstance() {
         return INSTANCE;
     }

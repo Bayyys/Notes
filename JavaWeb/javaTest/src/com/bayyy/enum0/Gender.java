@@ -10,7 +10,13 @@ package com.bayyy.enum0;
 public enum Gender {
     Male, FEMALE;
     private String name;    // 可以包含其他的属性
-    private Gender() {} // 可以包含构造器
-    public void show1() {} // 可以包含方法
-    public static void show2() {} // 可以包含静态方法
+
+    private Gender() {
+    } // 可以包含构造器
+
+    public static void show2() {
+    } // 可以包含静态方法
+
+    public void show1() {
+    } // 可以包含方法
 }

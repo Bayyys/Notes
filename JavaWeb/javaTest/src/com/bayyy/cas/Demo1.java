@@ -12,7 +12,7 @@ public class Demo1 {
     public static void main(String[] args) {
 
         new Thread(() -> {
-            System.out.println("a =>:" + atomicStampedReference.getStamp()+ "当前值为:" + atomicStampedReference.getReference());
+            System.out.println("a =>:" + atomicStampedReference.getStamp() + "当前值为:" + atomicStampedReference.getReference());
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
@@ -21,11 +21,11 @@ public class Demo1 {
 
             atomicStampedReference.compareAndSet(1, 2, atomicStampedReference.getStamp(), atomicStampedReference.getStamp() + 1);
 
-            System.out.println("a =>:" + atomicStampedReference.getStamp()+ "当前值为:" + atomicStampedReference.getReference());
+            System.out.println("a =>:" + atomicStampedReference.getStamp() + "当前值为:" + atomicStampedReference.getReference());
 
             atomicStampedReference.compareAndSet(2, 1, atomicStampedReference.getStamp(), atomicStampedReference.getStamp() + 1);
 
-            System.out.println("a =>:" + atomicStampedReference.getStamp()+ "当前值为:" + atomicStampedReference.getReference());
+            System.out.println("a =>:" + atomicStampedReference.getStamp() + "当前值为:" + atomicStampedReference.getReference());
 
         }, "a").start();
 
@@ -33,7 +33,7 @@ public class Demo1 {
         //和乐观锁的原理相同
         new Thread(() -> {
             int stamp = atomicStampedReference.getStamp();
-            System.out.println("b =>:" + stamp+ "当前值为:" + atomicStampedReference.getReference());
+            System.out.println("b =>:" + stamp + "当前值为:" + atomicStampedReference.getReference());
 
             try {
                 TimeUnit.SECONDS.sleep(2);
@@ -43,7 +43,7 @@ public class Demo1 {
 
             System.out.println(atomicStampedReference.compareAndSet(1, 6, stamp, stamp + 1));
 
-            System.out.println("b =>:" + atomicStampedReference.getStamp()+ "当前值为:" + atomicStampedReference.getReference());
+            System.out.println("b =>:" + atomicStampedReference.getStamp() + "当前值为:" + atomicStampedReference.getReference());
         }, "b").start();
     }
 }

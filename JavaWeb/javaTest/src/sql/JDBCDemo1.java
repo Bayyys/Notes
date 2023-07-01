@@ -20,7 +20,7 @@ public class JDBCDemo1 {
         Statement statement = connection.createStatement();
 
         // 5. 执行SQL语句, 返回结果集
-        String sql="SELECT * FROM users";
+        String sql = "SELECT * FROM users";
         ResultSet resultSet = statement.executeQuery(sql);  // executeQuery: 执行查询操作, 返回ResultSet对象, 其中封装了全部的查询结果
 
         // 6. 遍历查询结果

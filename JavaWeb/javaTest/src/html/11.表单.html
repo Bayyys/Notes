@@ -11,8 +11,8 @@ method: 提交方式
     get: 提交数据会显示在地址栏中, 不安全, 高效, 传输数据量小
 action: 提交的地址, 一般是服务器的地址, 也可以是请求处理地址
 -->
-<form method="get" action="3.图像标签.html">
-    <p> 名字：<input name="name" type="text" value="test" maxlength="8" size="30"></p>
+<form action="3.图像标签.html" method="get">
+    <p> 名字：<input maxlength="8" name="name" size="30" type="text" value="test"></p>
     <p> 密码：<input name="pass" type="password"></p>
 
     <!-- 单选框
@@ -21,8 +21,8 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
      value: 单选框的值, 用于区分不同的单选框
      -->
     <p> 性别：
-        <input type="radio" name="sex" value="boy" checked/>男
-        <input type="radio" name="sex" value="girl"/>女
+        <input checked name="sex" type="radio" value="boy"/>男
+        <input name="sex" type="radio" value="girl"/>女
     </p>
 
     <!-- 多选框
@@ -31,9 +31,9 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
      value: 多选框的值, 用于区分不同的多选框
      -->
     <p>
-        <input type="checkbox" name="hobby" value="sleep"/>睡觉
-        <input type="checkbox" name="hobby" value="eat"/>吃饭
-        <input type="checkbox" name="hobby" value="play" checked/>玩耍
+        <input name="hobby" type="checkbox" value="sleep"/>睡觉
+        <input name="hobby" type="checkbox" value="eat"/>吃饭
+        <input checked name="hobby" type="checkbox" value="play"/>玩耍
     </p>
 
     <!-- 按钮
@@ -43,11 +43,10 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
         type: reset
         -->
     <p>
-        <input type="button" name="btn1" value="点击！！！">
+        <input name="btn1" type="button" value="点击！！！">
         <br>
-        <input type="image" src="../resources/image/campus.jpg" name="btn2" value="图片点击！！">
+        <input name="btn2" src="../resources/image/campus.jpg" type="image" value="图片点击！！">
     </p>
-
 
 
     <!-- 下拉列表
@@ -57,7 +56,7 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
     -->
     <p>下拉框：
         <select name="select" size="1">
-            <option value="0" selected>默认值</option>
+            <option selected value="0">默认值</option>
             <option value="1">选项1</option>
             <option value="2">选项2</option>
             <option value="3">选项3</option>
@@ -72,7 +71,7 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
     rows: 文本域的行数
     -->
     <p>反馈：
-        <textarea name="textarea" cols="30" rows="10">这是文本域的默认值</textarea>
+        <textarea cols="30" name="textarea" rows="10">这是文本域的默认值</textarea>
     </p>
 
     <!-- 隐藏域: 用于传递数据, 不会显示在页面上
@@ -80,7 +79,7 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
     value: 隐藏域的值
     -->
     <p>
-        <input type="hidden" name="hidden" value="这是隐藏域的默认值">
+        <input name="hidden" type="hidden" value="这是隐藏域的默认值">
     </p>
 
     <!-- 文件域
@@ -88,8 +87,8 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
     accept: 文件域接受的文件类型
     -->
     <p>
-        <input type="file" name="file" accept="image/*">
-        <input type="button" value="上传" name="upload">
+        <input accept="image/*" name="file" type="file">
+        <input name="upload" type="button" value="上传">
     </p>
 
     <!-- 需要验证的表单
@@ -98,9 +97,9 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
     number: 数字(需要附带一个数字)
     -->
     <p>
-        邮件：<input type="email" name="email">
-        网址：<input type="url" name="url">
-        数量：<input type="number" name="number" max="10" min="0" step="1">
+        邮件：<input name="email" type="email">
+        网址：<input name="url" type="url">
+        数量：<input max="10" min="0" name="number" step="1" type="number">
     </p>
 
     <!-- 滑块
@@ -109,14 +108,14 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
     step: 滑块的步长
     -->
     <p>
-        音量：<input type="range" name="voice" max="10" min="0" step="1">
+        音量：<input max="10" min="0" name="voice" step="1" type="range">
     </p>
 
     <!-- 搜索框
     placeholder: 搜索框的提示信息
     -->
     <p>
-        <input type="search" name="search" placeholder="请输入搜索内容">
+        <input name="search" placeholder="请输入搜索内容" type="search">
     </p>
 
     <!-- 增强鼠标操作
@@ -126,15 +125,13 @@ action: 提交的地址, 一般是服务器的地址, 也可以是请求处理�
     -->
     <p>
         <label for="point_test">文本框：</label>
-        <input type="text" name="txt" id="point_test" autofocus autocomplete="on">
+        <input autocomplete="on" autofocus id="point_test" name="txt" type="text">
     </p>
 
 
-
-
     <p>
-        <input type="submit" name="Button" value="提交">
-        <input type="reset" name="Reset" value="重新填写">
+        <input name="Button" type="submit" value="提交">
+        <input name="Reset" type="reset" value="重新填写">
     </p>
 
 </form>

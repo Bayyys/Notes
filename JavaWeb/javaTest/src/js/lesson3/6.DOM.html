@@ -46,9 +46,10 @@
         console.log("hash值 - location.hash: " + location.hash);
         // 常见方法
         // assign() 加载新的文档。
-        function newDoc(){
+        function newDoc() {
             window.location.assign("https://www.runoob.com")
         }
+
         // reload() 重新加载当前文档。
         // replace() 用新的文档替换当前文档。
 
@@ -73,7 +74,7 @@
     </script>
 </head>
 <body>
-<input type="button" value="加载新文档" onclick="newDoc()">
+<input onclick="newDoc()" type="button" value="加载新文档">
 <dl id="app"> title
     <dt>first</dt>
     <dd>second</dd>

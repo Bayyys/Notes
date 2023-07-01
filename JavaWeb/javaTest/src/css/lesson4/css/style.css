@@ -1,10 +1,10 @@
-#nav{
+#nav {
     width: 275px;
     background: gray;
 }
 
 
-.title{
+.title {
     font-size: 18px;
     font-weight: bold;
     text-indent: 1em;
@@ -26,11 +26,11 @@ list-style
     lower-alpha: 小写英文字母
     upper-alpha: 大写英文字母
 */
-ul{
+ul {
     background: gray;
 }
 
-ul li{
+ul li {
     height: 30px;
     list-style: none;
     text-indent: 1em;
@@ -40,13 +40,13 @@ ul li{
 }
 
 /* a */
-a{
+a {
     text-decoration: none;
     color: #000;
     font-size: 14px;
 }
 
-a:hover{
+a:hover {
     color: orange;
     text-decoration: underline;
 }

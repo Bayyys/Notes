@@ -39,7 +39,7 @@ public class Demo5 {
         stringStream.forEach(System.out::println);
 
         // 2. 通过 Arrays 中的 stream() 方法获取数组流
-        String[] arr=new String[]{"hello","world","java"};
+        String[] arr = new String[]{"hello", "world", "java"};
         Stream<String> stream1 = Arrays.stream(arr);
         stream1.forEach(System.out::println);
 

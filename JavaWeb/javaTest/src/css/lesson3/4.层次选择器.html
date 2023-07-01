@@ -8,6 +8,7 @@
             color: red;
             background: green;
         }
+
         /* 后代选择器: 元素后面的所有代 */
         body p {
             color: green;
@@ -15,19 +16,19 @@
         }
 
         /* 子代选择器: 只有一代 */
-        body>p {
+        body > p {
             color: blue;
             background: yellow;
         }
 
         /* 相邻兄弟选择器: 选择紧跟在另一个元素后的元素,且二者有相同的父元素(紧跟着的下一个) */
-        .active+p {
+        .active + p {
             color: yellow;
             background: blue;
         }
 
         /* 通用选择器: 元素后的所有同级元素,且二者有相同的父元素(所有的后级元素) */
-        .usual~p {
+        .usual ~ p {
             color: red;
             background: blue;
         }

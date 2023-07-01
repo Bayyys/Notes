@@ -10,7 +10,7 @@ public class Demo2 {
             }
         };
 
-        Usb fan=() -> System.out.println("风扇开始工作了....");
+        Usb fan = () -> System.out.println("风扇开始工作了....");
 
         run(mouse);
         run(fan);

@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class JdbcUtils_DBCP {
-    private static DataSource dataSource=null;
+    private static DataSource dataSource = null;
 
     static {
         try {
@@ -37,22 +37,22 @@ public class JdbcUtils_DBCP {
     }
 
     //3.释放资源
-    public static void release(Connection conn, Statement st, ResultSet rs)  {
-        if (rs!=null){
+    public static void release(Connection conn, Statement st, ResultSet rs) {
+        if (rs != null) {
             try {
                 rs.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        if (st!=null){
+        if (st != null) {
             try {
                 st.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        if (conn!=null){
+        if (conn != null) {
             try {
                 conn.close();
             } catch (SQLException e) {

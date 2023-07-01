@@ -43,7 +43,7 @@ public class JDBCUtils {
             resultSet.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
 

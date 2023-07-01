@@ -6,21 +6,21 @@ public class ConcurrentLinkedQueueTest {
     public static void main(String[] args) {
         // 1. 创建队列
         // 实现类：ConcurrentLinkedQueue
-        ConcurrentLinkedQueue<String> queue=new ConcurrentLinkedQueue<String>();
+        ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<String>();
         // 2. 创建线程
-        Thread t1=new Thread(new Runnable() {
+        Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < 10; i++) {
-                    queue.offer("hello"+i);
+                    queue.offer("hello" + i);
                 }
             }
         });
-        Thread t2=new Thread(new Runnable() {
+        Thread t2 = new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < 10; i++) {
-                    queue.offer("world"+i);
+                    queue.offer("world" + i);
                 }
             }
         });
@@ -35,12 +35,12 @@ public class ConcurrentLinkedQueueTest {
             e.printStackTrace();
         }
         // 5. 遍历队列
-        System.out.println("元素个数："+queue.size());
-        int size=queue.size();
+        System.out.println("元素个数：" + queue.size());
+        int size = queue.size();
         for (int i = 0; i < size; i++) {
             System.out.println(queue.peek());
             System.out.println(queue.poll());
         }
-        System.out.println("元素个数："+queue.size());
+        System.out.println("元素个数：" + queue.size());
     }
 }

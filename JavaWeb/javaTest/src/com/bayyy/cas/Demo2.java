@@ -19,6 +19,7 @@ public class Demo2 {
 
 class Phone {
     Lock lock = new ReentrantLock();
+
     public void sms() {
         lock.lock();
         try {

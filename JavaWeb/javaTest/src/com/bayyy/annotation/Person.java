@@ -8,8 +8,17 @@ public class Person {
 
     }
 
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     public int getAge() {
         return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -18,15 +27,6 @@ public class Person {
                 "name='" + name + '\'' +
                 ", age=" + age +
                 '}';
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
     }
 
     @MyAnnotation(name = "bayyy", age = 18)

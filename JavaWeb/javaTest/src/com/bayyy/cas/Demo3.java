@@ -34,7 +34,7 @@ public class Demo3 {
 }
 
 //我的自旋锁
-class MySpinLock{
+class MySpinLock {
     /**
      * int 0
      * Thread null
@@ -42,20 +42,20 @@ class MySpinLock{
     AtomicReference<Thread> atomicReference = new AtomicReference<>();
 
     //加锁
-    public void myLock(){
+    public void myLock() {
         Thread thread = Thread.currentThread();
-        System.out.println(Thread.currentThread().getName()+"==>MyLock");
+        System.out.println(Thread.currentThread().getName() + "==>MyLock");
 
         //自旋锁(如果没有锁，给他加锁。如果有锁，进入方法体)
-        while (!atomicReference.compareAndSet(null, thread)){
+        while (!atomicReference.compareAndSet(null, thread)) {
 
         }
     }
 
     //解锁
-    public void myUnLock(){
+    public void myUnLock() {
         Thread thread = Thread.currentThread();
-        System.out.println(Thread.currentThread().getName()+"==>myUnlock");
+        System.out.println(Thread.currentThread().getName() + "==>myUnlock");
         atomicReference.compareAndSet(thread, null);
     }
 }

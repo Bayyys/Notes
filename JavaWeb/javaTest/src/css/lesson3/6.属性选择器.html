@@ -17,30 +17,37 @@
             margin: 5px;
             font: bold 20px/50px Arial;
         }
+
         /* 存在href属性的元素 */
         .demo a[href] {
             background: pink;
         }
+
         /* 存在id的元素 */
         .demo a[id] {
             background: red;
         }
+
         /* 存在title属性的元素 */
         .demo a[title] {
             background: yellow;
         }
+
         /* 存在target属性的元素 */
         .demo a[target] {
             background: green;
         }
+
         /* class中包含links的元素 */
         .demo a[class*="class_test"] {
             background: orange;
         }
+
         /* herf 以 http 开头的元素 */
         .demo a[href^="/"] {
             background: gray;
         }
+
         /* href 以 .pdf 结尾的元素 */
         .demo a[href$=".doc"] {
             background: black;
@@ -50,14 +57,14 @@
 <body>
 
 <p class="demo">
-    <a href="http://www.baidu.com" class="links item first" id="first">1</a>
-    <a href="" class="links item active" target="_blank" title="test1">2</a>
-    <a href="img/1.png" class="links item" title="test2">3</a>
-    <a href="img/2.html" class="links item class_test">4</a>
-    <a href="img/3.jpg" class="links item">5</a>
-    <a href="/4.pdf" class="links item">6</a>
-    <a href="5.doc" class="links item">7</a>
-    <a href="6.ppt" class="links item last">8</a>
+    <a class="links item first" href="http://www.baidu.com" id="first">1</a>
+    <a class="links item active" href="" target="_blank" title="test1">2</a>
+    <a class="links item" href="img/1.png" title="test2">3</a>
+    <a class="links item class_test" href="img/2.html">4</a>
+    <a class="links item" href="img/3.jpg">5</a>
+    <a class="links item" href="/4.pdf">6</a>
+    <a class="links item" href="5.doc">7</a>
+    <a class="links item last" href="6.ppt">8</a>
     <a class="links item2">9</a>
 </p>
 

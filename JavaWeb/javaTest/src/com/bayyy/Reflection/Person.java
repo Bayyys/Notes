@@ -5,23 +5,6 @@ public class Person {
     private int age;
     private String address;
 
-    public  void eat() {
-        System.out.println(name+" is eating.");
-    }
-
-    public void eat(String food) {
-        System.out.println(name+" is eating "+food+".");
-    }
-
-    private void privateMethod() {
-        System.out.println("This is a private method.");
-    }
-
-
-    public static void staticMethod() {
-        System.out.println("This is a static method.");
-    }
-
     public Person() {
     }
 
@@ -29,6 +12,22 @@ public class Person {
         this.name = name;
         this.age = age;
         this.address = address;
+    }
+
+    public static void staticMethod() {
+        System.out.println("This is a static method.");
+    }
+
+    public void eat() {
+        System.out.println(name + " is eating.");
+    }
+
+    public void eat(String food) {
+        System.out.println(name + " is eating " + food + ".");
+    }
+
+    private void privateMethod() {
+        System.out.println("This is a private method.");
     }
 
     public String getName() {

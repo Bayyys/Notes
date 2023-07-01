@@ -8,8 +8,8 @@ public class BlockingQueueTest {
     public static void main(String[] args) {
         // 1. 创建队列
         // 实现类：ArrayBlockingQueue、LinkedBlockingQueue、PriorityBlockingQueue
-        BlockingQueue<String> queue1=new ArrayBlockingQueue<String>(3);
-        BlockingQueue<String> queue2=new LinkedBlockingQueue<String>();
+        BlockingQueue<String> queue1 = new ArrayBlockingQueue<String>(3);
+        BlockingQueue<String> queue2 = new LinkedBlockingQueue<String>();
         // 2. 添加元素
         queue1.offer("hello");
         queue1.offer("world");

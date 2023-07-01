@@ -170,7 +170,7 @@ public class TestPerson {
      */
     public static void reflectOpe4() throws ClassNotFoundException, NoSuchFieldException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         // 1. 获取Class对象
-        Class<?> class1=Class.forName("com.bayyy.Reflection.Person");
+        Class<?> class1 = Class.forName("com.bayyy.Reflection.Person");
         // 2. 获取属性(字段) // 只能获取public属性
         Field[] fields = class1.getFields();
         System.out.println("getFields()获取public属性：");
@@ -180,7 +180,7 @@ public class TestPerson {
         // 3. 获取属性(字段) // 可以获取所有属性
         Field[] fields2 = class1.getDeclaredFields();
         System.out.println("getDeclaredFields()获取所有属性：");
-        for (Field field: fields2) {
+        for (Field field : fields2) {
             System.out.println(field);
         }
         // 4. 获取指定属性
@@ -188,7 +188,7 @@ public class TestPerson {
         // 5. 赋值
         Person zhangsan = (Person) class1.getDeclaredConstructor().newInstance();
         nameField.setAccessible(true); // 设置访问权限
-        nameField.set(zhangsan,"张三");
+        nameField.set(zhangsan, "张三");
         // 6. 获取值
         System.out.println(nameField.get(zhangsan));
     }

@@ -26,7 +26,7 @@ public class TestUtil {
             }
             sql = "INSERT INTO users(id, `NAME`, `PASSWORD`, `email`, `birthday`) VALUES(5, 'test', '123456', '123@qq.com', '1979-12-04')";
             int count = statement.executeUpdate(sql); // 执行SQL, 返回影响的行数
-            if  (count > 0) {
+            if (count > 0) {
                 System.out.println("添加成功");
             } else {
                 System.out.println("添加失败");

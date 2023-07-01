@@ -5,7 +5,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class copyOnWriteArraySetTest {
     public static void main(String[] args) {
         // 1. 创建集合对象
-        CopyOnWriteArraySet<String> set=new CopyOnWriteArraySet<String>();
+        CopyOnWriteArraySet<String> set = new CopyOnWriteArraySet<String>();
         // 2. 添加元素
         set.add("hello");
         set.add("world");
@@ -16,7 +16,7 @@ public class copyOnWriteArraySetTest {
             System.out.println(s);
         }
         System.out.println("---------");
-        System.out.println("元素个数："+set.size());
+        System.out.println("元素个数：" + set.size());
         System.out.println(set.toString());
 
     }

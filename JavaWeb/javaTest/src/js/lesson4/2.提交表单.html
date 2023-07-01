@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <!-- MD5加密工具类 -->
-<!--    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js">-->
+    <!--    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js">-->
 
-<!--    </script>-->
+    <!--    </script>-->
 </head>
 <body>
 
@@ -18,14 +18,14 @@
 <form action="https://www.baidu.com/" method="post" onsubmit="return check_submit()">
     <p>
         <span>用户名：</span>
-        <input type="text" id="username" name="username"/>
+        <input id="username" name="username" type="text"/>
         <!-- 可添加 required 参数，作为必须项 -->
     </p>
     <p>
         <span>密码：</span>
-        <input type="password" id="password"/>
+        <input id="password" type="password"/>
     </p>
-    <input type="hidden" id="md5-password" name="password">
+    <input id="md5-password" name="password" type="hidden">
 
     <!--绑定事件, onclick被点击-->
     <button type="submit">提交</button>

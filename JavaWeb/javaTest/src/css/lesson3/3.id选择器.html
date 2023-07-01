@@ -4,28 +4,30 @@
     <meta charset="UTF-8">
     <title>id选择器</title>
 
-  <style>
-    /* id选择器: #id名称{} */
-    /* id选择器 > 类选择器 > 标签选择器 */
-    #id1 {
-      color: #ff0000;
-      background: bisque;
-      border-radius: 24px;
-    }
-    #id2 {
-      font-size: 80px;
-      border-bottom: aqua 2px solid;
-    }
-    .class1 {
-      color: #ff0000;
-      background: bisque;
-      border-radius: 24px;
-    }
-  </style>
+    <style>
+        /* id选择器: #id名称{} */
+        /* id选择器 > 类选择器 > 标签选择器 */
+        #id1 {
+            color: #ff0000;
+            background: bisque;
+            border-radius: 24px;
+        }
+
+        #id2 {
+            font-size: 80px;
+            border-bottom: aqua 2px solid;
+        }
+
+        .class1 {
+            color: #ff0000;
+            background: bisque;
+            border-radius: 24px;
+        }
+    </style>
 </head>
 <body>
 <h1 id="id1">标题1</h1>
-<h1 id="id2" class="class1">标题2</h1>
+<h1 class="class1" id="id2">标题2</h1>
 <h1 class="class1">标题3</h1>
 </body>
 </html>
