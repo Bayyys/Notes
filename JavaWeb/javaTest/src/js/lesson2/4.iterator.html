@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iterator</title>
+    <script>
+        // Map
+        var map = new Map([
+            ['bay', '100'],
+            ['cdn', '99'],
+            ['other', '0']
+        ]);
+        console.log(map);
+        console.log(map.keys());
+        console.log(map.values());
+        console.log(map.entries());
+        console.log('通过 iterator 遍历 map');
+        for (let [key, value] of map) {
+            console.log(key + ' = ' + value);
+        }
+        console.log('通过 iterator 遍历 map.keys()');
+        for (let key of map.keys()) {
+            console.log(key);
+        }
+        console.log('通过 iterator 遍历 map.values()');
+        for (let value of map.values()) {
+            console.log(value);
+        }
+        console.log('通过 iterator 遍历 map.entries()');
+        for (let [key, value] of map.entries()) {
+            console.log(key + ' = ' + value);
+        }
+
+        // Set
+        var set = new Set([1, 2, 3, 4, 5, 6, 7, 8]);
+        console.log(set);
+        console.log('通过 iterator 遍历 set');
+        for (let value of set) {
+            console.log(value);
+        }
+        var str = 'hello';
+        for (const ch in str) {
+            console.log(str[ch]);
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

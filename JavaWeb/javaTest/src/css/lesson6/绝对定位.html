@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绝对定位</title>
+    <!-- 绝对定位
+        1. 会脱离文档流
+      2. 会影响其他元素的位置
+      3. 会在原来的位置留下一个空白的位置
+      4. 可以使用left、right、top、bottom属性进行移动
+      5. 可以使用z-index属性进行层级控制
+      -->
+    -->
+    <style>
+        div {
+            margin: 10px;
+            padding: 5px;
+            font-size: 12px;
+            line-height: 25px;
+        }
+
+        #father {
+            border: 1px solid #666;
+            padding: 0;
+            width: 400px;
+            height: 400px;
+            position: relative;
+        }
+
+        #first {
+            background-color: #a13d30;
+            border: 1px dashed #b27530;
+
+        }
+
+        #second {
+            background-color: green;
+            border: 1px dashed #0ece4f;
+            position: absolute;
+            right: 30px;
+            top: 30px
+        }
+
+        #third {
+            background-color: red;
+            border: 1px dashed #ff1b87;
+        }
+    </style>
+</head>
+<body>
+<div id="father">
+    <div id="first">第一个盒子</div>
+    <div id="second">第二个盒子</div>
+    <div id="third">第三个盒子</div>
+</div>
+</body>
+</html>

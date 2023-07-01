@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+    <default-config>
+        <!--
+        C3P0的缺省（默认）配置，
+        如果在代码中是    ComboPooledDataSource cp = new ComboPooledDataSource();  这样写是default-config的配置
+                -->
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/jdbc?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</property>
+        <property name="user">root</property>
+        <property name="password">root</property>
+
+
+        <!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+        <property name="acquireIncrement">3</property>
+
+        <!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 10 这些都是自己定义 -->
+        <property name="initialPoolSize">10</property>
+
+        <!-- 连接的最大空闲时间，default: 30  -->
+        <property name="maxIdleTime">30</property>
+
+        <!--连接池中保留的最大连接数。Default: 100 -->
+        <property name="maxPoolSize">100</property>
+
+        <!--连接池中保留的最小连接数。Default: 15 -->
+        <property name="minPoolSize">15</property>
+    </default-config>
+
+
+    <!--
+    C3P0的命名配置，
+    如果在代码中是    ComboPooledDataSource cp = new ComboPooledDataSource("MySQL");  这样写是default-config的配置
+    -->
+    <named-config name="MySQL">
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/jdbc?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</property>
+        <property name="user">root</property>
+        <property name="root">root</property>
+
+        <property name="acquireIncrement">3</property>
+        <property name="initialPoolSize">10</property>
+        <property name="maxIdleTime">30</property>
+        <property name="maxPoolSize">100</property>
+        <property name="minPoolSize">10</property>
+    </named-config>
+
+    <!-- 可增加其他配置   -->
+</c3p0-config>

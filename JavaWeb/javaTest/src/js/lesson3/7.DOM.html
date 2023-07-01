@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM</title>
+
+</head>
+<body>
+
+<div id="father">
+    <h1>一级标题</h1>
+    <p id="p1">p1</p>
+    <p class="p2">p2</p>
+    <p id="p3">p3</p>
+</div>
+
+
+<script>
+    var father = document.getElementById('father');
+    var p3 = document.getElementById('p3');
+    var p1 = document.getElementById('p1');
+    var p4 = document.createElement('p');
+    p4.id = 'p4';
+    p4.innerHTML = '创建新的 p4';
+    p4.setAttribute('class', 'setP');
+    p4.setAttribute('style', 'color: red;');
+    // 节点转移
+    p3.appendChild(p1);
+    // 新增节点
+    father.appendChild(p4);
+    father.insertBefore(p4, p3);
+    // var body = document.body;
+    // body.style.backgroundColor = 'black';
+    // // 根据 tag/class 获取元素得到的是一个数组, 所以需要指定元素
+    // var body2 = document.getElementsByTagName('body');
+    // body2[0].style.backgroundColor = 'orange';
+    // DOM - Document Object Model(文档对象模型)
+    // DOM是HTML和XML的应用程序接口(API)
+
+    // // 1. 选择元素
+    // // 根据 id 获取元素 - getElementById()
+    // // 注意：
+    // //      1. id是唯一的，所以返回的是一个元素
+    // //      2. DOM 执行在DOMContentLoaded事件之前，所以不需要等待页面加载完成
+    // //          所以使用需要放在id定义之后，或者等待页面加载完成之后
+    // var father = document.getElementById('father');
+    // // 根据标签名获取元素 - getElementsByTagName()
+    // var h1 = document.getElementsByTagName('h1');
+    // var p1 = document.getElementById('p1');
+    // // 根据类名获取元素 - getElementsByClassName()
+    // var p2 = document.getElementsByClassName('p2');
+    // // 根据选择器获取元素 - querySelector()
+    // var father_p = document.querySelector('#father p');
+    // // 根据选择器获取元素 - querySelectorAll()
+    // var pAll = document.querySelectorAll('#father p');
+    //
+    // // 2. 获取父子元素
+    // // 获取父元素 - parentNode
+    // var p1_parent = p1.parentNode;
+    // // 获取子元素 - children
+    // var father_children = father.children;
+    //
+    // // 3. 获取兄弟元素
+    // // 获取前一个兄弟元素 - previousSibling
+    // var p1_previousSibling = p1.previousSibling;
+    // // 获取后一个兄弟元素 - nextSibling
+    // var p1_nextSibling = p1.nextSibling;
+    // // 获取前一个兄弟元素 - previousElementSibling
+    // var p1_previousElementSibling = p1.previousElementSibling;
+    // // 获取后一个兄弟元素 - nextElementSibling
+    // var p1_nextElementSibling = p1.nextElementSibling;
+    //
+    // console.log('-----输出显示-----');
+    // console.log('--- 1. 选择元素 ---');
+    // console.log('-- father -- ');
+    // console.log(father)
+    // console.log('-- h1 -- ');
+    // console.log(h1)
+    // console.log('-- p1 -- ');
+    // console.log(p1)
+    // console.log('-- p2 -- ');
+    // console.log(p2)
+    // console.log('-- father_p -- ');
+    // console.log(father_p)
+    // console.log('-- pAll -- ');
+    // console.log(pAll)
+    // console.log('--- 2. 获取父子元素 ---');
+    // console.log('-- p1_parent -- ');
+    // console.log(p1_parent)
+    // console.log('-- father_children -- ');
+    // console.log(father_children)
+    // console.log('-- father_firstChild -- ');
+    // console.log(father.firstChild)
+    // console.log('-- father_lastChild -- ');
+    // console.log(father.lastChild)
+    // console.log('--- 3. 获取兄弟元素 ---');
+    // console.log('-- p1_previousSibling -- ');
+    // console.log(p1_previousSibling)
+    // console.log('-- p1_nextSibling -- ');
+    // console.log(p1_nextSibling)
+    // console.log('-- p1_previousElementSibling -- ');
+    // console.log(p1_previousElementSibling)
+    // console.log('-- p1_nextElementSibling -- ');
+    // console.log(p1_nextElementSibling)
+    //
+    // // 4. 更新元素
+    // console.log('--- 4. 更新元素 ---');
+    // console.log('\t\t 原 father');
+    // console.log(father)
+    // // 更新元素的内容 - innerHTML
+    // father.innerHTML = '<h1>一级标题</h1>';
+    // console.log('\t\t 更新元素内容 father');
+    // console.log(father)
+    // // 更改文本内容 - innerText
+    // father.innerText = '一级标题';
+    // console.log('\t\t 更改文本内容 father');
+    // console.log(father)
+    // // 更新元素的属性 - setAttribute()
+    // father.setAttribute('class', 'father_new');
+    // console.log('\t\t 更新元素属性 father');
+    // console.log(father)
+    // // 移除元素的属性 - removeAttribute()
+    // father.removeAttribute('class');
+    // console.log('\t\t 移除元素属性 father');
+    // console.log(father)
+    //
+    // // 操作CSS
+    // father.style.color = 'red';
+    // father.style.fontSize = '20px';
+    // father.style.backgroundColor = 'yellow';
+    // // ...
+    // var p1 = document.getElementById('p1');
+    // var p1_father = p1.parentNode;
+    // console.log(p1_father);
+    // p1_father.removeChild(p1);
+    // console.log(p1_father);
+
+
+</script>
+</body>
+</html>

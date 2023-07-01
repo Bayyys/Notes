@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>相对定位</title>
+    <!-- 相对定位
+      1. 会相对于自己原来的位置进行移动
+      2. 不会影响其他元素的位置
+      3. 不会脱离文档流
+      4. 会在原来的位置留下一个空白的位置
+      5. 可以使用left、right、top、bottom属性进行移动
+      6. 可以使用z-index属性进行层级控制
+      -->
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        div {
+            margin: 10px;
+            padding: 5px;
+            font-size: 12px;
+            line-height: 25px;
+        }
+
+        .father {
+            border: 1px solid #666;
+        }
+
+        #first {
+            border: 1px dashed red;
+            background-color: yellow;
+            position: relative;
+            top: 20px;
+        }
+
+        #second {
+            border: 1px dashed blue;
+            background-color: green;
+            position: relative;
+            left: 20px;
+        }
+
+        #third {
+            border: 1px dashed orange;
+            background-color: pink;
+            position: relative;
+            bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="father">
+    <div id="first">第一个盒子</div>
+    <div id="second">第二个盒子</div>
+    <div id="third">第三个盒子</div>
+</div>
+
+</body>
+</html>

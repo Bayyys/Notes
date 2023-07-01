@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>背景</title>
+    <style>
+        div{
+            width: 500px;
+            height: 200px;
+            margin: 10px;
+            float: initial;
+            border: 1px solid red;
+            /* 默认为repeat(水平垂直平铺) */
+            background-image: url("images/pic.png");
+        }
+        .div1{
+            /* 水平平铺 */
+            background-repeat: repeat-x;
+        }
+        .div2{
+            /* 垂直平铺 */
+            background-repeat: repeat-y;
+        }
+        .div3{
+            /* 不平铺 */
+            background-repeat: no-repeat;
+        }
+        .div4{
+            /* 水平垂直平铺 */
+            background-repeat: repeat;
+        }
+        .div5{
+            /* space(
+            background-repeat: space;
+        }
+
+
+    </style>
+</head>
+<body>
+<div></div>
+<div class="div1"></div>
+<div class="div2"></div>
+<div class="div3"></div>
+<div class="div4"></div>
+<div class="div5"></div>
+<div class="div6"></div>
+</body>
+</html>

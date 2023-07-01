@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作表单</title>
+</head>
+<body>
+<form action="" method="post">
+    <span>用户名：</span><input type="text" id="username">
+    <p>
+        <span>性别：</span>
+        <input type="radio" name="sex" value="man" id="boy" checked/>男
+        <input type="radio" name="sex" value="woman" id="girl"/>女
+    </p>
+</form>
+<script>
+    // 输入框
+    var username = document.getElementById('username');
+    // 输入框值
+    // username.value = 'cdn';
+
+    // 单选框
+    var radio_boy = document.getElementById('boy');
+    var radio_girl = document.getElementById('girl');
+    // 选中状态
+    // radio_boy.checked = true;
+</script>
+</body>
+</html>

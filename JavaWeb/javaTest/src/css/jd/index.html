@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        /*body总有一个默认的外边框margin：0,常见的*/
+        /*h1, ul, li, a, body {*/
+        /*    margin: 0;*/
+        /*    padding: 0;*/
+        /*    text-decoration: none;*/
+        /*}*/
+
+        /*border:粗细，样式，颜色*/
+        #box {
+            width: 300px;
+            border: 1px solid red;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 16px;
+            background-color: cornflowerblue;
+            line-height: 30px;
+            margin: 0px;
+        }
+
+        /* form 标签选择器 */
+        form {
+            background: #008800;
+        }
+
+        div:nth-of-type(1) input {
+            border: 3px solid black;
+        }
+
+        /*div:nth-of-type(2) input {*/
+        /*    border: 3px dashed yellow;*/
+        /*}*/
+
+        /*div:nth-of-type(3) input {*/
+        /*    border: 2px dashed green;*/
+        /*}*/
+    </style>
+</head>
+<body>
+
+<div id="box">
+    <h2>会员登录</h2>
+    <form action="#">
+        <div>
+            <span>用户名：</span>
+            <input type="text">
+        </div>
+        <div>
+            <span>密码：</span>
+            <input type="password">
+        </div>
+        <div>
+            <span>邮箱：</span>
+            <input type="text">
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

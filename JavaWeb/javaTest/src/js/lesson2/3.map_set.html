@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        'use strict';
+
+        // ES6 Map
+        // Map 是一组键值对的结构，具有极快的查找速度
+        // 传统的对象（Object），只能用字符串当作键, 但是 Map 的键可以是任意值
+        // Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键
+        // 如果 Map 的键是一个简单类型的值（数字、字符串、布尔值），则只要两个值严格相等，Map 将其视为一个键
+        // 只有对同一个对象的引用，Map 结构才将其视为同一个键
+        var map1 = new Map();
+        map1.set('bay', 100);
+        map1.set('cdn', 99);
+        map1.set('other', 0);
+        console.log('通过 set 方法添加的元素, map1 长度为: ' + map1.size);
+        console.log(map1);
+        console.log('get 方法获取的元素：' + map1.get('bay'));
+        console.log('has 方法判断是否存在：' + map1.has('bay'));
+        console.log('删除前map长度为: ' + map1.size);
+        map1.delete('other');
+        console.log('map1.delete(\'other\');    // delete 方法删除元素, 删除后map长度为: ' + map1.size);
+        map1.clear();
+        console.log('map1.clear();  // clear 方法清空map, 清空后map长度为: ' + map1.size);
+
+        var map2 = new Map([
+            ['bay', '100'],
+            ['cdn', '99'],
+            ['other', '0']
+        ]);
+        console.log('通过赋值初识化 map2, 长度为：' + map2.size);
+        console.log(map2);
+        console.log('get 方法获取的元素：' + map2.get('bay'));
+        console.log('通过 for of 遍历 map2');
+        for (let [key, value] of map2) {
+            console.log(key + ' = ' + value);
+        }
+        console.log('通过 forEach 遍历 map2');
+        map2.forEach(function (value, key, map) {
+            console.log(key + ' = ' + value);
+        });
+
+        console.log('-------')
+        // Set
+        // Set 类似于数组，但是成员的值都是唯一的，没有重复的值
+        // Set 本身是一个构造函数，用来生成 Set 数据结构
+        // Set 函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化
+        var set = new Set([1,2,3,4,5,6,7,8,8]);
+        console.log('通过赋值初识化 set, 长度为：' + set.size);
+        console.log('赋值为[1,2,3,4,5,6,7,8,8] 会自动去重:');
+        console.log(set);
+        set.add(9); // 添加
+        console.log('add 添加元素:');
+        console.log(set);
+        set.delete(1);   // 删除
+        console.log('delete 删除元素:');
+        console.log(set);
+        console.log(set);
+        console.log('has 判断3是否存在:' + set.has(3));    // 是否包含某个元素
+        set.clear();    // 清空
+        console.log('clear 清空, 长度为：' + set.size);
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

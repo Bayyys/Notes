@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON</title>
+    <script>
+        var person = {
+            name: 'bay',
+            age: 24,
+            email: '123@zju.com'
+        }
+
+        // JSON.stringify() 方法用于将 JavaScript 值转换为 JSON 字符串。
+        var person_json = JSON.stringify(person);
+        console.log(person_json);
+
+        // JSON.parse() 方法用于将一个 JSON 字符串转换为对象。
+        var person_obj = JSON.parse(person_json);
+        console.log(person_obj);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

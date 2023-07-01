@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CDN 引入 jQuery -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+    <!-- 本地引入 jQuery -->
+    <script src="../lib/jquery-3.7.0.js">
+    </script>
+</head>
+<body>
+<a href="" id="test-jquery">点我</a>
+
+<script>
+    <!-- 使用方法：$(selector).action(); -->
+    $('#test-jquery').click(function () {
+        alert('hello world');
+    });
+</script>
+</body>
+</html>

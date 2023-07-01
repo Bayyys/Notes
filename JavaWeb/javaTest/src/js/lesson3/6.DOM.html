@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM</title>
+    <script>
+        // window 对象可用于检测浏览器的类型和版本。
+        console.log("内部宽度 - window.innerWidth: " + window.innerWidth);
+        // innerWidth 返回窗口的内部宽度（以像素为单位），这包括垂直滚动条的宽度
+        // 507
+        console.log("内部高度 - window.innerHeight: " + window.innerHeight);
+        // 131
+        console.log("外部宽度 - window.outerWidth: " + window.outerWidth);
+        // outerWidth 返回窗口的外部宽度（以像素为单位），包括工具栏和滚动条。
+        // 1038
+        console.log("外部高度 - window.outerHeight: " + window.outerHeight);
+        // 1111
+        console.log("屏幕可用宽度 - window.screen.availWidth: " + window.screen.availWidth);
+        // availWidth 返回显示屏幕的宽度（以像素为单位），减去诸如 Windows 任务栏之类的界面特征。
+        // 2048
+        console.log("屏幕可用高度 - window.screen.availHeight: " + window.screen.availHeight);
+        // 1104
+        console.log("屏幕可用工作区宽度 - window.screen.width: " + window.screen.width);
+        // width 返回显示屏幕的宽度（以像素为单位）。
+        // 2048
+        console.log("屏幕可用工作区高度 - window.screen.height: " + window.screen.height);
+        // 1152
+
+        // navigator 对象包含有关浏览器的信息。
+        console.log("浏览器代号 - navigator.appCodeName: " + navigator.appCodeName);
+        console.log("浏览器名称 - navigator.appName: " + navigator.appName);
+        console.log("浏览器版本 - navigator.appVersion: " + navigator.appVersion);
+        console.log("启用Cookies - navigator.cookieEnabled: " + navigator.cookieEnabled);
+        console.log("硬件平台 - navigator.platform: " + navigator.platform);
+        console.log("用户代理 - navigator.userAgent: " + navigator.userAgent);
+        console.log("用户代理语言 - navigator.language: " + navigator.language);
+        console.log("用户代理语言 - navigator.languages: " + navigator.languages);
+
+        // location 对象包含有关当前 URL 的信息。
+        console.log("完整的 URL - location.href: " + location.href);
+        console.log("协议 - location.protocol: " + location.protocol);
+        console.log("主机名 - location.hostname: " + location.hostname);
+        console.log("端口号 - location.port: " + location.port);
+        console.log("路径名 - location.pathname: " + location.pathname);
+        console.log("参数 - location.search: " + location.search);
+        console.log("hash值 - location.hash: " + location.hash);
+        // 常见方法
+        // assign() 加载新的文档。
+        function newDoc(){
+            window.location.assign("https://www.runoob.com")
+        }
+        // reload() 重新加载当前文档。
+        // replace() 用新的文档替换当前文档。
+
+        // document 文档的根节点
+        // document.getElementById(id) 通过元素 id 来查找元素。
+        // document.getElementsByTagName(name) 通过标签名来查找元素。
+        // document.getElementsByClassName(name) 通过类名来查找元素。
+        // document.getElementsByName(name) 通过元素的 name 属性的值来查找元素。
+        // document.querySelector() 返回匹配指定 CSS 选择器元素的第一个子元素。
+        // document.querySelectorAll() 返回匹配指定 CSS 选择器元素的所有子元素列表。
+        // document.createElement(element) 创建一个新的元素。
+        // document.removeChild(element) 删除一个子元素。
+        // document.appendChild(element) 把新的子元素添加到元素中。
+        // document.replaceChild(new, old) 替换一个子元素。
+        // document.write(text) 向文档写 HTML 表达式或 JavaScript 代码。
+        // document.open() 打开一个流，以收集来自任何 document.write() 或 document.writeln() 方法的输出。
+        // document.close() 关闭由 document.open() 方法打开的输出流，并显示选定的数据。
+        // document.addEventListener() 方法用于向文档添加句柄。
+        // document.removeEventListener() 方法从文档中删除先前通过 addEventListener() 方法添加的句柄。
+
+
+    </script>
+</head>
+<body>
+<input type="button" value="加载新文档" onclick="newDoc()">
+<dl id="app"> title
+    <dt>first</dt>
+    <dd>second</dd>
+</dl>
+</body>
+</html>

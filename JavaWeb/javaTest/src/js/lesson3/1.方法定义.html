@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>方法定义</title>
+    <script>
+        //方法定义
+        function sayHello() {
+            console.log("Hello World!");
+        }
+
+        //方法调用
+        sayHello();
+
+        // 绝对值
+        // function abs(num) {
+        //     if (num < 0) {
+        //         return -num;
+        //     } else {
+        //         return num;
+        //     }
+        // }
+        // var num = abs(-10);
+        // console.log(num);
+
+        abs = function (num) {
+            if (typeof num != "number") {
+                return 'Not a Number';
+            }
+            for (let i = 0; i < arguments.length; i++) {
+                console.log('arguments[i]:' + arguments[i]);
+            }
+            if (num < 0) {
+                return -num;
+            } else {
+                return num;
+            }
+        }
+        num = abs(-10);
+        console.log(num);
+
+        function fun(para1, para2, ...rest) {
+            console.log('para1:' + para1);
+            console.log('para2:' + para2);
+            console.log('rest:' + rest);
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

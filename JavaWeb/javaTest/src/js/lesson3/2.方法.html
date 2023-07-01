@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>方法</title>
+    <script>
+        var bay = {
+            name: 'bay',
+            age: 18,
+            // 方法定义
+            sayHello: function () {
+                console.log('Hello World!');
+            },
+            printAge: function () {
+                console.log('age:' + this.age);
+            }
+        }
+        console.log(bay.name);
+        // 方法调用
+        bay.sayHello();
+        bay.printAge();
+
+        function printAge() {
+            var age = this.age + 1;
+            return age;
+        }
+
+        var cdn = {
+            name: 'cdn',
+            age: 20,
+        }
+        // 用另一个对象替换当前对象。
+        console.log(printAge.apply(cdn, []));
+        // 用指定的对象代替函数的 this 值，用指定的数组代替函数的参数。
+        console.log(printAge.call(cdn, []));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

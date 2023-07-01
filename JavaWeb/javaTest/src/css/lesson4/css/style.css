@@ -1,0 +1,52 @@
+#nav{
+    width: 275px;
+    background: gray;
+}
+
+
+.title{
+    font-size: 18px;
+    font-weight: bold;
+    text-indent: 1em;
+    line-height: 35px;
+    background: red url("../images/down.png") 250px no-repeat;
+}
+
+/* ul li */
+/*
+list-style
+    none: 无序列表前面没有任何标志
+    disc: 默认值，实心圆
+    circle: 空心圆
+    square: 实心方块
+    decimal: 数字
+    decimal-leading-zero: 0开头的数字
+    lower-roman: 小写罗马数字
+    upper-roman: 大写罗马数字
+    lower-alpha: 小写英文字母
+    upper-alpha: 大写英文字母
+*/
+ul{
+    background: gray;
+}
+
+ul li{
+    height: 30px;
+    list-style: none;
+    text-indent: 1em;
+    background-image: url("../images/right.png");
+    background-repeat: no-repeat;
+    background-position: 210px center;
+}
+
+/* a */
+a{
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+}
+
+a:hover{
+    color: orange;
+    text-decoration: underline;
+}
