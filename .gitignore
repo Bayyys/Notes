@@ -127,11 +127,3 @@ dmypy.jsona
 
 # Pyre type checker
 .pyre/
-
-# File size limmit
-MP2_GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/processed/data.pt
-MP2_GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/raw/dgraph.npz
-MP2_GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/raw/dgraph1.npz
-*.npy
-.*
-# EEG

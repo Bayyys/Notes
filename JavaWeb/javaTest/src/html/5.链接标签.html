@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>链接标签学习</title>
+</head>
+<body>
+
+
+<!-- a标签的使用
+href: 链接的地址
+target: 链接的打开方式
+    _blank: 在新窗口中打开
+    _self: 在当前窗口中打开
+    _parent: 在父窗口中打开
+    _top: 在顶层窗口中打开
+-->
+<p>
+    <a id="top">全局顶部</a>
+</p>
+<a href="#bottom">回到底部</a>
+<br>
+
+<a href="3.图像标签.html" target="_blank">点击跳转到图像标签</a>
+<a href="https://www.baidu.com" target="_parent">点击跳转到百度</a>
+<a href="5.链接标签.html" target="_blank">点击重复打开</a>
+<br>
+
+<!-- 图像链接 -->
+<a href="https://www.baidu.com">
+    <img src="../resources/image/campus.jpg" alt="这是图片的注释" title="悬停文字" width="300" height="100">
+</a>
+<br>
+
+<!-- 锚点链接 -->
+<a href="#top">回到顶部</a>
+
+<p>
+    <a id="bottom">全局顶部</a>
+</p>
+
+
+<!-- 功能性链接
+    mailto: 发送邮件
+    tel: 拨打电话
+-->
+<a href="mailto:22271096@zju.edu.cn">邮件链接</a>
+<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=475417309&site=qq&menu=yes">
+    <img border="0" src="http://wpa.qq.com/pa?p=2:475417309:53" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+</a>
+</body>
+</html>

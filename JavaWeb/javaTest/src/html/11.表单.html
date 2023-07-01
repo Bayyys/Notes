@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单</title>
+</head>
+<body>
+<!-- form标签的使用
+method: 提交方式
+    post: 提交数据不会显示在地址栏中, 安全, 低效, 传输数据量大
+    get: 提交数据会显示在地址栏中, 不安全, 高效, 传输数据量小
+action: 提交的地址, 一般是服务器的地址, 也可以是请求处理地址
+-->
+<form method="get" action="3.图像标签.html">
+    <p> 名字：<input name="name" type="text" value="test" maxlength="8" size="30"></p>
+    <p> 密码：<input name="pass" type="password"></p>
+
+    <!-- 单选框
+     type: radio
+     name: 单选框的组名, 用于区分不同的单选框
+     value: 单选框的值, 用于区分不同的单选框
+     -->
+    <p> 性别：
+        <input type="radio" name="sex" value="boy" checked/>男
+        <input type="radio" name="sex" value="girl"/>女
+    </p>
+
+    <!-- 多选框
+     type: checkbox
+     name: 多选框的组名, 用于区分不同的多选框
+     value: 多选框的值, 用于区分不同的多选框
+     -->
+    <p>
+        <input type="checkbox" name="hobby" value="sleep"/>睡觉
+        <input type="checkbox" name="hobby" value="eat"/>吃饭
+        <input type="checkbox" name="hobby" value="play" checked/>玩耍
+    </p>
+
+    <!-- 按钮
+        type: button
+        type: image
+        type: submit
+        type: reset
+        -->
+    <p>
+        <input type="button" name="btn1" value="点击！！！">
+        <br>
+        <input type="image" src="../resources/image/campus.jpg" name="btn2" value="图片点击！！">
+    </p>
+
+
+
+    <!-- 下拉列表
+    name: 下拉列表的组名, 用于区分不同的下拉列表
+    size: 下拉列表的显示行数
+    multiple: 是否允许多选
+    -->
+    <p>下拉框：
+        <select name="select" size="1">
+            <option value="0" selected>默认值</option>
+            <option value="1">选项1</option>
+            <option value="2">选项2</option>
+            <option value="3">选项3</option>
+            <option value="4">选项4</option>
+            <option value="5">选项5</option>
+        </select>
+    </p>
+
+    <!-- 文本域
+    name: 文本域的组名, 用于区分不同的文本域
+    cols: 文本域的列数
+    rows: 文本域的行数
+    -->
+    <p>反馈：
+        <textarea name="textarea" cols="30" rows="10">这是文本域的默认值</textarea>
+    </p>
+
+    <!-- 隐藏域: 用于传递数据, 不会显示在页面上
+    name: 隐藏域的组名, 用于区分不同的隐藏域
+    value: 隐藏域的值
+    -->
+    <p>
+        <input type="hidden" name="hidden" value="这是隐藏域的默认值">
+    </p>
+
+    <!-- 文件域
+    name: 文件域的组名, 用于区分不同的文件域
+    accept: 文件域接受的文件类型
+    -->
+    <p>
+        <input type="file" name="file" accept="image/*">
+        <input type="button" value="上传" name="upload">
+    </p>
+
+    <!-- 需要验证的表单
+    email: 邮件, 用于区分不同的邮件(需要附带一个@符号)
+    url: 网址(需要附带一个http://或者https://)
+    number: 数字(需要附带一个数字)
+    -->
+    <p>
+        邮件：<input type="email" name="email">
+        网址：<input type="url" name="url">
+        数量：<input type="number" name="number" max="10" min="0" step="1">
+    </p>
+
+    <!-- 滑块
+    max: 滑块的最大值
+    min: 滑块的最小值
+    step: 滑块的步长
+    -->
+    <p>
+        音量：<input type="range" name="voice" max="10" min="0" step="1">
+    </p>
+
+    <!-- 搜索框
+    placeholder: 搜索框的提示信息
+    -->
+    <p>
+        <input type="search" name="search" placeholder="请输入搜索内容">
+    </p>
+
+    <!-- 增强鼠标操作
+    label: 用于关联表单元素(当点击label时, 表单元素会获得焦点, 需要关联到id)
+    autofocus: 自动获取焦点
+    autocomplete: 自动完成(当用户输入第一个字符时, 自动提示用户可能的输入值)
+    -->
+    <p>
+        <label for="point_test">文本框：</label>
+        <input type="text" name="txt" id="point_test" autofocus autocomplete="on">
+    </p>
+
+
+
+
+    <p>
+        <input type="submit" name="Button" value="提交">
+        <input type="reset" name="Reset" value="重新填写">
+    </p>
+
+</form>
+</body>
+</html>

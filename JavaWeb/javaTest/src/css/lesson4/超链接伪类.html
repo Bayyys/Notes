@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>超链接伪类</title>
+    <style>
+        /* 默认的状态 */
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        /* 鼠标悬浮的状态(通常只适用这个) */
+        a:hover {
+            text-decoration: underline;
+            color: red;
+        }
+        /* 鼠标点击的状态 */
+        a:active {
+            text-decoration: line-through;
+            color: green;
+        }
+        /* 已经访问过的状态 */
+        a:link {
+            text-decoration: none;
+            color: blue;
+        }
+        /* 鼠标点击后的状态 */
+        a:visited {
+            text-decoration: none;
+            color: yellow;
+        }
+        /* 阴影: 水平阴影 垂直阴影 模糊距离 阴影颜色 */
+        #price {
+            text-shadow: 5px 5px 5px red;
+        }
+    </style>
+</head>
+<body>
+
+<a href="#">
+    <img src="images/book.jpg" alt="">
+</a>
+<p>
+    <a href="#">&lt;this book&gt;</a>
+</p>
+<p>
+    <a href="">作者: HIS</a>
+</p>
+<p id="price">
+    ￥99
+</p>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>层次选择器</title>
+    <style>
+        p {
+            color: red;
+            background: green;
+        }
+        /* 后代选择器: 元素后面的所有代 */
+        body p {
+            color: green;
+            background: red;
+        }
+
+        /* 子代选择器: 只有一代 */
+        body>p {
+            color: blue;
+            background: yellow;
+        }
+
+        /* 相邻兄弟选择器: 选择紧跟在另一个元素后的元素,且二者有相同的父元素(紧跟着的下一个) */
+        .active+p {
+            color: yellow;
+            background: blue;
+        }
+
+        /* 通用选择器: 元素后的所有同级元素,且二者有相同的父元素(所有的后级元素) */
+        .usual~p {
+            color: red;
+            background: blue;
+        }
+
+    </style>
+</head>
+<body>
+<p class="usual">p1</p>
+<p class="active">p2</p>
+<p>p3</p>
+
+<ul>
+    <li>
+        <p>p4</p>
+    </li>
+
+    <li>
+        <p>p5</p>
+    </li>
+
+    <li>
+        <p>p6</p>
+    </li>
+</ul>
+
+</body>
+</html>

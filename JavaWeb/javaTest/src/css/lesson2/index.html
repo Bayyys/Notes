@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--    内部样式    -->
+    <style>
+        /* css 注释 */
+        h1 {
+            color: red;
+
+        }
+    </style>
+
+    <!--   外部样式    -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--    外部样式: 导入式-->
+    <style>
+        @import "css/style.css";
+    </style>
+
+</head>
+<body>
+<h1>我是标题</h1>
+
+<!-- 应用优先级(就近原则, 会覆盖): 行内样式 > 内部样式 > 外部样式 -->
+<!-- 行内样式: 在标签元素中，编写一个style属性，编写样式即可 -->
+<h1 style="color: blue">我也是标题</h1>
+</body>
+</html>

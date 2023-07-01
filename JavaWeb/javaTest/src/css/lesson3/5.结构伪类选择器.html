@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>结构伪类选择器</title>
+
+    <!-- 伪类选择器: 选择元素的特殊状态 -->
+    <!-- 避免使用 class id 选择器 -->
+    <style>
+        ul li:first-child {
+            color: green;
+            background: red;
+        }
+        ul li:last-child {
+            color: blue;
+            background: yellow;
+        }
+        /* 选中当前元素的父级元素, 选中父级元素的第n个, 并且是当前类型元素才可生效(按照顺序选择) */
+        p:nth-child(2) {
+            color: red;
+            background: green;
+        }
+        /* 选中当前元素的父级元素, 选中父级元素的第n个此类型的元素(按照类型选择) */
+        p:nth-of-type(2) {
+            color: green;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<h1>h1</h1>
+<p>p1</p>
+<p>p2</p>
+<p>p3</p>
+<ul>
+    <li>li1</li>
+    <li>li2</li>
+    <li>li3</li>
+</ul>
+</body>
+</html>

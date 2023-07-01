@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格学习</title>
+</head>
+<body>
+<!--表格-->
+<table border="1px">
+    <!-- caption: 表格标题 -->
+    <caption>表格标题</caption>
+    <!-- tr: 表行 -->
+
+    <tr>
+        <!-- th: 表头 -->
+        <th>表头1</th>
+        <th>表头2</th>
+        <th>表头3</th>
+        <th>表头4</th>
+    </tr>
+    <tr>
+        <!-- rowspan: 跨行
+        数字代表跨的行数
+        -->
+        <td rowspan="5">跨三行表格内容</td>
+    </tr>
+    <tr>
+        <td>表格内容1</td>
+        <td>表格内容2</td>
+        <td>表格内容3</td>
+    </tr>
+    <tr>
+        <td>表格内容1</td>
+        <td>表格内容2</td>
+        <td>表格内容3</td>
+    </tr>
+    <tr>
+        <td>表格内容1</td>
+        <td>表格内容2</td>
+        <td>表格内容3</td>
+    </tr>
+    <tr>
+        <!-- colspan: 跨列
+        数字代表跨的列数
+        -->
+        <td colspan="3">跨三列表格</td>
+    </tr>
+</table>
+<br>
+
+<!-- table: 表格 -->
+<!-- border: 表格边框 -->
+<!-- cellspacing: 单元格间距 -->
+<!-- cellpadding: 单元格内边距 -->
+<!-- width: 表格宽度 -->
+<!-- height: 表格高度 -->
+<!-- align: 表格对齐方式 -->
+<!-- bgcolor: 表格背景颜色 -->
+<!-- bordercolor: 表格边框颜色 -->
+<!-- background: 表格背景图片 -->
+<!-- valign: 表格垂直对齐方式 -->
+<!-- halign: 表格水平对齐方式 -->
+<!-- nowrap: 单元格内容不换行 -->
+<table border="2px" cellpadding="10px" cellspacing="5px">
+    <!-- caption: 表格标题 -->
+    <caption>学生成绩表</caption>
+
+    <!-- tr: 表行 -->
+    <tr>
+        <!-- th: 表头 -->
+        <!-- colspan: 跨列 -->
+        <th colspan="3">学生成绩</th>
+    </tr>
+
+    <tr>
+        <!-- rowspan: 跨行 -->
+        <td rowspan="2">Bayyy</td>
+        <td>语文</td>
+        <td>100</td>
+    </tr>
+    <tr>
+        <td>数学</td>
+        <td>100</td>
+    </tr>
+    <tr>
+        <td rowspan="2">dnnner</td>
+        <td>语文</td>
+        <td>100</td>
+    </tr>
+    <tr>
+        <td>数学</td>
+        <td>100</td>
+    </tr>
+</table>
+
+</body>
+</html>
