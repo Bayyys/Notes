@@ -1,7 +1,60 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0"
+         metadata-complete="true">
+    <servlet>
+        <servlet-name>hello</servlet-name>
+        <servlet-class>com.bayyy.servlet.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hello</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
+    <!-- 共享数据 -->
+    <servlet>
+        <servlet-name>getHello</servlet-name>
+        <servlet-class>com.bayyy.servlet.GetServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getHello</servlet-name>
+        <url-pattern>/getHello</url-pattern>
+    </servlet-mapping>
+
+    <!--获取初始化参数-->
+    <context-param>
+        <param-name>pwd</param-name>
+        <param-value>123456</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>getParams</servlet-name>
+        <servlet-class>com.bayyy.servlet.ParamsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getParams</servlet-name>
+        <url-pattern>/getParams</url-pattern>
+    </servlet-mapping>
+
+    <!--请求转发-->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>com.bayyy.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/dispatcher</url-pattern>
+    </servlet-mapping>
+
+    <!-- 读取资源文件 -->
+    <servlet>
+        <servlet-name>properties</servlet-name>
+        <servlet-class>com.bayyy.servlet.PropertiesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>properties</servlet-name>
+        <url-pattern>/properties</url-pattern>
+    </servlet-mapping>
 </web-app>
