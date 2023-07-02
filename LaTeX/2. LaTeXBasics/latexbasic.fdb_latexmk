@@ -1,0 +1,31 @@
+# Fdb version 4
+["xdvipdfmx"] 1688293851 "latexbasic.xdv" "latexbasic.pdf" "latexbasic" 1688293852 0
+  "latexbasic.xdv" 1688293851 2376 f4269dc4fa6cdabbb9f43f98cccc00ba "xelatex"
+  (generated)
+  "latexbasic.pdf"
+  (rewritten before read)
+["xelatex"] 1688293851 "latexbasic.tex" "latexbasic.xdv" "latexbasic" 1688293852 0
+  "d:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1688288750 3524 cb3e574dea2d1052e39280babc910dc8 ""
+  "d:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1688288406 1524 4414a8315f39513458b80dfc63bff03a ""
+  "d:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm" 1688288406 1512 f21f83efb36853c0b70002322c1ab3ad ""
+  "d:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm" 1688288406 1520 eccf95517727cb11801f4f1aee3a21b4 ""
+  "d:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1688288406 1288 655e228510b4c2a1abe905c368440826 ""
+  "d:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr6.tfm" 1688288406 1300 b62933e007d01cfd073f79b963c01526 ""
+  "d:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr8.tfm" 1688288406 1292 21c1c5bfeaebccffdb478fd231a0997d ""
+  "d:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1688288406 1124 6c73e740cf17375f03eec0ee63599741 ""
+  "d:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1688288406 1116 933a60c408fc0a863a92debe84b2d294 ""
+  "d:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1688288406 1120 8b7d695260f3cff42e636090a8002094 ""
+  "d:/texlive/2023/texmf-dist/tex/latex/base/article.cls" 1688289019 20144 d5ecf0a5140c8d8d8b72cbe86e320eff ""
+  "d:/texlive/2023/texmf-dist/tex/latex/base/size10.clo" 1688289019 8448 c33a4e1cb35cee9b33c2b21033b73e39 ""
+  "d:/texlive/2023/texmf-dist/tex/latex/base/ts1cmr.fd" 1688289019 2430 8418b3f1835e588625becbcac4dbce56 ""
+  "d:/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-xetex.def" 1688289009 32346 879686206fa618f4f5073ad4bd48feda ""
+  "d:/texlive/2023/texmf-dist/web2c/texmf.cnf" 1688288078 40745 87bb86a62d462f93a1efc6b0c65c872e ""
+  "d:/texlive/2023/texmf-var/web2c/xetex/xelatex.fmt" 1688290297 10502528 ac5da726cbe246768d78ce6228939230 ""
+  "d:/texlive/2023/texmf.cnf" 1688290077 713 e69b156964470283e0530f5060668171 ""
+  "latexbasic.aux" 1688293851 32 3985256e7290058c681f74d7a3565a19 "xelatex"
+  "latexbasic.tex" 1688293850 700 ab92bfb63bea36c6a59032457fb2d8fe ""
+  (generated)
+  "latexbasic.aux"
+  "latexbasic.log"
+  "latexbasic.xdv"
+  (rewritten before read)

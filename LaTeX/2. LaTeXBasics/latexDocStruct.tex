@@ -1,0 +1,49 @@
+% 文档基本结构
+\documentclass{ctexart}
+% \usepackage{ctex}
+
+
+
+\title{First Tex File}
+\author{Bayyy}
+\date{\today}
+
+% ======设置标题的格式======
+\CTEXsetup{section = {
+		format+ = \zihao{-4} \heiti \raggedright,
+		name = {,、}，
+		number = \chinese{section},
+		beforeskip = 1.0ex plus 0.2ex minus .2ex,
+		afterskip = 1.0ex plus 0.2ex minus .2ex,
+		aftername = \hspace{0pt}
+	},
+	subsection = {
+		format+ = \zihao{5} \heiti \raggedright,
+		% name = {\thesubsetion、}
+		name = {,、}，
+		number = \arabic{subsection},
+		beforeskip = 1.0ex plus 0.2ex minus .2ex,
+		afterskip = 1.0ex plus 0.2ex minus .2ex,
+		aftername = \hspace{0pt}
+	}
+}
+
+% 正文区(文稿区)
+\begin{document}
+	\maketitle	% 使得导言区的设置生效
+	
+	\section{引言}
+	中国人口模式的转变发生于民国时期 关于民国的进步,我只讲两个过去人们比较忽略的问题。一是人口模式。如前所述,传统时代人口的增减是王朝兴衰的显示器。
+	% 换行的多种方式
+	% 1. 空行(一个或多个效果类似)*
+	% 2. \\	(不产生新的段落)
+	% 3. \par (产生新的段落)
+	\section{实验方法}
+	\section{实验结果}
+	\subsection{数据}
+	\subsection{图表}
+	\subsubsection{实验过程}
+	\section{结论}
+	\section{致谢}	
+	
+\end{document}

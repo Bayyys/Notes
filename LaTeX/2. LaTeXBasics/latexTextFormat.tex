@@ -1,0 +1,53 @@
+% 字体字号设置
+\documentclass[10pt]{article}	% 10磅是默认正常的字体大小，即下文中的normalsize (一般只有 10、11、12 磅)
+\usepackage{ctex}
+\newcommand{\myfont}{\textbf{\textsf{Fancy Text}}}	% 定义命令，可在文档内使用
+
+%正文区
+\begin{document}
+	%字体族设置(罗马字体、无衬线字体、打字机字体)
+	
+	% \textrm等是字体命令，大括号里是作用到的文字
+	\textrm{Roman Family} \textsf{Scan Serif Family}\texttt{Typewriter Family}
+	% \rmfamily是字体声明，后面紧跟的文字是作用到的文字
+	{\rmfamily Roman Family} {\sffamily Scan Serif Family}{\ttfamily Typewriter Family}
+	
+	% {} 表示字体使用的作用域，否则遇到另外的字体声明才会改变
+	{\sffamily Who are you?you find self on everyone around.take you as the same as others!}
+	{\ttfamily Are you aiser than others?}
+	
+	% 字体系列设置(粗细、宽度)，\textbf可以对字体加粗
+	\textmd{Medium Series} \textbf{Boldface Series}	% \textmd等是字体命令，大括号里是作用到的文字
+	{\mdseries Medium Series} {\bfseries Boldface Series}	% 字体声明
+	
+	
+	% 字体形状(直立、斜体、伪斜体、小型大写)
+	\textup{Upright Shape} \textit{Italic Shape} % 字体命令
+	\textsl{Slanted Shape} \textsc{Small Caps Shape}
+	
+	{\upshape Upright Shape} {\itshape Italic Shape }	% 字体声明
+	{\slshape Slanted Shape}
+	{\scshape Small Caps Shape}
+	
+	% 中文字体
+	{\songti 宋体} \quad{heiti 黑体} \quad{\fangsong 仿宋} \quad {\kaishu 楷书}	% \quad表示空格
+	
+	中文字体的\textbf{粗体}与\textit{斜体}
+	
+	% 字体大小 以normalsize为参考，可在\documentclass[]中配置
+	{\tiny  		Hello }\\
+	{\scriptsize  	Hello }\\
+	{\footnotesize  Hello }\\
+	{\small  		Hello }\\
+	{\normalsize 	Hello }\\
+	{\large  		Hello }\\
+	{\Large  		Hello }\\
+	{\LARGE  		Hello }\\
+	{\huge  		Hello }\\ 
+	
+	% 中文字号设置命令
+	\zihao{5}你好！
+	\myfont	% latex格式与内容分离
+	
+	
+\end{document}

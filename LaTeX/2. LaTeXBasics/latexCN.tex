@@ -1,0 +1,20 @@
+%导言区
+\documentclass{ctexart}	% 自定义的新命令
+% \usepackage{ctex}	% 显示中文需要添加该指令
+
+\newcommand\degree{^\circ}	% 正文区使用了自定义的命令\degree
+
+\title{\heiti 勾股定理}	% 指定黑体字体
+\author{\kaishu 毕达哥拉斯}	% 指定楷书字体
+\date{\today}
+
+
+
+%正文区
+\begin{document}
+	\maketitle	% 使得导言区的设置生效
+	符号语言表述：设直角三角形$ABC$,其中$\angle C=90\degree$,则有：
+	\begin{equation}	% 表示带编号的行内公式
+		AB^2=BC^2+AC^2
+	\end{equation}
+\end{document}
