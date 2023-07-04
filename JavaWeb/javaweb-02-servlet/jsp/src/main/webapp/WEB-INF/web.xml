@@ -13,4 +13,12 @@
         <error-code>500</error-code>
         <location>/error/error500.jsp</location>
     </error-page>
+
+    <servlet>
+        <servlet-name>jsptag</servlet-name>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsptag</servlet-name>
+        <url-pattern>/jsptag</url-pattern>
+    </servlet-mapping>
 </web-app>
