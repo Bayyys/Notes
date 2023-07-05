@@ -164,6 +164,96 @@ class Built_In(object):
         def __init__(self) -> None:
             super().__init__()
         
+        def delattrTest(self):
+            """
+            delattr(object, name): 删除具有名称 `name` 的属性。例如，delattr(x, 'foobar') 等同于 del x.foobar。
+            """
+            pass
+        
+        def dictTest(self):
+            """
+            class dict(**kwarg): class dict(mapping, **kwarg): class dict(iterable, **kwarg): 返回一个新的字典。dict 是字典的构造器。
+            """
+            print(dict())   # {}
+            print(dict(a=1, b=2))   # {'a': 1, 'b': 2}
+            print(dict([('a', 1), ('b', 2)]))   # {'a': 1, 'b': 2}
+        
+        def dirTest(self):
+            '''
+            dir(object): 不带参数时，返回当前本地作用域中的名称列表。带参数时，返回参数的属性、方法列表。
+            '''
+            print(dir())    # ['self']
+            print(dir([]))  # ['__add__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
+            print(dir({}))  # ['__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__ior__', '__iter__', '__le__', '__len__', '__lt__', '__ne__', '__new__', '__or__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__ror__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'clear', 'copy', 'fromkeys', 'get', 'items', 'keys', 'pop', 'popitem', 'setdefault', 'update', 'values']
+
+        def divmodTest(self):
+            '''
+            divmod(a, b): 将两个（非复数）数字作为实参，并在执行整数除法时返回一对商和余数。对于混合操作数类型，适用双目运算符的规则。
+            '''
+            print(divmod(1, 2))    # (0, 1)
+            print(divmod(2, 1))    # (2, 0)
+            print(divmod(2, 1.0))    # (2.0, 0.0)
+            print(divmod(2.0, 1))    # (2.0, 0.0)
+            print(divmod(2.0, 1.0))    # (2.0, 0.0)
+            print(divmod(2.0, 1.5))    # (1.0, 0.5)
+    
+    class E(object):
+
+        def __init__(self) -> None:
+            super().__init__()
+        
+        def enumerateTest(self):
+            """
+            enumerate(iterable, start=0): 返回一个枚举对象。iterable 必须是一个序列，或 iterator，或其他支持迭代的对象。enumerate() 返回的迭代器的 __next__() 方法返回一个元组，里面包含一个计数值（从 start 开始，默认为 0）和通过迭代 iterable 获得的值。
+            """
+            print(enumerate(['a', 'b', 'c']))    # <enumerate object at 0x0000020E0F6F9F00>
+            print(list(enumerate(['a', 'b', 'c'])))   # [(0, 'a'), (1, 'b'), (2, 'c')]
+            print(enumerate(['a', 'b', 'c'], 1))    # <enumerate object at 0x0000020E0F6F9F00>
+            print(list(enumerate(['a', 'b', 'c'], 1)))   # [(1, 'a'), (2, 'b'), (3, 'c')]
+        
+        def evalTest(self):
+            """
+            eval(expression, globals=None, locals=None): 将字符串作为表达式来求值，并返回结果。
+            """
+            print(eval('1 + 1'))    # 2
+            print(eval('1 + 1', {'__builtins__': None}, {}))    # 2
+
+        def execTest(self):
+            """
+            exec(object[, globals[, locals]]): 动态执行 Python 代码。object 必须是字符串或代码对象。如果是字符串，该字符串会先被解析为一组 Python 语句，然后在执行（除非发生语法错误）。[1] 如果是代码对象，它只是被简单地执行。在这两种情况下，exec() 的返回值都将为 None。
+            """
+            print(exec('print(1 + 1)'))    # 2
+            print(exec('print(1 + 1)', {'__builtins__': None}, {}))    # 2
+
+    class F(object):
+
+        def __init__(self) -> None:
+            super().__init__()
+        
+        def filterTest(self):
+            """
+            filter(function, iterable): 构造一个迭代器，其中包含 iterable 中的那些元素，其函数 function 返回 true。如果未指定 function，则将返回可迭代对象中为真值的元素。
+            """
+            print(filter(lambda x: x > 0, [1, -1, 2, -2]))  # <filter object at 0x000001EDB4CD7580>
+        
+        def floatTest(self):
+            """
+            class float([x]): 返回一个浮点数对象构造器。如果没有参数，则返回 0.0。
+            """
+            print(float())  # 0.0
+            print(float(1))  # 1.0
+            print(float(1.0))  # 1.0
+            print(float('1'))  # 1.0
+            print(float('1.0'))  # 1.0
+            print(float('1.0e-3'))  # 0.001
+            print(float('1.0e3'))  # 1000.0
+            print(float('1.0e+3'))  # 1000.0
+            print(float('+1.23'))   # 1.23
+            print(float('   -12345\n')) # -12345.0
+            print(float('+1E6'))    # 1000000.0
+            print(float('-Infinity'))   # -inf
+
+
 if __name__ == "__main__":
     # a = Built_In.A()
     # a.asciiTest()
@@ -171,4 +261,9 @@ if __name__ == "__main__":
     # b.boolTest()
     # c = Built_In.C()
     # c.compileTest()
-    d = Built_In.D()
+    # d = Built_In.D()
+    # d.dirTest()
+    # e = Built_In.E()
+    # e.execTest()
+    f = Built_In.F()
+    f.floatTest()
