@@ -29,4 +29,14 @@
         <!-- 过滤所有请求 -->
         <!--        <url-pattern>/*</url-pattern>-->
     </filter-mapping>
+
+    <!-- 监听器 -->
+    <listener>
+        <listener-class>com.bayyy.listener.OnlineListenerListener</listener-class>
+    </listener>
+
+    <!-- Session 过期时间 -->
+    <session-config>
+        <session-timeout>15</session-timeout>
+    </session-config>
 </web-app>

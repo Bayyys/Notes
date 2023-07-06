@@ -51,7 +51,7 @@ def change():
         words = f.read()
     for i in range(len(list2)):
         words = words.replace(list2[i], list3[i])
-    with open(file_path+"finish.md", "w", encoding="utf-8") as f:
+    with open(file_path+"/finish.md", "w", encoding="utf-8") as f:
         f.write(words)
 
 
