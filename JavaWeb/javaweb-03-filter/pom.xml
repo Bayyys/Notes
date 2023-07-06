@@ -1,37 +1,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.example</groupId>
-        <artifactId>javaweb-02-servlet</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <groupId>com.bayyy</groupId>
-    <artifactId>jsp</artifactId>
+    <artifactId>javaweb-03-filter</artifactId>
     <packaging>war</packaging>
-    <name>jsp Maven Webapp</name>
+    <version>1.0-SNAPSHOT</version>
+    <name>javaweb-03-filter Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
+        <!-- servlet 依赖 -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl-api -->
+        <!-- JSP 依赖 -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <!-- JSTL 依赖 -->
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>jstl-api</artifactId>
             <version>1.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/taglibs/standard -->
+        <!-- JSTL 实现 -->
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
+        <!-- MySQL 依赖 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.19</version>
+        </dependency>
     </dependencies>
     <build>
-        <finalName>jsp</finalName>
+        <finalName>javaweb-03-filter</finalName>
     </build>
 </project>
