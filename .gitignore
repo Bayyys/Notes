@@ -127,3 +127,8 @@ dmypy.jsona
 
 # Pyre type checker
 .pyre/
+.gitattributes
+.gitignore
+
+# study_dir
+study_dir/
