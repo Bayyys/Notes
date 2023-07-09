@@ -8,14 +8,16 @@
 ## LaTex - 07.01.2023
 
 > [LaTex](./LaTeX/) 学习代码
+> - Reference:
+>   - 视频教程: [1天玩转LaTeX-西北农林科技大学-耿楠教授](https://www.bilibili.com/video/BV15b411j7Au/?spm_id_from=333.1007.top_right_bar_window_view_later.content.click&vd_source=2228fbb3090a9774de8d595d37290e9e)
 
-- [x]  创建 `LaTex` 项目   (07.01.2023)
+- [x]  创建 `LaTex` 学习项目   (07.01.2023)
   
 ## JavaWeb - 07.01.2023
 
 > [JavaWeb](./JavaWeb/) 学习代码
 
-- [x] 创建 `JavaWeb` 项目    (07.01.2023)
+- [x] 创建 `JavaWeb` 学习项目    (07.01.2023)
 - [x] 前序笔记(JavaWeb 8.6 JSTL标签)   (07.04.2023)
 
 ## Python - 07.05.2023
@@ -23,6 +25,21 @@
 > [Python](./Python/) 学习代码
 > - 包括但不限于
 >    1. 标准库
+> - Reference:
+>   - Document
+>       1. [Python 3.11.4 文档](https://docs.python.org/zh-cn/3.11/)
 
-- [x] 创建 `Python` 项目    (07.05.2023)
-- [ ] 标准库笔记    (07.05.2023 - x)
+- [x] 创建 `Python` 源码分析项目    (07.05.2023)
+- [x] [标准库-内置函数](./python/标准库/内置函数/build-in.py)    (07.05.2023 - 07.06.2023)
+
+## Git - 07.08.2023
+
+> [git_study](./git_study/) 学习笔记
+> - git 学习仓库
+> - Reference:
+>   - Document
+>       1. [Git - Book](https://git-scm.com/book/zh/v2)
+
+- [x] 创建 `git_study` 学习项目    (07.08.2023)
+- [x] [学习笔记](./git_study/Git.md)    (07.08.2023) 
+- [x] 学习完成    (07.08.2023) 
