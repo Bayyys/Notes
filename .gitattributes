@@ -1,0 +1,6 @@
+AI_Mo filter=lfs diff=lfs merge=lfs -text
+# MP2_GNN/datasets/632d74d4e2843a53167ee9a1-momodel/DGraph/ filter=lfs diff=lfs merge=lfs -text
+# .pt filter=lfs diff=lfs merge=lfs -text
+# .npz filter=lfs diff=lfs merge=lfs -text
+x_train.npy filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
