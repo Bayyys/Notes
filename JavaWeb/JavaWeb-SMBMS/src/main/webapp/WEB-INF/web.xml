@@ -25,6 +25,15 @@
         <url-pattern>/jsp/logout.do</url-pattern>
     </servlet-mapping>
 
+    <!-- Servlet: UserServlet -->
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>com.bayyy.servlet.user.UserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/jsp/user.do</url-pattern>
+    </servlet-mapping>
 
     <!-- Filter: 字符编码 -->
     <filter>
@@ -35,7 +44,17 @@
         <filter-name>CharaterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+
+    <!-- Filter: 登录验证 -->
+    <filter>
+        <filter-name>SysFilter</filter-name>
+        <filter-class>com.bayyy.filter.SysFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SysFilter</filter-name>
+        <url-pattern>/jsp/*</url-pattern>
+    </filter-mapping>
+
     <!-- 设置欢迎页面 -->
     <welcome-file-list>
         <welcome-file>./login.jsp</welcome-file>
