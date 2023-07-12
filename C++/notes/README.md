@@ -9,17 +9,17 @@
 
 > **笔记内容点击 `「」`中的 📖 即可。** 
 >
->  :white_check_mark:--- 已完成 
+> :white_check_mark:--- 已完成 
 >
 > :white_large_square: --- 未完成或进行中 
 
 
 |章（Chapter）|标题（Title）|笔记（Notes）|复习题（Review）|编程练习题（Practice）|时间(Date)|
 |:--:|:--:|:--:|:--:|:--:|----|
-|01|C++概述|「[📖](./Chapter01/README.md) 」:white_check_mark:|「NA」|「NA」|07/09/2023|
-|02|开始学习C++|「[📖](./Chapter02/README.md) 」:white_check_mark:|「[📖](./Chapter02/复习题.md)」:white_large_square:|「[📖](./Chapter02/Codes/) 」:white_large_square:|07/10/2023|
-|03|数据处理|「[📖](./Chapter03/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|07/11/2023|
-|04|复合类型|「[📖](./Chapter04/README.md) 」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
+|01|C++概述|「[📖](./Chapter01/README.md) 」:white_check_mark:|「NA」|「NA」|07.09.2023|
+|02|开始学习C++|「[📖](./Chapter02/README.md) 」:white_check_mark:|「[📖](./Chapter02/复习题.md)」:white_large_square:|「[📖](./Chapter02/Codes/) 」:white_large_square:|07.10.2023|
+|03|数据处理|「[📖](./Chapter03/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|07.11.2023|
+|04|复合类型|「[📖](./Chapter04/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|07.11.2023|
 |05|循环和关系表达式|「[📖](./Chapter05/README.md) 」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
 |06|分支语句和逻辑运算符|「[📖](./Chapter06/README.md) 」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
 |07|函数 ——— C++的编程模块|「[📖](./Chapter07/README.md) 」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
