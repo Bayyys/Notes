@@ -59,7 +59,6 @@ $(function () {
         if (rnewpassword.val() != null && rnewpassword.val().length > 6
             && rnewpassword.val().length < 20 && newpassword.val() == rnewpassword.val()) {
             validateTip(rnewpassword.next(), {"color": "red"}, imgYes, true);
-            alert(1)
         } else {
             validateTip(rnewpassword.next(), {"color": "red"}, imgNo + " 两次密码输入不一致，请重新输入", false);
         }
@@ -70,7 +69,6 @@ $(function () {
         oldpassword.blur();
         newpassword.blur();
         rnewpassword.blur();
-        alert(1111)
         console.log(newpassword.attr("validateStatus"), rnewpassword.attr("validateStatus"))
         if (oldpassword.attr("validateStatus") == "true"
             && newpassword.attr("validateStatus") == "true"
@@ -81,6 +79,3 @@ $(function () {
         }
     });
 });
-
-//oldpassword.attr("validateStatus") == "true"
-// 			&&

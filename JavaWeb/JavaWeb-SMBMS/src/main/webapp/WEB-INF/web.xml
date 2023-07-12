@@ -14,7 +14,7 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login.do</url-pattern>
     </servlet-mapping>
-    
+
     <!-- Servlet: 注销 -->
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
@@ -59,4 +59,9 @@
     <welcome-file-list>
         <welcome-file>./login.jsp</welcome-file>
     </welcome-file-list>
+
+    <!-- 默认Session超时时间 -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 </web-app>
