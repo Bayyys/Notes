@@ -1,0 +1,73 @@
+% 导言区
+\documentclass{article}
+
+\usepackage{ctex}	% 中文处理宏包
+\usepackage{xltxtra}	% 提供了针对XeTex的改进并加入了XeTeX的LOGO
+\usepackage{texnames}	% 一些LOGO
+\usepackage{mflogo}		% 
+%正文区
+\begin{document}
+	\section{空白符号}
+	% 空行分段，多个空行等同一个
+	% 自动缩进，不能用空格代替
+	% 英文中多个空格处理为一个空格
+	% 中文中空格将被忽略
+	% 汉字与其他字符的间距会自动由XeLatex处理(如：中文中加入英文字符会自动在首尾空格)
+	% 禁止使用中文全角空格
+	Are you OK? Are you OK? Areyou      OK?
+	
+	中共中央政治局委员、中央外办主任王毅与美国国务卿布林肯在印度尼西亚雅加达举行的东盟外长会议期间会面。Are you OK?这是两人一个月内的第二次会晤。
+	
+	% 空格
+	% 1em(当前字体中M的宽度)
+	a\quad b
+	
+	% 2em
+	a\qquad b
+	
+	% 1/6个em
+	a\,b a\thinspace b
+	
+	% 0.5个em
+	a\enspace b
+	
+	% 空格
+	a\ b
+	
+	% 硬空格(不能分割的空格)
+	a~b
+	
+	% 1pc=12pt=4.218mm
+	a\kern 1pc b
+	
+	a\kern -1em b
+	
+	a\hskip 1em b
+	
+	a\hspace{35pt}b
+	
+	% 占位宽度
+	a\hphantom{xyz}b
+	
+	% 弹性长度
+	a\hfill b
+	
+	\section{\ LaTex 控制符}
+	\# \$ \{  \} \~{} \_{} \^{} \textbackslash
+	
+	\section{排版符号}
+	\S \P \dag \ddag \copyright \pounds
+	
+	\section{\ Tex 标志符号}
+	\TeX{} \LaTeX{}  \LaTeXe{}	\XeLaTeX
+	
+	\section{引号}
+	`' `` ''   ``被引号包裹'' %  `表示单引号的左边，'表示单引号的右边
+	
+	\section{连字符}
+	- -- ---
+	
+	\section{非英文字符}
+	\section{重音符号}
+	
+\end{document}
