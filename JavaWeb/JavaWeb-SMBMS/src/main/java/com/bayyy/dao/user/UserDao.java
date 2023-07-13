@@ -1,5 +1,6 @@
 package com.bayyy.dao.user;
 
+import com.bayyy.entity.Role;
 import com.bayyy.entity.User;
 
 import java.sql.Connection;

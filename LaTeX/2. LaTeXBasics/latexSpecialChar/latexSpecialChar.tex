@@ -2,10 +2,11 @@
 \documentclass{article}
 
 \usepackage{ctex}	% 中文处理宏包
-\usepackage{xltxtra}	% 提供了针对XeTex的改进并加入了XeTeX的LOGO
+\usepackage{xltxtra}	% 提供了针对XeTeX的改进并且加入了XeTeX的LOGO
 \usepackage{texnames}	% 一些LOGO
-\usepackage{mflogo}		% 
-%正文区
+\usepackage{mflogo}
+
+%正文区(文稿区)
 \begin{document}
 	\section{空白符号}
 	% 空行分段，多个空行等同一个
@@ -52,14 +53,25 @@
 	% 弹性长度
 	a\hfill b
 	
-	\section{\ LaTex 控制符}
+	\section{\LaTeX 控制符}
 	\# \$ \{  \} \~{} \_{} \^{} \textbackslash
 	
 	\section{排版符号}
 	\S \P \dag \ddag \copyright \pounds
 	
-	\section{\ Tex 标志符号}
-	\TeX{} \LaTeX{}  \LaTeXe{}	\XeLaTeX
+	\section{\TeX 标志符号}
+	% 基本符号
+	\TeX{} \LaTeX{} \LaTeXe{}
+	
+	% xltxtra宏包提供
+	\XeLaTeX
+	
+	% texnames宏包提供
+	\AmSLaTeX{}	\AmS-\LaTeX{}
+	\BibTeX{}	\LuaTeX{}
+	
+	% mflogo宏包提供
+	\METAFONT{}	\MF{}	\MP{}
 	
 	\section{引号}
 	`' `` ''   ``被引号包裹'' %  `表示单引号的左边，'表示单引号的右边

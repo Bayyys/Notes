@@ -1,6 +1,7 @@
 package com.bayyy.dao.user;
 
 import com.bayyy.dao.BaseDao;
+import com.bayyy.entity.Role;
 import com.bayyy.entity.User;
 import com.mysql.cj.util.StringUtils;
 
@@ -76,8 +77,6 @@ public class UserDaoImpl implements UserDao {
                 list.add(userRole);
             }
             Object[] objects = list.toArray();
-            System.out.println("UserDaoImpl->getUserCount:" + sql.toString());  // 输出最终的sql语句
-            System.out.println("UserDaoImpl->getUserCount:" + list.toString()); // 输出最终的参数
             resultSet = BaseDao.execute(connection, sql.toString(), objects, resultSet, preparedStatement);
             if (resultSet.next()) {
                 count = resultSet.getInt("count");
@@ -111,7 +110,6 @@ public class UserDaoImpl implements UserDao {
             list.add(pageSize);
 
             Object[] params = list.toArray();
-            System.out.println("UserDaoImpl->getUserList:" + sql.toString());  // 输出最终的sql语句
             resultSet = BaseDao.execute(connection, sql.toString(), params, resultSet, preparedStatement);
 
             while (resultSet.next()) {
@@ -130,4 +128,6 @@ public class UserDaoImpl implements UserDao {
         }
         return userList;
     }
+
+
 }

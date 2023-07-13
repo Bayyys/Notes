@@ -16,4 +16,6 @@ public interface UserService {
 
     // 查询用户列表
     public List<User> getUserList(String userName, int userRole, int currentPageNo, int pageSize);
+
+    //
 }

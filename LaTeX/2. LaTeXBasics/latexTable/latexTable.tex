@@ -1,0 +1,39 @@
+% 导言区
+\documentclass{ctexart}	% ctexbook, ctexrep
+% \usepackage{ctex}
+
+\title{表格}
+\author{Bayyy}
+\date{\today}
+
+% \begin{tabular}[<垂直对齐方式>]{<列格式说明>}
+% <表项>&<表项>&...&<表项> \\
+% ......
+% \end{tabular}
+% 用\\表示换行
+% 用&表示不同的列
+% 1-本列左对齐
+% c-本列居中对齐
+% r-本列右对齐
+% p{<宽>}-本列宽度固定，能够自动换行
+
+
+%正文区(文稿区)
+\begin{document}
+	% 会有5列，指定每列的居中形式
+	% |表示每列中间有竖线分开
+	% lcr分别为左对齐、居中对齐、右对齐
+	% p 可以指定列宽，超过则自动换行
+	\begin{tabular}{|l||c|r|r|p{1.5cm}|}	
+		\hline	% 每行之间由横线分开
+		姓名&语文&数学&外语&备注 \\	% \\表示换行
+		\hline \hline
+		张三&87&120&25&优秀 \\
+		\hline
+		张1&87&120&25&合格 \\
+		\hline
+		张2&87&120&25&不及格，补考另行通知 \\
+		\hline
+	\end{tabular}
+	
+\end{document}

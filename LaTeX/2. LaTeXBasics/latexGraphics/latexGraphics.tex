@@ -1,0 +1,31 @@
+% 导言区
+\documentclass{ctexart}
+% \usepackage{ctex}
+
+\title{插图问题}
+\author{Bayyy}
+\date{\today}
+
+% 导言区：\usepackage{graphicx}
+% 语  法：\includegraphics[< 选项 >]{< 文件名 >}、
+% 格  式：EPS, PDF, PNG, JPEG, BMP
+\usepackage{graphicx}
+\graphicspath{{figures/},{pics/}}	% 图片在当前目录下的 figures 目录, 大括号实现分离
+
+% 正文区(文稿区)
+\begin{document}
+	\LaTeX{}中的插图：
+	
+	\includegraphics{right.jpg}
+	\includegraphics{warning.jpg}
+	
+	\includegraphics[scale=0.8]{warning}	% 缩放因子
+	
+	\includegraphics[width=2cm]{warning}	% 图像宽度
+	
+	\includegraphics[height=0.1\textheight]{warning}
+	
+	\includegraphics[width=0.1\textwidth]{warning}
+	
+	\includegraphics[angle=-45, width=1cm]{right}
+\end{document}
