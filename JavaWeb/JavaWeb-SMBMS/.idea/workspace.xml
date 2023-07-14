@@ -10,67 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33f94f7f-0bb3-458f-9e06-46fbf9653e6d" name="更改" comment="JavaWeb-S &quot;SMBMS项目-用户管理实现&quot; BAY-23.07.11">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/role/RoleDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/role/RoleDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/service/role/RoleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/service/role/RoleServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexCN/latexCN.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexDocStruct/latexDocStruct.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexGraphics/figures/right.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexGraphics/figures/warning.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexGraphics/latexGraphics.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexSpecialChar/latexSpecialChar.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTable/latexTable.aux" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTable/latexTable.fdb_latexmk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTable/latexTable.fls" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTable/latexTable.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTable/latexTable.synctex.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTable/latexTable.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTable/latexTable.xdv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTextFormat/latexTextFormat.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexbasic/latexbasic.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/user/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/user/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/user/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/user/UserDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/service/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/service/user/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/servlet/user/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/servlet/user/UserServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexCN.aux" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexCN.fdb_latexmk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexCN.fls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexCN.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexCN.synctex.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexCN.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexCN.xdv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexDocStruct.aux" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexDocStruct.fdb_latexmk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexDocStruct.fls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexDocStruct.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexDocStruct.synctex.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexDocStruct.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexDocStruct.xdv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexSpecialChar.aux" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexSpecialChar.fdb_latexmk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexSpecialChar.fls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexSpecialChar.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexSpecialChar.synctex.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexSpecialChar.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexSpecialChar.xdv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTextFormat.aux" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTextFormat.fdb_latexmk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTextFormat.fls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTextFormat.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTextFormat.synctex.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTextFormat.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexTextFormat.xdv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexbasic.aux" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexbasic.fdb_latexmk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexbasic.fls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexbasic.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexbasic.synctex.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexbasic.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../LaTeX/2. LaTeXBasics/latexbasic.xdv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,29 +65,29 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/Coding/test/temp/JavaWeb/JavaWeb-SMBMS/src/main/webapp",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "File.Encoding",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Coding/test/temp/JavaWeb/JavaWeb-SMBMS/src/main/webapp&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Coding\test\temp\JavaWeb\JavaWeb-SMBMS\src\main\webapp" />
@@ -297,6 +237,8 @@
       <workItem from="1689084334150" duration="5412000" />
       <workItem from="1689168011399" duration="7295000" />
       <workItem from="1689254698716" duration="6291000" />
+      <workItem from="1689344047700" duration="689000" />
+      <workItem from="1689344976632" duration="407000" />
     </task>
     <task id="LOCAL-00001" summary="JavaWeb-S &quot;SMBMS项目-初建&quot; BAY-23.07.08">
       <created>1688746807407</created>
