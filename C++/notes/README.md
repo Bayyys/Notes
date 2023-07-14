@@ -20,7 +20,7 @@
 |02|开始学习C++|「[📖](./Chapter02/README.md) 」:white_check_mark:|「[📖](./Chapter02/复习题.md)」:white_large_square:|「[📖](./Chapter02/Codes/) 」:white_large_square:|07.10.2023|
 |03|数据处理|「[📖](./Chapter03/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|07.11.2023|
 |04|复合类型|「[📖](./Chapter04/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|07.11.2023|
-|05|循环和关系表达式|「[📖](./Chapter05/README.md) 」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
+|05|循环和关系表达式|「[📖](./Chapter05/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|07.14.2023|
 |06|分支语句和逻辑运算符|「[📖](./Chapter06/README.md) 」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
 |07|函数 ——— C++的编程模块|「[📖](./Chapter07/README.md) 」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
 |08|函数探索|「[📖](./Chapter08/README.md) 」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
