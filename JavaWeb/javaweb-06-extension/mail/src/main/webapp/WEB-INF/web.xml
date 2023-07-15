@@ -6,11 +6,11 @@
          version="4.0"
          metadata-complete="true">
     <servlet>
-        <servlet-name>FileServlet</servlet-name>
-        <servlet-class>com.bayyy.servlet.FileServlet</servlet-class>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.bayyy.servlet.RegisterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>FileServlet</servlet-name>
-        <url-pattern>/upload.do</url-pattern>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register.do</url-pattern>
     </servlet-mapping>
 </web-app>
