@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="request" />
+        <module name="session-cookie" />
         <module name="javaweb-01-maven" />
         <module name="response" />
+        <module name="jsp" />
       </profile>
     </annotationProcessing>
   </component>
