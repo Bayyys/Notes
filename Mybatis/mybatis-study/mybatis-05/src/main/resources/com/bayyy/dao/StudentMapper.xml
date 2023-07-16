@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bayyy.dao.StudentMapper">
+    <!-- 按照查询嵌套处理 -->
+    <select id="getStudent" resultMap="studentTeacher">
+        select * from student
+    </select>
+    <resultMap id="studentTeacher" type="student">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!-- 复杂的属性: 需要单独处理
+            对象: association
+            集合: collection -->
+        <association property="teacher" column="tid" javaType="teacher" select="getTeacher"/>
+    </resultMap>
+    <select id="getTeacher" resultType="teacher">
+        select * from teacher where id = #{tid}
+    </select>
+
+    <!-- 按照结果嵌套处理 -->
+    <select id="getStudent2" resultMap="studentTeacher2">
+        select s.id sid, s.name sname, t.id tid, t.name tname
+        from student s, teacher t
+        where s.tid = t.id
+    </select>
+    <resultMap id="studentTeacher2" type="student">
+        <result property="id" column="sid"/>
+        <result property="name" column="sname"/>
+        <!-- 复杂的属性: 需要单独处理
+            对象: association
+            集合: collection -->
+        <association property="teacher" javaType="teacher">
+            <result property="name" column="tname"/>
+            <result property="id" column="tid"/>
+        </association>
+    </resultMap>
+
+</mapper>
