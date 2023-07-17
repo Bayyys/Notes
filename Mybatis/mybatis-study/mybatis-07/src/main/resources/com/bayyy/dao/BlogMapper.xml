@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bayyy.dao.BlogMapper">
+    <select id="selectAllBlog" resultType="blog">
+        select * from blog
+    </select>
+
+    <insert id="addBlog" parameterType="blog">
+        insert into blog(id,title,author,create_time,views)
+        values (#{id},#{title},#{author},#{createTime},#{views})
+    </insert>
+
+    <select id="selectBlogIf" parameterType="map" resultType="blog">
+        select * from blog
+        <where>
+            <if test="title != null">
+                title = #{title}
+            </if>
+            <if test="author != null">
+                and author = #{author}
+            </if>
+        </where>
+    </select>
+</mapper>

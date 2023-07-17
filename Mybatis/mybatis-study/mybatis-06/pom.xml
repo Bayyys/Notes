@@ -6,23 +6,19 @@
         <artifactId>mybatis-study</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>mybatis-05</artifactId>
+    <artifactId>mybatis-06</artifactId>
     <packaging>war</packaging>
-    <name>mybatis-05 Maven Webapp</name>
+    <name>mybatis-06 Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
-        <finalName>mybatis-05</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
+        <finalName>mybatis-06</finalName>
     </build>
 </project>

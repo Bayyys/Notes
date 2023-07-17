@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bayyy.dao.TeacherMapper">
+    <select id="getTeacher" resultType="teacher">
+        select * from teacher;
+    </select>
+
+    <!-- 按照结果嵌套查询 -->
+    <select id="getTeacherAll" resultMap="teacherMap">
+        select s.id sid, s.name sname, t.name tname, t.id tid
+        from student s, teacher t
+        where s.tid = t.id and t.id = #{tid};
+    </select>
+    <resultMap id="teacherMap" type="teacher">
+        <!-- column: 列名
+            property: 属性名
+            -->
+        <result column="tid" property="id"/>
+        <result column="tname" property="name"/>
+        <!-- 复杂的属性要单独处理
+            collection: 集合
+            association: 对象
+            javaType: 指定类型
+            ofType: 指定类型(List 的泛型)
+            -->
+        <collection property="students" ofType="student">
+            <result column="sid" property="id"/>
+            <result column="sname" property="name"/>
+        </collection>
+    </resultMap>
+
+    <!-- 按照查询嵌套结果 -->
+    <select id="getTeacherAll2" resultMap="teacherMap2">
+        select * from teacher where id = #{tid};
+    </select>
+    <resultMap id="teacherMap2" type="teacher">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="students" javaType="ArrayList" ofType="student" select="getStudent" column="id">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </collection>
+    </resultMap>
+    <select id="getStudent" resultType="student">
+        select * from student where tid = #{tid};
+    </select>
+</mapper>
