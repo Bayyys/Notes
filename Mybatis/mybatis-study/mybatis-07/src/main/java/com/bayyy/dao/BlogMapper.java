@@ -14,4 +14,13 @@ public interface BlogMapper {
 
     // 查询博客
     List<Blog> selectBlogIf(HashMap map);
+
+    // 查询 choose
+    List<Blog> selectBlogChoose(HashMap map);
+
+    // 更新 set
+    int updateBlogSet(HashMap map);
+
+    // 查询 foreach
+    List<Blog> selectBlogForeach(List list);
 }
