@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <!-- p 命名空间注入属性 -->
+    <bean id="user1" class="com.bayyy.pojo.User" p:name="bay1"/>
+
+    <!-- c 命名空间注入属性 -->
+    <bean id="user2" class="com.bayyy.pojo.User" c:name="bay2"/>
+
+    <bean id="address" class="com.bayyy.pojo.Address" name="address">
+        <property name="address" value="杭州"/>
+    </bean>
+
+    <bean id="student" class="com.bayyy.pojo.Student">
+        <!-- 第一种：普通值注入, value        -->
+        <property name="name" value="Bayyy"/>
+
+        <!-- 第二种：Bean注入, ref        -->
+        <property name="address" ref="address"/>
+
+        <!-- 数组: <array>        -->
+        <property name="books">
+            <array>
+                <value>红楼梦</value>
+                <value>西游记</value>
+                <value>水浒传</value>
+                <value>三国演义</value>
+            </array>
+        </property>
+
+        <!-- List: <list>        -->
+        <property name="hobby">
+            <list>
+                <value>打篮球</value>
+                <value>看电影</value>
+                <value>敲代码</value>
+            </list>
+        </property>
+
+        <!-- Map: <map>        -->
+        <property name="card">
+            <map>
+                <entry key="身份证" value="123456789987456321"/>
+                <entry key="银行卡" value="359419496419481649"/>
+            </map>
+        </property>
+
+        <!-- Set: <set>        -->
+        <property name="games">
+            <set>
+                <value>LOL</value>
+                <value>COC</value>
+                <value>BOB</value>
+            </set>
+        </property>
+
+        <!-- NULL        -->
+        <property name="wife">
+            <null/>
+        </property>
+
+        <!-- Properties: <props>        -->
+        <property name="info">
+            <props>
+                <prop key="driver">xxx</prop>
+                <prop key="url">102.0913.524.4585</prop>
+                <prop key="user">root</prop>
+                <prop key="password">123456</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dog" class="com.bayyy.pojo.Dog"/>
+    <bean id="cat" class="com.bayyy.pojo.Cat"/>
+<!--    <bean id="people" class="com.bayyy.pojo.People" autowire="byType">-->
+<!--        <property name="name" value="Bayyy"/>-->
+<!--&lt;!&ndash;        <property name="cat" ref="cat"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="dog" ref="dog"/>&ndash;&gt;-->
+<!--    </bean>-->
+    <bean id="people" class="com.bayyy.pojo.People"/>
+
+</beans>
