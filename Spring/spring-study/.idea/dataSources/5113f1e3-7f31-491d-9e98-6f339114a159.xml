@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="mysql5">
+<dataSource name="@localhost">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.48">
     <root id="1">
       <DefaultCasing>lower/lower</DefaultCasing>

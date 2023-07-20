@@ -4,10 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57eb583c-4ee4-44e3-8e29-cad02996bb70" name="更改" comment="📝Spring：使用注解开发&#10;&#10;1. IOC&#10;2. Spring配置&#10;3. DI注入依赖&#10;4. Bean自动装配&#10;&#10;bayyy-23.07.19">
+    <list default="true" id="57eb583c-4ee4-44e3-8e29-cad02996bb70" name="更改" comment="📝Spring：Java配置方法&#10;&#10;1. 使用注解开发&#10;2. 通过Java类进行配置, 不使用xml文件&#10;&#10;BAY-23.07.19">
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/src/main/java/com/bayyy/demo1/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/src/main/java/com/bayyy/demo1/Host.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/src/main/java/com/bayyy/demo1/Proxy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/src/main/java/com/bayyy/demo1/ProxyInvocationHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/src/main/java/com/bayyy/demo1/Rent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/src/main/resources/beans.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-04-proxy/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5113f1e3-7f31-491d-9e98-6f339114a159.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5113f1e3-7f31-491d-9e98-6f339114a159.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9665e9c4-ae2c-498a-b5f1-b6c8342c0c4b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9665e9c4-ae2c-498a-b5f1-b6c8342c0c4b.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2023_7_20_9_16____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2023_7_20_9_16____.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +31,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -30,9 +45,9 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="localRepository" value="D:\Coding\Java\apache-maven-3.9.3\maven-repo" />
+        <option name="localRepository" value="E:\Coding\Java\apache-maven-3.9.2\maven-repo" />
         <option name="mavenHome" value="$PROJECT_DIR$/../../../../Java/apache-maven-3.9.2" />
-        <option name="userSettingsFile" value="D:\Coding\Java\apache-maven-3.9.3\conf\settings.xml" />
+        <option name="userSettingsFile" value="E:\Coding\Java\apache-maven-3.9.2\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -65,7 +80,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "D:/Coding/test/temp/Spring/spring-study/spring-02-ioc/src/main",
+    "last_opened_file_path": "E:/Coding/test/temp/Spring/spring-study/spring-04-proxy",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -73,7 +88,7 @@
     "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "database.query.execution",
+    "settings.editor.selected.configurable": "MavenSettings",
     "spring.configuration.checksum": "ab6e05b5633681b8c20e8d693d52e108",
     "vue.rearranger.settings.migration": "true"
   },
@@ -85,10 +100,24 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Coding\test\temp\Spring\spring-study\spring-04-proxy" />
       <recent name="D:\Coding\test\temp\Spring\spring-study\spring-02-ioc\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MyTest.test2">
+  <component name="RunManager" selected="应用程序.Client">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.bayyy.demo1.Client" />
+      <module name="spring-04-proxy" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bayyy.demo1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MyTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-02-ioc" />
       <option name="PACKAGE_NAME" value="" />
@@ -127,6 +156,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.Client" />
         <item itemvalue="JUnit.MyTest.test2" />
         <item itemvalue="JUnit.MyTest.test" />
         <item itemvalue="JUnit.MyTest.test1" />
@@ -156,7 +186,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
