@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 指定要扫描的包，这个包下的注解都会生效 -->
+    <context:component-scan base-package="com.bayyy"/>
+    <context:annotation-config/>
+
+    <!-- 注册bean -->
+    <bean id="userService" class="com.bayyy.service.UserServiceImpl"/>
+    <bean id="beforeLog" class="com.bayyy.log.BeforeLog"/>
+    <bean id="afterLog" class="com.bayyy.log.AfterLog"/>
+
+    <!-- 方式一: 使用原生Spring API接口 -->
+<!--    &lt;!&ndash; 配置aop &ndash;&gt;-->
+<!--    <aop:config>-->
+<!--        &lt;!&ndash; 切入点 expression:表达式 execution:要执行的位置 &ndash;&gt;-->
+<!--        <aop:pointcut id="pointcut" expression="execution(* com.bayyy.service.UserServiceImpl.*(..))"/>-->
+<!--        &lt;!&ndash; 执行环绕增强 &ndash;&gt;-->
+<!--        <aop:advisor advice-ref="beforeLog" pointcut-ref="pointcut"/>-->
+<!--        <aop:advisor advice-ref="afterLog" pointcut-ref="pointcut"/>-->
+<!--    </aop:config>-->
+
+<!--    &lt;!&ndash; 方式二: 使用自定义类 &ndash;&gt;-->
+<!--    <bean id="diy" class="com.bayyy.diy.DiyPointCut"/>-->
+
+<!--    <aop:config>-->
+<!--        &lt;!&ndash; aspect:切面(通知+切入点) ref:引用切面 &ndash;&gt;-->
+<!--        <aop:aspect ref="diy">-->
+<!--            &lt;!&ndash; 切入点 expression:表达式 execution:要执行的位置 &ndash;&gt;-->
+<!--            <aop:pointcut id="pointcut" expression="execution(* com.bayyy.service.UserServiceImpl.*(..))"/>-->
+<!--            &lt;!&ndash; 通知 &ndash;&gt;-->
+<!--            <aop:before method="before" pointcut-ref="pointcut"/>-->
+<!--            <aop:after method="after" pointcut-ref="pointcut"/>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
+
+    <!-- 方式三: 使用注解 -->
+    <bean id="annotationPointCut" class="com.bayyy.diy.AnnotationPointCut"/>
+    <!-- 开启注解支持: 会自动扫描注解 -->
+    <aop:aspectj-autoproxy/>
+
+</beans>

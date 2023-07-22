@@ -9,7 +9,11 @@
     <file url="file://$PROJECT_DIR$/spring-03-anno/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-04-proxy/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-04-proxy/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-05-aop/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-05-aop/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-06-mybatis/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-06-mybatis/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-07-transaction/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-07-transaction/src/main/resources" charset="UTF-8" />
   </component>
 </project>

@@ -773,5 +773,132 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <user id="232" parent="1" name="mysql.sys">
       <Host>localhost</Host>
     </user>
+    <routine id="233" parent="225" name="my_abs">
+      <RoutineKind>function</RoutineKind>
+      <SourceTextLength>30</SourceTextLength>
+    </routine>
+    <routine id="234" parent="225" name="show_time">
+      <RoutineKind>function</RoutineKind>
+      <SourceTextLength>12</SourceTextLength>
+    </routine>
+    <table id="235" parent="225" name="blog"/>
+    <table id="236" parent="225" name="student"/>
+    <table id="237" parent="225" name="teacher"/>
+    <table id="238" parent="225" name="user"/>
+    <argument id="239" parent="233">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DasType>INT(10)|4s</DasType>
+    </argument>
+    <argument id="240" parent="233" name="num">
+      <DasType>INT(10)|4s</DasType>
+      <Position>1</Position>
+    </argument>
+    <argument id="241" parent="234">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DasType>VARCHAR(30)|12s</DasType>
+    </argument>
+    <column id="242" parent="235" name="id">
+      <Comment>博客id</Comment>
+      <DasType>VARCHAR(50)|12s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="243" parent="235" name="title">
+      <Comment>博客标题</Comment>
+      <DasType>VARCHAR(100)|12s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="244" parent="235" name="author">
+      <Comment>博客作者</Comment>
+      <DasType>VARCHAR(30)|12s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="245" parent="235" name="create_time">
+      <Comment>创建时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="246" parent="235" name="views">
+      <Comment>浏览量</Comment>
+      <DasType>INT(10)|4s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="247" parent="236" name="id">
+      <DasType>INT(10)|4s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="248" parent="236" name="name">
+      <DasType>VARCHAR(30)|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="249" parent="236" name="tid">
+      <DasType>INT(10)|4s</DasType>
+      <Position>3</Position>
+    </column>
+    <foreign-key id="250" parent="236" name="fktid">
+      <ColNames>tid</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>teacher</RefTableName>
+    </foreign-key>
+    <index id="251" parent="236" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <index id="252" parent="236" name="fktid">
+      <ColNames>tid</ColNames>
+    </index>
+    <key id="253" parent="236" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
+    </key>
+    <column id="254" parent="237" name="id">
+      <DasType>INT(10)|4s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="255" parent="237" name="name">
+      <DasType>VARCHAR(30)|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <index id="256" parent="237" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="257" parent="237" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
+    </key>
+    <column id="258" parent="238" name="id">
+      <DasType>INT(10)|4s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="259" parent="238" name="name">
+      <DasType>VARCHAR(30)|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="260" parent="238" name="pwd">
+      <DasType>VARCHAR(30)|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <index id="261" parent="238" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="262" parent="238" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
+    </key>
   </database-model>
 </dataSource>
