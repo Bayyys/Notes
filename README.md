@@ -102,10 +102,11 @@
 ## Spring - 07.18.2023-07.22.2023
 
 > [Spring](./Spring/) 学习笔记
+>
 > - 官网: [Spring](https://spring.io/)
 > - Reference
-> - Doucment: [Spring Framework 中文文档 (springdoc.cn)](https://springdoc.cn/spring/)
-> - Media: [【狂神说Java】Spring5-Bilibili](https://www.bilibili.com/video/BV1WE411d7Dv/?vd_source=2228fbb3090a9774de8d595d37290e9e)
+>   - Doucment: [Spring Framework 中文文档 (springdoc.cn)](https://springdoc.cn/spring/)
+>   - Media: [【狂神说Java】Spring5-Bilibili](https://www.bilibili.com/video/BV1WE411d7Dv/?vd_source=2228fbb3090a9774de8d595d37290e9e)
 
 - [x] 创建 `Spring` 学习项目 (07.18.2023)
 - [x] 1.简介 (07.18.2023)
@@ -119,3 +120,13 @@
 - [x] 8. 整合MyBatis (07.22.2023)
 - [x] 9. 声明式事务 (07.22.2023)  
 - [x] 10. Spring学习完成 (07.22.2023)
+
+## SpringMVC - 07.22.2023
+
+> [SpringMVC](./SpringMVC/) 学习笔记
+>
+> - Reference
+>   - Media：[【狂神说Java】SpringMVC](https://www.bilibili.com/video/BV1aE41167Tu/?vd_source=2228fbb3090a9774de8d595d37290e9e)
+
+- [x] 创建 `SpringMVC` 学习项目 (07.22.2023)
+- [x] 1. MVC 简介 (07.22.2023)
