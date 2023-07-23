@@ -6,6 +6,11 @@
     <packaging>pom</packaging>
     <modules>
         <module>springmvc-01-servlet</module>
+        <module>springmvc-02-hellomvc</module>
+        <module>springmvc-03-hellomvc2</module>
+        <module>springmvc-04-annotation</module>
+        <module>springmvc-05-controller</module>
+        <module>springmvc-06-json</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
     <name>SpringMVC-study Maven Webapp</name>
@@ -30,10 +35,17 @@
             <version>2.2</version>
         </dependency>
         <!-- JSTL 依赖 -->
+        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl-api -->
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>jstl-api</artifactId>
             <version>1.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jsp-api</artifactId>
+                    <groupId>javax.servlet.jsp</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- JSTL 实现 -->
         <dependency>
@@ -82,6 +94,18 @@
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
             <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>2.0.37</version>
         </dependency>
     </dependencies>
     <build>
