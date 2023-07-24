@@ -10,7 +10,7 @@
         values(#{bookName},#{bookCounts},#{detail})
     </insert>
 
-    <delete id="deleteBookById" parameterType="int">
+    <delete id="deleteBookByID" parameterType="int">
         delete from books where bookID=#{bookID}
     </delete>
 
@@ -19,12 +19,16 @@
         where bookID=#{bookID}
     </update>
 
-    <select id="queryBookById" parameterType="int" resultType="books">
+    <select id="queryBookByID" parameterType="int" resultType="books">
         select * from books where bookID=#{bookID}
     </select>
 
     <select id="queryAllBook" resultType="books">
         select * from books
+    </select>
+
+    <select id="queryBookByName" parameterType="String" resultType="books">
+        select * from books where bookName like concat('%',#{bookName},'%')
     </select>
 
 </mapper>
