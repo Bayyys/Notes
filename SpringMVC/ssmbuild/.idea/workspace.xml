@@ -9,23 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a460a36-13d6-45d8-a62e-9ee81329ea4f" name="更改" comment=":memo: SpringMVC: SSM整合*&#10;&#10;BAY-23.07.23">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/controller/BookController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/allBook.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/toAddBook.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/toUpdateBook.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/MyTest.java" afterDir="false" />
+    <list default="true" id="9a460a36-13d6-45d8-a62e-9ee81329ea4f" name="更改" comment=":memo: SpringMVC: Ajax&#10;&#10;1. 整合SSM&#10;2. Ajax&#10;&#10;BAY-23.07.24">
+      <change beforePath="$PROJECT_DIR$/../../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/BookMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/BookMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/dao/BookMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/service/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/service/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/service/BookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bayyy/utils/IDUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bayyy/utils/IDUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/spring-service.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-service.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +40,9 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -79,32 +69,33 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/Coding/test/temp/SpringMVC/ssmbuild/src/main/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "spring.configuration.checksum": "8fdda81fc9974c50d5b7f3a30acbbc4c",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Coding/test/temp/README.md&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;8fdda81fc9974c50d5b7f3a30acbbc4c&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Coding\test\temp\SpringMVC\ssmbuild\src\main\resources" />
@@ -212,7 +203,9 @@
       <workItem from="1690120571852" duration="4352000" />
       <workItem from="1690125786034" duration="1105000" />
       <workItem from="1690127893945" duration="96000" />
-      <workItem from="1690205227629" duration="7475000" />
+      <workItem from="1690205227629" duration="8397000" />
+      <workItem from="1690249312629" duration="57000" />
+      <workItem from="1690295432530" duration="801000" />
     </task>
     <task id="LOCAL-00001" summary=":memo: SpringMVC: SSM整合*&#10;&#10;BAY-23.07.23">
       <option name="closed" value="true" />
@@ -222,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690127963472</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary=":memo: SpringMVC: Ajax&#10;&#10;1. 整合SSM&#10;2. Ajax&#10;&#10;BAY-23.07.24">
+      <option name="closed" value="true" />
+      <created>1690213151737</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1690213151737</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +243,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value=":memo: SpringMVC: SSM整合*&#10;&#10;BAY-23.07.23" />
-    <option name="LAST_COMMIT_MESSAGE" value=":memo: SpringMVC: SSM整合*&#10;&#10;BAY-23.07.23" />
+    <MESSAGE value=":memo: SpringMVC: Ajax&#10;&#10;1. 整合SSM&#10;2. Ajax&#10;&#10;BAY-23.07.24" />
+    <option name="LAST_COMMIT_MESSAGE" value=":memo: SpringMVC: Ajax&#10;&#10;1. 整合SSM&#10;2. Ajax&#10;&#10;BAY-23.07.24" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

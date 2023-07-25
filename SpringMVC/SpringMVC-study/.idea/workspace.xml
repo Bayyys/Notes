@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="springmvc-06-json:war" />
+      <artifact name="springmvc-07-ajax:war" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -17,8 +17,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92d8883c-e4e8-4f54-a950-3a5c4737eb55" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/java/com/bayyy/controller/AjaxController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/java/com/bayyy/pojo/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/resources/applicationContext.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/webapp/index.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/webapp/statics/js/jquery-3.7.0.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/webapp/test.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/webapp/test2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ea9d5a91-9b5c-4f10-ae37-12ddfdb7fd54.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ea9d5a91-9b5c-4f10-ae37-12ddfdb7fd54.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssmbuild/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ssmbuild/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ssmbuild/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ssmbuild/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,9 +44,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
         <option value="HTML File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -47,10 +63,10 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="localRepository" value="D:\Coding\Java\apache-maven-3.9.3\maven-repo" />
-        <option name="mavenHome" value="$PROJECT_DIR$/../../../../Java/apache-maven-3.9.3" />
+        <option name="localRepository" value="E:\Coding\Java\apache-maven-3.9.2\maven-repo" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../../Java/apache-maven-3.9.2" />
         <option name="useMavenConfig" value="true" />
-        <option name="userSettingsFile" value="D:\Coding\Java\apache-maven-3.9.3\conf\settings.xml" />
+        <option name="userSettingsFile" value="E:\Coding\Java\apache-maven-3.9.2\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -83,7 +99,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "D:/Coding/test/temp/SpringMVC/SpringMVC-study/springmvc-04-annotation/web",
+    "last_opened_file_path": "E:/Coding/test/temp/SpringMVC/SpringMVC-study/springmvc-07-ajax/src/main/webapp/statics",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,8 +108,8 @@
     "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3770115",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.web.browsers",
-    "spring.configuration.checksum": "ec05340496ecb94da13e739c1be4a703",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.importing",
+    "spring.configuration.checksum": "844a7213777d667e368120902fe8c61e",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -104,22 +120,30 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Coding\test\temp\SpringMVC\SpringMVC-study\springmvc-07-ajax\src\main\webapp\statics" />
       <recent name="D:\Coding\test\temp\SpringMVC\SpringMVC-study\springmvc-03-hellomvc2\src\main\resources" />
       <recent name="E:\Coding\test\temp\SpringMVC\SpringMVC-study\src\main\resources" />
       <recent name="E:\Coding\test\temp\SpringMVC\SpringMVC-study\src\main" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Coding\test\temp\SpringMVC\SpringMVC-study\springmvc-07-ajax\src\main\webapp" />
+      <recent name="E:\Coding\test\temp\SpringMVC\SpringMVC-study\springmvc-07-ajax\src\main\webapp\statics\js" />
       <recent name="D:\Coding\test\temp\SpringMVC\SpringMVC-study\springmvc-05-controller\src\main\resources" />
       <recent name="E:\Coding\test\temp\SpringMVC\SpringMVC-study\src\main\java\com" />
       <recent name="E:\Coding\test\temp\SpringMVC\SpringMVC-study\src\main\java" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Tomcat 服务器.Tomcat 9.0.76">
+    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="2" requestIdentifier="#2" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
     <configuration name="Tomcat 9.0.76" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.76" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.8" nameIsGenerated="true">
-      <option name="BROWSER_ID" value="f43ec8ad-9ff4-491f-89d1-ce3c4fa3d013" />
-      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="springmvc-06-json:war">
+        <artifact name="springmvc-07-ajax:war">
           <settings>
             <option name="CONTEXT_PATH" value="/" />
           </settings>
@@ -199,7 +223,7 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="springmvc-06-json:war" />
+          <artifact name="springmvc-07-ajax:war" />
         </option>
       </method>
     </configuration>
@@ -282,6 +306,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="HTTP 请求.generated-requests | #1" />
+      <item itemvalue="HTTP 请求.generated-requests | #2" />
+      <item itemvalue="Tomcat 服务器.Tomcat 9.0.76" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP 请求.generated-requests | #2" />
+        <item itemvalue="HTTP 请求.generated-requests | #1" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -295,6 +330,7 @@
       <workItem from="1690041708899" duration="1123000" />
       <workItem from="1690085222969" duration="20067000" />
       <workItem from="1690105823833" duration="4162000" />
+      <workItem from="1690296238045" duration="4914000" />
     </task>
     <servers />
   </component>
