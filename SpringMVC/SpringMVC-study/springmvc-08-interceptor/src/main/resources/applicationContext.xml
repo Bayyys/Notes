@@ -13,8 +13,8 @@
     <!-- 指定要扫描的包，这个包下的注解都会生效 -->
     <context:component-scan base-package="com.bayyy.controller"/>
     <context:annotation-config/>
-    <mvc:default-servlet-handler />
-    <mvc:annotation-driven />
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
     <aop:aspectj-autoproxy/>
 
     <!-- 视图解析器 -->
@@ -40,5 +40,15 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 拦截的路径(**代表所有路径) -->
+            <mvc:mapping path="/**"/>
+            <bean class="com.bayyy.config.MyInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/**"/>
+            <bean class="com.bayyy.config.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

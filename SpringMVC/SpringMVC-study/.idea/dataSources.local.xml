@@ -18,5 +18,9 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="mysql 8.0.34" uuid="2a77cdbd-e843-4334-9324-b5682ab6e9cb">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <schema-mapping />
+    </data-source>
   </component>
 </project>

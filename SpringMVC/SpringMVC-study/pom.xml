@@ -12,6 +12,8 @@
         <module>springmvc-05-controller</module>
         <module>springmvc-06-json</module>
         <module>springmvc-07-ajax</module>
+        <module>springmvc-08-interceptor</module>
+        <module>springmvc-09-file</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
     <name>SpringMVC-study Maven Webapp</name>
