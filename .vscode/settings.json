@@ -9,9 +9,9 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "bayyy",
+            "name": "mysql5",
             "username": "root",
-            "database": "mybatis"
+            "database": "testdb"
         }
     ]
 }

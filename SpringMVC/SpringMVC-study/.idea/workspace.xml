@@ -16,38 +16,7 @@
     </loaded-modules>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92d8883c-e4e8-4f54-a950-3a5c4737eb55" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/webapp/login.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/src/main/java/com/bayyy/config/LoginInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/src/main/java/com/bayyy/config/MyInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/src/main/java/com/bayyy/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/src/main/java/com/bayyy/controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/src/main/resources/applicationContext.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/src/main/webapp/WEB-INF/jsp/login.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/src/main/webapp/WEB-INF/jsp/main.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-08-interceptor/src/main/webapp/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-09-file/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-09-file/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-09-file/src/main/java/com/bayyy/controller/FileController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-09-file/src/main/resources/applicationContext.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-09-file/src/main/resources/upload/123.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-09-file/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springmvc-09-file/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../C++/notes/Chapter07/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../C++/notes/Chapter07/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../C++/notes/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../C++/notes/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaWeb/.idea/JavaWeb.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaWeb/.idea/JavaWeb.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springmvc-07-ajax/src/main/java/com/bayyy/controller/AjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/java/com/bayyy/controller/AjaxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springmvc-07-ajax/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springmvc-07-ajax/src/main/resources/applicationContext.xml" afterDir="false" />
-    </list>
+    <list default="true" id="92d8883c-e4e8-4f54-a950-3a5c4737eb55" name="更改" comment=":memo: SpringMVC: Ajax&#10;&#10;1. Ajax 的学习&#10;&#10;BAY-23.07.26" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,36 +71,36 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "D:/Coding/test/temp/README.md",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "工件",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.3770115",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "ec6c69da3a3f59758b636c38e6f057ae",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Coding/test/temp/README.md&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;工件&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.3770115&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;ec6c69da3a3f59758b636c38e6f057ae&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Coding\test\temp\SpringMVC\SpringMVC-study\springmvc-09-file\target\springmvc-09-file" />

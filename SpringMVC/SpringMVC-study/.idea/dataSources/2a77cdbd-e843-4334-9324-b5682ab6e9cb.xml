@@ -1027,25 +1027,5 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <user id="296" parent="1" name="root">
       <Host>localhost</Host>
     </user>
-    <table id="297" parent="292" name="activity">
-      <Engine>InnoDB</Engine>
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </table>
-    <column id="298" parent="297" name="player_id">
-      <DasType>int|0s</DasType>
-      <Position>1</Position>
-    </column>
-    <column id="299" parent="297" name="device_id">
-      <DasType>int|0s</DasType>
-      <Position>2</Position>
-    </column>
-    <column id="300" parent="297" name="event_date">
-      <DasType>date|0s</DasType>
-      <Position>3</Position>
-    </column>
-    <column id="301" parent="297" name="games_played">
-      <DasType>int|0s</DasType>
-      <Position>4</Position>
-    </column>
   </database-model>
 </dataSource>
