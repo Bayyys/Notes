@@ -148,3 +148,7 @@
 >   - Media：[狂神-大前端基础知识概述-bilibili](https://www.bilibili.com/video/BV1BU4y147pS/?p=2&spm_id_from=pageDriver&vd_source=2228fbb3090a9774de8d595d37290e9e)
 
 - [x] 创建 `FrontWeb` 学习项目 (07.26.2023)
+- [x] 1. 前端简介 (07.26.2023)
+- [x] 2. Node.js基础 (07.26.2023) 
+- [x] 3. ES6基础 (07.27.2023)
+- [x] 4. npm包管理器 (07.27.2023)
