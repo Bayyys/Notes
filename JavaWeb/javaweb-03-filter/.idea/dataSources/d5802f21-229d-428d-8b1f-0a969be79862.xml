@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@localhost">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.48">
+    <root id="1"/>
+    <schema id="2" parent="1" name="information_schema"/>
+    <schema id="3" parent="1" name="jdbc"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="school"/>
+    <schema id="7" parent="1" name="smbms"/>
+    <schema id="8" parent="1" name="sys"/>
+    <table id="9" parent="7" name="smbms_address"/>
+    <table id="10" parent="7" name="smbms_bill"/>
+    <table id="11" parent="7" name="smbms_provider"/>
+    <table id="12" parent="7" name="smbms_role"/>
+    <table id="13" parent="7" name="smbms_user"/>
+    <column id="14" parent="9" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <Comment>主键ID</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="15" parent="9" name="contact">
+      <Comment>联系人姓名</Comment>
+      <DasType>VARCHAR(15)|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="16" parent="9" name="addressDesc">
+      <Comment>收货地址明细</Comment>
+      <DasType>VARCHAR(50)|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="17" parent="9" name="postCode">
+      <Comment>邮编</Comment>
+      <DasType>VARCHAR(15)|12s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="18" parent="9" name="tel">
+      <Comment>联系人电话</Comment>
+      <DasType>VARCHAR(20)|12s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="19" parent="9" name="createdBy">
+      <Comment>创建者</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="20" parent="9" name="creationDate">
+      <Comment>创建时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>7</Position>
+    </column>
+    <column id="21" parent="9" name="modifyBy">
+      <Comment>修改者</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>8</Position>
+    </column>
+    <column id="22" parent="9" name="modifyDate">
+      <Comment>修改时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>9</Position>
+    </column>
+    <column id="23" parent="9" name="userId">
+      <Comment>用户ID</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>10</Position>
+    </column>
+    <index id="24" parent="9" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="25" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
+    </key>
+    <column id="26" parent="10" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <Comment>主键ID</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="27" parent="10" name="billCode">
+      <Comment>账单编码</Comment>
+      <DasType>VARCHAR(20)|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="28" parent="10" name="productName">
+      <Comment>商品名称</Comment>
+      <DasType>VARCHAR(20)|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="29" parent="10" name="productDesc">
+      <Comment>商品描述</Comment>
+      <DasType>VARCHAR(50)|12s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="30" parent="10" name="productUnit">
+      <Comment>商品单位</Comment>
+      <DasType>VARCHAR(10)|12s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="31" parent="10" name="productCount">
+      <Comment>商品数量</Comment>
+      <DasType>DECIMAL(20,2)|3s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="32" parent="10" name="totalPrice">
+      <Comment>商品总额</Comment>
+      <DasType>DECIMAL(20,2)|3s</DasType>
+      <Position>7</Position>
+    </column>
+    <column id="33" parent="10" name="isPayment">
+      <Comment>是否支付（1：未支付 2：已支付）</Comment>
+      <DasType>INT(10)|4s</DasType>
+      <Position>8</Position>
+    </column>
+    <column id="34" parent="10" name="createdBy">
+      <Comment>创建者（userId）</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>9</Position>
+    </column>
+    <column id="35" parent="10" name="creationDate">
+      <Comment>创建时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>10</Position>
+    </column>
+    <column id="36" parent="10" name="modifyBy">
+      <Comment>更新者（userId）</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>11</Position>
+    </column>
+    <column id="37" parent="10" name="modifyDate">
+      <Comment>更新时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>12</Position>
+    </column>
+    <column id="38" parent="10" name="providerId">
+      <Comment>供应商ID</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>13</Position>
+    </column>
+    <index id="39" parent="10" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="40" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
+    </key>
+    <column id="41" parent="11" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <Comment>主键ID</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="42" parent="11" name="proCode">
+      <Comment>供应商编码</Comment>
+      <DasType>VARCHAR(20)|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="43" parent="11" name="proName">
+      <Comment>供应商名称</Comment>
+      <DasType>VARCHAR(20)|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="44" parent="11" name="proDesc">
+      <Comment>供应商详细描述</Comment>
+      <DasType>VARCHAR(50)|12s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="45" parent="11" name="proContact">
+      <Comment>供应商联系人</Comment>
+      <DasType>VARCHAR(20)|12s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="46" parent="11" name="proPhone">
+      <Comment>联系电话</Comment>
+      <DasType>VARCHAR(20)|12s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="47" parent="11" name="proAddress">
+      <Comment>地址</Comment>
+      <DasType>VARCHAR(50)|12s</DasType>
+      <Position>7</Position>
+    </column>
+    <column id="48" parent="11" name="proFax">
+      <Comment>传真</Comment>
+      <DasType>VARCHAR(20)|12s</DasType>
+      <Position>8</Position>
+    </column>
+    <column id="49" parent="11" name="createdBy">
+      <Comment>创建者（userId）</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>9</Position>
+    </column>
+    <column id="50" parent="11" name="creationDate">
+      <Comment>创建时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>10</Position>
+    </column>
+    <column id="51" parent="11" name="modifyDate">
+      <Comment>更新时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>11</Position>
+    </column>
+    <column id="52" parent="11" name="modifyBy">
+      <Comment>更新者（userId）</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>12</Position>
+    </column>
+    <index id="53" parent="11" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="54" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
+    </key>
+    <column id="55" parent="12" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <Comment>主键ID</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="56" parent="12" name="roleCode">
+      <Comment>角色编码</Comment>
+      <DasType>VARCHAR(15)|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="57" parent="12" name="roleName">
+      <Comment>角色名称</Comment>
+      <DasType>VARCHAR(15)|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="58" parent="12" name="createdBy">
+      <Comment>创建者</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="59" parent="12" name="creationDate">
+      <Comment>创建时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="60" parent="12" name="modifyBy">
+      <Comment>修改者</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="61" parent="12" name="modifyDate">
+      <Comment>修改时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>7</Position>
+    </column>
+    <index id="62" parent="12" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="63" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
+    </key>
+    <column id="64" parent="13" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <Comment>主键ID</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="65" parent="13" name="userCode">
+      <Comment>用户编码</Comment>
+      <DasType>VARCHAR(15)|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="66" parent="13" name="userName">
+      <Comment>用户名称</Comment>
+      <DasType>VARCHAR(15)|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="67" parent="13" name="userPassword">
+      <Comment>用户密码</Comment>
+      <DasType>VARCHAR(15)|12s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="68" parent="13" name="gender">
+      <Comment>性别（1:女、 2:男）</Comment>
+      <DasType>INT(10)|4s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="69" parent="13" name="birthday">
+      <Comment>出生日期</Comment>
+      <DasType>DATE(10)|91s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="70" parent="13" name="phone">
+      <Comment>手机</Comment>
+      <DasType>VARCHAR(15)|12s</DasType>
+      <Position>7</Position>
+    </column>
+    <column id="71" parent="13" name="address">
+      <Comment>地址</Comment>
+      <DasType>VARCHAR(30)|12s</DasType>
+      <Position>8</Position>
+    </column>
+    <column id="72" parent="13" name="userRole">
+      <Comment>用户角色（取自角色表-角色id）</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>9</Position>
+    </column>
+    <column id="73" parent="13" name="createdBy">
+      <Comment>创建者（userId）</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>10</Position>
+    </column>
+    <column id="74" parent="13" name="creationDate">
+      <Comment>创建时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>11</Position>
+    </column>
+    <column id="75" parent="13" name="modifyBy">
+      <Comment>更新者（userId）</Comment>
+      <DasType>BIGINT(19)|-5s</DasType>
+      <Position>12</Position>
+    </column>
+    <column id="76" parent="13" name="modifyDate">
+      <Comment>更新时间</Comment>
+      <DasType>DATETIME(19)|93s</DasType>
+      <Position>13</Position>
+    </column>
+    <index id="77" parent="13" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="78" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
+    </key>
+  </database-model>
+</dataSource>

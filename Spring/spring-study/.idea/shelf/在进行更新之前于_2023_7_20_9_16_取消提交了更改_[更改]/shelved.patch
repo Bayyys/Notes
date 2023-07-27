@@ -1,0 +1,75 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"57eb583c-4ee4-44e3-8e29-cad02996bb70\" name=\"更改\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/dataSources.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/.gitignore\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/pom.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/Address.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/Cat.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/Dog.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/People.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/Student.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/User.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/main/resources/beans.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/main/webapp/WEB-INF/web.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/main/webapp/index.jsp\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/spring-02-ioc/src/test/java/MyTest.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/../../C++/notes/Chapter06/README.md\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/../../C++/notes/Chapter06/README.md\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/encodings.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/encodings.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/../..\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"localRepository\" value=\"D:\\Coding\\Java\\apache-maven-3.9.3\\maven-repo\" />\r\n        <option name=\"mavenHome\" value=\"$PROJECT_DIR$/../../../../Java/apache-maven-3.9.2\" />\r\n        <option name=\"userSettingsFile\" value=\"D:\\Coding\\Java\\apache-maven-3.9.3\\conf\\settings.xml\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n    <option name=\"importingSettings\">\r\n      <MavenImportingSettings>\r\n        <option name=\"jdkForImporter\" value=\"1.8\" />\r\n      </MavenImportingSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"MavenRunner\">\r\n    <option name=\"jreName\" value=\"1.8\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2SkQqeBbU2QDe9kmQhp5XBPk2Bi\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"showMembers\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_ADD_EXTERNAL_FILES\": \"true\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"jdk.selected.JAVA_MODULE\": \"1.8\",\r\n    \"last_opened_file_path\": \"D:/Coding/test/temp/Spring/spring-study/spring-02-ioc/src/main\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"project.structure.last.edited\": \"模块\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"MavenSettings\",\r\n    \"spring.configuration.checksum\": \"fc45b0c4aee17c8a1ba9b219762ec8f1\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"mysql\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"D:\\Coding\\test\\temp\\Spring\\spring-study\\spring-02-ioc\\src\\main\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"JUnit.MyTest.test2\">\r\n    <configuration name=\"MyTest.test\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"spring-02-ioc\" />\r\n      <option name=\"PACKAGE_NAME\" value=\"\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MyTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"test\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MyTest.test1\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"spring-01\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.bayyy.pojo.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"com.bayyy.pojo\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.bayyy.pojo.MyTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"test1\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MyTest.test2\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"spring-02-ioc\" />\r\n      <option name=\"PACKAGE_NAME\" value=\"\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MyTest\" />\r\n      <option name=\"METHOD_NAME\" value=\"test2\" />\r\n      <option name=\"TEST_OBJECT\" value=\"method\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JUnit.MyTest.test2\" />\r\n        <item itemvalue=\"JUnit.MyTest.test\" />\r\n        <item itemvalue=\"JUnit.MyTest.test1\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"应用程序级\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"默认任务\">\r\n      <changelist id=\"57eb583c-4ee4-44e3-8e29-cad02996bb70\" name=\"更改\" comment=\"\" />\r\n      <created>1687876740580</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1687876740580</updated>\r\n      <workItem from=\"1689688293783\" duration=\"2112000\" />\r\n      <workItem from=\"1689690456809\" duration=\"1817000\" />\r\n      <workItem from=\"1689767479195\" duration=\"6004000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 819566484464968b95ac1970f8b1906a9eb298ff)
++++ b/.idea/workspace.xml	(date 1689773855142)
+@@ -4,25 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="57eb583c-4ee4-44e3-8e29-cad02996bb70" name="更改" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/.gitignore" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/pom.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/Address.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/Cat.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/Dog.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/People.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/Student.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/main/java/com/bayyy/pojo/User.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/main/resources/beans.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/main/webapp/index.jsp" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/spring-02-ioc/src/test/java/MyTest.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/../../C++/notes/Chapter06/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../C++/notes/Chapter06/README.md" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+-    </list>
++    <list default="true" id="57eb583c-4ee4-44e3-8e29-cad02996bb70" name="更改" comment="📝Spring：使用注解开发&#10;&#10;1. IOC&#10;2. Spring配置&#10;3. DI注入依赖&#10;4. Bean自动装配&#10;&#10;bayyy-23.07.19" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -38,6 +20,9 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+   </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
++  </component>
+   <component name="MavenImportPreferences">
+     <option name="generalSettings">
+       <MavenGeneralSettings>
+@@ -152,8 +137,17 @@
+       <updated>1687876740580</updated>
+       <workItem from="1689688293783" duration="2112000" />
+       <workItem from="1689690456809" duration="1817000" />
+-      <workItem from="1689767479195" duration="6004000" />
++      <workItem from="1689767479195" duration="6102000" />
+     </task>
++    <task id="LOCAL-00001" summary="📝Spring：使用注解开发&#10;&#10;1. IOC&#10;2. Spring配置&#10;3. DI注入依赖&#10;4. Bean自动装配&#10;&#10;bayyy-23.07.19">
++      <option name="closed" value="true" />
++      <created>1689773810555</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1689773810555</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -172,6 +166,8 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
++    <MESSAGE value="Spring：使用注解开发&#10;&#10;1. IOC&#10;2. Spring配置&#10;3. DI注入依赖&#10;4. Bean自动装配&#10;&#10;bayyy-23.07.19" />
++    <option name="LAST_COMMIT_MESSAGE" value="Spring：使用注解开发&#10;&#10;1. IOC&#10;2. Spring配置&#10;3. DI注入依赖&#10;4. Bean自动装配&#10;&#10;bayyy-23.07.19" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
