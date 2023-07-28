@@ -16,7 +16,12 @@
     </loaded-modules>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92d8883c-e4e8-4f54-a950-3a5c4737eb55" name="更改" comment=":memo: SpringMVC: Ajax&#10;&#10;1. Ajax 的学习&#10;&#10;BAY-23.07.26" />
+    <list default="true" id="92d8883c-e4e8-4f54-a950-3a5c4737eb55" name="更改" comment=":memo: SpringMVC: Ajax&#10;&#10;1. Ajax 的学习&#10;&#10;BAY-23.07.26">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2a77cdbd-e843-4334-9324-b5682ab6e9cb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2a77cdbd-e843-4334-9324-b5682ab6e9cb.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ea9d5a91-9b5c-4f10-ae37-12ddfdb7fd54.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ea9d5a91-9b5c-4f10-ae37-12ddfdb7fd54.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2023_7_26_21_14____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2023_7_26_21_14____.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,36 +76,36 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Coding/test/temp/README.md&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;工件&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.3770115&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;ec6c69da3a3f59758b636c38e6f057ae&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "D:/Coding/test/temp/NanoServe/SpringBoot/helloworld",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "工件",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3770115",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "460069854429d1a9d67304702cc76a31",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Coding\test\temp\SpringMVC\SpringMVC-study\springmvc-09-file\target\springmvc-09-file" />
@@ -317,6 +322,9 @@
       <workItem from="1690105823833" duration="4162000" />
       <workItem from="1690296238045" duration="4914000" />
       <workItem from="1690354398606" duration="7883000" />
+      <workItem from="1690539649367" duration="39000" />
+      <workItem from="1690539732977" duration="581000" />
+      <workItem from="1690543934508" duration="21000" />
     </task>
     <servers />
   </component>
