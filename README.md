@@ -171,4 +171,17 @@
 - [x] 2. 第一个SpringBoot程序 (07.28.2023)
 - [x] 3. SpringBoot自动装配原理 (07.29.2023)
 - [x] 4. YAML配置文件 (07.29.2023)
-- [x] 5. web开发探究* (07.29.2023-x)
+- [ ] 5. web开发探究 (07.29.2023-x)
+
+## Vue - 07.29.2023
+
+> [Vue](./FrontWeb/Vue/) 学习笔记
+> 
+> - https://cn.vuejs.org/
+> - Reference
+>   - Media：[狂神-Vue-Bilibili](https://www.bilibili.com/video/BV18E411a7mC?p=1&vd_source=2228fbb3090a9774de8d595d37290e9e)
+
+- [x] 创建 `Vue` 学习项目 (07.29.2023)
+- [x] 1. 前端回顾 (07.29.2023)
+- [x] 2. 第一个Vue程序 (07.29.2023)
+- [ ] 3. Vue语法 (07.29.2023-x)

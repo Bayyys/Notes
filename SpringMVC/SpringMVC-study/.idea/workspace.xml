@@ -19,7 +19,6 @@
     <list default="true" id="92d8883c-e4e8-4f54-a950-3a5c4737eb55" name="更改" comment=":memo: SpringMVC: Ajax&#10;&#10;1. Ajax 的学习&#10;&#10;BAY-23.07.26">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/2a77cdbd-e843-4334-9324-b5682ab6e9cb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2a77cdbd-e843-4334-9324-b5682ab6e9cb.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ea9d5a91-9b5c-4f10-ae37-12ddfdb7fd54.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ea9d5a91-9b5c-4f10-ae37-12ddfdb7fd54.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2023_7_26_21_14____.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2023_7_26_21_14____.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,17 +86,17 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "D:/Coding/test/temp/NanoServe/SpringBoot/helloworld",
+    "last_opened_file_path": "E:/Coding/test/temp/NanoServe/SpringBoot/springboot-01-helloworld",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "工件",
+    "project.structure.last.edited": "SDK",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3770115",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "460069854429d1a9d67304702cc76a31",
+    "settings.editor.selected.configurable": "debugger.dataViews",
+    "spring.configuration.checksum": "0c325d7acf93581caf622e7419f557fa",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -325,6 +324,8 @@
       <workItem from="1690539649367" duration="39000" />
       <workItem from="1690539732977" duration="581000" />
       <workItem from="1690543934508" duration="21000" />
+      <workItem from="1690555437914" duration="56000" />
+      <workItem from="1690555503813" duration="892000" />
     </task>
     <servers />
   </component>

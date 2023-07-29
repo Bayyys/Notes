@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <li v-for="item in items">
+        姓名：{{item.name}}，年龄：{{item.age}}
+    </li>
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            items: [
+                {name: "bayyy", age: 18},
+                {name: "BAY", age: 10},
+                {name: "Bayyys", age: 16}
+            ]
+        }
+    })
+</script>
+</body>
+</html>
