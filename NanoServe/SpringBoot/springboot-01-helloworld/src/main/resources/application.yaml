@@ -1,0 +1,16 @@
+person:
+  name: bayyy${random.uuid}
+  age: ${random.int}
+  happy: true
+  birth: 2023/7/29
+  maps:
+    k1: v1
+    k2: v2
+  lists:
+    - code
+    - music
+    - girl
+  dog:
+    name: ${person.invalid_key:doggy}_旺财  # 如果person.name不存在，则使用doggy
+    age: 3
+
