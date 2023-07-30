@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue组件</title>
+</head>
+<body>
+<div id="vue">
+    <p>{{currentTime}}, currentTime</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#vue",
+        data: {
+            message: "Hello Vue!"
+        },
+        // methods: {
+        //     currentTime: function () {
+        //         return Date.now();
+        //     }
+        // },
+        computed:{  // 计算属性: 和方法重名的话，优先使用methods
+            currentTime: function () {
+                return Date.now()+" computed";
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

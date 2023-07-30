@@ -1,0 +1,23 @@
+{
+    "name": "Bayyy",
+    "description": "Bayyy",
+    "version": "1.0.0",
+    "age": 18,
+    "happy": true,
+    "url": "https://www.google.com",
+    "fav_foods": [
+        "pizza",
+        "sushi",
+        "ramen"
+    ],
+    "fav_animals": [
+        {
+            "name": "dog",
+            "age": 3
+        },
+        {
+            "name": "cat",
+            "age": 2
+        }
+    ]
+}

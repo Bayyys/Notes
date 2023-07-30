@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue组件</title>
+</head>
+<body>
+<div id="vue">
+    <todo>
+        <todo-title slot="todo-title" :title="title"></todo-title>
+        <todo-items slot="todo-items" v-for="(item, index) in todoItems" :item="item" :index="index" v-on:remove="removeItem(index)"></todo-items>
+    </todo>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+<script>
+    Vue.component("todo", {
+        // slot: 插槽
+        template:
+            '<div>' +
+            '<slot name="todo-title"></slot>' +
+            '<ul>' +
+            '<slot name="todo-items"></slot>' +
+            '</ul>' +
+            '</div>'
+    })
+    Vue.component("todo-title",{
+        props: ['title'],
+        template: '<div>{{title}}</div>'
+    })
+    Vue.component("todo-items",{
+        props: ['item', 'index'],
+        template: '<li>{{item}} <button @click="remove">删除</button></li>',
+        methods: {
+            remove: function (index) {
+                this.$emit("remove", this.index);
+            }
+        }
+    })
+
+    var vm = new Vue({
+        el: "#vue",
+        data: {
+            title: "Todo List",
+            todoItems: ['Java', 'Python', 'C++'],
+        },
+        methods: {
+            removeItem: function (index) {
+                console.log("删除"+this.todoItems[index]+"，索引为+"+index);
+                this.todoItems.splice(index, 1);    // 删除数组中的元素
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
