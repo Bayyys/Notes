@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+</head>
+<body>
+<h1>模板引擎</h1>
+<!-- 所有的html元素都可以被 thymeleaf 解析 -->
+<!-- 通过th:text属性来指定标签体内容 -->
+<!--转义-->
+<div th:text="${msg}"></div>
+<!--不转义-->
+<div th:utext="${msg}"></div>
+
+<!--遍历数据-->
+<!--th:each每次遍历都会生成当前这个标签-->
+<h4 th:each="item :${list}" th:text="${item}"></h4>
+<h4>
+    <!--行内写法-->
+    <span th:each="item:${list}">[[${item}]]</span>
+</h4>
+</body>
+</html>
