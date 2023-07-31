@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,10 +9,10 @@
 
 		<title>Dashboard Template for Bootstrap</title>
 		<!-- Bootstrap core CSS -->
-		<link href="asserts/css/bootstrap.min.css" rel="stylesheet">
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
-		<link href="asserts/css/dashboard.css" rel="stylesheet">
+		<link th:href="@{/css/dashboard.css}" rel="stylesheet">
 		<style type="text/css">
 			/* Chart.js */
 			
@@ -76,7 +76,7 @@
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">
+								<a class="nav-link" th:href="@{}">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
 										<circle cx="9" cy="21" r="1"></circle>
 										<circle cx="20" cy="21" r="1"></circle>
@@ -93,7 +93,7 @@
 										<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
 										<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
 									</svg>
-									Customers
+									员工管理
 								</a>
 							</li>
 							<li class="nav-item">
@@ -186,18 +186,18 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" ></script>
-		<script type="text/javascript" src="asserts/js/popper.min.js" ></script>
-		<script type="text/javascript" src="asserts/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" th:src="@{/js/jquery-3.2.1.slim.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/js/popper.min.js}" ></script>
+		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}" ></script>
 
 		<!-- Icons -->
-		<script type="text/javascript" src="asserts/js/feather.min.js" ></script>
+		<script type="text/javascript" th:src="@{/js/feather.min.js}" ></script>
 		<script>
 			feather.replace()
 		</script>
 
 		<!-- Graphs -->
-		<script type="text/javascript" src="asserts/js/Chart.min.js" ></script>
+		<script type="text/javascript" th:src="@{/js/Chart.min.js}" ></script>
 		<script>
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, {

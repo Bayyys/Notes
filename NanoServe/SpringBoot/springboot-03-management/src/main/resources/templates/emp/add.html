@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -46,46 +47,39 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- 传递参数给组件 -->
-        <div th:replace="~{commons/common::sidebar(active='main.html')}"></div>
+        <div th:replace="~{commons/common::sidebar(active='list.html')}"></div>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="chartjs-size-monitor"
-                 style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-                <div class="chartjs-size-monitor-expand"
-                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+            <form th:action="@{/emp}" th:method="post">
+                <div class="form-group"><label>LastName</label>
+                    <input class="form-control" placeholder="姓名" type="text" name="lastName">
                 </div>
-                <div class="chartjs-size-monitor-shrink"
-                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                <div class="form-group"><label>Email</label>
+                    <input class="form-control" placeholder="邮箱" type="email" name="email">
                 </div>
-            </div>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Share</button>
-                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                <div class="form-group"><label>Gender</label><br/>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="gender" type="radio" value="1">
+                        <label class="form-check-label">男</label>
                     </div>
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="feather feather-calendar">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                        This week
-                    </button>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="gender" type="radio" value="0">
+                        <label class="form-check-label">女</label>
+                    </div>
                 </div>
-            </div>
-
-            <canvas class="my-4 chartjs-render-monitor" id="myChart" width="1076" height="454"
-                    style="display: block; width: 1076px; height: 454px;"></canvas>
-
-
+                <div class="form-group"><label>department</label>
+                    <select class="form-control" name="department.id">
+                        <optgroup label="请选择部门">
+                            <option th:each="dept:${departments}" th:text="${dept.getDepartmentName()}"
+                                    th:value="${dept.getId()}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Birth</label>
+                    <input class="form-control" placeholder="出生日期" type="text" name="birth">
+                </div>
+                <button class="btn btn-primary" type="submit">添加</button>
+            </form>
         </main>
     </div>
 </div>
