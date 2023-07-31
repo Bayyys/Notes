@@ -186,3 +186,15 @@
 - [x] 2. 第一个Vue程序 (07.29.2023)
 - [x] 3. Vue语法 (07.29.2023-07.30.2023)
 - [x] 4. Vue学习完成 (07.30.2023)
+
+## Algorithm - 07.31.2023
+
+> [Algorithm](./Algorithm/) 算法笔记
+>
+> - Reference
+>   - Website：[代随想录码](https://programmercarl.com/)
+>   - Leetcode: [Leetcode](https://leetcode-cn.com/problemset/all/)
+
+- [x] 创建 `Algorithm` 学习项目 (07.31.2023)
+- [x] 1. 算法性能分析 (07.31.2023)
+- [x] 2. 数组 (07.31.2023)
