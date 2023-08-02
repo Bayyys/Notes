@@ -40,7 +40,7 @@ public class EmployeeDao {
     }
 
     // 查询全部的员工
-    public Collection<Employee> getALL(){
+    public Collection<Employee> getAll(){
         return employees.values();
     }
 
