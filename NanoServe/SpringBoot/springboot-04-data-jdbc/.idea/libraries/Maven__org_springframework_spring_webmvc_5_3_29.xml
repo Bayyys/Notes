@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: org.springframework:spring-webmvc:5.3.29" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.springframework" artifactId="spring-webmvc" version="5.3.29" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.2/maven-repo/org/springframework/spring-webmvc/5.3.29/spring-webmvc-5.3.29.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.2/maven-repo/org/springframework/spring-webmvc/5.3.29/spring-webmvc-5.3.29-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.2/maven-repo/org/springframework/spring-webmvc/5.3.29/spring-webmvc-5.3.29-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
