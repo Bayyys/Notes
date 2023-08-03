@@ -18,17 +18,17 @@ public:
         }
         return slowIndex;
     }
-    int removeElement2(vector<int> &nums, int vla)
+    int removeElement2(vector<int> &nums, int val)
     {
         int leftIndex = 0;
         int rightIndex = nums.size() - 1;
         while (leftIndex <= rightIndex)
         {
-            while (leftIndex <= rightIndex && nums[leftIndex] != vla)
+            while (leftIndex <= rightIndex && nums[leftIndex] != val)
             {
                 leftIndex++;
             }
-            while (leftIndex <= rightIndex && nums[rightIndex] == vla)
+            while (leftIndex <= rightIndex && nums[rightIndex] == val)
             {
                 rightIndex--;
             }

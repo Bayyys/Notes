@@ -6,50 +6,38 @@ using namespace std;
 class Solution
 {
 public:
-    bool isPerfectSquare(int num)
+    int removeElement(vector<int> &nums, int val)
     {
-        if (1 == num)
-        {
-            return true;
-        }
-        int left = 1, right = num / 2;
+        int left = 0;
+        int right = nums.size() - 1;
         while (left <= right)
         {
-            long long res = left + (right - left) / 2;
-            if (res * res < num)
+            while (nums[left] != val && left <= right)
             {
-                left = res + 1;
+                left++;
             }
-            else if (res * res > num)
+            while (nums[right] == val && left <= right)
             {
-                right = res - 1;
+                right--;
             }
-            else
+            if (left <= right)
             {
-                return true;
+                nums[left] = nums[right];
+                right--;
+                left++;
             }
         }
-        return false;
+        return left;
     }
 };
 
 int main()
 {
     Solution s;
-    // vector<int> nums = {};
-    int target = 10;
-    // vector<int> res = s.searchRange(nums, target);
-    // for (int i = 0; i < res.size(); i++)
-    // {
-    //     cout << res[i] << endl;
-    // }
-    vector<int> nums = {};
-    for (int i = 1; i < 37; i++)
-    {
-        if (s.isPerfectSquare(i))
-        {
-            cout << i << "True" << endl;
-        }
-    }
+    // vector<int> nums = {0, 0, 0, 0, 1};
+    // vector<int> nums = {0, 1, 2, 2, 3, 0, 4, 2};
+    vector<int> nums = {2};
+    int target = 2;
+    cout << s.removeElement(nums, target) << endl;
     return 0;
 }

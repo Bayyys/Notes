@@ -23,7 +23,7 @@
 |05|循环和关系表达式|「[📖](./Chapter05/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|07.14.2023|
 |06|分支语句和逻辑运算符|「[📖](./Chapter06/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|07.22.2023|
 |07|函数 ——— C++的编程模块|「[📖](./Chapter07/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|07.24.2023|
-|08|函数探索|「[📖](./Chapter08/README.md) 」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
+|08|函数探索|「[📖](./Chapter08/README.md) 」:white_check_mark:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:|08.03.2023|
 |09|内存模型和名称空间|「[📖](./Chapter09/README.md)」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
 |10|对象和类|「[📖](./Chapter10/README.md)」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
 |11|使用类|「[📖](./Chapter11/README.md)」:white_large_square:|「[📖]()」:white_large_square:|「[📖]()」:white_large_square:||
