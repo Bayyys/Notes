@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: net.bytebuddy:byte-buddy:1.12.23" type="java-imported" external-system-id="Maven">
+    <properties groupId="net.bytebuddy" artifactId="byte-buddy" version="1.12.23" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.2/maven-repo/net/bytebuddy/byte-buddy/1.12.23/byte-buddy-1.12.23.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.2/maven-repo/net/bytebuddy/byte-buddy/1.12.23/byte-buddy-1.12.23-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.2/maven-repo/net/bytebuddy/byte-buddy/1.12.23/byte-buddy-1.12.23-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
