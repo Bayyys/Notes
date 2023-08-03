@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>登录</title>
+    <!--semantic-ui-->
+    <link href="https://cdn.bootcss.com/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!--主容器-->
+<div class="ui container">
+
+    <div class="ui segment">
+
+        <div style="text-align: center">
+            <h1 class="header">登录</h1>
+        </div>
+
+        <div class="ui placeholder segment">
+            <div class="ui column very relaxed stackable grid">
+                <div class="column">
+                    <div class="ui form">
+                        <!--如果要使用toLogin，则http.formLogin().loginPage("/toLogin");配置一致。
+                            如果非要使用login，则http.formLogin().loginPage("/toLogin").loginProcessingUrl("/login");
+                        -->
+                        <form th:action="@{/login}" method="post">
+                            <div class="field">
+                                <label>工号</label>
+                                <div class="ui left icon input">
+                                    <input type="text" placeholder="请输入工号..." name="username">
+                                    <i class="user icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>密码</label>
+                                <div class="ui left icon input">
+                                    <input type="password" placeholder="请输入密码..." name="password">
+                                    <i class="lock icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <input type="checkbox" name="remember">记住我
+                            </div>
+                            <input type="submit" class="ui blue submit button"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center">
+            <div class="ui label">
+                </i>注册
+            </div>
+            <br><br>
+            <small>blog.bayyy.com</small>
+        </div>
+        <div class="ui segment" style="text-align: center">
+            <h3>Spring Security Study by Bayyy</h3>
+        </div>
+    </div>
+
+
+</div>
+
+<script th:src="@{/bayyy/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/bayyy/js/semantic.min.js}"></script>
+
+</body>
+</html>
