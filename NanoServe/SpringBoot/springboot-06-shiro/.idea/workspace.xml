@@ -4,30 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="80cd80c5-efec-4c4b-b2ab-3b7fc4a48b6c" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/maven_wrapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/SpringShiroApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/config/ShiroConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/config/UserRealm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/controller/MyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/mapper/UserMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/pojo/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/service/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/templates/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/templates/user/add.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/templates/user/update.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-shiro/src/test/java/com/bayyy/SpringShiroApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="80cd80c5-efec-4c4b-b2ab-3b7fc4a48b6c" name="更改" comment="📝 SpringBoot: Shiro*&#10;&#10;1. Shiro&#10;&#10;BAY-23.08.05">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/49582b44-ee68-4d56-bebc-2d1eaccf61ff.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/49582b44-ee68-4d56-bebc-2d1eaccf61ff.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,15 +26,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="localRepository" value="D:\Coding\Java\apache-maven-3.9.3\maven-repo" />
-        <option name="mavenHome" value="$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.3" />
-        <option name="userSettingsFile" value="D:\Coding\Java\apache-maven-3.9.3\conf\settings.xml" />
+        <option name="localRepository" value="E:\Coding\Java\apache-maven-3.9.2\maven-repo" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.2" />
+        <option name="userSettingsFile" value="E:\Coding\Java\apache-maven-3.9.2\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -91,7 +73,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "D:/Coding/test/temp/NanoServe/SpringBoot/springboot-06-shiro/spring-shiro",
+    "last_opened_file_path": "E:/Coding/test/temp/NanoServe/SpringBoot/springboot-07-swagger",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -99,7 +81,7 @@
     "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3770115",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.ignored.files",
+    "settings.editor.selected.configurable": "MavenSettings",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -168,11 +150,23 @@
       <workItem from="1691163442654" duration="1981000" />
       <workItem from="1691220827366" duration="915000" />
       <workItem from="1691221766484" duration="9922000" />
+      <workItem from="1691246047672" duration="112000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

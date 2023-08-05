@@ -1,0 +1,11 @@
+spring:
+  mail:
+    host: smtp.qq.com
+    username: 475417309@qq.com
+    password: rrxqmgxlbxssbjbf
+    # 由于QQ邮箱的SSL证书不是标准的，所以需要设置为true，否则会报错
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
