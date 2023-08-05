@@ -7,14 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hello-shiro" />
-        <module name="spring-shiro" />
+        <module name="springboot-07-swagger" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="spring-shiro" options="-parameters" />
+      <module name="springboot-07-swagger" options="-parameters" />
     </option>
   </component>
 </project>

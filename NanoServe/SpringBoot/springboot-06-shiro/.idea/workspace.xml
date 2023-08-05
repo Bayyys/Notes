@@ -5,23 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80cd80c5-efec-4c4b-b2ab-3b7fc4a48b6c" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello-shiro/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello-shiro/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello-shiro/src/main/java/Quickstart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello-shiro/src/main/resources/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello-shiro/src/main/resources/log4j2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello-shiro/src/main/resources/shiro.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello-shiro/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello-shiro/src/main/webapp/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/maven_wrapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/SpringShiroApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/config/ShiroConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/config/UserRealm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/controller/MyController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/pojo/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/java/com/bayyy/service/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/templates/user/add.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/main/resources/templates/user/update.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-shiro/src/test/java/com/bayyy/SpringShiroApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +38,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -38,12 +47,15 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="localRepository" value="E:\Coding\Java\apache-maven-3.9.2\maven-repo" />
-        <option name="mavenHome" value="$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.2" />
-        <option name="userSettingsFile" value="E:\Coding\Java\apache-maven-3.9.2\conf\settings.xml" />
+        <option name="localRepository" value="D:\Coding\Java\apache-maven-3.9.3\maven-repo" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../../../Java/apache-maven-3.9.3" />
+        <option name="userSettingsFile" value="D:\Coding\Java\apache-maven-3.9.3\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -66,18 +78,34 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "D:/Coding/test/temp/NanoServe/SpringBoot/springboot-06-shiro/spring-shiro",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3770115",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.ignored.files",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -85,7 +113,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.SpringShiroApplication">
     <configuration name="Quickstart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Quickstart" />
       <module name="hello-shiro" />
@@ -99,8 +127,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SpringShiroApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spring-shiro" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bayyy.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bayyy" />
+      <option name="MAIN_CLASS_NAME" value="com.bayyy.SpringShiroApplicationTests" />
+      <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringShiroApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="spring-shiro" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.bayyy.SpringShiroApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.SpringShiroApplicationTests.contextLoads" />
         <item itemvalue="应用程序.Quickstart" />
       </list>
     </recent_temporary>
@@ -114,10 +166,15 @@
       <option name="presentableId" value="Default" />
       <updated>1687876740580</updated>
       <workItem from="1691163442654" duration="1981000" />
+      <workItem from="1691220827366" duration="915000" />
+      <workItem from="1691221766484" duration="9922000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
