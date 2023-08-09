@@ -210,3 +210,16 @@
 - [x] 创建 `Algorithm` 学习项目 (07.31.2023)
 - [x] 1. 算法性能分析 (07.31.2023)
 - [x] 2. 数组 (07.31.2023)
+
+## MyBatis-Plus - 08.09.2023
+
+> [MyBatis-Plus](./NanoServe/MyBatis_Plus) 学习笔记
+> - Reference
+>   - Media: [MyBatisPlus-Kuang](https://www.bilibili.com/video/BV17E411N7KN?p=1)
+>   - Website: [MyBatis-Plus](https://baomidou.com/)
+
+- [x] 创建 `MyBatis-Plus` 学习项目 (08.09.2023)
+- [x] 1. MyBatis-Plus 简介 (08.09.2023)
+- [x] 2. 基本使用 (08.09.2023)
+- [x] 3. 配置日志 (08.09.2023)
+- [ ] 4. CRUD扩展 (08.09.2023-x)
