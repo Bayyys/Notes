@@ -228,3 +228,16 @@
 - [x] 7. 条件构造器-wrapper (08.10.2023)
 - [x] 8. 代码生成器 (08.10.2023)
 - [x] 学习完成 (08.10.2023)
+
+## SpringCloud - 08.10.2023
+
+> [SpringCloud](./NanoServe/SpringCloud) 学习笔记
+> - Reference
+>   - WEB：[Spring Cloud](https://spring.io/projects/spring-cloud)
+>   - Media：[SpringCloud - Kuang](https://www.bilibili.com/video/BV1jJ411S7xr?p=1&vd_source=2228fbb3090a9774de8d595d37290e9e)
+
+- [x] 创建 `SpringCloud` 学习项目 (08.10.2023)
+- [x] 1. 前言 (08.10.2023)
+- [x] 2. 微服务概述 (08.10.2023)
+- [x] 3. SpringCloud概述 (08.10.2023)
+- [ ] 4. SpringCloud Rest环境搭建：服务提供者 (08.10.2023-x)
