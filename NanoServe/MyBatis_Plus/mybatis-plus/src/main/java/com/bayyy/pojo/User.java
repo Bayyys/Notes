@@ -16,6 +16,10 @@ public class User {
     private String name;
     private int age;
     private String email;
+    // 逻辑删除
+    @TableLogic // 逻辑删除注解
+    @TableField(fill = FieldFill.INSERT)
+    private int deleted;
     // 乐观锁
     @Version
     private int version;
