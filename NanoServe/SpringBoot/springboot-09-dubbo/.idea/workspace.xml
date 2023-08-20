@@ -4,29 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60d99d44-6c82-49c4-905e-a46bb12b8426" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/../springboot-07-swagger/.idea/git_toolbox_prj.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/consumer-server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/consumer-server/src/main/java/com/bayyy/ConsumerServerApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/consumer-server/src/main/java/com/bayyy/service/TicketService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/consumer-server/src/main/java/com/bayyy/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/consumer-server/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/consumer-server/src/test/java/com/bayyy/ConsumerServerApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/provider-server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/provider-server/src/main/java/com/bayyy/ProviderServerApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/provider-server/src/main/java/com/bayyy/service/TicketService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/provider-server/src/main/java/com/bayyy/service/TicketServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/provider-server/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/provider-server/src/test/java/com/bayyy/ProviderServerApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../README.md" afterDir="false" />
+    <list default="true" id="60d99d44-6c82-49c4-905e-a46bb12b8426" name="更改" comment="🎉 SpringBoot: 学习完成&#10;&#10;1. 分布式Dubbo和Zookeeper&#10;2. SpringBoot学习完成&#10;&#10;BAY-23.08.07">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +21,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -86,7 +68,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "E:/Coding/test/temp/README.md",
+    "last_opened_file_path": "E:/Coding/test/temp/NanoServe/SpringBoot/springboot-02-web",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -95,7 +77,8 @@
     "project.structure.last.edited": "全局库",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3770115",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "18d6984288f1d49e8feecf71a8b34e3a",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -156,14 +139,37 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1687876740580</updated>
-      <workItem from="1691338016968" duration="2964000" />
+      <workItem from="1691338016968" duration="3200000" />
+      <workItem from="1691341928561" duration="83000" />
     </task>
+    <task id="LOCAL-00001" summary="🎉 SpringBoot: 学习完成&#10;&#10;1. 分布式Dubbo和Zookeeper&#10;2. SpringBoot学习完成&#10;&#10;BAY-23.08.07">
+      <option name="closed" value="true" />
+      <created>1691341208595</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1691341208595</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value=" SpringBoot: 学习完成&#10;&#10;1. 分布式Dubbo和Zookeeper&#10;2. SpringBoot学习完成&#10;&#10;BAY-23.08.07" />
+    <option name="LAST_COMMIT_MESSAGE" value=" SpringBoot: 学习完成&#10;&#10;1. 分布式Dubbo和Zookeeper&#10;2. SpringBoot学习完成&#10;&#10;BAY-23.08.07" />
   </component>
 </project>

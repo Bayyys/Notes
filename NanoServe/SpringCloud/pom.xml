@@ -12,6 +12,7 @@
         <module>springcloud-api</module>
         <module>springcloud-provider-dept-8001</module>
         <module>springcloud-consumer-dept-80</module>
+        <module>springcloud-eureka-7001</module>
     </modules>
 
     <!-- properties: 定义一些常量, 便于后续使用 -->
@@ -19,10 +20,12 @@
         <spring-cloud.version>2022.0.1</spring-cloud.version>
         <junit.version>4.13.2</junit.version>
         <lombok.version>1.18.28</lombok.version>
+        <logback.version>1.4.11</logback.version>
         <log4j.version>1.2.17</log4j.version>
+        <log4j-api.version>2.17.0</log4j-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>19</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <!-- 依赖的版本管理 -->
@@ -97,23 +100,23 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
-                <version>1.4.11</version>
+                <version>${logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>log4j</groupId>-->
-<!--                <artifactId>log4j</artifactId>-->
-<!--                <version>${log4j.version}</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>org.apache.logging.log4j</groupId>-->
-<!--                <artifactId>log4j-api</artifactId>-->
-<!--                <version>2.17.0</version>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j-api.version}</version>
+            </dependency>
             <!--lombok-->
             <dependency>
                 <groupId>org.projectlombok</groupId>
