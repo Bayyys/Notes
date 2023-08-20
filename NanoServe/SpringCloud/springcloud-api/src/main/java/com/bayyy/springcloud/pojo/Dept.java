@@ -1,4 +1,4 @@
-package com.bayyy.pojo;
+package com.bayyy.springcloud.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
