@@ -10,6 +10,21 @@
     <artifactId>springcloud-provider-dept-8001</artifactId>
     <packaging>war</packaging>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+        </dependency>
         <!-- 需要拿到实体类，即springcloud-api中的实体类 -->
         <dependency>
             <groupId>com.bayyy</groupId>

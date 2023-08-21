@@ -7,5 +7,5 @@ eureka:
   client:
     register-with-eureka: false # 表示是否向Eureka注册中心注册自己
     fetch-registry: false # 表示是否从Eureka注册中心获取注册信息
-    service-url:
+    serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ # 设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址

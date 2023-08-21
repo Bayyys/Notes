@@ -19,3 +19,7 @@ spring:
     url: jdbc:mysql://localhost:3306/db01?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
     password: 123456
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
