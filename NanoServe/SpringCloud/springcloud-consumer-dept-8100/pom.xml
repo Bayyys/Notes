@@ -6,7 +6,7 @@
         <artifactId>springcloud</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>springcloud-consumer-dept-80</artifactId>
+    <artifactId>springcloud-consumer-dept-8100</artifactId>
     <packaging>war</packaging>
     <name>springcloud-consumer-dept-80 Maven Webapp</name>
     <url>http://maven.apache.org</url>

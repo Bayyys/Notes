@@ -25,6 +25,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.15.2</version>
         </dependency>
+        <!-- actuator完善监控信息 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <!-- 需要拿到实体类，即springcloud-api中的实体类 -->
         <dependency>
             <groupId>com.bayyy</groupId>

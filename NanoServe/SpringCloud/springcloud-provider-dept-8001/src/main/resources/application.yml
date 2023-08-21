@@ -22,4 +22,23 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: springcloud-provider-dept-8001
+
+# info信息
+info:
+  app.name: bayyy # 项目名称
+  company.name: bayyy.com # 公司名称
+  build.artifactId: $project.artifactId$  # 项目构建ID
+  build.version: $project.version$  # 项目版本
+  build.time: ${maven.build.timestamp}  # 项目构建时间
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["health", "info"]  # 暴露指定端点
+  info:
+    env:
+      enabled: true
