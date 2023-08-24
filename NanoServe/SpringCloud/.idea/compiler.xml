@@ -15,7 +15,11 @@
         <module name="springcloud-eureka-7002" />
         <module name="springcloud-eureka-7001" />
         <module name="springcloud-consumer-dept-8100" />
+        <module name="springcloud-consumer-dept-fegin" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="springcloud-consumer-dept-80" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

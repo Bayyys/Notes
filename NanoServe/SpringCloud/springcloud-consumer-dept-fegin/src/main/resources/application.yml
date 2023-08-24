@@ -1,5 +1,5 @@
 server:
-  port: 8101
+  port: 8100
 
 # eureka 配置
 eureka:
