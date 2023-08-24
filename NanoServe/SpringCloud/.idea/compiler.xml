@@ -14,6 +14,7 @@
         <module name="springcloud-eureka-7003" />
         <module name="springcloud-eureka-7002" />
         <module name="springcloud-eureka-7001" />
+        <module name="springcloud-provider-dept-hystrix-8001" />
         <module name="springcloud-consumer-dept-8100" />
         <module name="springcloud-consumer-dept-fegin" />
       </profile>
