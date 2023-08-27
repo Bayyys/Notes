@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Service
-@FeignClient(value = "SPRINGCLOUD-PROVIDER-DEPT")
+@FeignClient(value = "SPRINGCLOUD-PROVIDER-DEPT", fallback = DeptClientServiceFallBackFactory.class)
 public interface DeptClientService {
     @GetMapping("/dept/add")
     public boolean addDept(Dept dept);

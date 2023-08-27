@@ -24,7 +24,8 @@ eureka:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
   instance:
-    instance-id: springcloud-provider-dept-8001
+    instance-id: springcloud-provider-dept-hystrix-8001
+    prefer-ip-address: true # 访问路径可以显示IP地址
 
 # info信息
 info:

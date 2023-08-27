@@ -9,3 +9,8 @@ eureka:
     register-with-eureka: false
   instance:
     instance-id: springcloud-provider-dept-8100
+spring:
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
