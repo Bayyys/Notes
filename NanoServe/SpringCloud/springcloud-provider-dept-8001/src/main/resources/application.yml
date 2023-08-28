@@ -9,6 +9,7 @@ mybatis:
     map-underscore-to-camel-case: true
     cache-enabled: true
 
+
 # spring配置
 spring:
   application:
