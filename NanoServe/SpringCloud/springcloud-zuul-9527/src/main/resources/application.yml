@@ -1,0 +1,35 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: spring-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: zuul.9527.com
+    prefer-ip-address: true # 访问路径可以显示IP地址
+
+# info信息
+info:
+  app.name: bayyy # 项目名称
+  company.name: bayyy.com # 公司名称
+  build.artifactId: ${project.artifactId}  # 项目构建ID
+  build.version: ${project.version}  # 项目版本
+  build.time: ${maven.build.timestamp}  # 项目构建时间
+
+
+#zuul:
+#  routes:
+#    mydept:
+#      path: /springcloud-provider-dept/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # 暴露所有端点
+  info:
+    env:
+      enabled: true

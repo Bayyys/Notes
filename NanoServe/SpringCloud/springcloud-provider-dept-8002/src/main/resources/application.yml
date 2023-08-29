@@ -30,8 +30,8 @@ eureka:
 info:
   app.name: bayyy # 项目名称
   company.name: bayyy.com # 公司名称
-  build.artifactId: $project.artifactId$  # 项目构建ID
-  build.version: $project.version$  # 项目版本
+  build.artifactId: ${project.artifactId}  # 项目构建ID
+  build.version: ${project.version}  # 项目版本
   build.time: ${maven.build.timestamp}  # 项目构建时间
 
 management:

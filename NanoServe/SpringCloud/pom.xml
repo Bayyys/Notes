@@ -19,6 +19,7 @@
         <module>springcloud-provider-dept-8003</module>
         <module>springcloud-consumer-dept-fegin</module>
         <module>springcloud-provider-dept-hystrix-8001</module>
+        <module>springcloud-zuul-9527</module>
     </modules>
 
     <!-- properties: 定义一些常量, 便于后续使用 -->
