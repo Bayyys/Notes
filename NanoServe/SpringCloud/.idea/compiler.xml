@@ -8,8 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="springcloud-provider-dept-8001" />
+        <module name="springcloud-config-client-3355" />
         <module name="springcloud-provider-dept-8002" />
-        <module name="springcloud-api" />
         <module name="springcloud-provider-dept-8003" />
         <module name="springcloud-zuul-9527" />
         <module name="springcloud-eureka-7003" />
@@ -18,6 +18,8 @@
         <module name="springcloud-provider-dept-hystrix-8001" />
         <module name="springcloud-consumer-dept-8100" />
         <module name="springcloud-consumer-dept-fegin" />
+        <module name="springcloud-api" />
+        <module name="springcloud-config-server-3344" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

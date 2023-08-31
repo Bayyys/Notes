@@ -1,0 +1,18 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: springcloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/bayyys/springcloudconfig.git # GitHub上的git仓库名字
+          default-label: master # 分支名称
+          username: Bayyys # GitHub账号
+          password: 150bb123 # GitHub密码
+
+eureka:
+  client:
+    register-with-eureka: false # 本服务启动后会自动注册进eureka服务中
+    fetch-registry: false # 不需要检索服务，因为自己就是注册中心，不需要检索
