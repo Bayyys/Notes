@@ -4,5 +4,5 @@ spring:
     config:
       name: config-client # 需要从git上读取的资源名称，不要后缀
       profile: dev
-      label: main
+      label: master
       uri: http://localhost:3344
