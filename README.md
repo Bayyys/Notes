@@ -258,3 +258,12 @@
 
 - [x] 创建 `Ngnix` 学习项目 (09.02.2023)
 - [x] 学习完成 (09.02.2023)
+
+## Redis - 09.02.2023
+
+> [Redis](./Redis) 学习笔记
+> - Reference:
+>   - Website: [Redis](https://redis.io/)
+>   - Media: [Kuang-Redis](https://www.bilibili.com/video/BV1S54y1R7SB/?vd_source=2228fbb3090a9774de8d595d37290e9e)
+
+- [x] 创建 `Redis` 学习项目 (09.02.2023)
