@@ -229,7 +229,7 @@
 - [x] 8. 代码生成器 (08.10.2023)
 - [x] 学习完成 (08.10.2023)
 
-## SpringCloud - 08.10.2023
+## SpringCloud - 08.10.2023-09.01.2023
 
 > [SpringCloud](./NanoServe/SpringCloud) 学习笔记
 > - Reference
@@ -248,3 +248,13 @@
 - [x] 9.  Zull路由网关 (08.31.2023-09.01.2023)
 - [x] 10. Config 分布式配置 (09.01.2023)
 - [x] 学习完成 (09.01.2023)
+
+## Ngnix - 09.02.2023
+
+> [Ngnix](./Ngnix) 学习笔记
+> - Reference
+>   - Website: [Ngnix](https://www.nginx.com/)
+>   - Media: [Ngnix - Kuang](https://www.bilibili.com/video/BV1F5411J7vK?p=1&vd_source=2228fbb3090a9774de8d595d37290e9e)
+
+- [x] 创建 `Ngnix` 学习项目 (09.02.2023)
+- [x] 学习完成 (09.02.2023)

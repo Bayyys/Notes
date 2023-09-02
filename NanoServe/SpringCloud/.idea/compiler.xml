@@ -24,7 +24,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="springcloud-consumer-dept-80" target="1.8" />
-      <module name="springcloud-consumer-dept-dashboard" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
