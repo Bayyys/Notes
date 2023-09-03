@@ -261,10 +261,15 @@
 
 ## Redis - 09.02.2023
 
-> [Redis](./Redis) 学习笔记
+> [Redis](./MiddleWare/Redis) 学习笔记
 > - Reference:
 >   - Website: [Redis](https://redis.io/)
 >   - Media: [Kuang-Redis](https://www.bilibili.com/video/BV1S54y1R7SB/?vd_source=2228fbb3090a9774de8d595d37290e9e)
 
 - [x] 创建 `Redis` 学习项目 (09.02.2023)
 - [x] 1. NoSQL概述 (09.02.2023)
+- [x] 2. Redis入门 (09.02.2023)
+- [x] 3. 基础知识 (09.03.2023)
+- [x] 4. 数据类型 (09.03.2023)
+- [x] 5. 事务 (09.03.2023)
+- [x] 6. Jedis (09.03.2023)
