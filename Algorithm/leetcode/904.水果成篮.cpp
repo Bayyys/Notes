@@ -74,10 +74,44 @@
  */
 
 // @lc code=start
-class Solution {
+class Solution
+{
 public:
-    int totalFruit(vector<int>& fruits) {
-
+    int totalFruit(vector<int> &fruits)
+    {
+        int fast = 1;
+        int count1 = 1, count2 = 0, count = 1;
+        int num1 = fruits[0], num2 = INT32_MIN;
+        while (fast <= fruits.size())
+        {
+            if (fruits[fast] == num1)
+            {
+                count1++;
+            }
+            else if (fruits[fast] == num2)
+            {
+                count2++;
+            }
+            else
+            {
+                if (num2 == INT32_MIN)
+                {
+                    num2 = fruits[fast];
+                    count2 = 1;
+                }
+                else
+                {
+                    int tmp = num2;
+                    num2 = fruits[fast];
+                    num1 = tmp;
+                    count1 = count2;
+                    count2 = 1;
+                }
+            }
+            count = max(count, count1 + count2);
+            fast++;
+        }
+        return count;
     }
 };
 // @lc code=end

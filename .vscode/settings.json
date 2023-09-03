@@ -13,5 +13,24 @@
             "username": "root",
             "database": "mybatis"
         }
-    ]
+    ],
+    "files.associations": {
+        "README": "markdown",
+        "*.rmd": "markdown",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "type_traits": "cpp",
+        "valarray": "cpp",
+        "vector": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp",
+        "algorithm": "cpp",
+        "iterator": "cpp",
+        "xmemory": "cpp",
+        "ostream": "cpp",
+        "iostream": "cpp"
+    }
 }

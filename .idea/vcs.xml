@@ -2,6 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/FrontWeb/Nodejs/8.vue-element-admin/vue-element-admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/NanoServe/SpringCloud/springcloudconfig" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/NanoServe/spring-cloud-kuang" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/git_study/git_basis" vcs="Git" />
   </component>
 </project>
