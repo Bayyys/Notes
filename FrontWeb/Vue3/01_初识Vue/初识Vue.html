@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>初识Vue</title>
+</head>
+
+<body>
+    <div id="root">     <!-- el: '#root' -->
+        <h1>name: {{name}}</h1> <!-- 语法为 {{xxx}} -->
+        <h1>age: {{age}}</h1>
+    </div>
+
+    <p class="root">css选择器</p>   <!-- el: '.root' -->
+</body>
+
+<!-- 引入Vue -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script>
+    // 创建Vue实例(传入参数为一个对象[配置对象: 只针对当前绑定的容器生效]])
+    const vm = new Vue({
+        // el: document.getElementById(root),    
+        el: '#root',    // el: element(用于指定当前Vue实例为哪个容器服务, 值通常是css选择器字符串)
+        data: {         // data: 用于存储当前Vue实例中需要的数据, 数据供el所指定的容器使用
+            name: '张三',
+            age: 18
+        }
+    })
+</script>
+
+</html>
