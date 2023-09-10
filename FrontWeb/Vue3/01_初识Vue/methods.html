@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>methods</title>
+</head>
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="firstName"> <br>
+        名：<input type="text" v-model="lastName"> <br>
+        <h1>姓名：{{getFullName()}}</h1>
+    </div>
+
+    <div class="root">
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script>
+    new Vue({
+        el: '.root',
+        data: {
+            firstName: '张',
+            lastName: '三'
+        },
+        methods: {
+            getFullName() {
+                return this.firstName + this.lastName
+            }
+        },
+        template:`
+            <div>
+                <h2>html模板</h2>
+            </div>
+        `
+    })
+</script>
+</html>
