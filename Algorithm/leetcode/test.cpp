@@ -2,49 +2,73 @@
 #include <cstring>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
+
+struct ListNode
+{
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+
+ListNode *createList(const vector<int> &nums)
+{
+    ListNode *head = nullptr;
+    ListNode *tail = nullptr;
+    for (auto num : nums)
+    {
+        ListNode *node = new ListNode(num);
+        if (head == nullptr)
+        {
+            head = node;
+            tail = node;
+        }
+        else
+        {
+            tail->next = node;
+            tail = node;
+        }
+    }
+    return head;
+}
+
+void printList(ListNode *head)
+{
+    while (head != nullptr)
+    {
+        cout << head->val << " ";
+        head = head->next;
+    }
+    cout << endl;
+}
 
 class Solution
 {
 public:
-    int totalFruit(vector<int> &fruits)
+    ListNode *reverse(ListNode *pred, ListNode *cur)
     {
-        int left = 0, right = 1;
-        int count = 1;
-        int num1 = fruits[0], num2 = INT32_MIN;
-        int tmp = INT32_MIN;
-        while (right <= fruits.size() - 1)
-        {
-            if (fruits[right] != num1 && fruits[right] != num2)
-            {
-                if (num2 == INT32_MIN)
-                {
-                    num2 = fruits[right];
-                }
-                else
-                {
-                    int c = right - 2;
-                    while (fruits[right - 1] == fruits[c])
-                    {
-                        c--;
-                    }
-                    left = c + 1;
-                    num1 = fruits[left];
-                    num2 = fruits[right];
-                }
-            }
-            count = max(count, right - left + 1);
-            right++;
-        }
-        return count;
+        if(cur==nullptr)
+            return pred;
+        ListNode *tmp = cur->next;
+        cur->next = pred;
+        return reverse(cur, tmp);
+    }
+    ListNode *reverseList(ListNode *head)
+    {
+        return reverse(nullptr, head);
     }
 };
 
 int main()
 {
-    Solution s;
-    vector<int> nums = {1, 0, 1, 4, 1, 4, 1, 2, 3};
-    cout << s.totalFruit(nums) << endl;
+    Solution so;
+    vector<int> nums = {1, 2, 3};
+    ListNode *head = createList(nums);
+    ListNode *ans = so.reverseList(head);
+    printList(ans);
     return 0;
 }

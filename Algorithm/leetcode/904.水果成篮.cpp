@@ -79,39 +79,25 @@ class Solution
 public:
     int totalFruit(vector<int> &fruits)
     {
-        int fast = 1;
-        int count1 = 1, count2 = 0, count = 1;
-        int num1 = fruits[0], num2 = INT32_MIN;
-        while (fast <= fruits.size())
+        int len = fruits.size();
+        int left = 0, ans = 0;
+        unordered_map<int, int> map;
+        for (int right = 0; right < len; right++)
         {
-            if (fruits[fast] == num1)
+            ++map[fruits[right]];
+            while (map.size() > 2)
             {
-                count1++;
-            }
-            else if (fruits[fast] == num2)
-            {
-                count2++;
-            }
-            else
-            {
-                if (num2 == INT32_MIN)
+                auto it = map.find(fruits[left]);
+                --it->second;
+                if (it->second == 0)
                 {
-                    num2 = fruits[fast];
-                    count2 = 1;
+                    map.erase(it);
                 }
-                else
-                {
-                    int tmp = num2;
-                    num2 = fruits[fast];
-                    num1 = tmp;
-                    count1 = count2;
-                    count2 = 1;
-                }
+                ++left;
             }
-            count = max(count, count1 + count2);
-            fast++;
+            ans = max(ans, right - left + 1);
         }
-        return count;
+        return ans;
     }
 };
 // @lc code=end

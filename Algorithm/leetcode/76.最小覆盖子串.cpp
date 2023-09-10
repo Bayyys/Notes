@@ -67,10 +67,57 @@
  */
 
 // @lc code=start
-class Solution {
+class Solution
+{
 public:
-    string minWindow(string s, string t) {
+    string minWindow(string s, string t)
+    {
+        if (s.length() < t.length())
+        { // 如果字符串s小于t, 则长度上无法覆盖, 返回空字符串
+            return "";
+        }
+        unordered_map<char, int> map;
+        int s_len = s.length(), t_len = t.length();
+        // 计算t的相关map
+        for (int right = 0; right < t_len; right++)
+        {
+            map[t[right]]++;
+        }
+        int count = map.size();
+        int left = 0;
+        string ans = "";
 
+        for (int right = 0; right < s_len; right++)
+        {
+            if (t.find(s[right]) != -1)
+            {
+                auto it = map.find(s[right]);
+                --it->second;
+                if (it->second == 0)
+                {
+                    count--;
+                }
+                if (count == 0)
+                {
+                    while (count == 0)
+                    {
+                        if (t.find(s[left]) != -1)
+                        {
+                            auto it = map.find(s[left]);
+                            ++it->second;
+                            if (it->second == 1)
+                            {
+                                count++;
+                            }
+                        }
+                        left++;
+                    }
+                    string tmp = s.substr(left - 1, right - left + 2);
+                    ans = ans.length() > tmp.length() || ans == "" ? tmp : ans;
+                }
+            }
+        }
+        return ans;
     }
 };
 // @lc code=end
