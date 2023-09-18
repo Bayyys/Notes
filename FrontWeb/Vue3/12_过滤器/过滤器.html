@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>时间戳为: {{Date.now()}}</h2>
+        <h2>格式化时间为: {{fmtTime}}</h2>
+        <h2>现在是: {{time | timeFormater('HH:mm:ss')}}</h2>
+    </div>
+
+</body>
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.11.9/dayjs.min.js"></script>
+<script>
+    Vue.filter()
+    Vue.filter('timeFormater', function(val, str='YYYY-MM-DD HH:mm:ss'){
+        return dayjs(val).format(str)
+    })
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            time: Date.now(),
+        },
+        computed: {
+            fmtTime(){
+                return dayjs().format('YYYY-MM-DD HH:mm:ss')
+            }
+        },
+    })
+</script>
+
+</html>

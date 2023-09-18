@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <form action="">
+            账号: <input type="text" v-model.trim="account"> <br>
+            密码: <input type="password" v-model="pwd"> <br>
+            性别: 
+            男 <input type="radio" name="sex" value="male" v-model="sex">
+            女 <input type="radio" name="sex" value="female" v-model="sex"> <br>
+            爱好:
+            篮球 <input type="checkbox" name="hobby" value="basketball" v-model="hobby">
+            足球 <input type="checkbox" name="hobby" value="football" v-model="hobby">
+            羽毛球 <input type="checkbox" name="hobby" value="badmiton" v-model="hobby"> <br>
+            所属校区: 
+            <select v-model="city">
+                <option value="">请选择所属校区</option>
+                <option value="beijing">北京</option>
+                <option value="shanghai">上海</option>
+                <option value="guangzhou">广州</option>
+                <option value="shenzhen">深圳</option>
+            </select> <br>
+            阅读并接收<a href="www.baidu.com">《用户协议》</a> <br>
+            <input type="submit">
+        </form>
+    </div>
+
+</body>
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            account: '',
+            pwd: '',
+            sex: 'female',
+            hobby: [],
+            city: 'beijing',
+        },
+        methods: {
+
+        }
+    })
+</script>
+
+</html>
