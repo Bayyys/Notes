@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>Hello World!</h2>
+        <button v-on:click="showInfo">按钮1</button> <br>
+        <button @click="showInfo2(1, 2, $event)">按钮2</button>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        methods: {
+            showInfo: function() {
+                console.log("Hello World 按钮1")
+            },
+            showInfo2: function(a, b){
+                console.log("Hello World 按钮2")
+                console.log(a+b)
+            }
+        }
+    })
+</script>
+
+</html>

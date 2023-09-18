@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>姓名案例_watch实现</title>
+</head>
+<body>
+    <div id="root">
+        姓: <input type="text" v-model:value="firstname"> <br>
+        名: <input type="text" v-model:value="lastname"> <br>
+        姓名: <span>{{fullName}}</span>
+    </div>
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            firstname: '张',
+            lastname: '三',
+            fullName: ''
+        },
+        watch: {
+            firstname: {
+                handler(value) {
+                    this.fullName = value + '-' + this.lastname
+                },
+                immediate: true
+            },
+            lastname: {
+                handler(value) {
+                    this.fullName = this.firstname + '-' + value
+                },
+                immediate: true
+            }
+        }
+    })
+
+</script>
+</html>

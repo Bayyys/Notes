@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>Hello World!</h2>
+        <a href="www.baidu.com" @click.prevent="showInfo">跳转</a>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            name: '张三',
+            age: 18,
+        },
+        methods: {
+            showInfo: function() {
+                console.log("Hello World")
+            }
+        }
+    })
+
+</script>
+
+</html>

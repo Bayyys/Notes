@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='root'>
+        <h2>姓名: {{name}}</h2>
+        <h2>年龄: {{age}}</h2>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            name: '张三',
+            age: 18,
+        }
+    })
+
+</script>
+
+</html>

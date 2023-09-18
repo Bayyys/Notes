@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo">
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        methods: {
+            showInfo: function(e) {
+                console.log(e.target.value)
+            }
+        }
+    })
+
+</script>
+
+</html>

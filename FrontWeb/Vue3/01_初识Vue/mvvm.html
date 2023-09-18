@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+    <div id="root">
+        <form>
+            姓名：<input type="text" v-model="name"> <p style="color: gray;">{{name}}</p> <br>
+            地址：<input type="text" v-model="address"> <p style="color: gray;">{{address}}</p>
+        </form>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            name: '张三',
+            address: '北京市'
+        },
+    });
+</script>
+</html>

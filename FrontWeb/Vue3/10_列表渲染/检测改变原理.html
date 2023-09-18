@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <button @click="update">更新张一的信息</button>
+        <ul>
+            <li v-for="(p, index) in persons" :key="p.id">
+                {{index}}: {{p.name}}-{{p.age}}-{{p.sex}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            persons: [
+                { id: '001', name: '张一', age: 19, sex: '男' },
+                { id: '002', name: '张二', age: 18, sex: '女' },
+                { id: '003', name: '王三', age: 20, sex: '男' },
+                { id: '004', name: '王四', age: 21, sex: '女' },
+            ],
+        },
+        methods: {
+            update() {
+                // this.persons[0].name = '张一一'
+                // this.age = 100
+                // this.sex = '女'
+                this.person[0] = { id: '001', name: '张一一', age: 100, sex: '女' }
+            }
+        }
+    })
+</script>
+
+</html>

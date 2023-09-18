@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <input type="text" v-model="keyWord" placeholder="请输入姓名">
+        <button @click="sortType=2">年龄升序</button>
+        <button @click="sortType=1">年龄降序</button>
+        <button @click="sortType=0">原顺序</button>
+        <ul>
+            <li v-for="(p, index) in fillPerson" :key="index">
+                {{index}}: {{p.name}}-{{p.age}}-{{p.sex}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            sortType: 0,    // 0-原顺序 1-升序 2-降序
+            keyWord: '',
+            person: [
+                { id: '001', name: '张一', age: 19, sex: '男' },
+                { id: '002', name: '张二', age: 18, sex: '女' },
+                { id: '003', name: '王三', age: 20, sex: '男' },
+                { id: '004', name: '王四', age: 21, sex: '女' },
+            ],
+        },
+        computed: {
+            fillPerson() {
+                const arr =  this.person.filter((p) => {
+                    return p.name.indexOf(this.keyWord) !== -1
+                })
+                // 判断排序方式
+                if (this.sortType) {
+                    // 升序
+                    if (this.sortType === 1) {
+                        return arr.sort((p1, p2) => {
+                            return p1.age - p2.age
+                        })
+                    } else {
+                        // 降序
+                        return arr.sort((p1, p2) => {
+                            return p2.age - p1.age
+                        })
+                    }
+                } else {
+                    // 原顺序
+                    return arr
+                }
+            }
+        }
+    })
+</script>
+
+</html>

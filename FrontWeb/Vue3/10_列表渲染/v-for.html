@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <ul>
+            <li v-for="(p, index) in person" :key="index">
+                {{index}}-{{p.name}}: {{p.age}}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for="(value, key, index) in student" :key="index">
+                {{index}}-{{key}}: {{value}}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for="(char, index) in str" :key="index">
+                {{index}}-{{char}}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for="(times, index) in 5" :key="index">
+                {{index}}-{{times}}
+            </li>
+        </ul>
+    </div>
+
+    <!-- <div>
+        <ul>
+            <li>0-name: 张三</li>
+            <li>1-age: 24</li>
+            <li>2-sex: 男</li>
+        </ul>
+    </div> -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            person: [
+                {id: '001', name: '张三', age: 18},
+                {id: '002', name: '李四', age: 19},
+                {id: '003', name: '王五', age: 20},
+            ],
+            student: {
+                name: '张三',
+                age: 24,
+                sex: '男'
+            },
+            str: 'hello'
+        }
+    })
+</script>
+
+</html>

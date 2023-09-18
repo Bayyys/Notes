@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <h2>今天天气{{info}}</h2>
+        <button @click="change">切换</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            isHot: true
+        },
+        computed: {
+            info(){
+                return this.isHot ? '炎热' : '凉爽'
+            }
+        },
+        methods: {
+            change(){
+                this.isHot = !this.isHot
+            }
+        }
+    })
+
+</script>
+</html>

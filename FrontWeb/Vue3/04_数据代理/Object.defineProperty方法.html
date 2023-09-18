@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>回顾Object.defineProperty方法</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        let number = 18
+        let person = {
+            name: '张三',
+            sex: '男',
+        }
+        Object.defineProperty(person, 'age', {
+            // value: 18,
+            // enumerable: true, // 是否可枚举
+            // configurable: true, // 是否可配置
+            // writable: true, // 是否可写
+            // 当读取age属性时调用, get函数(getter)的返回值作为属性值
+            get: function() {
+                return number
+            },
+            // 当修改age属性时调用, set函数(setter)接收到的value参数就是修改后的值
+            set: function(value) {
+                console.log('set()被调用了, 值被修改为: ' + value)
+                number = value
+            }
+        })  // (对象, 属性名, 属性描述符)
+        // 属性描述符: value: 属性值, enumerable: 是否可枚举, configurable: 是否可配置, writable: 是否可写
+    </script>
+
+</body>
+
+</html>

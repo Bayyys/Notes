@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>v-show</title>
+</head>
+
+<body>
+    <div id="root">
+        <div v-if="isShow===0">这是一个div1</div>
+        <div v-else-if="isShow === 1">这是一个div2</div>
+        <div v-else-if="isShow === 2">这是一个div3</div>
+        <p>打断语句</p>
+        <div v-else-if="isShow === 3">这是一个div4</div>    <!-- 打断后不生效 -->
+        <div v-else-if="isShow === 4">这是一个div5</div><!-- 打断后不生效 -->
+        <button @click="changeShow">切换显示</button>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            isShow: 0
+        },
+        methods: {
+            changeShow() {
+                this.isShow = (this.isShow + 1) % 5
+            }
+        }
+    })
+</script>
+
+</html>

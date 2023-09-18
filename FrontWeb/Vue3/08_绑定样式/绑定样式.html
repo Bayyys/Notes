@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>绑定样式</title>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 绑定class样式——字符串写法, 适用于: 样式的类名不确定, 需要动态指定 -->
+        <div class="basic" :class="mood", @click="changeMood">{{name}}</div>
+        
+        <!-- 绑定class样式——数组写法, 适用于: 样式的类名不确定, 名字也不确定 -->
+        <div class="basic" :class="classArr">{{name}}</div>
+
+        <!-- 绑定class样式——对象写法, 适用于: 样式的个数确定、名字也确定，但要动态决定用不用 -->
+        <div class="basic" :class="classObj">{{name}}</div>
+
+        <!-- 绑定style样式 -->
+        <div class="basic" :style="styleObj">{{name}}</div>
+        <div class="basic" :style="styleArr">{{name}}</div>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            name: '张三',
+            mood: 'happy',
+            classArr: ['happy', 'sad'],
+            classObj: {
+                happy: true,
+                sad: false
+            },
+            styleObj: {     // 注意: style样式的属性名要用驼峰命名法
+                fontSize: '50px',   // 对应的是: font-size
+                color: 'red',
+                backgroundColor: 'green'    // 对应的是: background-color
+            },
+            styleArr: [
+                {
+                    fontSize: '50px',   // 对应的是: font-size
+                    color: 'red',
+                },
+                {
+                    backgroundColor: 'green'    // 对应的是: background-color
+                }
+            ]
+        },
+        methods: {
+            changMood() {
+                this.mood = this.mood === 'happy' ? 'sad' : 'happy'
+            }
+        }
+    })
+</script>
+
+</html>

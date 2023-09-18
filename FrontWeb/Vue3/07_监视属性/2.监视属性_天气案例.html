@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>天气案例_监视属性</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>今天天气{{info}}</h2>
+        <button @click="change">切换</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            isHot: true
+        },
+        computed: {
+            info(){
+                return this.isHot ? '炎热' : '凉爽'
+            }
+        },
+        methods: {
+            change(){
+                this.isHot = !this.isHot
+            }
+        },
+        watch: {
+            // isHot: {
+            //     immediate: true, // 一上来就调用handler
+            //     // handler在监视的属性发生变化时自动调用
+            //     handler(newValue, oldValue) {
+            //         console.log("isHot被修改了", newValue, oldValue)
+            //     }
+            // }
+            isHot(newValue, oldValue) {
+                console.log("isHot被修改了", newValue, oldValue)
+            }
+        }
+    })
+    vm.$watch('isHot', function(){
+            console.log("isHot被修改了", newValue, oldValue)
+    })
+
+</script>
+
+</html>
