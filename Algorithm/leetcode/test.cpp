@@ -49,26 +49,61 @@ void printList(ListNode *head)
 class Solution
 {
 public:
-    ListNode *reverse(ListNode *pred, ListNode *cur)
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
     {
-        if(cur==nullptr)
-            return pred;
-        ListNode *tmp = cur->next;
-        cur->next = pred;
-        return reverse(cur, tmp);
-    }
-    ListNode *reverseList(ListNode *head)
-    {
-        return reverse(nullptr, head);
+        ListNode *eheadA = new ListNode(0), *eheadB = new ListNode(0);
+        ListNode *longHead = new ListNode(0), *shortHead = new ListNode(0);
+        eheadA->next = headA;
+        eheadB->next = headB;
+        int skip = 0;
+        while (headA != nullptr && headB != nullptr)
+        {
+            headA = headA->next;
+            headB = headB->next;
+            skip++;
+        }
+        int Lshort = skip;
+        ListNode *tmp = new ListNode(0);
+        if (headA == nullptr)
+        {
+            longHead = eheadB;
+            shortHead = eheadA;
+            tmp = headB;
+        }
+        else
+        {
+            longHead = eheadA;
+            shortHead = eheadB;
+            tmp = headA;
+        }
+        while (tmp != nullptr)
+        {
+            tmp = tmp->next;
+            skip++;
+        }
+        int Llong = skip;
+        int gap = Llong - Lshort;
+        while (gap--)
+        {
+            longHead = longHead->next;
+        }
+        while (longHead != nullptr)
+        {
+            if (longHead == shortHead)
+            {
+                return longHead;
+            }
+            longHead = longHead->next;
+            shortHead = shortHead->next;
+        }
+        return nullptr;
     }
 };
 
 int main()
 {
     Solution so;
-    vector<int> nums = {1, 2, 3};
-    ListNode *head = createList(nums);
-    ListNode *ans = so.reverseList(head);
+    ListNode *ans = so.getIntersectionNode(createList(vector<int>{1, 2, 3, 4, 5,}), createList(vector<int>{3, 4, 5}));
     printList(ans);
     return 0;
 }
