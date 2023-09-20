@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1.基本使用</title>
+</head>
+
+<body>
+    <div id="root">
+        <!-- <h2>老师名称: {{teacherName}}</h2>
+        <h2>老师年龄: {{teacherAge}}</h2>
+        <hr>
+        <h2>学生名称: {{studentName}}</h2>
+        <h2>学生年龄: {{studentAge}}</h2> -->
+        <teacher></teacher>
+        <hr>
+        <student></student>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const teacher = Vue.extend({
+        template: `
+            <div>
+                <h2>老师名称: {{teacherName}}</h2>
+                <h2>老师年龄: {{teacherAge}}</h2>
+            </div>
+        `,
+        data() {
+            return {
+                teacherName: '张三',
+                teacherAge: 30,
+            }
+        }
+    })
+    const student = Vue.extend({
+        template: `
+            <div>
+                <h2>学生名称: {{studentName}}</h2>
+                <h2>学生年龄: {{studentAge}}</h2>
+            </div>
+        `,
+        data() {
+            return {
+                studentName: '李四',
+                studentAge: 18,
+            }
+        }
+    })
+
+    Vue.component('teacher', teacher);
+
+    const tem1 = Vue.extend({
+        template: `
+            <div>
+                <h2>name: {{name}}</h2>
+            </div>
+        `,
+        data() {
+            return {
+                name: '张三',
+            }
+        }
+    })
+
+    const tem2 = {
+        template: `
+            <div>
+                <h2>name: {{name}}</h2>
+            </div>
+        `,
+        data() {
+            return {
+                name: '李四',
+            }
+        }
+    }
+
+    new Vue({
+        el: '#root',
+        components: {
+            teacher,
+            student: student,
+        }
+    });
+</script>
+
+</html>

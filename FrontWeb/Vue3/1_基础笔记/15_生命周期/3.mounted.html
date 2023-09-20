@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1.透明度变化案例</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2 :style="{opacity}">欢迎学习Vue</h2>
+        <button @click="stop">停止</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#root',
+        data: {
+            opacity: 1,
+        },
+        methods: {
+            stop() {
+                console.log(this.num)
+                this.$destroy()
+            }
+        },
+        mounted() {
+            this.num = 12;
+            this.timer = setInterval(() => {
+                this.opacity -= 0.01;
+                if (this.opacity <= 0) this.opacity = 1;
+            }, 16)
+        },
+        beforeDestroy() {
+            clearInterval(this.timer);
+        },
+    });
+</script>
+
+</html>

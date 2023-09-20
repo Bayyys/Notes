@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 什么都不用写！ -->
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    //student写在上面，school在下。防止school引用不到儿子
+    const student = Vue.extend({
+        template: `
+        <div>
+            <h2>姓名：{{name}}</h2>
+            <h2>年龄：{{age}}</h2>
+        </div>
+        `,
+        data() {
+            return {
+                name: "大吉",
+                age: "18"
+            }
+        },
+    })
+    //school和student是父子关系
+    const school = Vue.extend({
+        template: `
+        <div>
+            <h2>地址：{{address}}</h2>
+            <student></student>     
+        </div>
+        `,
+        data() {
+            return {
+                address: "北京"
+            }
+        },
+        components: {    //套娃，将儿子student引入进来
+            student
+        }
+    })
+    //hello和school是平级关系
+    const hello = Vue.extend({
+        template: `
+        <div>
+            <h2>{{hello}}</h2>
+        </div>
+        `,
+        data() {
+            return {
+                hello: "hello"
+            }
+        },
+    })
+    //组件的管理者app（只对vm负责的组件，一人之下万人之上）
+    //该组件不负责任何渲染。
+    const app = Vue.extend({
+        /* 下面千万别忘了用div包裹school和hello，因为只能有一个root */
+        template: `
+        <div>
+            <school></school>   
+            <hello></hello>  
+        </div>   
+        `,
+        components: {
+            school,
+            hello
+        }
+    })
+
+    const vm = new Vue({
+        el: '#root',
+        template: `
+            <app></app>
+        `,
+        //第二步：vm注册组件（局部注册）
+        components: {
+            app
+        }
+
+    });
+</script>
+
+</html>

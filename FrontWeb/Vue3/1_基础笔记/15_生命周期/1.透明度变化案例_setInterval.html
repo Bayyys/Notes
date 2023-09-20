@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.透明度变化案例</title>
+</head>
+<body>
+    <div id="root">
+        <h2 :style="{opacity}">欢迎学习Vue</h2>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            opacity: 1,
+        },
+    });
+
+    setInterval(()=>{   // setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
+        vm.opacity -= 0.01;
+        if(vm.opacity <= 0) vm.opacity = 1;
+    }, 16)
+</script>
+</html>
