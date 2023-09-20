@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.函数式指令</title>
+</head>
+<body>
+    <div id="root">
+        <h2>name: {{name}}</h2>
+        <h2>当前数值为: {{count}}</h2>
+        <h2>放大后的当前数值为: <span v-big="count"></span></h2>
+        <button @click="count++">数值增加</button>
+        <input type="text" v-fbind:value="count">
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            name: '张三',
+            count: 1,
+        },
+        directives:{
+            big(el, binding){
+                el.innerHTML = binding.value * 10;
+            },
+            fbind:{
+                bind(el, binding){  // 指令与元素成功绑定时调用
+                    el.value = binding.value;
+                },
+                inserted(el, binding){  // 指令所在元素被插入页面时调用
+                    el.focus(); // 获取焦点: 需要在插入父节点后才能获取焦点
+                    el.value = binding.value;
+                },
+                update(el, binding){    // 指令所在模板被重新解析时调用
+                    el.value = binding.value;
+                }
+            }
+        }
+    });
+    Vue.directive('big', function(el, binding){
+        el.innerHTML = binding.value * 10;
+    });
+    Vue.directive('fbind', {
+        bind(el, binding){  // 指令与元素成功绑定时调用
+            el.value = binding.value;
+        },
+        inserted(el, binding){  // 指令所在元素被插入页面时调用
+            el.focus(); // 获取焦点: 需要在插入父节点后才能获取焦点
+            el.value = binding.value;
+        },
+        update(el, binding){    // 指令所在模板被重新解析时调用
+            el.value = binding.value;
+        }
+    });
+</script>
+</html>

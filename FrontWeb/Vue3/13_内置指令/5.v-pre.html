@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>5.v-pre</title>
+</head>
+<body>
+    <div id="root">
+        <h2 v-pre>这条语句不会解析, {{name}}</h2>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            name: '张三',
+        },
+    });
+</script>
+</html>

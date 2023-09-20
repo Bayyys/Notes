@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3.v-cloak</title>
+    <style>
+        [v-cloak] {
+            display: none; /* Vue接管前，h2会因此css控制不显示 */
+            /* 一旦Vue接管容器，v-cloak即消失，所有插值语法等内容会显示 */
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <h2 v-cloak>{{name}}</h2>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            name: '张三',
+        },
+    });
+</script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4.v-once</title>
+</head>
+<body>
+    <div id="root">
+        <h2 v-once>初识化计数值: {{count}}</h2>
+        <h2>当前的计数值: {{count}}</h2>
+        <button @click="addN">计数加1</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            count: 1,
+        },
+        methods: {
+            addN() {
+                this.count++;
+            },
+        },
+    });
+</script>
+</html>
