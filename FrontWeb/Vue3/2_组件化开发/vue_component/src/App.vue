@@ -1,36 +1,48 @@
 <template>
-    <div>
-        <h1 v-text="msg" ref="title"></h1>
-        <button @click="showDOM" ref="btn">按钮</button>
-        <School ref="sch"></School>
+    <div class="app">
+        <h1>你好 {{ msg }}</h1>
+        <!-- props 父子传递实现 -->
+        <School :getSchoolName="getSchoolName"></School>
+        <hr>
+        <Student v-on:getStudentName="getStudentName"></Student>
+        <!-- 简写形式 -->
+        <Student @getStudentName="getStudentName"></Student>
+        <!-- refs 使用 -->
+        <!-- <Student ref="student"/> -->
     </div>
 </template>
 
 <script>
-// 引入School组件
-import School from './components/School'
+// 引入组件
+import School from './components/School.vue'
+import Student from './components/Student.vue';
+
 
 export default {
     name: 'App',
     components: {
-        School
+        School, Student
     },
     data() {
         return {
-            msg: 'Hello Vue3'
+            msg: 'Vue3'
         }
     },
     methods: {
-        showDOM() {
-            console.log(this)
-            console.log(this.$refs.title)
-            console.log(this.$refs.btn)
-            console.log(this.$refs.sch)
+        getSchoolName(name) {
+            this.msg += name
+        },
+        getStudentName(name, ...params) {
+            console.log(name, params)
+            this.msg += name
         }
     },
 }
-
 </script>
 
-<style>
+<style scoped>
+.app {
+    background-color: gray;
+    padding: 10px;
+}
 </style>
