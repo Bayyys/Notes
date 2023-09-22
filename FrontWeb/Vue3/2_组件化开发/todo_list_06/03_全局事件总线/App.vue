@@ -37,11 +37,6 @@ export default {
                 return todo.id !== id
             })
         },
-        updateTodo(id, title) {
-            this.todos.forEach((todo) => {
-                if (todo.id === id) todo.title = title
-            })
-        },
         allTodo(done) {
             this.todos.forEach((todo) => {
                 todo.done = done
@@ -62,20 +57,12 @@ export default {
         }
     },
     mounted() {
-        this.$bus.$on('addTodo', (todoObj) => {
-            this.addTodo.call(this, todoObj)
-        })
-        this.$bus.$on('checkTodo', (id) => {
-            this.checkTodo.call(this, id)
-        })
-        this.$bus.$on('updateTodo', (id, title) => {
-            this.updateTodo.call(this, id, title)
-        })
+        this.$bus.$on('checkTodo', this.checkTodo)
+        this.$bus.$on('deleteTodo', this.deleteTodo)
     },
     beforeDestroy() {
-        this.$bus.$off('addTodo')
-        this.$bus.$off('checkTodo')
-        this.$bus.$off('updateTodo')
+        this.$bus.$off('checkTodo', this.checkTodo)
+        this.$bus.$off('deleteTodo', this.deleteTodo)
     }
 }
 </script>
@@ -103,13 +90,6 @@ body {
     color: #fff;
     background-color: #da4f49;
     border: 1px solid #bd362f;
-}
-
-.btn-edit {
-    color: #fff;
-    background-color: rgb(47, 171, 94);
-    border: 1px solid rgb(96, 156, 7);
-    margin-right: 2px;
 }
 
 .btn-danger:hover {

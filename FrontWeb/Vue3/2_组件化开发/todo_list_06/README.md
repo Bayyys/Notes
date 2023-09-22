@@ -1,24 +1,9 @@
-# todo_list_06
+- [最初版本](./01_浏览器本地存储/)
+1. 使用`props`进行父子组件通信
+2. 进行浏览器本地存储
 
-## Project setup
-```
-npm install
-```
+- [自定义组件](./02_自定义组件/)
+1. 使用自定义组件($emit)进行父子组件通信
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [全局事件总线](./03_全局事件总线/)
+1. 使用全局事件总线($on)进行兄弟组件或爷孙组件通信

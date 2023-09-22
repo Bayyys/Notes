@@ -1,9 +1,9 @@
 <template>
     <div class="app">
-        <h1>你好 {{ msg }}</h1>
-        <School :getSchoolName="getSchoolName"></School>
+        <h1>{{ msg }}</h1>
+        <School></School>
         <hr>
-        <Student @getStudentName="getStudentName"></Student>
+        <Student></Student>
     </div>
 </template>
 
@@ -20,16 +20,7 @@ export default {
     },
     data() {
         return {
-            msg: 'Vue3',
-            studentName: '',
-        }
-    },
-    methods: {
-        getSchoolName(name) {
-            this.msg += name
-        },
-        getStudentName(name) {
-            this.msg += name
+            msg: "Hello Vue",
         }
     },
 }
