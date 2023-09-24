@@ -3,7 +3,6 @@
         <h1>当前求和为: {{ sum }}</h1> <!-- {{ $store.state.sum }} -->
         <h1>当前数值x10为: {{ tenTimesSum }}</h1> <!-- $store.getters.tenTimesSum -->
         <h3>我是 {{ studentName }}, 现在 {{ age }} 岁</h3> <!-- {{ $store.state.studentName }}, {{ $store.state.age }} -->
-        <h3 style="color: red;">Person Component 总人数: {{ personList.length }}</h3>
         <select v-model.number="n">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -17,6 +16,7 @@
 </template>
 
 <script>
+// mapState: 用于简化vuex中state的使用, 用于将state映射到计算属性中
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
     name: 'Count',
@@ -26,16 +26,22 @@ export default {
         }
     },
     computed: {
-        ...mapState('myCount', ['sum', 'studentName', 'age']),
-        ...mapState('myPerson', ['personList']),
-        ...mapGetters('myCount', ['tenTimesSum']),
+        ...mapState(['sum', 'studentName', 'age']),
+        ...mapGetters(['tenTimesSum']),
     },
     methods: {
-        ...mapMutations('myCount', {
+        // ...mapActions(['addIfOdd', 'addWait']), // 数组写法
+        ...mapMutations({
             increment: 'ADD',
             decrement: 'SUB',
         }),
-        ...mapActions('myCount', {
+        /* 默认生成的函数如下， 自带一个传入参数 */
+        // increment(value) {
+        //     this.$store.commit('ADD', value)
+        // },
+
+        // ...mapActions(['addIfOdd', 'addWait']), // 数组写法
+        ...mapActions({
             incOdd: 'addIfOdd',
             incWait: 'addWait',
         }),
