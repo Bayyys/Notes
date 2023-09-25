@@ -4,5 +4,9 @@ import App from './App.vue'
 Vue.config.productionTip = false
 
 new Vue({
+  el: '#root',
   render: h => h(App),
-}).$mount('#app')
+  beforeCreate() {
+    Vue.prototype.$bus = this
+  }
+})
