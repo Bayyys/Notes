@@ -1,20 +1,20 @@
 <template>
   <div>
     <h1>{{ msg }}</h1>
-    <button @click="changeShow">changeShow</button>
     <hr>
     <Count v-if="isShow"></Count>
+    <button @click="changeShow">changeShow</button>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import Count from './components/Count.vue'
 export default {
   name: 'App',
   components: { Count },
   setup() {
-    const msg = ref("Hello world!")
+    const msg = ref("hello world")
     const isShow = ref(true)
     function changeShow() {
       isShow.value = !isShow.value

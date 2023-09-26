@@ -1,5 +1,5 @@
 {
-  "name": "3_组合式API",
+  "name": "0_template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -36,6 +36,7 @@
     "rules": {
       "vue/multi-word-component-names": "off",
       "no-unused-vars": "off"
+
     }
   },
   "browserslist": [
