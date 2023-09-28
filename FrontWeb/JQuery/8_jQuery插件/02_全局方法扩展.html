@@ -2,53 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>01_插件机制语法</title>
+    <title>02_全局方法扩展</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
   </head>
   <body>
-    <input id="btn-check" type="button" value="普通方式: 全选" onclick="checkFn()">
-    <input id="btn-uncheck" type="button" value="普通方式: 全不选" onclick="uncheckFn()">
-    <input id="btn1-check" type="button" value="插件方式: 全选" onclick="checkFn1()">
-    <input id="btn1-uncheck" type="button" value="插件方式: 全不选" onclick="uncheckFn2()">
-    <br />
-    <input type="checkbox" /> 选项1
-    <input type="checkbox" /> 选项2
-    <input type="checkbox" /> 选项3
-    
+    <h1>Hello World!</h1>
   </body>
   <script type="text/javascript">
-    //普通方式--点击选中复选框
-    function checkFn() {
-      // $("input[type='checkbox']").prop("checked", true);
-      $(":checkbox").prop("checked", true);
-    }
-    //普通方式--点击取消复选框选中
-    function uncheckFn() {
-      // $("input[type='checkbox']").prop("checked", false);
-      $(":checkbox").prop("checked", false);
-    }
-
-    //对jQuery的函数进行扩展
-    $.fn.extend({
-      //定义全选函数
-      check: function () {
-        $(":checkbox").prop("checked", true);
+    $.extend({
+      max: (a, b) => {
+        return a < b ? b : a;
       },
-      //定义全不全函数
-      uncheck: function () {
-        $(":checkbox").prop("checked", false);
+      min: (a, b) => {
+        return a < b ? a : b;
       },
     });
-
-    //插件方式--点击选中复选框
-    function checkFn1() {
-      //任何一个jQuery对象都可以调用
-      $("#btn1-check").check();
-    }
-
-    //插件方式--点击选中复选框
-    function uncheckFn2() {
-      $("#btn-check").uncheck();
-    }
+    console.log("$.max(2, 3)", $.max(2, 3));
+    console.log("$.min(2, 3))", $.min(2, 3));
   </script>
 </html>

@@ -1,0 +1,114 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>表单校验</title>
+
+    <!-- 
+	      想要使用表单校验插件
+		  1.必须引入jQuery的js文件,基于jQuery开发的
+		  2.引入表单校验插件js文件
+    -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <script>
+      //定义一个页面加载事件,让表单先加载完毕,在进行校验
+      $().ready(function () {
+        // 通过表单的id属性值,选择要校验的表单
+        // 使用表单jQuery对象,调用表单校验插件中的函数validate
+        $("#signupForm").validate({
+          // rules:定义的校验规则
+          rules: {
+            // 使用input标签的name的属性值,获取到要校验的标签
+            // required:校验的规则,必须填写
+            firstname: "required",
+            lastname: "required",
+            username: {
+              required: true,
+              minlength: 2,
+            },
+            password: {
+              required: true,
+              minlength: 5,
+            },
+            confirm_password: {
+              required: true,
+              minlength: 5,
+              equalTo: "#password",
+            },
+            email: {
+              required: true,
+              email: true,
+            },
+            topic: {
+              required: "#newsletter:checked",
+              minlength: 2,
+            },
+            agree: "required",
+          },
+          // messages:不满足校验规则的错误提示信息
+          messages: {
+            firstname: "名必须填写",
+            lastname: "姓必须填写",
+            username: {
+              required: "用户名必须填写",
+              minlength: "用户名的长度不能少于2个字符",
+            },
+            password: {
+              required: "密码必须填写",
+              minlength: "密码长度必须大于5个字符",
+            },
+            confirm_password: {
+              required: "确认密码必须填写",
+              minlength: "确认密码必须大于5个字符",
+              equalTo: "确认密码输入错误",
+            },
+            email: "请输入一个正确的邮箱",
+            agree: "请阅读并同意相关条款",
+          },
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <form class="cmxform" id="signupForm" method="get" action="">
+      <fieldset>
+        <legend>个人信息</legend>
+        <p>
+          <label for="firstname">姓</label>
+          <input id="firstname" name="firstname" />
+        </p>
+        <p>
+          <label for="lastname">名</label>
+          <input id="lastname" name="lastname" />
+        </p>
+        <p>
+          <label for="username">用户名</label>
+          <input id="username" name="username" />
+        </p>
+        <p>
+          <label for="password">密码</label>
+          <input id="password" name="password" type="password" />
+        </p>
+        <p>
+          <label for="confirm_password">确认密码</label>
+          <input
+            id="confirm_password"
+            name="confirm_password"
+            type="password"
+          />
+        </p>
+        <p>
+          <label for="email">电子邮箱</label>
+          <input id="email" name="email" type="email" />
+        </p>
+        <p>
+          <label for="agree">阅读相关协议</label>
+          <input type="checkbox" class="checkbox" id="agree" name="agree" />
+        </p>
+        <p>
+          <input class="submit" type="submit" value="提交" />
+        </p>
+      </fieldset>
+    </form>
+  </body>
+</html>

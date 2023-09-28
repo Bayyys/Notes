@@ -1,0 +1,275 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>我的jquery表单校验页面</title>
+
+    <style type="text/css">
+      p {
+        text-align: center;
+        font-size: 24px;
+      }
+      table {
+        margin: 0 auto;
+        border: 0;
+      }
+      table tr {
+        height: 40px;
+        border: 0;
+      }
+      table tr td {
+        padding: 0 14px;
+        border: 1px solid #999;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+      $(function () {
+        //自定义校验规则
+        /*
+         * 参数：
+         * 	第一个 规则名称
+         * 	第二个 规则的实现逻辑 匿名函数
+         */
+        $.validator.addMethod("cardlength", function (value, element, param) {
+          //校验输入的长度是否满足15或18
+          if (
+            value.trim().length != param[0] &&
+            value.trim().length != param[1]
+          ) {
+            return false; //代表该校验器不通过  显示该校验规则对应的错误信息
+          }
+          return true;
+        });
+
+        $.validator.addMethod("card15", function (value, element, param) {
+          //校验15位的规则是否正确  --- 都是数字
+          var regExp15 = /^[0-9]{15}$/;
+          if (value.trim().length == 15) {
+            //校验格式
+            return regExp15.test(value.trim());
+          }
+          return true; //放行 不归该校验器校验
+        });
+
+        $.validator.addMethod("card18", function (value, element, param) {
+          if (param) {
+            //校验15位的规则是否正确  --- 都是数字
+            var regExp18 = /^[0-9]{18}|[0-9]{17}X$/;
+            if (value.trim().length == 18) {
+              //校验格式
+              return regExp18.test(value.trim());
+            }
+          }
+          return true; //放行 不归该校验器校验
+        });
+
+        $("#empForm").validate({
+          rules: {
+            realname: "required",
+            username: {
+              required: true,
+              rangelength: [5, 8],
+            },
+            psw: {
+              required: true,
+              minlength: 6,
+              maxlength: 12,
+            },
+            psw2: {
+              required: true,
+              minlength: 6,
+              maxlength: 12,
+              equalTo: "#psw",
+            },
+            gender: {
+              required: true,
+            },
+            age: {
+              required: true,
+              range: [26, 50],
+              digits: true,
+            },
+            edu: {
+              required: true,
+            },
+            birthday: {
+              required: true,
+              dateISO: true,
+              date: true,
+            },
+            checkbox1: {
+              required: true,
+            },
+            email: {
+              email: true,
+            },
+            card: {
+              required: true,
+              cardlength: [15, 18],
+              card15: true,
+              card18: true,
+            },
+          },
+          messages: {
+            realname: "真实姓名必须写",
+            username: {
+              required: "用户名必须写",
+              rangelength: "长度在5-8之间",
+            },
+            psw: {
+              required: "密码必须写",
+              minlength: "最小是6位",
+              maxlength: "最大是12位",
+            },
+            psw2: {
+              required: "密码必须写",
+              minlength: "最小是6位",
+              maxlength: "最大是12位",
+              equalTo: "密码输入不一致",
+            },
+            age: {
+              required: "年龄必须写",
+              range: "年龄必须在26-50之间",
+            },
+            edu: {
+              required: "必须选择一个",
+            },
+            birthday: {
+              required: "生日必须填写",
+              dateISO: "日期格式不正确",
+              date: "日期非法",
+            },
+            email: {
+              email: "邮箱格式不正确",
+            },
+            card: {
+              required: "身份证必须填写",
+              cardlength: "身份证长度是15或18位",
+              card15: "15位的身份证必须都是数字",
+              card18: "18位的身份证必须都是数字或末尾是X",
+            },
+          },
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <p>员工信息录入</p>
+    <form name="empForm" id="empForm" method="post" action="test.html">
+      <table border="1">
+        <tr>
+          <td>真实姓名(不能为空 ,没有其他要求)</td>
+          <td><input type="text" id="realname" name="realname" /></td>
+        </tr>
+        <tr>
+          <td>
+            登录名(登录名不能为空,长度应该在5-8之间,可以包含中文字符(一个汉字算一个字符)):
+          </td>
+          <td><input type="text" id="username" name="username" /></td>
+        </tr>
+        <tr>
+          <td>密码(不能为空,长度6-12字符或数字,不能包含中文字符):</td>
+          <td><input type="password" id="psw" name="psw" /></td>
+        </tr>
+        <tr>
+          <td>重复密码密码(不能为空,长度6-12字符或数字,不能包含中文字符):</td>
+          <td><input type="password" id="psw2" name="psw2" /></td>
+        </tr>
+        <tr>
+          <td>性别(必选其一)</td>
+          <td>
+            <input
+              type="radio"
+              id="gender_male"
+              value="m"
+              name="gender"
+            />&nbsp;男
+            <input
+              type="radio"
+              id="gender_female"
+              value="f"
+              name="gender"
+            />&nbsp;女
+            <label class="error" for="gender" style="display: none"
+              >必须选择一个性别
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>年龄(必填26-50):</td>
+          <td><input type="text" id="age" name="age" /></td>
+        </tr>
+        <tr>
+          <td>你的学历:</td>
+          <td>
+            <select name="edu" id="edu">
+              <option value="">－请选择你的学历－</option>
+              <option value="a">专科</option>
+              <option value="b">本科</option>
+              <option value="c">研究生</option>
+              <option value="e">硕士</option>
+              <option value="d">博士</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>出生日期(1982/09/21):</td>
+          <td><input type="text" id="birthday" name="birthday" value="" /></td>
+        </tr>
+        <tr>
+          <td>兴趣爱好:</td>
+          <td colspan="2">
+            <input type="checkbox" name="checkbox1" id="qq1" />&nbsp;乒乓球
+            &nbsp;
+            <input
+              type="checkbox"
+              name="checkbox1"
+              id="qq2"
+              value="1"
+            />&nbsp;羽毛球
+            <input
+              type="checkbox"
+              name="checkbox1"
+              id="qq3"
+              value="2"
+            />&nbsp;上网
+            <input
+              type="checkbox"
+              name="checkbox1"
+              id="qq4"
+              value="3"
+            />&nbsp;旅游
+            <input
+              type="checkbox"
+              name="checkbox1"
+              id="qq5"
+              value="4"
+            />&nbsp;购物
+            <label class="error" for="checkbox1" style="display: none"
+              >必须选一个</label
+            >
+          </td>
+        </tr>
+        <tr>
+          <td align="left">电子邮箱:</td>
+          <td><input type="text" id="email" name="email" /></td>
+        </tr>
+        <tr>
+          <td align="left">身份证(15-18):</td>
+          <td><input type="text" id="card" name="card" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="submit" name="firstname" id="firstname" value="保存" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
