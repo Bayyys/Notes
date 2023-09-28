@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jQuery对象与js对象之间的转换</title>
+		<script type="text/javascript" src="js/jquery-3.3.1.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				/*
+				 * jQuery对象与js对象之间的转换
+				 * 1.把js对象转换为jQuery对象
+				 * 	穿马甲-->$(js对象);
+				 * dom对象中获取标签体,设置标签体
+				 * 		获取标签体:dom对象.innerHtml;
+				 * 		设置标签体:dom对象.innerHtml = 新的标签体;
+				 */
+				//获取id是d1的div对象
+				var d1Ele = document.getElementById("d1");
+				//获取d1Ele的标签体
+				//alert(d1Ele.innerHTML);
+				//设置d1Ele的标签体
+				//d1Ele.innerHTML = "哈哈";
+				
+				/*
+				 * 2.jQuery对象转换为js对象
+				 * 	脱马甲-->jQuery本质就是一个数组,里边包含了个js对象
+				 * 	$jQuery对象[数组的索引];
+				 *  $jQuery对象.get(数组的索引);
+				 * 注意:
+				 * 		js中的内容和jQuery中的内容是不能通用的
+				 *  jQuery中把js中属性都封装为了方法
+				 * 		获取标签体:jQuery对象.html();
+				 * 		设置标签体:jQuery对象.html(新的标签体);
+				 */
+				//获取id是d1的div对象,jQuery中的选择器-->id选择器
+				var $d1Ele = $("#d1");
+				//获取d1Ele的标签体
+				//alert($d1Ele.html());
+				//设置d1Ele的标签体
+				//$d1Ele.html("嘿嘿");
+				
+				//1.把js对象转换为jQuery对象,穿马甲-->$(js对象);
+				var $dd = $(d1Ele); 
+				//alert($dd.html());
+				//alert($dd.innerHTML);
+				
+				//2.jQuery对象转换为js对象,脱马甲-->jQuery本质就是一个数组,里边包含了个js对象
+				//alert($d1Ele[0].innerHTML);
+				//alert($d1Ele.get(0).innerHTML);
+				alert($d1Ele.get(0).html());
+			});
+		</script>
+	</head>
+	<body>
+		<div id="d1">我是一个div</div>
+	</body>
+</html>

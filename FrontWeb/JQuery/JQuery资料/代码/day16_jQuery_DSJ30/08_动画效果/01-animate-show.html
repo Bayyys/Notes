@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script></
+<script type="text/javascript">
+	/*
+	 * 基本
+		show([s,[e],[fn]]) 
+		hide([s,[e],[fn]]) 
+		toggle([s],[e],[fn])
+			speed:三种预定速度之一的字符串
+				"slow":缓慢的
+				"normal":正常的
+				"fast":快速
+				表示动画时长的毫秒数值(如：1000)
+			easing:(Optional) 用来指定切换效果
+				默认是"swing"，可用参数"linear"
+			fn:在动画完成时执行的函数，每个元素执行一次	
+		滑动
+			slideDown([s],[e],[fn]) :向下滑动
+			slideUp([s,[e],[fn]]) :向上滑动
+			slideToggle([s],[e],[fn]):上下滑动来回切换 	
+	 */
+	function hideFn(){
+		//获取id是showDiv的对象,添加动画
+		//$("#showDiv").hide("slow");
+		//$("#showDiv").hide("normal");
+		//$("#showDiv").hide("fast");
+		//$("#showDiv").hide(3000);//3秒钟隐藏
+		
+		$("#showDiv").slideUp(2000);//2秒钟向上滑动
+	}
+	
+	function showFn(){
+		//获取id是showDiv的对象,添加动画
+		//$("#showDiv").show(3000);//3秒钟显示
+		
+		$("#showDiv").slideDown(2000);//2秒钟向下滑动
+	}
+	
+	function toggleFn(){
+		//获取id是showDiv的对象,添加动画
+		//$("#showDiv").toggle(3000);//3秒钟显示和隐藏之间来回切换
+		
+		$("#showDiv").slideToggle(2000);//2秒钟向上和向下滑动来回切换
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="点击按钮隐藏div" onclick="hideFn()">
+	<input type="button" value="点击按钮显示div" onclick="showFn()">
+	<input type="button" value="点击按钮切换div显示和隐藏" onclick="toggleFn()">
+
+	<div id="showDiv" style="width:300px;height:300px;background:red">
+		div显示和隐藏
+	</div>
+</body>
+</html>

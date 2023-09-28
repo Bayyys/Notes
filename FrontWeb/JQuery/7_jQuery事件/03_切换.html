@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript">
+      $(() => {
+        $("#myDiv1")
+          .mouseover(function () {
+            $(this).css("background-color", "green");
+          })
+          .mouseout(function () {
+            $(this).css("background-color", "red");
+          });
+
+        $("#myDiv2").hover(
+          function () {
+            $(this).css("background-color", "green");
+          },
+          function () {
+            $(this).css("background-color", "red");
+          }
+        );
+      });
+    </script>
+  </head>
+  <body>
+    <div
+      id="myDiv1"
+      style="width: 300px; height: 300px; border: 1px solid black"
+    >
+      鼠标移入变成绿色，移出回复红色
+    </div>
+    <div
+      id="myDiv2"
+      style="width: 300px; height: 300px; border: 1px solid black"
+    >
+      鼠标移入变成绿色，移出回复红色
+    </div>
+  </body>
+</html>

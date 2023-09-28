@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>15-jquery操作样式</title>
+    <!--引入Jquery库文件-->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script></script>
+  </head>
+  <body>
+    <style>
+      #p1 {
+        background-color: red;
+      }
+      .mp {
+        color: green;
+      }
+      .mpp {
+        background-color: lightgray;
+      }
+    </style>
+    <p id="p1">1. 设置一个css样式</p>
+    <p id="p2">2. 批量设置css样式</p>
+    <p id="p3" class="mpp">3. 通过class设置样式</p>
+    <p id="p4">4. 切换class样式</p>
+    <input type="button" value="切换样式" id="but" />
+    <script>
+      // 分别获取p1,p2,p3,p4对象
+      var $p1 = $("#p1");
+      var $p2 = $("#p2");
+      var $p3 = $("#p3");
+      var $p4 = $("#p4");
+
+      // 1. css() 获取或设置css样式
+      // 给p1设置一个样式
+      $p1.css("color", "white");
+      $p1.css("font-family", "楷体");
+
+      // 给p2批量设置样式
+      $p2.css({
+        color: "blue",
+        border: "1px solid red",
+        "background-color": "yellow",
+      });
+
+      // 获取一个样式
+      console.log($p2.css("color")); // rgb(0, 0, 255)
+
+      // 2. addClass() 添加一个class样式
+      $p3.addClass("mp");
+
+      // 3. removeClass() 移除一个class
+      $p3.removeClass("mpp");
+
+      // 4. toggleClass() 切换一个class(没有添加,有删除)
+      // 获取id是but的按钮,给按钮添加一个鼠标点击事件
+      $("#but").click(function () {
+        $p4.toggleClass("mpp");
+      });
+    </script>
+  </body>
+</html>

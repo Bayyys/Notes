@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Jquery事件</title>
+		
+		<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				/*
+				 * 给元素绑定事件:
+				 * 	格式一:
+				 * 		jQuery对象.事件函数(function(){
+				 * 	
+				 * 		});
+				 * 	格式二:
+				 * 		jQuery对象.on("事件名称",function(){
+				 * 	
+				 * 		})
+				 */
+				//给id是username的文本框添加一个失去焦点事件
+				$("#username").blur(function(){
+					//获取id是span的标签,添加一个标签体(文本框失去焦点)
+					$("#span").html("文本框失去焦点");
+				})
+				
+				//给id是username的文本框添加一个获取焦点事件
+				$("#username").focus(function(){
+					//获取id是span的标签,添加一个标签体(文本框失去焦点)
+					$("#span").html("文本框获取焦点");
+				})
+				
+				//给id是account的文本框添加一个键盘弹起事件
+				$("#account").on("keyup",function(){
+					//获取id是showAccount的div,设置标签体为,account输入的内容
+					$("#showAccount").html($("#account").val());
+				});
+			})
+		</script>
+	</head>
+	<body>
+		
+		<input type="text" name="username" id="username" />
+		<span id="span" style="color: red;"></span>
+		
+		<input type="text" id="account" placeholder="请输入银行帐号"/>
+		<div id="showAccount" style="font-size: 40px;"></div>
+
+	</body>
+</html>

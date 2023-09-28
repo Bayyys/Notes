@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>表单属性过滤选择器</title>
+    <meta charset="UTF-8">
+
+	<style type="text/css">
+		 	div,span{
+			    width: 180px;
+			    height: 180px;
+			    margin: 20px;
+			    background: #9999CC;
+			    border: #000 1px solid;
+				float:left;
+			    font-size: 17px;
+			    font-family:Roman;
+			}
+			
+			div .mini{
+			    width: 50px;
+			    height: 50px;
+			    background: #CC66FF;
+			    border: #000 1px solid;
+			    font-size: 12px;
+			    font-family:Roman;
+			}
+			
+			div .mini01{
+			    width: 50px;
+			    height: 50px;
+			    background: #CC66FF;
+			    border: #000 1px solid;
+			    font-size: 12px;
+			    font-family:Roman;
+			}
+			#job{
+				margin: 20px;
+			}
+			#edu{
+				margin-top:-70px;
+			}
+			
+	 </style>
+    
+	</head>
+	 
+	<body>
+				
+		 <input type="button" value="保存"  class="mini" name="ok"  class="mini" />
+		 <input type="button" value=" 利用 jQuery 对象的 val() 方法改变表单内可用 <input> 元素的值"  id="b1"/>
+		 <input type="button" value=" 利用 jQuery 对象的 val() 方法改变表单内不可用 <input> 元素的值"  id="b2"/>
+		 <input type="button" value=" 利用 jQuery 对象的 length 属性获取多选框选中的个数"  id="b3"/>
+		 <input type="button" value=" 利用 jQuery 对象的 text() 方法获取下拉框选中的内容"  id="b4"/>
+ 
+ 		<br><br>
+ 		
+     <input type="text" value="不可用值1" disabled="disabled"> 
+		 <input type="text" value="可用值1" >
+		 <input type="text" value="不可用值2" disabled="disabled">
+		 <input type="text" value="可用值2" >
+		 
+		 <br><br>
+		 <input type="checkbox" name="items" value="美容" >美容
+		 <input type="checkbox" name="items" value="IT" >IT
+		 <input type="checkbox" name="items" value="金融" >金融
+		 <input type="checkbox" name="items" value="管理" >管理
+		 
+		 <br><br>
+		 
+		  <input type="radio" name="sex" value="男" >男
+		  <input type="radio" name="sex" value="女" >女
+		  
+         <br><br>
+		 
+		  <select name="job" id="job" multiple="multiple" size=4>
+	      <option>程序员</option>
+				<option>中级程序员</option>
+				<option>高级程序员</option>
+				<option>系统分析师</option>
+      </select>
+		    
+      <select name="edu" id="edu">
+      	<option>本科</option>
+				<option>博士</option>
+				<option>硕士</option>
+				<option>大专</option>
+      </select>
+	  		
+	  	<br/>
+	  		
+		 <div id="two" class="mini" >
+	    	   id为two   class是 mini  div
+		       <div  class="mini" >class是 mini</div>
+		</div>
+		
+		 <div class="one" >
+		 	    class是 one 
+		       <div  class="mini" >class是 mini</div>
+			   <div  class="mini" >class是 mini</div>
+		 </div>
+		 <div class="one" >
+		 	  class是 one 
+		       <div  class="mini01" >class是 mini01</div>
+			   <div  class="mini" >class是 mini</div>
+		</div>
+		
+	</body>
+	<!--
+		表单属性选择器
+		语法:
+		- 获得可用元素：  :enabled
+		- 获得不可用元素：  :disabled		
+		- 获得单选/复选框选中的元素（单选radio ，多选checkbox）：  :checked
+		- 获得下拉框选中的元素（下列列表select）：  :selected
+	-->
+	
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script></script>
+	<script type="text/javascript">
+	// <input type="button" value=" 利用 jQuery 对象的 val() 方法改变表单内可用 <input> 元素的值"  id="b1"/>
+		$("#b1").click(function(){
+				/*
+				 * 	利用 jQuery 对象的 val() 方法改变表单内可用 <input> 元素的值
+				 * 	jQuery中有一个方法val(),相当于dom中value属性
+				 * 		获取表单标签的value的属性值:$jQuery对象.val();
+				 * 		设置表单标签的value的属性值:$jQuery对象.val("属性值");
+				 */
+				//$("input[type='text']:enabled").val("哈哈");
+				$(":text:enabled").val("哈哈");
+		});
+	  
+	// <input type="button" value=" 利用 jQuery 对象的 val() 方法改变表单内不可用 <input> 元素的值"  id="b2"/>
+		$("#b2").click(function(){
+				$("input[type='text']:disabled").val("嘿嘿");
+		});
+	  
+	// <input type="button" value=" 利用 jQuery 对象的 length 属性获取多选框选中的个数"  id="b3"/>
+		$("#b3").click(function(){
+				//利用 jQuery 对象的 length 属性获取多选框选中的个数
+				//var $cks = $("input[type='checkbox']:checked");
+				var $cks = $(":checkbox:checked");
+				alert($cks.length);
+		});
+	
+	// <input type="button" value=" 利用 jQuery 对象的 text() 方法获取下拉框选中的内容"  id="b4"/>
+		$("#b4").click(function(){
+				//利用 jQuery 对象的 text() 方法获取下拉框选中的内容
+				//获取到select中选择到的option标签
+				var $seOption = $("option:selected")
+				/*
+				 * jQuery 对象的 text()方法,相当于dom中innerText属性
+				 * 		获取标签中的文本: $jQuery对象.text();
+				 * 		设置标签中的文本: $jQuery对象.text("新文本");
+				 */
+				alert($seOption.text());
+		});
+	
+	</script>
+   
+</html>
+
+
+

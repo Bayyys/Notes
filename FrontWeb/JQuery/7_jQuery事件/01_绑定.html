@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript">
+      $(function () {
+        $("#btn").on("click", function () {
+          alert("使用on绑定点击事件");
+        });
+
+        $("#btn").mouseover(function () {
+          $(this).css("background-color", "green");
+        });
+
+        $("#btn").mouseout(function () {
+          $(this).css("background-color", "white");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <input id="btn" type="button" value="使用on绑定点击事件" />
+  </body>
+</html>

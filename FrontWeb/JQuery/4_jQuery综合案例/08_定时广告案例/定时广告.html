@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>定时广告</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript">
+      $(() => {
+        setTimeout(() => {
+          $("#ad").slideDown(1000, 'swing');
+        }, 1000);
+        setTimeout(() => {
+          $("#ad").slideUp(1000, 'swing');
+        }, 4000);
+      });
+    </script>
+  </head>
+  <body>
+    <div>
+      <!-- 广告DIV -->
+      <div id="ad" style="display: none; background-color: pink; width: 300px; height: 300px">
+        <a href="www.baidu.com">页面跳转</a>
+      </div>
+      <div>
+        <h1>Hello World!</h1>
+      </div>
+    </div>
+  </body>
+</html>

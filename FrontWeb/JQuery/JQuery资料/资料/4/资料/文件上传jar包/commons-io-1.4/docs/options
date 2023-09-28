@@ -1,0 +1,21 @@
+-classpath 'c:/svn/commons/commons-io-1.4-RC3/target/classes'
+ -protected
+-source
+'1.4'
+-sourcepath
+'c:/svn/commons/commons-io-1.4-RC3/src/java'
+-author
+-bottom
+'Copyright © 2002-2008 <a href="http://www.apache.org/">The Apache Software Foundation</a>. All Rights Reserved.'
+-charset
+'ISO-8859-1'
+-d
+'c:/svn/commons/commons-io-1.4-RC3/target/site/apidocs'
+-doctitle
+'Commons IO 1.4 API'
+-link
+'http://java.sun.com/j2se/1.4.2/docs/api'
+-use
+-version
+-windowtitle
+'Commons IO 1.4 API'

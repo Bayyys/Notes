@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>我的jquery表单校验页面</title>
+        
+		<style type="text/css">
+			p{text-align: center;font-size:24px;}
+			table{margin: 0 auto;border: 0;}
+			table tr{height:40px;border:0;}
+			table tr td{padding:0 14px;border:1px solid #999}
+			.error{color:red}
+		</style>
+</head>
+<body>
+    <p>员工信息录入</p>
+	<form name="empForm" id="empForm" method="post" action="test.html">
+		<table border=1>
+			<tr>
+				<td>真实姓名(不能为空 ,没有其他要求)</td>
+				<td><input type="text" id="realname" name="realname" />
+				</td>
+			</tr>
+			<tr>
+				<td>登录名(登录名不能为空,长度应该在5-8之间,可以包含中文字符(一个汉字算一个字符)):</td>
+				<td><input type="text" id="username" name="username" /></td>
+			</tr>
+			 <tr> 
+		      <td>密码(不能为空,长度6-12字符或数字):</td>
+		      <td><input type="password" id="psw"  name="psw" /></td>
+		    </tr>
+		    <tr> 
+		      <td>重复密码密码(不能为空,长度6-12字符或数字,和密码相同):</td>
+		      <td><input type="password" id="psw2" name="psw2" /></td>
+		    </tr>
+		    <tr>
+				<td>性别(必选其一)</td>
+				<td>
+				    <input  type="radio" id="gender_male" value="m" name="gender" />&nbsp;男&nbsp;&nbsp;
+				    <input  type="radio" id="gender_female" value="f" name="gender"/>&nbsp;女
+				</td>
+			</tr>
+			<tr>
+				<td>年龄(必填26-50):</td>
+				<td><input type="text" id="age" name="age" /></td>
+			</tr>
+			
+		    <tr> 
+		      <td>你的学历:</td>
+		      <td> <select name="edu" id="edu">
+			          <option value="">－请选择你的学历－</option>
+			          <option value="a">专科</option>
+			          <option value="b">本科</option>
+			          <option value="c">研究生</option>
+			          <option value="e">硕士</option>
+			          <option value="d">博士</option>
+		          </select>
+			  </td>
+		    </tr>
+			
+			<tr> 
+              <td>出生日期(1982/09/21):</td>
+               <td><input type="text" id="birthday"  name="birthday" value="" /></td>
+            </tr>
+			
+		   <tr> 
+		      <td>兴趣爱好:</td>
+		      <td colspan="2"> 
+			      <input type="checkbox" name="checkbox1" id="qq1"/>&nbsp;乒乓球 &nbsp;
+		          <input type="checkbox" name="checkbox1" id="qq2" value="1" />&nbsp;羽毛球 &nbsp;
+		          <input type="checkbox" name="checkbox1" id="qq3" value="2" />&nbsp;上网 &nbsp;
+		          <input type="checkbox" name="checkbox1" id="qq4" value="3" />&nbsp;旅游 &nbsp;
+		          <input type="checkbox" name="checkbox1" id="qq5" value="4" />&nbsp;购物 &nbsp;
+		          <label class="error" for="checkbox1" style="display: none;">请至少选择一个爱好</label>
+			  </td>
+		    </tr>
+			 <tr> 
+			      <td align="left">电子邮箱:</td>
+			      <td><input type="text" id="email" name="email" /></td>
+			  </tr>
+			  <tr> 
+			      <td align="left">身份证(15-18):</td>
+			      <td><input type="text" id="cart" name="cart" /></td>
+			  </tr>
+			<tr>
+				<td></td>
+				<td><input type="submit"  name="firstname"  id="firstname" value="保存">
+				
+				</td>
+			</tr>
+		</table>
+
+</form>
+</body>
+</html>

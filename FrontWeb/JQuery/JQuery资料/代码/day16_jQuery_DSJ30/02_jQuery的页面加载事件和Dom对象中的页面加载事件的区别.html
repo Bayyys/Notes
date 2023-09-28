@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jQuery的页面加载事件和Dom对象中的页面加载事件的区别</title>
+		<script type="text/javascript" src="js/jquery-1.11.0.js" ></script>
+		<script type="text/javascript">
+			/*
+			 * 	dom对象中的页面加载事件:
+			 * 		只能写一个
+			 * 		写多个,后边的会覆盖前边的
+			 */
+			window.onload = function(){
+				alert(111);
+			}
+			window.onload = function(){
+				alert(222);
+			}
+			/*
+			 * jQuery的页面加载事件:
+			 * 		可以写多个,都会执行
+			 */
+			$(function(){
+				alert(333);
+			});
+			$(function(){
+				alert(444);
+			});
+		</script>
+	</head>
+	<body>
+		<div>我是一个div</div>
+	</body>
+</html>

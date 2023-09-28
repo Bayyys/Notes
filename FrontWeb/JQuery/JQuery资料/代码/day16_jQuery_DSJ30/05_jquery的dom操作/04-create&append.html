@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  <meta charset="UTF-8">
+    <title>元素操作</title>
+	<style type="text/css">
+		 	div,span{
+			    width: 140px;
+			    height: 140px;
+			    margin: 20px;
+			    background: #9999CC;
+			    border: #000 1px solid;
+				float:left;
+			    font-size: 17px;
+			    font-family:Roman;
+			}
+			
+			div .mini{
+			    width: 30px;
+			    height: 30px;
+			    background: #CC66FF;
+			    border: #000 1px solid;
+			    font-size: 12px;
+			    font-family:Roman;
+			}
+			
+			div.visible{
+				display:none;
+			}
+	 </style>
+	</head>
+	 
+	<body>
+		 <ul id="city">
+		 	 <li id="bj" name="beijing">北京</li>
+			 <li id="tj" name="tianjin">天津</li>
+			 <li id="cq" name="chongqing">重庆</li>
+		 </ul>
+		 
+		 
+		  <ul id="love">
+		 	 <li id="fk" name="fankong">反恐</li>
+			 <li id="xj" name="xingji">星际</li>
+		 </ul>
+		
+		<div id="foo1">Hello1</div> 
+       
+	</body>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script></script>
+	<script type="text/javascript">
+	
+	/**将反恐放置到city的后面*/
+		//1.获取父标签对象id为city的对象
+		//var $city = $("#city");
+		//2.获取子标签对象id为fk的对象
+		//var $fk = $("#fk");
+		//3.使用city对象中的函数append追加子标签fk
+		//$city.append($fk);
+		//$("#city").append($("#fk"));//添加在最后边 剪切添加
+	
+	/**将反恐放置到city的最前面*/
+		//$("#city").prepend($("#fk"));//添加在最前边
+		
+	//创建标签<li id='ms' name='moshouzhengba'>魔兽</li> 创建标签的同时可以添加属性和设置标签体
+	var $ms = $("<li id='ms' name='moshouzhengba'>魔兽</li>");
+	//把魔兽放在city的最后边
+	//$("#city").append($ms);
+		
+	//before(element) 添加到当前元素的前面，两者之间是兄弟关系
+	//$("#xj").before($ms); // 把魔兽添加到星际的前边
+	
+	//after(element)添加到当前元素的后面，两者之间是兄弟关系
+	//$("#fk").after($ms);// 把魔兽添加到反恐后边
+	
+	//insertBefore(elment) 添加到当前元素的前面，两者之间是兄弟关系
+	//$ms.insertBefore($("#xj"));	// 把魔兽添加到星际的前边
+	
+	//insertAftrer(elment) 添加到当前元素的后面，两者之间是兄弟关系
+	$ms.insertAfter($("#fk"));// 把魔兽添加到反恐后边
+	</script>
+   
+</html>

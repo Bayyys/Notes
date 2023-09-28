@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jQuery遍历</title>
+		<script type="text/javascript" src="js/jquery-3.3.1.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				/*
+				 * 1.原始的遍历方式:jQuery对象是一个数组,遍历数组
+				 * 	for(var i=0; i<$jQuery对象.length; i++){}
+				 */
+				//获取city下边所有的li
+				var $liArr = $("#city li");
+				for(var i=0; i<$liArr.length; i++){
+					//alert($liArr[i].innerText)//取出jQuery数组中的每一个dom对象
+					//alert($($liArr[i]).text());
+				}
+				
+				/*
+				 * 2.使用jQuery对象调用each函数
+				 * 格式:
+				 * 		jQuery对象.each(function(index,element){
+				 * 	
+				 * 		})
+				 * 		index:数组的索引
+				 * 		element:数组中的每一个元素(jQuery中的每一个dom对象)
+				 */
+				$liArr.each(function(index,element){
+					//alert(index);//0,1,2,3
+					//alert(element.innerText);
+					//alert($(element).text());
+				})
+				
+				/*
+				 * 3.jquery的全局方法遍历
+				 * 	在jQuery中有一个全局函数each,可以使用jQuery($)直接调用
+				 * 格式:
+				 * 	$.each(jQuery对象,function(index,element){
+				 * 	
+				 *  })
+				 * 	index:数组的索引
+				 * 	element:数组中的每一个元素(jQuery中的每一个dom对象) 
+				 */
+				$.each($liArr, function(index,element) {
+					//alert(element.innerText+"\t"+index);
+					//alert($(element).text()+"\t"+index);
+				});
+				
+				/*
+				 * 4. jQuery3.0新特性,增强for循环
+				 * 格式:
+				 * 	for(变量 of jQuery对象){
+				 * 		alert(变量);
+				 * 	}
+				 * 	变量:会自动记录jQuery中的每一个元素
+				 */
+				for(liEle of $liArr){
+					//alert(liEle.innerText);
+					alert($(liEle).text());
+				}
+			});
+		</script>
+		
+	</head>
+	<body>	
+		<ul id="city" >
+			<li>北京</li>
+			<li>上海</li>
+			<li>天津</li>
+			<li>重庆</li>	
+		</ul>
+	</body>
+</html>

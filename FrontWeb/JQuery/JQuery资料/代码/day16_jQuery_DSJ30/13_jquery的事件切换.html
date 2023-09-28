@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				/*
+				 * 事件切换
+				 * 方式一:给标签添加多个事件
+				 */
+				//获取id是myDiv的标签对象,添加一个鼠标移入事件,改变背景色为绿色
+				/*$("#myDiv").mouseover(function(){
+					$("#myDiv").css("background-color","green");
+				})*/
+				
+				//获取id是myDiv的标签对象,添加一个鼠标移出事件,改变背景色为红色
+				/*$("#myDiv").mouseout(function(){
+					$("#myDiv").css("background-color","red");
+				})*/
+				
+				/*
+				 * 方式二:链式写法
+				 * jQuery对象.事件函数(function(){}).事件函数(function(){}).事件函数(function(){})...;
+				 */
+				$("#myDiv").mouseover(function(){
+					$("#myDiv").css("background-color","green");
+				}).mouseout(function(){
+					$("#myDiv").css("background-color","red");
+				});
+				
+				/*
+				 * 方式三:切换函数写法
+				 * hover([over,]out)
+					其中：
+					over代表鼠标移入事件触发的函数；
+					out代表鼠标移出事件触发的函数。
+				 */
+				/*$("#myDiv").hover(function(){
+					$("#myDiv").css("background-color","green");
+				},function(){
+					$("#myDiv").css("background-color","red");
+				})*/
+				
+				$("#btn2").click(function(){
+					//$("#myDiv").off("mouseout");//只解绑移出事件
+					$("#myDiv").off();//解绑所有事件
+				})
+			});
+		</script>
+	</head>
+	<body>
+		<div id="myDiv" style="width:300px;height:300px;background:red">鼠标移入变成绿色，移出回复红色</div>
+		<input id="btn2" type="button" value="测试事件的解绑" />
+	</body>
+</html>
