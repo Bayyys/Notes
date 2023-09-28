@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>05-IE缓存问题</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <style>
+      #result {
+        width: 400px;
+        height: 100px;
+        border: 1px solid #90b;
+      }
+    </style>
+  </head>
+  <body>
+    <h3 id="result"></h4>
+
+    <script>
+      const $result = $("#result");
+      $(window).on("click", () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8000/ie?t=" + Date.now());
+        xhr.send();
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4 &&xhr.status >= 200 && xhr.status < 300) {
+            $result.html((new Date()).toLocaleString() + " 收到了: "+xhr.response);
+          }
+        };
+      });
+    </script>
+  </body>
+</html>

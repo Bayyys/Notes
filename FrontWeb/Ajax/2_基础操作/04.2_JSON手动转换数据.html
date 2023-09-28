@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>04_响应JSON数据</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <style>
+      #result {
+        width: 200px;
+        height: 100px;
+        border: 1px solid #90b;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="result"></div>
+
+    <script>
+      const $result = $("#result");
+      // 给窗口添加点击事件
+      $(window).on("click", () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:8000/server-json");
+        xhr.send();
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+            // 将结果显示到页面中
+            const response = xhr.response;
+            console.log(response);
+            data = JSON.parse(response);
+            console.log(data)
+            $result.html(data.name);
+          }
+        };
+      });
+    </script>
+  </body>
+</html>

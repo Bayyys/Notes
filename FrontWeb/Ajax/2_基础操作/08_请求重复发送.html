@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>08_请求重复发送</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <style>
+      #result {
+        width: 400px;
+        height: 100px;
+        border: 1px solid #90b;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="b1">发送请求</button>
+    <button id="b2">取消请求</button>
+    <h3 id="result"></h3>
+
+    <script>
+      const $result = $("#result");
+      let xhr = null;
+      let isSending = false;
+      $("#b1").on("click", () => {
+        if (isSending) xhr.abort();
+        isSending = true;
+
+        xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8000/timeout");
+        xhr.send();
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4) {
+            isSending = false;
+            if (xhr.status >= 200 && xhr.status < 300) {
+              $result.text(xhr.response);
+            }
+          }
+        };
+      });
+      $("#b2").on("click", () => {
+        xhr.abort();
+        const data = $result.text() + " 请求取消" + "\n";
+        $result.text(data);
+      });
+    </script>
+  </body>
+</html>

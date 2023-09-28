@@ -398,3 +398,5 @@
 > - Reference: [尚硅谷-Ajax](https://www.bilibili.com/video/BV1WC4y1b78y/?spm_id_from=333.337.search-card.all.click&vd_source=2228fbb3090a9774de8d595d37290e9e)
 
 - [x] 创建 `Ajax` 学习项目 (09.28.2023)
+- [x] 1. Ajax简介 (09.28.2023)
+- [x] 2. Ajax基础操作 (09.28.2023)

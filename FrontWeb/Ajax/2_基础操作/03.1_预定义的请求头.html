@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>3.1-预定义的请求头</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <style>
+      #result {
+        width: 200px;
+        height: 100px;
+        border: 1px solid #90b;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="result"></div>
+
+    <script>
+      const $result = $("#result");
+      $result.on("mouseover", () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:8000/server");
+        // 设置请求头
+        xhr.setRequestHeader(
+          "Content-Type",   // 请求体的类型
+          "application/x-www-form-urlencoded" // 请求体的格式
+        );
+        xhr.send();
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+            // 将结果显示到页面中
+            $result.html(xhr.response);
+            console.log(new Date());
+          }
+        };
+      });
+    </script>
+  </body>
+</html>

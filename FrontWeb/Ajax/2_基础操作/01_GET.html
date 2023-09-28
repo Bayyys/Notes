@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>1-GET</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <style>
+      #result {
+        width: 200px;
+        height: 100px;
+        border: 1px solid #90b;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="btn">点击发送请求</button>
+    <div id="result"></div>
+
+    <script>
+      // 获取button
+      const $btn = $("#btn");
+      // 获取div
+      const $result = $("#result");
+      // 绑定事件
+      $btn.on("click", () => {
+        // 1. 创建xhr对象
+        const xhr = new XMLHttpRequest();
+        // 2. 初始化 设置请求方法和url
+        xhr.open("GET", "http://localhost:8000/server?name=admin&age=18");
+        // 3. 发送请求
+        xhr.send();
+        // 4. 事件绑定, 处理服务器返回的结果
+        //  readyState: 是xhr对象中的属性, 表示请求的状态(取值 0 1 2 3 4)
+        //  0代表未初始化, 1代表已经调用open方法, 2代表已经调用send方法, 3代表正在接收服务器返回的数据, 4代表服务器返回的数据已经接收完毕)
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4) {
+            // 判断响应状态码
+            // 2xx 成功
+            if (xhr.status >= 200 && xhr.status < 300) {
+              // 处理结果 (行/头/空/体)
+              // 1) 状态码
+              console.log(xhr.status);
+              // 2) 状态字符串
+              console.log(xhr.statusText);
+              // 3) 响应头
+              console.log(xhr.getAllResponseHeaders());
+              // 4) 响应体
+              console.log(xhr.response);
+              // 将结果显示到页面中
+              $result.html(xhr.response);
+            }
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
