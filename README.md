@@ -389,3 +389,12 @@
 - [x] 7. jQuery事件 (09.28.2023)
 - [x] 8. jQuery插件 (09.28.2023)
 - [x] `jQuery` 学习完成 (09.28.2023)
+
+## Ajax - 09.28.2023
+
+> [Ajax](./FrontWeb/Ajax/) 学习笔记
+> AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。AJAX 最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容。
+> 
+> - Reference: [尚硅谷-Ajax](https://www.bilibili.com/video/BV1WC4y1b78y/?spm_id_from=333.337.search-card.all.click&vd_source=2228fbb3090a9774de8d595d37290e9e)
+
+- [x] 创建 `Ajax` 学习项目 (09.28.2023)
