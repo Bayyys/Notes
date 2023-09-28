@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>02_jq对象与js对象的转换</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script>
+      $(function () {
+        // 获取js对象
+        var jsDomEle = document.getElementById("myDiv");
+        alert(jsDomEle.innerHTML);
+
+        // 获取jq对象
+        var $jqDomEle = $("#myDiv");
+        alert($jqDomEle.html());
+
+        // js对象转jq对象
+        var $jqDomEle2 = $(jsDomEle);
+        alert($jqDomEle2.html());
+
+        // jq对象转js对象
+        var jsDomEle2 = $jqDomEle2[0];
+        alert(jsDomEle2.innerHTML);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="myDiv">Hello World!</div>
+  </body>
+  <script></script>
+</html>

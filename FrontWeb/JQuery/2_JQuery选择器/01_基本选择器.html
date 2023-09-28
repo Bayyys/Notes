@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>基本选择器</title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      div,
+      span {
+        width: 180px;
+        height: 180px;
+        margin: 20px;
+        background: #9999cc;
+        border: #000 1px solid;
+        float: left;
+        font-size: 17px;
+        font-family: Roman;
+      }
+
+      div .mini {
+        width: 50px;
+        height: 50px;
+        background: #cc66ff;
+        border: #000 1px solid;
+        font-size: 12px;
+        font-family: Roman;
+      }
+
+      div .mini01 {
+        width: 50px;
+        height: 50px;
+        background: #cc66ff;
+        border: #000 1px solid;
+        font-size: 12px;
+        font-family: Roman;
+      }
+    </style>
+  </head>
+
+  <body>
+    <input type="button" value="保存" class="mini" name="ok" class="mini" />
+    <input type="button" value="改变 id 为 one 的元素的背景色为 红色" id="b1" />
+    <input
+      type="button"
+      value=" 改变元素名为 <div> 的所有元素的背景色为 红色"
+      id="b2"
+    />
+    <input
+      type="button"
+      value=" 改变 class 为 mini 的所有元素的背景色为 红色"
+      id="b3"
+    />
+    <input
+      type="button"
+      value=" 改变所有的<span>元素和 id 为 two 的元素的背景色为红色"
+      id="b4"
+    />
+
+    <h1>有一种奇迹叫坚持</h1>
+    <h2>自信源于努力</h2>
+
+    <div id="one">id为one</div>
+
+    <div id="two" class="mini">
+      id为two class是 mini
+      <div class="mini">class是 mini</div>
+    </div>
+
+    <div class="one">
+      class是 one
+      <div class="mini">class是 mini</div>
+      <div class="mini">class是 mini</div>
+    </div>
+    <div class="one">
+      class是 one
+      <div class="mini01">class是 mini01</div>
+      <div class="mini">class是 mini</div>
+    </div>
+
+    <div id="mover">div 动画</div>
+
+    <span class="spanone">class为spanone的span元素</span>
+    <span class="mini">class为mini的span元素</span>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript">
+    // <input type="button" value="改变 id 为 one 的元素的背景色为 红色"  id="b1"/>
+    // var btn_b1 = document.getElementById("b1");
+    // btn_b1.onclick = function () {
+    //   document.getElementById("one").style.backgroundColor = "red";
+    // };
+
+    var $btn_b1 = $("#b1");
+    $btn_b1.click(function () {
+      $("#one").css("background-color", "red");
+    });
+
+    // <input type="button" value=" 改变元素名为 <div> 的所有元素的背景色为 红色" id="b2"/>;
+
+    $("#b2").click(function () {
+      $("div").css("background-color", "red");
+    });
+    // <input type="button" value=" 改变 class 为 mini 的所有元素的背景色为 红色"  id="b3"/>
+
+    $("#b3").click(function () {
+      $(".mini").css("background-color", "red");
+    });
+
+    // <input type="button" value=" 改变所有的<span>元素和 id 为 two 的元素的背景色为红色"  id="b4"/>
+
+    $("#b4").click(function () {
+      $("span,#two").css("background-color", "red");
+    });
+  </script>
+</html>
