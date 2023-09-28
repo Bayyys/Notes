@@ -285,6 +285,7 @@
 
 ## Vue3 - 09.09.2023-09.27.2023
 
+> [Vue3](./FrontWeb/Vue3/) 学习笔记
 > - 一套用于构建用户界面的渐进式JavaScript框架
 > - Reference
 >   - [尚硅谷Vue技术](https://www.bilibili.com/video/BV1Zy4y1K7SH/?p=1&spm_id_from=pageDriver&vd_source=2228fbb3090a9774de8d595d37290e9e)
@@ -369,3 +370,13 @@
 - [x]  7. 其他新特性 (09.27.2023)
 - [x]  --. Vue3完成 (09.27.2023)
 - [x] `Vue3` 学习完成 (09.27.2023)
+
+## jQuery - 09.27.2023
+
+> [jQuery](./FrontWeb/jQuery/) 学习笔记
+> - jQuery 是一个**快速**、**小型**且**功能丰富**的 **JavaScript 库**。它通过可在多种浏览器上运行的易于使用的 API，使 HTML **文档遍历和操作**、**事件处理**、**动画**和 **Ajax** 等事情变得更加简单。凭借多功能性和可扩展性的结合，jQuery 改变了数百万人编写 JavaScript 的方式。
+> 
+> - Reference：[尚硅谷jQuery教程](https://www.bilibili.com/video/BV1ts411E7ag/?spm_id_from=333.1245.top_right_bar_window_history.content.click&vd_source=2228fbb3090a9774de8d595d37290e9e)
+> - Website：[jQuery](https://jquery.com/)
+
+- [x] 创建 `jQuery` 学习项目 (09.27.2023)
