@@ -380,3 +380,5 @@
 > - Website：[jQuery](https://jquery.com/)
 
 - [x] 创建 `jQuery` 学习项目 (09.27.2023)
+- [x] 1. jQuery介绍 (09.27.2023)
+- [ ] 2. jQuery选择器 (09.27.2023-x)
