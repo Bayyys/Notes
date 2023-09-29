@@ -408,11 +408,16 @@
 
 > [Node.js](./WebTools/Node.js/) 学习笔记
 > 
-> - 简单的说 Node.js 就是运行在服务端的 JavaScript。
+> - 简单的说 Node.js是一个开源的，跨平台的 JavaScript 运行环境。
 > - Node.js是一个事件驱动I/O服务端JavaScript环境，基于Google的V8引擎，V8引擎执行Javascript的速度 非常快，性能非常好。
 > - Reference: [尚硅谷-NodeJS](https://www.bilibili.com/video/BV1gM411W7ex?p=1&vd_source=2228fbb3090a9774de8d595d37290e9e)
 > - Website: [Node.js](https://nodejs.org/en)
 
 - [x] 创建 `Node.js` 学习项目 (09.29.2023)
+- [x] 1. NodeJS入门 (09.29.2023)
+- [x] 2. fs模块 (09.29.2023)
+- [x] 3. path模块 (09.29.2023)
+- [x] 4. HTTP协议 (09.29.2023)
+- [ ] 5. http模块 (09.29.2023-x)
 
 
