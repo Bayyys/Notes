@@ -1,0 +1,50 @@
+{
+  "singers": [
+    {
+      "id": 1,
+      "name": "张学友",
+      "sex": "男",
+      "song": [
+        {
+          "id": 1,
+          "name": "一千个伤心的理由",
+          "type": "流行",
+          "language": "国语",
+          "album": "一千个伤心的理由",
+          "release_date": "1985-01-01"
+        },
+        {
+          "id": 2,
+          "name": "一千个伤心的理由",
+          "type": "流行",
+          "language": "国语",
+          "album": "一千个伤心的理由",
+          "release_date": "1985-01-01"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "G.E.M 邓紫棋",
+      "sex": "女",
+      "song": [
+        {
+          "id": 3,
+          "name": "泡沫",
+          "type": "流行",
+          "language": "国语",
+          "album": "Xposed",
+          "release_date": "2012-11-02"
+        },
+        {
+          "id": 4,
+          "name": "泡沫",
+          "type": "流行",
+          "language": "国语",
+          "album": "Xposed",
+          "release_date": "2012-11-02"
+        }
+      ]
+    }
+  ]
+}
