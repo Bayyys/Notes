@@ -1,0 +1,17 @@
+td {
+  padding: 20px 40px;
+}
+
+/* odd even交替实现隔行换色 */
+table tr:nth-child(odd) {
+  background: rgb(202, 219, 255);
+}
+
+table tr:nth-child(even) {
+  background: #fcb;
+}
+
+table,
+td {
+  border-collapse: collapse;
+}
