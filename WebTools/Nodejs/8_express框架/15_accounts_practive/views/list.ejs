@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <style>
+      label {
+        font-weight: normal;
+      }
+      .panel-body .glyphicon-remove {
+        display: none;
+      }
+      .panel-body:hover .glyphicon-remove {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+          <h2>记账本</h2>
+          <a href="/create">添加账单</a>
+          <hr />
+          <div class="accounts">
+            <% accounts.forEach(item => { %>
+            <div
+              class="panel <%= item.type==='-1' ? 'panel-danger' : 'panel-success' %>"
+            >
+              <div class="panel-heading"><%= item.time %></div>
+              <div class="panel-body">
+                <div class="col-xs-6"><%= item.title %></div>
+                <div class="col-xs-2 text-center">
+                  <span
+                    class="label <%= item.type==='-1' ? 'label-warning' : 'label-success' %>"
+                    ><%= item.type==='-1' ? '支出' : '收入' %></span
+                  >
+                </div>
+                <div class="col-xs-2 text-right"><%= item.account %> 元</div>
+                <div class="col-xs-2 text-right">
+                  <a href="/account/<%= item.id %>">
+                    <span
+                      class="glyphicon glyphicon-remove"
+                      aria-hidden="true"
+                    ></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
