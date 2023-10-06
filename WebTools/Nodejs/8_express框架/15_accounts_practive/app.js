@@ -14,10 +14,10 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(logger("dev"));
-app.use(express.json());  // 用于解析 application/json
+app.use(express.json()); // 用于解析 application/json
 app.use(express.urlencoded({ extended: false })); // 用于解析 application/x-www-form-urlencoded
-app.use(cookieParser());  // 用于解析 cookie
-app.use(express.static(path.join(__dirname, "public")));  // 设置静态文件目录
+app.use(cookieParser()); // 用于解析 cookie
+app.use(express.static(path.join(__dirname, "public"))); // 设置静态文件目录
 
 app.use("/", indexRouter);
 

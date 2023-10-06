@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>添加记录</title>
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/bootstrap-datepicker.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+          <h2>添加记录</h2>
+          <a href="/account" class="btn btn-primary">返回</a>
+          <hr />
+          <form method="post" action="/success">
+            <div class="form-group">
+              <label for="item">事项</label>
+              <input name="title" type="text" class="form-control" id="item" />
+            </div>
+            <div class="form-group">
+              <label for="time">时间</label>
+              <input name="time" type="text" class="form-control" id="time" />
+            </div>
+            <div class="form-group">
+              <label for="type">类型</label>
+              <select name="type" class="form-control" id="type">
+                <option value="-1">支出</option>
+                <option value="1">收入</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="account">金额</label>
+              <input
+                name="account"
+                type="text"
+                class="form-control"
+                id="account"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="remarks">备注</label>
+              <textarea
+                name="remarks"
+                class="form-control"
+                id="remarks"
+              ></textarea>
+            </div>
+            <hr />
+            <button type="submit" class="btn btn-primary btn-block">
+              添加
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-datepicker.min.js"></script>
+    <script src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
