@@ -429,7 +429,7 @@
 
 ## Promise - 10.07.2023
 
-> [Promise](./FrontWeb/Promise/) 学习笔记
+> [Promise](./WebTools//Promise/) 学习笔记
 > Promise是JS异步编程中的重要概念，异步抽象处理对象，是目前比较流行Javascript异步编程解决方案之一。
 >
 > - Reference: [尚硅谷-Promise](https://www.bilibili.com/video/BV1GA411x7z1/?vd_source=2228fbb3090a9774de8d595d37290e9e)
@@ -439,3 +439,23 @@
 - [x] 1. Promise的理解与使用 (10.07.2023)
 - [x] 2. 自定义Promise (10.07.2023)
 - [x] 3. Promise+async/await (10.07.2023)
+
+## axios - 10.07.2023
+
+> [axios](./WebTools/axios/) 学习笔记
+> - Axios 是一个基于 promise 的网络请求库，可以用于浏览器和 node.js
+> - Axios 使用简单,包尺寸小且提供了易于扩展的接口
+>   - ```js
+>     import axios from "axios";
+>     axios.get('/users')
+>         .then(res => {
+>         console.log(res.data);
+>     });
+>     ```
+>
+> - website: 
+>   - [Axios.cn](https://www.axios-http.cn/)
+>   - [Axios](https://axios-http.com/)
+> - Reference: [尚硅谷-axios](https://www.bilibili.com/video/BV1wr4y1K7tq/?spm_id_from=333.999.0.0&vd_source=2228fbb3090a9774de8d595d37290e9e)
+
+- [x] 创建 `axios` 学习项目 (10.07.2023)
