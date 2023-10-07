@@ -459,3 +459,6 @@
 > - Reference: [尚硅谷-axios](https://www.bilibili.com/video/BV1wr4y1K7tq/?spm_id_from=333.999.0.0&vd_source=2228fbb3090a9774de8d595d37290e9e)
 
 - [x] 创建 `axios` 学习项目 (10.07.2023)
+- [x] 1. json-servr (10.07.2023)
+- [x] 2. axios简介 (10.08.2023)
+- [ ] 3. axis使用 (10.08.2023-x)
