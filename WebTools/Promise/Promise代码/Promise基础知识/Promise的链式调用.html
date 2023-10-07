@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise的链式调用</title>
+</head>
+
+<body>
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            resolve('ok');
+        })
+
+        p1.then(value => {
+            console.log(value);
+            console.log('养成了');
+        }).then(value => {
+            console.log('杀牛');
+        }).then(value => {
+            console.log('剃毛');
+        }).then(value => {
+            console.log('加工');
+        }).then(value => {
+            console.log('酱牛肉');
+        })
+    </script>
+</body>
+
+</html>

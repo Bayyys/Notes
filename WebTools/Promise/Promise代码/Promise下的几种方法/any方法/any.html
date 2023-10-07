@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>any方法</title>
+</head>
+
+<body>
+    <!--
+        Promise下的any方法，只要参数中有一个Promise实例化对象的状态为fulfilled，则整体结果就会为fulfilled
+        如果所有Promise实例都是rejected，那么结果就是rejected
+    -->
+    <script>
+        let p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject('ok');
+            }, 1000)
+        })
+        let p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject('okk');
+            }, 2000)
+        })
+        let p3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('success');
+            }, 3000)
+        })
+        let result = Promise.any([p2, p1, p3]);
+        console.log(result);
+    </script>
+</body>
+
+</html>

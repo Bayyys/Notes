@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise中的finally方法</title>
+</head>
+
+<body>
+    <!--
+        finally是ES9(ES2018)中新增的特性，表示无论Promise对象变成了fulfilled还是rejected状态，最终都会执行
+        finally方法的回调函数参数是不接受参数的
+    -->
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            //resolve('ok');
+            reject('error');
+        });
+        p1.then(value => {
+            console.log(value);
+        }).catch(reason => {
+            console.log(reason);
+        }).finally(() => {
+            console.log('最终我被执行了...');
+        })
+    </script>
+</body>
+
+</html>

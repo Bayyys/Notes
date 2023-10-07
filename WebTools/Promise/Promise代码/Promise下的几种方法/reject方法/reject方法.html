@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reject方法</title>
+</head>
+
+<body>
+    <!--
+        Promise.reject方法将始终返回一个为失败的Promise对象，
+        无论参数是否为Promise还是其他，最终都将返回失败的Promise
+    -->
+    <script>
+        const p1 = Promise.reject(123);
+        console.log(p1);
+
+        const p2 = Promise.reject(new Promise((resolve, reject) => {
+            resolve(345);
+        }));
+        console.log(p2);
+    </script>
+</body>
+
+</html>

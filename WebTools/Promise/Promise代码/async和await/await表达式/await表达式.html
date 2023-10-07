@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>await表达式</title>
+</head>
+
+<body>
+    <!--
+        1、async函数结合await表达式
+           1.1 async函数中不一定要完全结合await
+           1.2 有await的函数一定是async函数
+        2、await相当于then，可以直接拿到成功的Promise实例化对象的结果值
+        3、await一定要写在async函数之中，但是async函数之中可以没有await
+        4、如果await表达式后面是Promise实例化对象，则await返回的是Promise的成功的结果值
+        5、如果await表达式后面的其他值，则会直接将这个值作为await的返回值
+    -->
+    <script>
+        async function main() {
+            //内部执行异步的功能，并且得到成功的结果数据值
+
+            //1、如果await右侧为非Promise类型的数据，await后面的值是什么，得到的结果就是什么
+            // let rs = await 100;
+            // console.log(rs);
+
+            //2、如果await右侧为Promise成功类型的数据
+            // let rs = await new Promise((resolve, reject) => {
+            //     resolve('ok');
+            // })
+            // console.log(rs);
+
+            // let rs = await Promise.resolve('okk');
+            // console.log(rs);
+
+            //3、如果await右侧为失败的Promise类型数据，需要try...catch来捕获
+            try {
+                // let rs = await new Promise((resolve, reject) => {
+                //     reject('error');
+                // })
+                // console.log(rs);
+
+                let rs = await Promise.reject('error');
+                console.log(rs);
+
+            } catch (e) {
+                console.log(e);
+            }
+            //有了try...catch后续的代码将继续执行
+            console.log(1111);
+        }
+        //调用
+        main();
+    </script>
+</body>
+
+</html>

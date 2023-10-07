@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-搭建Promise基本结构</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <!--
+        1、Promise是一个构造函数 作用就是为了实例化对象
+           语法：let 变量 = new 构造函数名称(); 在堆内存中开辟一块空间，分配其大小以及设置其地址值 0x100
+           堆内存：主要存储的是引用数据类型的数据(数组、对象、函数)
+           栈内存：主要存储的是基本数据类型以及引用数据类型的地址值
+
+        2、Promise这个构造函数是需要接收一个实际参数，类型为一个回调函数（执行器函数 executor）
+
+        3、executor回调函数中也是需要接收两个形式参数，resolve、reject
+    -->
+    <script>
+        //1、创建Promise的实例化对象
+        let p = new Promise((resolve, reject) => {
+            console.log('我是Promise的执行器函数');
+        });
+    </script>
+</body>
+
+</html>

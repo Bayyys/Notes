@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-Promise中的all方法</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <!--
+        Promise.all方法需要传递一个参数，这个参数是一个数组
+        数组里面是需要存入Promise实例化对象
+        Promise.all方法返回的也是一个Promise实例化对象
+
+        当如果所有的Promise实例化对象的状态都是成功的话，
+        则返回的新的Promise实例化对象的状态也是成功的，
+        结果值就是所有成功的Promise实例化对象的结果值组成的数组
+
+        当如果这些Promise实例化对象其中有一个是失败的话，
+        则直接返回的是失败的Promise实例化对象，
+        结果值就是失败的这个Promise实例化对象的结果值
+    -->
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(100);
+            }, 100)
+        })
+
+        const p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(200);
+            }, 50)
+        })
+
+        const p3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(300);
+            }, 200)
+        })
+
+        const pArr = Promise.all([p1, p2, p3]);
+        console.log(pArr);
+    </script>
+</body>
+
+</html>

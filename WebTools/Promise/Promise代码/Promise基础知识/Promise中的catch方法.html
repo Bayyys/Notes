@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise中的catch方法</title>
+</head>
+
+<body>
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            reject('error');
+        })
+        //then方法中是可以传入两个参数，当然也可以不传递，也可以只传递成功的回调函数
+        //也可以单独的来使用catch来专门指定失败的回调函数
+
+        //catch方法也有返回值,和then方法的返回值类似
+        //catch方法也返回一个Promise实例化对象
+        //情况1：如果失败回调函数中没有返回值，则得到一个成功的promise实例化对象，结果为undefined
+        //情况2：如果失败回调函数中有返回值，但是这个返回值不是promise实例的情况下
+        //则得到一个成功的promise实例化对象，结果为返回值数据
+        //情况2：如果失败回调函数中有返回值，但是这个返回值是promise实例的情况下
+        //则新的Promise对象的状态和结果值完全取决于返回的Promise对象的状态以及结果值
+        // const result = p1.catch(reason => {
+        //     //console.log(reason);
+        //     // return reason
+        //     return new Promise((resolve, reject) => {
+        //         // resolve('ok');
+        //         reject('errror');
+        //     })
+        // });
+        // console.log(result);
+
+        //当然也可以和then方法结合使用
+        //异常(错误)穿透
+        //当如果有多个需要执行的成功的回调，可以不每一次都写失败回调，可以一次性统一使用最后一次catch
+        //当Promise实例化对象的状态为rejected，则会一直向下穿透到catch方法
+        p1.then(value => {
+            console.log(value);
+        }).then(value => {
+            console.log(value);
+        }).catch(reason => {
+            console.log(reason);
+        })
+    </script>
+</body>
+
+</html>

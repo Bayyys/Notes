@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-then方法的链式调用中的异常穿透支持</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <script>
+        new Promise((resolve, reject) => {
+            resolve(1);
+        }).then(value => {
+            throw '异常';
+        }).then(value => {
+            console.log(value);
+            return 3;
+        }).then(value => {
+            console.log(value);
+            return 4;
+        }).then(value => {
+            console.log(value);
+            return 5;
+        }).catch(reason => {
+            console.log(reason);
+        }).catch(reason => {
+            console.log(reason);
+        })
+    </script>
+</body>
+
+</html>

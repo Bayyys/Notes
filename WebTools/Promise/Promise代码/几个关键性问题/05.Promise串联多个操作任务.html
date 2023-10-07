@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise串联多个操作任务</title>
+</head>
+
+<body>
+    <script>
+        new Promise((resolve, reject) => {
+            //reject('error');
+            resolve('success');
+        }).then(value => {
+            console.log(value);
+            console.log(222);
+        }).then(value => {
+            console.log(value);
+        }).then(value => {
+            console.log(value);
+        }, reason => {
+            console.log(reason);
+        })
+    </script>
+</body>
+
+</html>

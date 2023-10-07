@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>all方法</title>
+</head>
+
+<body>
+    <!--
+        Promise下的all方法作用主要是针对于多个Promise的异步任务的处理
+        需要接收一个数组类型的参数
+        返回值：Promise对象，状态也是由数组中的每一个Promise对象的状态来决定的
+               当所有的Promise对象的状态都是成功的，最终的结果就是成功的Promise，结果值是由每一个Promise的结果值组成的数组
+               当所有的Promise对象的状态但凡有一个是失败的，最终也是失败的Promise，结果值就是失败的这个Promise的结果值
+    -->
+    <script>
+        let p1 = new Promise((resolve, reject) => {
+            resolve('ok');
+        })
+
+        let p2 = new Promise((resolve, reject) => {
+            resolve('hello');
+        })
+
+        let p3 = new Promise((resolve, reject) => {
+            reject('error');
+        })
+
+        let result = Promise.all([p1, p2, p3]);
+        console.log(result);
+    </script>
+</body>
+
+</html>

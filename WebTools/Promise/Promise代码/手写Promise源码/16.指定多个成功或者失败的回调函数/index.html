@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-指定多个成功或者失败的回调函数</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // resolve(100);
+                reject('error')
+            }, 1000)
+        })
+        p1.then(value => {
+            console.log('成功1', value);
+        }, reason => {
+            console.log('失败1', reason);
+        });
+
+        p1.then(value => {
+            console.log('成功2', value);
+        }, reason => {
+            console.log('失败2', reason);
+        });
+
+        p1.then(value => {
+            console.log('成功3', value);
+        }, reason => {
+            console.log('失败3', reason);
+        });
+
+        p1.then(value => {
+            console.log('成功4', value);
+        }, reason => {
+            console.log('失败4', reason);
+        });
+    </script>
+</body>
+
+</html>

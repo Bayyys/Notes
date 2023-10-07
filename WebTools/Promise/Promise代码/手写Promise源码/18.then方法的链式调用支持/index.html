@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-then方法的链式调用支持</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <script>
+        new Promise((resolve, reject) => {
+            // resolve(1);
+            reject('error');
+        }).then(value => {
+            console.log(value);  //1
+            return 2;
+        }, reason => {
+            console.log(reason); 
+            return 'err'
+        }).then(value => {
+            console.log(value); // 2
+            return 3;
+        }).then(value => {
+            console.log(value); // 3
+            return 4;
+        }).then(value => {
+            console.log(value); // 4
+            return 5;
+        }).catch(reason => {
+            console.log(reason); //error
+        })
+    </script>
+</body>
+
+</html>

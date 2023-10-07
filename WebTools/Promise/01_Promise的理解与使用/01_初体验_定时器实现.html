@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>01_初体验_定时器实现</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="page-header">Promise 初体验</h2>
+      <hr />
+      <button class="btn btn-primary" id="btn">点击获取数据</button>
+    </div>
+  </body>
+  <script>
+    // 生成随机数
+    function rand(m, n) {
+      return Math.floor(Math.random() * (n - m + 1) + m);
+    }
+    const $btn = $("#btn");
+    $btn.on("click", () => {
+      setTimeout(() => {
+        let n = rand(1, 100);
+        if (n <= 30) {
+          alert("成功了");
+        } else {
+          alert("失败了");
+        }
+      }, 3000);
+    });
+  </script>
+</html>

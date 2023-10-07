@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-Promise实例对象的状态只允许更改一次</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <!--
+        1、通过调用resolve方法，可以将Promise实例化对象的状态从pending->fulfilled
+        2、通过调用reject方法，可以将Promise实例化对象的状态从pending->rejected
+        3、Promise的实例化对象状态一旦被更改，则不会在继续更改（只能更改一次）无论是pending到成功还是pending到失败
+           也就是说不会从fulfilled到rejected
+        4、抛出异常是可以将Promise实例化对象的状态更改为rejected
+        5、executor执行函数定义的时候需要有两个形式参数，一个是resolve，另一个是reject 
+        6、resolve和reject又是两个函数,这两个函数还是回调函数
+    -->
+    <script>
+        let p = new Promise((resolve, reject) => {
+            reject('aaa');
+            resolve(100);
+            // throw '异常';
+        });
+        console.log(p);
+    </script>
+</body>
+
+</html>

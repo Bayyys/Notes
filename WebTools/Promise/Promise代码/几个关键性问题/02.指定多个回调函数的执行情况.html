@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>指定多个回调函数的执行情况</title>
+</head>
+
+<body>
+    <!--
+        问题：一个Promise实例对象指定多个成功/失败的回调函数，都会进行调用吗?
+        答：一定会执行，但是前提是Promise对象的状态已经被更改成了成功/失败，但是就是不能是pending
+    -->
+    <script>
+        let p1 = new Promise((resolve, reject) => {
+            // resolve('ok');
+            // reject('error');
+            // throw '异常'
+        })
+        console.log(p1);
+
+        p1.then(value => {
+            console.log(value);
+        }, reason => {
+            console.log(reason);
+        })
+        p1.then(value => {
+            console.log(value);
+        }, reason => {
+            console.log(reason);
+        })
+    </script>
+</body>
+
+</html>

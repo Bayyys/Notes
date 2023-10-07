@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-Promise中的race方法</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <!--
+        Promise.race方法需要传入一个参数，参数还是一个数组
+        和all方法不同的地方，是数组中的哪一个Promise实例化对象的状态优先从pending改变成了fulfilled或者是改变成了rejected
+        则这个优先改变的Promise实例化对象的状态和结果值将决定于最终的Promise状态和结果值
+        race方法的返回值也是一个新的Promise实例化对象
+    -->
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(100);
+            }, 100)
+        })
+
+        const p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject(200);
+            }, 500)
+        })
+
+        const p3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(300);
+            }, 200)
+        })
+
+        const pArr = Promise.race([p3, p1, p2]);
+        console.log(pArr);
+    </script>
+</body>
+
+</html>

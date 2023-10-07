@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何修改Promise对象的状态</title>
+</head>
+
+<body>
+    <!--
+        Promise对象的状态其中分为三种：pending、fulfilled、rejected
+    -->
+    <script>
+        let p1 = new Promise((resolve, reject) => {
+            //成功
+            // resolve('success');
+
+            //失败
+            // reject('error');
+
+            //抛出异常
+            // throw ' 出问题啦，你如果在这么写肯定是有问题的，有没有良心~~~';
+
+            //状态只能更改一次
+            reject('error');
+            resolve('ok');
+        })
+        console.log(p1);
+    </script>
+</body>
+
+</html>

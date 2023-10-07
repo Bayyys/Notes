@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6中关于class的相关知识点</title>
+</head>
+
+<body>
+    <!--
+        1、如何声明一个类？ ES6 有一个关键字 class 类名{}
+        2、使用类的目的？主要还是为了更好的产生实例化对象 还是通过new关键字
+        3、如何在实例化对象身上添加属性/方法
+           3.1 直接赋值    
+               属性: 属性名 = 属性值;
+               方法: 方法名 = function(){}
+           3.2 通过构造器
+               每一个类中只能有一个构造器，而且这个构造器作用主要是为了给实例化对象身上的属性做初始化
+               并且是在给属性做初始化的自调用，无需程序员来手动干预
+               构造器也被称作构造函数，其中的this指向是指向类的实例化对象的
+        4、在所有的实例化对象身上添加共同的方法（类的显式原型属性中）
+           方法名(){}
+        5、在类对象身上添加属性/方法  有一个关键字 static
+           属性：static 属性名 =  属性值;
+           方法：static 方法名 = function(){} / static 方法名(){}
+           在类对象身上添加的属性/方法，其实例化对象是访问不到的
+    -->
+    <script>
+        class Student {
+            //通过直接赋值的方式来在类的实例化对象身上添加属性
+            // name = '张三';
+            // //通过直接赋值的方式来在类的实例化对象身上添加方法
+            // study = function () {
+            //     //函数中的this指向谁，其实取决于谁调用了这个函数
+            //     //类中的方法中的this就是指向了类的实例化对象
+            //     console.log(this);
+            //     console.log('学习...');
+            // }
+
+            constructor(name) {
+                // console.log(this); //类的实例化对象
+                this.name = name;
+            }
+
+            study() {
+                console.log(this.name + '学习...');
+            }
+
+            static a = 1;
+            static b = () => {
+                console.log('b');
+            }
+            static c = function () {
+                console.log('c');
+            }
+        }
+        const p1 = new Student('张三');
+        console.log(p1);
+
+        //输出属性
+        // console.log(p1.name);
+        //调用方法
+        p1.study();
+
+        const p2 = new Student('李四');
+        console.log(p2);
+
+        p2.study();
+
+        //调用类对象身上的方法/属性
+        console.log(Student.a);
+        Student.b();
+        Student.c()
+
+        console.log(p1.a);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise对象的状态</title>
+</head>
+
+<body>
+    <!--
+        Promise实例化对象的状态只能从pending到fulfilled或者是pending到rejected
+        不能从fulfilled到rejected或者反之都不行
+    -->
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            //调整状态
+            reject('error');
+            resolve('ok');
+        })
+        console.log(p1);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.assign方法</title>
+</head>
+
+<body>
+    <!--
+        1、Object.assign()方法主要是用于对象的合并，将源对象中的属性复制到目标对象中，返回目标对象。
+           语法：
+           Object.assign(target,...sources);
+           解释：
+           target: 表示的是目标对象
+           source: 表示的源对象
+           返回值：target 目标对象
+    -->
+    <script>
+        //情况1：目标对象和源对象之间没有同名的属性
+        // let target = { name: "张三" };
+        // let source = { age: 23 };
+        // let obj = Object.assign(target, source);
+        // //obj其实就是target目标对象
+        // console.log(obj);
+        // console.log(target);
+        // console.log(source);
+
+        // console.log(obj === target); //true
+
+
+        //如果只是想将两个或者是多个对象的属性合并在一起的话，而不改变原有对象的属性，则可以使用一个新对象作为目标对象
+        // let target = { name: "张三" };
+        // let source = { age: 23 };
+        // let obj = Object.assign({}, target, source);
+        // //obj其实就是target目标对象
+        // console.log(obj);  //{name: '张三', age: 23}
+        // console.log(target); //{ name: "张三" }
+        // console.log(source);  //{ age: 23 }
+
+        // console.log(obj === target); //false
+
+        //情况2：目标对象和源对象之间有同名的属性
+        //如果有同名的属性，则后者的对象中的属性值会替换前者对象的同名的属性的属性值
+        // let target = { name: "张三", age: 32 };
+        // let source = { age: 23 };
+        // let obj = Object.assign(target, source);
+        // console.log(obj);  //{name: '张三', age: 23}
+        // console.log(target); //{name: '张三', age: 23}
+        // console.log(source);  //{ age: 23 }
+
+
+        //情况3：多个源对象
+        let target = { name: "张三", age: 32 };
+        let source1 = { age: 23 };
+        let source2 = { age: 35, hobby: '打游戏' };
+        let obj = Object.assign(target, source1, source2);
+        console.log(obj);  //{name: '张三', age: 35, hobby: '打游戏'}
+        console.log(target); //{name: '张三', age: 35, hobby: '打游戏'}
+        console.log(source1);  //{age: 23}
+        console.log(source2);  //{ age: 35, hobby: '打游戏' }
+
+    </script>
+</body>
+
+</html>

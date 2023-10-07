@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-增加成功与失败回调函数的默认值</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <!--
+        1、then方法如果省略了成功的回调函数,则默认成功的回调函数为value=>value
+        2、then方法如果省略了失败的回调函数，则默认失败的回调函数为reason=>{throw reason}
+    -->
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            // resolve(100);
+            // reject('error');
+            throw '异常'
+        })
+        const p2 = p1.then();
+        console.log(p2);
+    </script>
+</body>
+
+</html>

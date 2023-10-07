@@ -434,3 +434,8 @@
 >
 > - Reference: [尚硅谷-Promise](https://www.bilibili.com/video/BV1GA411x7z1/?vd_source=2228fbb3090a9774de8d595d37290e9e)
 > - Website: [Promise - JavaScript (MDN)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
+- [x] 创建 `Promise` 学习项目 (10.07.2023)
+- [x] 1. Promise的理解与使用 (10.07.2023)
+- [x] 2. 自定义Promise (10.07.2023)
+- [x] 3. Promise+async/await (10.07.2023)

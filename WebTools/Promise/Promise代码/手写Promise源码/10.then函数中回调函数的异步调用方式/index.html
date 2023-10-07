@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-then函数中的回调函数的异步调用方式</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <script>
+        let p = new Promise((resolve, reject) => {
+            // resolve(100);
+            // reject('aaa');
+            throw '异常';
+        });
+        p.then(value => {
+            console.log(value);
+        }, reason => {
+            console.log(reason);
+        })
+        console.log('over....');
+    </script>
+</body>
+
+</html>

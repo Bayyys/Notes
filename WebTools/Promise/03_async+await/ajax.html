@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>06_promise_ajax封装</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="page-header">Promise ajax</h2>
+    <hr />
+    <button class="btn btn-primary" id="btn">点击获取数据</button>
+    <p id="result"></p>
+  </div>
+</body>
+<script>
+  function sendAJAX(query, url) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open(query, url);
+      xhr.send();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(xhr.status);
+          }
+        }
+      };
+    });
+  }
+  const $btn = $("#btn");
+  $btn.on("click", async () => {
+    let data = await sendAJAX("get", "https://api.gugudata.com/news/joke/demo");
+    $("#result").html(data.Data[0].Content);
+  });
+</script>
+
+</html>

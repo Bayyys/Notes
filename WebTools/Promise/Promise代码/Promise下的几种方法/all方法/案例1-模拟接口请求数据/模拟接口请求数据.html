@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例1-模拟接口请求数据</title>
+</head>
+
+<body>
+    <script>
+        //模拟请求用户列表的数据
+        function getUsersList() {
+            return new Promise((resolve, reject) => {
+                //定时器模拟异步
+                setTimeout(() => {
+                    resolve('请求用户列表的数据....');
+                }, 1000)
+            })
+        }
+
+        //模拟请求轮播图的数据
+        function getBannersList() {
+            return new Promise((resolve, reject) => {
+                //定时器模拟异步
+                setTimeout(() => {
+                    resolve('请求轮播图的数据....');
+                }, 2000)
+            })
+        }
+
+        //模拟请求视频列表的数据
+        function getBannersList() {
+            return new Promise((resolve, reject) => {
+                //定时器模拟异步
+                setTimeout(() => {
+                    resolve('请求视频列表的数据....');
+                }, 3000)
+            })
+        }
+
+        //模拟程序启动加载
+        function initLoad() {
+            let all = Promise.all([getUsersList(), getBannersList(), getBannersList()]);
+            all.then(value => {
+                console.log(value);
+            })
+        }
+        initLoad();
+    </script>
+</body>
+
+</html>

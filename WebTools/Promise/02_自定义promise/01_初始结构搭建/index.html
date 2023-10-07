@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Promise 自定义</title>
+  <script src="./promise.js"></script>
+</head>
+
+<body>
+  <script>
+    let p = new Promise((resolve, reject) => {
+      resolve('success')
+    });
+    p.then(value => {
+      console.log(value)
+    }, reason => {
+      console.log(reason)
+    });
+  </script>
+</body>
+
+</html>

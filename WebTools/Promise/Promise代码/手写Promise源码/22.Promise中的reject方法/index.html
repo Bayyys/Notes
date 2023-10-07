@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写Promise-Promise中的reject方法</title>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <!--
+        Promise下的reject方法不同于resolve方法
+        reject方法是不受参数的影响，将始终返回的一个失败的Promise实例化对象
+    -->
+    <script>
+        const p1 = Promise.reject(1);
+        console.log(p1);
+
+        const p2 = Promise.reject(new Promise((resolve, reject) => {
+            resolve(2);
+        }))
+        console.log(p2);
+
+        const p3 = Promise.reject(new Promise((resolve, reject) => {
+            reject(3);
+        }))
+        console.log(p3);
+    </script>
+</body>
+
+</html>

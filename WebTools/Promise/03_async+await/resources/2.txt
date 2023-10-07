@@ -1,0 +1,1 @@
+如果表达式是 promise 对象, await 返回的是 promise 成功的值 
