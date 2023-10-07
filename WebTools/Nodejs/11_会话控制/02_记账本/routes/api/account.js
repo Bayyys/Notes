@@ -3,9 +3,11 @@ var router = express.Router();
 const path = require("path");
 const moment = require("moment"); // 用于格式化时间
 const AccountModel = require("../../models/AccountModel");
+const jwt = require("jsonwebtoken");
+const apiLogin = require("../../middlewares/apiLogin");
 
 // 记账本列表
-router.get("/account", function (req, res, next) {
+router.get("/account", apiLogin, function (req, res, next) {
   AccountModel.find()
     .sort({ time: -1 })
     .then((data) => {
@@ -26,7 +28,7 @@ router.get("/account", function (req, res, next) {
 });
 
 // 新增记录
-router.post("/account", (req, res) => {
+router.post("/account", apiLogin, (req, res) => {
   console.log(req.body);
   AccountModel.create({
     ...req.body,
@@ -49,7 +51,7 @@ router.post("/account", (req, res) => {
 });
 
 // 删除账单
-router.delete("/account/:id", function (req, res, next) {
+router.delete("/account/:id", apiLogin, function (req, res, next) {
   AccountModel.deleteOne({ _id: req.params.id })
     .then((data) => {
       res.json({
@@ -68,7 +70,7 @@ router.delete("/account/:id", function (req, res, next) {
 });
 
 // 获取单个账单信息
-router.get("/account/:id", function (req, res, next) {
+router.get("/account/:id", apiLogin, function (req, res, next) {
   AccountModel.findById(req.params.id)
     .then((data) => {
       res.json({
@@ -87,7 +89,7 @@ router.get("/account/:id", function (req, res, next) {
 });
 
 // 更新账单信息
-router.patch("/account/:id", function (req, res, next) {
+router.patch("/account/:id", apiLogin, function (req, res, next) {
   AccountModel.updateOne({ _id: req.params.id }, req.body)
     .then((data) => {
       res.json({

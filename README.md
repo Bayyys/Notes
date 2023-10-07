@@ -404,7 +404,7 @@
 - [x] 4. 跨域问题 (09.28.2023)
 - [x] `Ajax` 学习完成 (09.28.2023)
 
-## Node.js - 09.29.2023
+## Node.js - 09.29.2023-10.07.2023
 
 > [Node.js](./WebTools/Node.js/) 学习笔记
 > 
@@ -424,5 +424,13 @@
 - [x] 8. express框架 (09.30.2023-10.01.2023)
 - [x] 9. MongoDB (10.01.2023-10.06.2023)
 - [x] 10. API 接口 (10.06.2023)
-- [ ] 11. 会话控制 (10.06.2023-x)
+- [x] 11. 会话控制 (10.06.2023-10.07.2023)
+- [x] Node.js 学习完成 (10.07.2023)
 
+## Promise - 10.07.2023
+
+> [Promise](./FrontWeb/Promise/) 学习笔记
+> Promise是JS异步编程中的重要概念，异步抽象处理对象，是目前比较流行Javascript异步编程解决方案之一。
+>
+> - Reference: [尚硅谷-Promise](https://www.bilibili.com/video/BV1GA411x7z1/?vd_source=2228fbb3090a9774de8d595d37290e9e)
+> - Website: [Promise - JavaScript (MDN)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)

@@ -9,10 +9,25 @@ db(
     var logger = require("morgan");
     const session = require("express-session");
     const MongoStore = require("connect-mongo");
-    const { DBHOST, DBPORT, DBNAME } = require("./config/config");
+    const { DBHOST, DBPORT, DBNAME, port } = require("./config/config");
 
-    var indexRouter = require("./routes/web/index");
+    const https = require("https");
+    https
+      .createServer(
+        {
+          key: fs.readFileSync("/etc/letsencrypt/path/to/privkey.pem"),
+          cert: fs.readFileSync("/etc/letsencrypt/path/to/cert.pem"),
+          ca: fs.readFileSync("/etc/letsencrypt/path/to/chain.pem"),
+        },
+        app
+      )
+      .listen(443, () => {
+        console.log("HTTPS Server is running on: https://localhost:%s", 443);
+      });
+
+    const indexRouter = require("./routes/web/index");
     const regRouter = require("./routes/web/auth");
+    const authApiRouter = require("./routes/api/auth");
     const accountRouter = require("./routes/api/account");
 
     var app = express();
@@ -46,6 +61,7 @@ db(
     app.use("/", indexRouter);
     app.use("/", regRouter);
     app.use("/api", accountRouter);
+    app.use("/api", authApiRouter);
 
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
@@ -64,14 +80,22 @@ db(
       res.render("error");
     });
 
-    process.env.PORT = 8000;
+    process.env.PORT = port;
 
     // module.exports = app;
     app.listen(process.env.PORT, function () {
-      console.log("账单列表, 访问地址: http://localhost:8000/account");
-      console.log("添加列表, 访问地址: http://localhost:8000/create");
-      console.log("注册列表, 访问地址: http://localhost:8000/reg");
-      console.log("登录列表, 访问地址: http://localhost:8000/login");
+      console.log(
+        `账单列表, 访问地址: http://localhost:${process.env.PORT}/account`
+      );
+      console.log(
+        `添加列表, 访问地址: http://localhost:${process.env.PORT}/create`
+      );
+      console.log(
+        `注册列表, 访问地址: http://localhost:${process.env.PORT}/reg`
+      );
+      console.log(
+        `登录列表, 访问地址: http://localhost:${process.env.PORT}/login`
+      );
     });
   },
   () => {}

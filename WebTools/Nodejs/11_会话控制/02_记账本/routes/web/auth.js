@@ -50,7 +50,6 @@ router.post("/login", (req, res) => {
 
 // GET 退出登录
 router.post("/logout", (req, res) => {
-  console.log('------------------------')
   req.session.destroy((err) => {
     if (err) {
       res.render("error", { msg: "退出登录失败", url: "/login" });
