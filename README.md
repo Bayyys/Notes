@@ -463,3 +463,16 @@
 - [x] 2. axios简介 (10.08.2023)
 - [x] 3. axis使用 (10.08.2023-10.09.2023)
 - [x] `axios` 学习完成
+
+
+## Webpack - 10.09.2023
+
+> [Webpack](./FrontWeb/Webpack) 学习笔记
+> Webpack 是一个前端资源加载/打包工具。它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。
+>
+> - Website: 
+>   - [webpack](https://webpack.js.org/)
+>   - [webpack_cn](https://www.webpackjs.com/)
+> - Reference: [尚硅谷 - Webpack5](https://www.bilibili.com/video/BV14T4y1z7sw/?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=2228fbb3090a9774de8d595d37290e9e)
+
+- [x] 创建 `Webpack` 学习项目 (10.09.2023)
