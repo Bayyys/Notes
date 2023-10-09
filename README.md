@@ -476,3 +476,7 @@
 > - Reference: [尚硅谷 - Webpack5](https://www.bilibili.com/video/BV14T4y1z7sw/?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=2228fbb3090a9774de8d595d37290e9e)
 
 - [x] 创建 `Webpack` 学习项目 (10.09.2023)
+- [ ] 一、 基础 (10.09.2023-x)
+- [x]  1. 前言 (10.10.2023)
+- [x]  2. 基本使用 (10.10.2023)
+- [ ]  3. 处理样式资源 (10.10.2023-x)
