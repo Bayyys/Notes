@@ -4,16 +4,16 @@ import { Button } from "antd";
 // import Home from "./pages/Home";
 // import About from "./pages/About";
 
-const Home = lazy(() => import(/* webpackChunkName: 'home' */ "./pages/Home"));
+const Home = lazy(() => import(/* WebpackChunkName: "home" */ "./pages/Home"));
 const About = lazy(() =>
-  import(/* webpackChunkName: 'about' */ "./pages/About")
+  import(/* WebpackChunkName: "about" */ "./pages/About")
 );
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <h1>App</h1>
-      <Button type="primary">按钮</Button>
+      <Button type="primary">Button</Button>
       <ul>
         <li>
           <Link to="/home">Home</Link>
@@ -22,7 +22,7 @@ function App() {
           <Link to="/about">About</Link>
         </li>
       </ul>
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
