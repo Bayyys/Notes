@@ -5,7 +5,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+// const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 
 // cpu核数
 const threads = os.cpus().length;
@@ -32,8 +34,8 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     path: path.resolve(__dirname, "../dist"),
-    filename: "static/js/[name].js", // 入口文件打包输出资源命名方式
-    chunkFilename: "static/js/[name].chunk.js", // 动态导入输出资源命名方式
+    filename: "static/js/[name].[contenthash:8].js", // 入口文件打包输出资源命名方式
+    chunkFilename: "static/js/[name].[contenthash:8].chunk.js", // 动态导入输出资源命名方式
     assetModuleFilename: "static/media/[name].[hash][ext]", // 图片、字体等资源命名方式（注意用hash）
     clean: true,
   },
@@ -117,13 +119,24 @@ module.exports = {
     // 提取 CSS 成单独文件
     new MiniCssExtractPlugin({
       // 定义输出文件夹和目录
-      filename: "static/css/[name].css",
-      chunkFilename: "static/css/[name]1111.chunk.css",
+      filename: "static/css/[name].[contenthash:8].css",
+      chunkFilename: "static/css/[name].[contenthash:8].chunk.css",
     }),
     // new CssMinimizerPlugin(),
     // new TerserPlugin({
     //   parallel: threads, // 开启多进程打包, 设置进程数
     // }),
+    new PreloadWebpackPlugin({
+      rel: "preload", // preload兼容性更好
+      as: "script", // 先加载js文件
+      // rel: 'prefetch' // prefetch兼容性更差
+    }),
+    new WorkboxPlugin.GenerateSW({
+      // 这些选项帮助快速启用 ServiceWorkers
+      // 不允许遗留任何“旧的” ServiceWorkers
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
   ],
   optimization: {
     minimize: true,
@@ -134,36 +147,39 @@ module.exports = {
         parallel: threads, // 开启多进程
       }),
       // 压缩图片
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.imageminGenerate,
-          options: {
-            plugins: [
-              ["gifsicle", { interlaced: true }],
-              ["jpegtran", { progressive: true }],
-              ["optipng", { optimizationLevel: 5 }],
-              [
-                "svgo",
-                {
-                  plugins: [
-                    "preset-default",
-                    "prefixIds",
-                    {
-                      name: "sortAttrs",
-                      params: {
-                        xmlnsOrder: "alphabetical",
-                      },
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-      }),
+      // new ImageMinimizerPlugin({
+      //   minimizer: {
+      //     implementation: ImageMinimizerPlugin.imageminGenerate,
+      //     options: {
+      //       plugins: [
+      //         ["gifsicle", { interlaced: true }],
+      //         ["jpegtran", { progressive: true }],
+      //         ["optipng", { optimizationLevel: 5 }],
+      //         [
+      //           "svgo",
+      //           {
+      //             plugins: [
+      //               "preset-default",
+      //               "prefixIds",
+      //               {
+      //                 name: "sortAttrs",
+      //                 params: {
+      //                   xmlnsOrder: "alphabetical",
+      //                 },
+      //               },
+      //             ],
+      //           },
+      //         ],
+      //       ],
+      //     },
+      //   },
+      // }),
     ],
     splitChunks: {
       chunks: "all",
+    }, // 提取runtime文件
+    runtimeChunk: {
+      name: (entrypoint) => `runtime~${entrypoint.name}`, // runtime文件命名规则
     },
   },
   mode: "production",

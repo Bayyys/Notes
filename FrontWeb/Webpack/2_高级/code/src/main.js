@@ -18,10 +18,29 @@ document.getElementById("btn").onclick = function () {
 };
 const result1 = count(1, 2);
 console.log(result1);
+new Promise((res) => {
+  setTimeout(() => {
+    console.log("定时器执行完毕");
+    res();
+  }, 1000);
+});
 
 // 判断是否支持HMR功能
 if (module.hot) {
   module.hot.accept("./js/count.js");
 
   module.hot.accept("./js/sum.js");
+}
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("SW registered: ", registration);
+      })
+      .catch((registrationError) => {
+        console.log("SW registration failed: ", registrationError);
+      });
+  });
 }
