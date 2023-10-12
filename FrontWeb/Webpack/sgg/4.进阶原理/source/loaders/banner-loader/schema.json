@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "properties": {
-    "author": {
-      "type": "string"
-    }
-  },
-  "additionalProperties": false
-}
