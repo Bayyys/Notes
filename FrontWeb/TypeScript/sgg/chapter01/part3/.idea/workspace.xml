@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8279e52e-73b6-4374-8ca2-e4b2f9b48363" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="tsconfig.json" />
+        <option value="HTML File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/index.ts" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="1koBce39F64xhy8I3qgEqNbw9uU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="ts.external.directory.path" value="C:\Users\lilichao\Desktop\learn_typescript\code\chapter01\part3\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8279e52e-73b6-4374-8ca2-e4b2f9b48363" name="Default Changelist" comment="" />
+      <created>1606357144975</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606357144975</updated>
+      <workItem from="1606357146072" duration="299000" />
+      <workItem from="1606357472080" duration="4067000" />
+      <workItem from="1606379145433" duration="41000" />
+      <workItem from="1606379203654" duration="2649000" />
+      <workItem from="1606717492168" duration="165000" />
+      <workItem from="1606717674330" duration="25000" />
+      <workItem from="1606717715764" duration="3277000" />
+      <workItem from="1606722944683" duration="277000" />
+      <workItem from="1606723519464" duration="584000" />
+      <workItem from="1606734504678" duration="1215000" />
+      <workItem from="1606736693521" duration="65000" />
+      <workItem from="1606736775269" duration="123000" />
+      <workItem from="1606736919625" duration="1401000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="346" y="108" key="#Inspections" timestamp="1606723117166">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state x="346" y="108" key="#Inspections/0.0.1440.860@0.0.1440.860" timestamp="1606723117166" />
+    <state width="1419" height="222" key="GridCell.Tab.0.bottom" timestamp="1606382767898">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state width="1419" height="222" key="GridCell.Tab.0.bottom/0.0.1440.860/-1920.-107.1920.1040@0.0.1440.860" timestamp="1606382767898" />
+    <state width="1419" height="222" key="GridCell.Tab.0.center" timestamp="1606382767898">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state width="1419" height="222" key="GridCell.Tab.0.center/0.0.1440.860/-1920.-107.1920.1040@0.0.1440.860" timestamp="1606382767898" />
+    <state width="1419" height="222" key="GridCell.Tab.0.left" timestamp="1606382767898">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state width="1419" height="222" key="GridCell.Tab.0.left/0.0.1440.860/-1920.-107.1920.1040@0.0.1440.860" timestamp="1606382767898" />
+    <state width="1419" height="222" key="GridCell.Tab.0.right" timestamp="1606382767898">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state width="1419" height="222" key="GridCell.Tab.0.right/0.0.1440.860/-1920.-107.1920.1040@0.0.1440.860" timestamp="1606382767898" />
+    <state x="247" y="148" key="SettingsEditor" timestamp="1606736885939">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state x="247" y="148" key="SettingsEditor/0.0.1440.860/-1920.-107.1920.1040@0.0.1440.860" timestamp="1606736885939" />
+    <state x="221" y="74" key="SettingsEditor/0.0.1440.860@0.0.1440.860" timestamp="1606723201916" />
+  </component>
+</project>
