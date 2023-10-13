@@ -518,7 +518,7 @@
 
 > [TypeScript](./FrontWeb/TypeScript) 学习笔记
 > - TypeScript 是 JavaScript 类型的超集，它可以编译成纯 avaScript
-> - TypeScripti 可以在任何览器、任何计算机和任何操作系统上运行，并且是开源的
+> - TypeScript 可以在任何览器、任何计算机和任何操作系统上运行，并且是开源的
 > - Reference: [尚硅谷 - TypeScript](https://www.bilibili.com/video/BV1Xy4y1v7S2/?spm_id_from=333.337.search-card.all.click&vd_source=2228fbb3090a9774de8d595d37290e9e)
 > - Website:
 >   - [TypeScript](https://www.typescriptlang.org/)
@@ -530,3 +530,8 @@
 - [x] 3. 编译选项 (10.12.2023)
 - [x] 4. webpack 配置 (10.12.2023)
 - [x] 5. Babel 配置 (10.12.2023)
+- [x] 6. 面向对象简介 (10.13.2023)
+- [x] 7. 类 (class) (10.13.2023)
+- [x] 8. 面向对象的特点 (10.13.2023)
+- [x] 9. 接口 (interface) (10.13.2023)
+- [x] 10. 泛型 (Generic) (10.13.2023)
