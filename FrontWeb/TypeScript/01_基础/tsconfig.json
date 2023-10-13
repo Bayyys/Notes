@@ -1,0 +1,33 @@
+{
+  /*
+    路径 ** 表示任意目录 * 表示任意文件
+    exclude: 默认值 ["node_modules", "bower_components", "jspm_packages"]
+  */
+  "include": ["src/**/*"], // 包含的文件, ./src目录下的所有文件
+  "exclude": ["src/tests/**/*"], // 排除的文件, ./src/tests目录下的所有文件
+  "extends": "./tsconfig.base.json", // 继承的配置文件
+  "compilerOptions": {
+    /* 项目基本配置 */
+    "target": "ESNext", // 编译后的目标版本 [default: ES3] (ESNext: 最新版本)
+    "module": "CommonJS", // 模块化规范 [default: CommonJS]
+    // "lib": ["ES5", "DOM"], // 编译过程中需要引入的库文件 [default: ES5, DOM] (一般不用改)
+    "outDir": "./dist", // 编译后的文件输出目录 [default: ./dist]
+    // "outFile": "./dist/bundle.js" // 编译后的文件输出路径 [default: undefined] (通常需要配合module: "AMD"或"system"使用)
+    "allowJs": false, // 是否允许编译js文件 [default: false]
+    "checkJs": false, // 是否检查js文件 [default: false]
+    "removeComments": true, // 是否移除注释 [default: false]
+    "noEmit": false, // 是否不输出文件 [default: false]  (只检查语法错误, 不输出文件)
+    "noEmitOnError": true, // 是否在有错误时不输出文件 [default: false]
+
+    /* 语法检查 */
+    "strict": true, // 是否开启所有严格类型检查 [default: false] (所有严格检查全部打开, 需要单独进行可选项的关闭)
+    "alwaysStrict": true, // 是否在编译过程中加入"use strict" [default: false]  (ES6代码默认开启严格模式)
+    "noImplicitAny": true, // 是否不允许隐式的any类型 [default: false]
+    "noImplicitThis": true, // 禁止类型不明确的this [default: false]
+    "strictNullChecks": true, // 是否开启严格的null检查 [default: false]
+    
+
+
+
+  }
+}

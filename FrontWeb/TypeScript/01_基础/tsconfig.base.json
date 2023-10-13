@@ -1,0 +1,4 @@
+{
+  "include": ["src/*", "tests/*"], // 包含的文件
+  "exclude": ["node_modules"] // 排除的文件
+}
