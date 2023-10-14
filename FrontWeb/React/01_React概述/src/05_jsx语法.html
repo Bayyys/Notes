@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>05_jsx语法</title>
+  </head>
+  <!-- react.development.js: react核心库-->
+  <script src="../js/old/react.development.js"></script>
+  <!-- react-dom.development.js: 支持react操作DOM-->
+  <script src="../js/old/react-dom.development.js"></script>
+  <!-- babel.min.js: 将jsx转为js -->
+  <script src="../js/old/babel.min.js"></script>
+  <style>
+    .title {
+      color: red;
+    }
+  </style>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type=text/babel>
+    // 1. 创建虚拟DOM
+    const myId = 'title'
+    const myData = 'Hello React!'
+    const VDOM = (
+      // 标签混入JS表达式需要使用 `{}`
+      <h1 className='title' id="{myId}">
+        <span style={{ backgroundColor: 'pink'}}>{myData}</span>
+        <input type="text" />
+      </h1>
+    );
+    // 2. 渲染虚拟DOM到页面
+    ReactDOM.render(VDOM, document.getElementById("root"));
+  </script>
+</html>

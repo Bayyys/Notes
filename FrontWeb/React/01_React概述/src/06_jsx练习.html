@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>06_jsx练习</title>
+  </head>
+  <!-- react.development.js: react核心库-->
+  <script src="../js/old/react.development.js"></script>
+  <!-- react-dom.development.js: 支持react操作DOM-->
+  <script src="../js/old/react-dom.development.js"></script>
+  <!-- babel.min.js: 将jsx转为js -->
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    /**
+     * 1. js表达式
+     *   [每个表达式会产生一个值，可以放在任何一个需要值的地方]
+     *   a
+     *  a+b
+     * demo()
+     * arr.map()
+     * function fn() { return 100 }
+     * 
+     * 2. js 语句
+     *  if() {...}
+     * for() {...}
+     * switch() {case:...}
+     */
+    const bookList = ["吃饭", "睡觉", "打豆豆"];
+    // 1. 创建虚拟DOM
+    const VDOM = (
+      <div id="title">
+        <h1>列表</h1>
+        <ul id="list">
+          {bookList.map((item, index) => {
+            return <li key={index}>{item}</li>;
+          })}
+        </ul>
+      </div>
+    );
+    // 2. 渲染虚拟DOM到页面
+    ReactDOM.render(VDOM, document.getElementById("root"));
+  </script>
+</html>

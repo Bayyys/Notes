@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>02_使用js创建虚拟DOM</title>
+  </head>
+  <!-- react.development.js: react核心库-->
+  <script src="../js/old/react.development.js"></script>
+  <!-- react-dom.development.js: 支持react操作DOM-->
+  <script src="../js/old/react-dom.development.js"></script>
+  <!-- babel.min.js: 将jsx转为js -->
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/javascript">
+    // 1. 创建虚拟DOM
+    const VDOM = React.createElement(
+      "h1", // 标签名
+      { id: "title" }, // 属性
+      React.createElement("span", null, "Hello React!") // 子节点
+    );
+    // 2. 渲染虚拟DOM到页面
+    ReactDOM.render(VDOM, document.getElementById("root"));
+  </script>
+</html>

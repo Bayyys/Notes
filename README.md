@@ -517,6 +517,7 @@
 ## TypeScript - 10.12.2023-10.14.2023
 
 > [TypeScript](./FrontWeb/TypeScript) 学习笔记
+>
 > - TypeScript 是 JavaScript 类型的超集，它可以编译成纯 avaScript
 > - TypeScript 可以在任何览器、任何计算机和任何操作系统上运行，并且是开源的
 > - Reference: [尚硅谷 - TypeScript](https://www.bilibili.com/video/BV1Xy4y1v7S2/?spm_id_from=333.337.search-card.all.click&vd_source=2228fbb3090a9774de8d595d37290e9e)
@@ -541,6 +542,7 @@
 ## React - 10.14.2023
 
 > [React](./FrontWeb/React/) 学习笔记
+>
 > - 用于**构建 Web** 和 **原生交互界面** 的库
 > - Website:
 >   - [React](https://react.dev/)
@@ -548,3 +550,5 @@
 > - Reference:
 >   - [尚硅谷 - React](https://www.bilibili.com/video/BV1wy4y1D7JT/?spm_id_from=333.999.0.0&vd_source=2228fbb3090a9774de8d595d37290e9e)
 
+- [x] 创建 `React` 学习项目 (10.14.2023)
+- [x] 1. React 概述 (10.14.2023)
