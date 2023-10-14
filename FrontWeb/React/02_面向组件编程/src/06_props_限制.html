@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>06_props_限制</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <script src="../js/old/prop-types.js"></script>
+  <body>
+    <div id="root1"></div>
+    <div id="root2"></div>
+  </body>
+  <script type="text/babel">
+    class People extends React.Component {
+      static propTypes = {
+        name: PropTypes.string.isRequired,
+        sex: PropTypes.string,
+        age: PropTypes.number,
+        // 限制 speak 为函数
+        speak: PropTypes.func,
+      };
+      static defaultProps = {
+        sex: "male",
+        age: 19,
+      };
+      render() {
+        const { name, age, sex } = this.props;
+        return (
+          <ul>
+            <li>姓名: {name}</li>
+            <li>年龄: {age}</li>
+            <li>性别: {sex}</li>
+          </ul>
+        );
+      }
+    }
+
+    // // 从 React 15.5 开始, 把 PropTypes 单独封装为一个模块，需要额外导入使用
+    // // 类型和必要性限制
+    // People.propTypes = {
+    //   name: PropTypes.string.isRequired,
+    //   age: PropTypes.number,
+    //   sex: PropTypes.string,
+    //   speak: PropTypes.func,
+    // };
+
+    // // 指定默认值
+    // People.defaultProps = {
+    //   sex: "男",
+    //   age: 18,
+    // };
+
+    // 类似于标签属性传值
+    ReactDOM.render(
+      <People name="zhangsan" age={19} sex="男" speak={speak} />,
+      document.getElementById("root1")
+    );
+
+    function speak() {
+      console.log("hello");
+    }
+  </script>
+</html>

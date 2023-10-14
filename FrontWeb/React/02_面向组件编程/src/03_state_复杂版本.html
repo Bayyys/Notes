@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>03_state_复杂版本</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class Weather extends React.Component {
+      // 调用一次
+      constructor(props) {
+        super(props);
+        this.state = {
+          isHot: true,
+          wind: "大风",
+        };
+        this.changeWeather = this.changeWeather.bind(this); // 绑定this(解决 this 指向性问题)
+      }
+
+      render() {
+        const { isHot } = this.state;
+        return (
+          <h1 onClick={this.changeWeather}>
+            今天天气很{isHot ? "炎热" : "凉爽"}
+          </h1>
+        );
+      }
+
+      changeWeather() {
+        // changeWeather 放在 Weather 的原型对象上, 供实例调用
+        // 由于 changeWeather 是作为 onClick 的回调函数, 点击后直接调用
+        // 类中的方法默认开启严格模式, 严格模式下 this 指向 undefined
+        /** 类似于
+        *   const w = new Weather();
+        *   const fun = w.changeWeather;
+        *   fun();  // 此处 内部的 this 指向 undefined (类中的方法默认开启严格模式)
+        */
+        const { isHot } = this.state;
+        // 修改状态(不能直接修改状态, 需要调用 setState 方法)
+        this.setState({
+          isHot: !isHot,
+        });
+      }
+    }
+
+    ReactDOM.render(<Weather />, document.getElementById("root"));
+  </script>
+</html>

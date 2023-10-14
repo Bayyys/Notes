@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>01_函数式组件</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    // 1. 创建函数式组件
+    function FuncComponent() {
+      // 此处的 this 为 undefined, 因为 babel 开启了严格模式
+      console.log(this);
+      return <h2>函数式组件</h2>;
+    }
+    // 2. 渲染组件到页面
+    ReactDOM.render(<FuncComponent />, document.getElementById("root"));
+  </script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>04_state_简化版</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class Weather extends React.Component {
+      state = {
+        isHot: true,
+        wind: "微风",
+      };
+
+      render() {
+        const { isHot } = this.state;
+        return (
+          <h1 onClick={this.changeWeather}>
+            今天天气很{isHot ? "炎热" : "凉爽"}, {this.state.wind}
+          </h1>
+        );
+      }
+
+      changeWeather = () => {
+        // 使用箭头函数，可以不用bind(this)
+        const { isHot } = this.state;
+        this.setState({
+          isHot: !isHot,
+        });
+      };
+    }
+
+    ReactDOM.render(<Weather />, document.getElementById("root"));
+  </script>
+</html>

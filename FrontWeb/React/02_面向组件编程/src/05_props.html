@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>05_props</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root1"></div>
+    <div id="root2"></div>
+  </body>
+  <script type="text/babel">
+    class People extends React.Component {
+      render() {
+        const { name, age, sex } = this.props;
+        return (
+          <ul>
+            <li>姓名: {name}</li>
+            <li>年龄: {age}</li>
+            <li>性别: {sex}</li>
+          </ul>
+        );
+      }
+    }
+
+    // 类似于标签属性传值
+    ReactDOM.render(
+      <People name="zhangsan" age={19} sex="男" />,
+      document.getElementById("root1")
+    );
+
+    // 批量传递
+    const obj = { name: "lisi", age: 18, sex: "女" };
+    ReactDOM.render(<People {...obj} />, document.getElementById("root2"));
+  </script>
+</html>
