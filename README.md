@@ -514,7 +514,7 @@
 - [x] 4.  手写 plugin (10.12.2023)
 - [x] `Webpack` 学习完成 (10.12.2023)
 
-## TypeScript - 10.12.2023
+## TypeScript - 10.12.2023-10.14.2023
 
 > [TypeScript](./FrontWeb/TypeScript) 学习笔记
 > - TypeScript 是 JavaScript 类型的超集，它可以编译成纯 avaScript
@@ -537,3 +537,14 @@
 - [x] 10. 泛型 (Generic) (10.13.2023)
 - [x] 11. 贪吃蛇练习 (10.14.2023)
 - [x] `TypeScript` 学习完成 (10.14.2023)
+
+## React - 10.14.2023
+
+> [React](./FrontWeb/React/) 学习笔记
+> - 用于**构建 Web** 和 **原生交互界面** 的库
+> - Website:
+>   - [React](https://react.dev/)
+>   - [React_cn](https://react.docschina.org/)
+> - Reference:
+>   - [尚硅谷 - React](https://www.bilibili.com/video/BV1wy4y1D7JT/?spm_id_from=333.999.0.0&vd_source=2228fbb3090a9774de8d595d37290e9e)
+
