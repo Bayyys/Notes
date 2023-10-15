@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>09_createRef_API</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class Show extends React.Component {
+      myRef = React.createRef();
+
+      showData = () => {
+        console.log(this.myRef.current.value);
+      };
+
+      render() {
+        return (
+          <div>
+            <input
+              ref={this.myRef}
+              type="text"
+              placeholder="点击按钮提示数据"
+            />{" "}
+            &nbsp;
+            <button onClick={this.showData}>提示数据</button> &nbsp;
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Show />, document.getElementById("root"));
+  </script>
+</html>

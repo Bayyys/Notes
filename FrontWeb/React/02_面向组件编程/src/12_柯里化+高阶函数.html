@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>12_柯里化+高阶函数</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root1"></div>
+    <div id="root2"></div>
+  </body>
+  <script type="text/babel">
+    class Login1 extends React.Component {
+      state = {
+        username: "",
+        password: "",
+      };
+      handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state.username, this.state.password);
+      };
+      saveFormData = (dataType, event) => {
+        this.setState({ [dataType]: event.target.value });
+      };
+      render() {
+        return (
+          <div>
+            <h2>不使用柯里化写法</h2>
+            <form onSubmit={this.handleSubmit}>
+              用户名:&nbsp;
+              <input
+                onChange={(e) => this.saveFormData("username", e)}
+                type="text"
+                name="username"
+              />{" "}
+              &nbsp; 密码:&nbsp;
+              <input
+                onChange={(e) => this.saveFormData("password", e)}
+                type="text"
+                name="password"
+              />{" "}
+              &nbsp;
+              <button>登录</button>
+            </form>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Login1 />, document.getElementById("root1"));
+
+    class Login2 extends React.Component {
+      state = {
+        username: "",
+        password: "",
+      };
+
+      saveFormData = (dataType) => {
+        return (event) => {
+          this.setState({ [dataType]: event.target.value });
+        };
+      };
+
+      handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state.username, this.state.password);
+      };
+      render() {
+        return (
+          <div>
+            <h2>高阶函数+柯里化写法</h2>
+            <form onSubmit={this.handleSubmit}>
+              用户名:&nbsp;
+              <input
+                onChange={this.saveFormData("username")}
+                type="text"
+                name="username"
+              />{" "}
+              &nbsp; 密码:&nbsp;
+              <input
+                onChange={this.saveFormData("password")}
+                type="text"
+                name="password"
+              />{" "}
+              &nbsp;
+              <button>登录</button>
+            </form>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Login2 />, document.getElementById("root2"));
+  </script>
+</html>

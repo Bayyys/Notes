@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>11_受控_非受控组件</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root1"></div>
+    <div id="root2"></div>
+  </body>
+  <script type="text/babel">
+    class Login1 extends React.Component {
+      handleSubmit = (e) => {
+        e.preventDefault();
+        const { username, password } = this;
+        console.log(username.value, password.value);
+      };
+      render() {
+        return (
+          <div>
+            <h2>非受控组件</h2>
+            <form onSubmit={this.handleSubmit}>
+              用户名:&nbsp;
+              <input
+                ref={(c) => (this.username = c)}
+                type="text"
+                name="username"
+              />{" "}
+              &nbsp; 密码:&nbsp;
+              <input
+                ref={(c) => (this.password = c)}
+                type="text"
+                name="password"
+              />{" "}
+              &nbsp;
+              <button>登录</button>
+            </form>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Login1 />, document.getElementById("root1"));
+
+    class Login2 extends React.Component {
+      state = {
+        username: "",
+        password: "",
+      };
+      saveUsername = (e) => {
+        this.setState({
+          username: e.target.value,
+        });
+      };
+      savePassword = (e) => {
+        this.setState({
+          password: e.target.value,
+        });
+      };
+      handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state.username, this.state.password);
+      };
+      render() {
+        return (
+          <div>
+            <h2>受控组件</h2>
+            <form onSubmit={this.handleSubmit}>
+              用户名:&nbsp;
+              <input
+                onChange={this.saveUsername}
+                type="text"
+                name="username"
+              />{" "}
+              &nbsp; 密码:&nbsp;
+              <input
+                onChange={this.savePassword}
+                type="text"
+                name="password"
+              />{" "}
+              &nbsp;
+              <button>登录</button>
+            </form>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Login2 />, document.getElementById("root2"));
+  </script>
+</html>
