@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>13_声明周期(新)</title>
+  </head>
+  <script src="../js/new/react.development.js"></script>
+  <script src="../js/new/react-dom.development.js"></script>
+  <script src="../js/new/babel.min.js"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class A extends React.Component {
+      render() {
+        return (
+          <div>
+            <h1>A</h1>
+            <B />
+          </div>
+        );
+      }
+    }
+
+    class B extends React.Component {
+      render() {
+        return <h1>B</h1>;
+      }
+    }
+
+    ReactDOM.render(<A />, document.getElementById("root"));
+  </script>
+</html>
