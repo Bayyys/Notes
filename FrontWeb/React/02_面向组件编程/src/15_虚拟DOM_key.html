@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>15_虚拟DOM_key</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class People extends React.Component {
+      state = {
+        people: [
+          { id: 1, name: "zhangsan", age: 21 },
+          { id: 2, name: "lisi", age: 22 },
+        ],
+      };
+      render() {
+        return (
+          <div>
+            <ul>
+              {this.state.people.map((p, index) => {
+                return (
+                  <li key={index}>
+                    {p.name}-{p.age}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<People />, document.getElementById("root"));
+  </script>
+</html>

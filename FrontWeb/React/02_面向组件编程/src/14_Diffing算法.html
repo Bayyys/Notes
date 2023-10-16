@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>14_Diffing算法</title>
+  </head>
+  <script src="../js/old/react.development.js"></script>
+  <script src="../js/old/react-dom.development.js"></script>
+  <script src="../js/old/babel.min.js"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class Time extends React.Component {
+      state = { date: new Date() };
+      componentDidMount() {
+        setInterval(() => {
+          this.setState({ date: new Date() });
+        }, 1000);
+      }
+      render() {
+        return (
+          <div>
+            <h1>Hello Diffing</h1>
+            <input type="text" />
+            <span>
+              现在是: {this.state.date.toTimeString()}
+              <input type="text" />
+            </span>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Time />, document.getElementById("root"));
+  </script>
+</html>
