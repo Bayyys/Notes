@@ -1,31 +1,35 @@
 import React, { Component } from "react";
-import axios from "axios";
+import "./App.css";
+import Search from "./components/Search";
+import List from "./components/List";
 
 export default class App extends Component {
   state = {
-    showData: [],
+    users: [],
+    isFirst: true,
+    isLoading: false,
+    isError: false,
+    err: "",
   };
 
-  queryData = () => {
-    axios.get("api2/students").then(
-      (response) => {
-        this.setState({ showData: [...response.data] });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  updateAppState = (newState) => {
+    this.setState({ ...newState });
   };
 
   render() {
+    const { users, isFirst, isLoading, isError, err } = this.state;
     return (
-      <div>
-        <button onClick={this.queryData}>请求数据</button>
-        <ul>
-          {this.state.showData.map((item) => {
-            return <li key={item.id}>{item.name} -- {item.age}</li>;
-          })}
-        </ul>
+      <div className="container">
+        <Search updateAppState={this.updateAppState} />
+        {isFirst ? (
+          <h1>输入关键词搜索 GitHub 用户</h1>
+        ) : isLoading ? (
+          <h1>Loading...</h1>
+        ) : isError ? (
+          <h1 style={{ color: "red" }}>{err}</h1>
+        ) : (
+          <List users={users} />
+        )}
       </div>
     );
   }
