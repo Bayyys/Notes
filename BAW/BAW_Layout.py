@@ -1,25 +1,12 @@
-from enum import auto
-from operator import index
 import sys
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
-import matplotlib.patches as patches
 from PyQt6.QtWidgets import (
     QApplication,
     QMainWindow,
-    QVBoxLayout,
-    QPushButton,
-    QWidget,
     QMessageBox,
 )
-from scipy import optimize
-from shapely.geometry import Polygon, LineString, MultiLineString, Point
-from shapely.affinity import translate, scale  # translate 库用来平移多边形; scale 库用来缩放多边形
-import math
-import random
-
+from shapely import Polygon
 from gui.main import Ui_MainWindow
 from Item import *
 
@@ -41,12 +28,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # matplotlib
         self.fig, self.ax = plt.subplots()
         self.init_raster()
-        self.on_comboBox_select(0)
+        # 默认选择第11个
 
         self.comboBox.currentIndexChanged.connect(self.on_comboBox_select)
         self.pushButton_init_layout.clicked.connect(self.init_reset)
         self.pushButton_manual_optimize.clicked.connect(self.manual_optimize_group)
         self.pushButton_auto_optimize.clicked.connect(self.auto_optimize)
+        self.btn_reload_data.clicked.connect(self.load_testbench)
+
+        self.comboBox.setCurrentIndex(10)
 
         self.initGroup()
 
@@ -218,6 +208,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.lineEdit_ratio_real.setText(
             str(f"{PolygonCollection.area * 100 / bounds_matrix_area:.2f}")
         )
+        # 最小外接矩形
+        bounds = PolygonCollection.minimum_rotated_rectangle
+        # 画出最小外接矩形(红色, 虚线)
+        self.ax.plot(*bounds.exterior.xy, "r--", linewidth=2)
 
     # 初始化栅格
     def init_raster(self):
@@ -249,6 +243,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # 加载数据
     def load_testbench(self):
+        try:
+            self.init_raster()
+        except:
+            pass
         self.df = pd.read_csv(TEST_BENCH, index_col=0)
         self.comboBox.clear()
         self.comboBox.addItems(self.df.index.tolist())

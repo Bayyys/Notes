@@ -1,20 +1,15 @@
-from re import M
-from exceptiongroup import catch
 import numpy as np
 from shapely import (
     Point,
     Polygon,
-    affinity,
     LineString,
     oriented_envelope,
     GeometryCollection,
     LinearRing,
-    MultiPoint,
     plotting,
 )
 import random
 import math
-from shapely.ops import nearest_points
 import matplotlib.pyplot as plt
 from tools import *
 
