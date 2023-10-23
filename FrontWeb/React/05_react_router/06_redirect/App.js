@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
-import About from "./pages/About/About";
-import Home from "./pages/Home/Home";
+import { Route, Redirect } from "react-router-dom";
+import About from "./pages/About";
+import Home from "./pages/Home";
 import Header from "./components/Header/Header";
 import MyNavLink from "./components/Header/MyNavLink";
 
@@ -18,11 +18,9 @@ export default class App extends Component {
             <MyNavLink to="/home">Home</MyNavLink>
           </div>
           <div className="col-xs-6 panel panel-body">
-            <Switch>
-              <Route path="/about" component={About} />
-              <Route path="/home" component={Home} />
-              <Redirect to="/home" />
-            </Switch>
+            <Route path="/about" component={About} />
+            <Route path="/home" component={Home} />
+            <Redirect to="/about" />
           </div>
         </div>
       </div>
