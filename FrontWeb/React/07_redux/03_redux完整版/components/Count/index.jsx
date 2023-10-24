@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { Select, Space, Button } from "antd";
 import store from "../../redux/store";
-import {
-  incrementAction,
-  decrementAction,
-  incrementAsyncAction,
-} from "../../redux/count_action";
+import { incrementAction, decrementAction } from "../../redux/count_action";
 
 export default class Count extends Component {
   state = { count: 0, operator: 0 };
@@ -40,7 +36,10 @@ export default class Count extends Component {
 
   incrementAsync = () => {
     const { operator } = this.state;
-    store.dispatch(incrementAsyncAction(operator, 2000)); // 通知redux Action对象进行加法运算
+    setTimeout(() => {
+      // store.dispatch({ type: "increment", data: operator });
+      store.dispatch(incrementAction(operator)); // 通知redux Action对象进行加法运算
+    }, 500);
   };
 
   render() {

@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import { Select, Space, Button } from "antd";
 import store from "../../redux/store";
-import {
-  incrementAction,
-  decrementAction,
-  incrementAsyncAction,
-} from "../../redux/count_action";
 
 export default class Count extends Component {
   state = { count: 0, operator: 0 };
 
   componentDidMount() {
-    // 当store中的状态发生改变时，重新渲染组件
     store.subscribe(() => {
       this.setState({});
     });
@@ -19,28 +13,27 @@ export default class Count extends Component {
 
   increment = () => {
     const { operator } = this.state;
-    // store.dispatch({ type: "increment", data: operator }); // 通知redux进行加法运算
-    store.dispatch(incrementAction(operator)); // 通知redux Action对象进行加法运算
+    store.dispatch({ type: "increment", data: operator });
   };
 
   decrement = () => {
     const { operator } = this.state;
-    // store.dispatch({ type: "decrement", data: operator });
-    store.dispatch(decrementAction(operator));
+    store.dispatch({ type: "decrement", data: operator });
   };
 
   incrementIfOdd = () => {
     const { operator } = this.state;
     const count = store.getState();
     if (count % 2 === 1) {
-      // store.dispatch({ type: "increment", data: operator });
-      store.dispatch(incrementAction(operator)); // 通知redux Action对象进行加法运算
+      store.dispatch({ type: "increment", data: operator });
     }
   };
 
   incrementAsync = () => {
     const { operator } = this.state;
-    store.dispatch(incrementAsyncAction(operator, 2000)); // 通知redux Action对象进行加法运算
+    setTimeout(() => {
+      store.dispatch({ type: "increment", data: operator });
+    }, 500);
   };
 
   render() {

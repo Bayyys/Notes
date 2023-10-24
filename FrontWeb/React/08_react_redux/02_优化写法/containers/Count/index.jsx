@@ -1,53 +1,38 @@
 import React, { Component } from "react";
 import { Select, Space, Button } from "antd";
-import store from "../../redux/store";
+import { connect } from "react-redux";
 import {
   incrementAction,
   decrementAction,
   incrementAsyncAction,
 } from "../../redux/count_action";
 
-export default class Count extends Component {
-  state = { count: 0, operator: 0 };
-
-  componentDidMount() {
-    // 当store中的状态发生改变时，重新渲染组件
-    store.subscribe(() => {
-      this.setState({});
-    });
-  }
+class Count extends Component {
+  state = { operator: 0 };
 
   increment = () => {
-    const { operator } = this.state;
-    // store.dispatch({ type: "increment", data: operator }); // 通知redux进行加法运算
-    store.dispatch(incrementAction(operator)); // 通知redux Action对象进行加法运算
+    this.props.increment(this.state.operator);
   };
 
   decrement = () => {
-    const { operator } = this.state;
-    // store.dispatch({ type: "decrement", data: operator });
-    store.dispatch(decrementAction(operator));
+    this.props.decrement(this.state.operator);
   };
 
   incrementIfOdd = () => {
-    const { operator } = this.state;
-    const count = store.getState();
-    if (count % 2 === 1) {
-      // store.dispatch({ type: "increment", data: operator });
-      store.dispatch(incrementAction(operator)); // 通知redux Action对象进行加法运算
+    if (this.props.count % 2 !== 0) {
+      this.props.increment(this.state.operator);
     }
   };
 
   incrementAsync = () => {
-    const { operator } = this.state;
-    store.dispatch(incrementAsyncAction(operator, 2000)); // 通知redux Action对象进行加法运算
+    this.props.incrementAsync(this.state.operator, 1000);
   };
 
   render() {
     return (
       <div>
         <Space direction="vertical" size="large" style={{ display: "flex" }}>
-          <h1>当前求和为: {store.getState()}</h1>
+          <h1>当前求和为: {this.props.count}</h1>
           <Select
             onChange={(num) => {
               this.setState({ operator: +num });
@@ -72,3 +57,14 @@ export default class Count extends Component {
     );
   }
 }
+
+export default connect(
+  // 映射状态
+  (state) => ({ count: state }),
+  // 映射操作状态的方法
+  {
+    increment: incrementAction,
+    decrement: decrementAction,
+    incrementAsync: incrementAsyncAction,
+  }
+)(Count);
