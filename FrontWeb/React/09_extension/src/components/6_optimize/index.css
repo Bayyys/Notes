@@ -1,0 +1,17 @@
+.parent {
+  width: 800px;
+  background-color: pink;
+  padding: 5px;
+}
+
+.child {
+  width: 90%;
+  background-color: palevioletred;
+  padding: 5px;
+}
+
+.grandchild {
+  width: 80%;
+  background-color: rebeccapurple;
+  padding: 5px;
+}
