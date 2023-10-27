@@ -1,6 +1,8 @@
 node_modules/
 .vscode
 hongs-stu*/
+.yarn
+.pnp.*
 # ------------------  Python #d50000 ------------------
 
 # Byte-compiled / optimized / DLL files
