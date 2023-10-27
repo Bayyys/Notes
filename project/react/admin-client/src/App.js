@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, message } from "antd";
+import { Button, Space, message } from "antd";
 import { NavLink, useRoutes } from "react-router-dom";
 import routes from "./routes";
 
@@ -16,8 +16,11 @@ export default function App() {
       <Button type="primary" onClick={showMessage}>
         Button
       </Button>
-      <NavLink to="/login">Login</NavLink>
-      <NavLink to="/register">Register</NavLink>
+      <br />
+      <Space>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/register">Register</NavLink>
+      </Space>
       {element}
     </div>
   );
