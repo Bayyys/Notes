@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import Login from "../pages/Login/Login";
+import Register from "../pages/Register/Register";
 
 const routes = [
   {
