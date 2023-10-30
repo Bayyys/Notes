@@ -9,6 +9,7 @@ import Role from "../pages/Role/Role";
 import Bar from "../pages/Charts/Bar";
 import Line from "../pages/Charts/Line";
 import Pie from "../pages/Charts/Pie";
+import Order from "../pages/Order/Order";
 
 const routes = [
   {
@@ -67,6 +68,10 @@ const routes = [
             element: <Navigate to="/404" />,
           },
         ],
+      },
+      {
+        path: "order",
+        element: <Order />,
       },
     ],
   },
