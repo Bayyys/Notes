@@ -23,7 +23,7 @@ export default function Admin() {
       </Sider>
       <Layout>
         <Header>Header</Header>
-        <Content style={{ backgroundColor: "#fff" }}>
+        <Content style={{ backgroundColor: "#fff", margin: "20px" }}>
           <Suspense fallback={<div>Loading...</div>}>
             <Outlet />
           </Suspense>
