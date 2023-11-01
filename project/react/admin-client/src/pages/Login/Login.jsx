@@ -3,7 +3,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message } from "antd";
 
-import "./index.css";
+import "./Login.less";
 import logo from "../../assets/images/logo.png";
 import { reqLogin } from "../../api/api";
 import memoryUtils from "../../utils/memoryUtils";
