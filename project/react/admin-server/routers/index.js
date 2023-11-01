@@ -9,12 +9,73 @@ const CategoryModel = require("../models/CategoryModel");
 const ProductModel = require("../models/ProductModel");
 const RoleModel = require("../models/RoleModel");
 
+const axios = require("axios");
+
 // 得到路由器对象
 const router = express.Router();
 // console.log('router', router)
 
 // 指定需要过滤的属性
 const filter = { password: 0, __v: 0 };
+
+const ak = "ys9GjDQhXAavXKHQm2ULvbaywQsbFDFl";
+
+router.get("/region", (req, res) => {
+  const city = req.query.city || "杭州";
+  const url = `https://api.map.baidu.com/api_region_search/v1/?keyword=${city}&ak=${ak}&sub_admin=0&extensions_code=1`;
+  // axios
+  //   .get(url)
+  //   .then((response) => {
+  //     res.send(response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  res.send({
+    status: 0,
+    result_size: 1,
+    districts: [
+      {
+        code: "330100",
+        name: "杭州市",
+        level: 2,
+        districts: [],
+      },
+    ],
+  });
+});
+
+router.get("/weather", (req, res) => {
+  const code = req.query.code || "330100";
+  const url = `https://api.map.baidu.com/weather/v1/?district_id=${code}&ak=${ak}&data_type=all`;
+  // axios
+  //   .get(url)
+  //   .then((response) => {
+  //     res.send(response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  res.send({
+    status: 0,
+    result: {
+      location: {
+        country: "中国",
+        province: "浙江省",
+        city: "杭州市",
+        name: "杭州",
+        id: "330100",
+      },
+      now: {
+        text: "晴",
+        temp: 18,
+        wind_class: "1级",
+        wind_dir: "西南风",
+      },
+    },
+    message: "success",
+  });
+});
 
 // 登陆
 router.post("/login", (req, res) => {

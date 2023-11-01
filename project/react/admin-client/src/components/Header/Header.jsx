@@ -1,7 +1,15 @@
-import React from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import "./Header.less";
+import { getWeather } from "../../api/api";
 
 export default function Header() {
+  const [weather, setWeather] = useState("");
+  // 在界面渲染完成后，发送请求获取天气信息
+  useEffect(() => {
+    getWeather().then((res) => {
+      setWeather(res);
+    });
+  }, []);
   return (
     <div className="header">
       <div className="header-top">
@@ -18,7 +26,7 @@ export default function Header() {
             src="http://api.map.baidu.com/images/weather/day/qing.png"
             alt="wheather"
           />
-          <span>晴</span>
+          <span>{weather}</span>
         </div>
       </div>
     </div>

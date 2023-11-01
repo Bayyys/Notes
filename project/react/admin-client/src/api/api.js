@@ -7,6 +7,44 @@
  */
 import ajax from "./ajax";
 
+/* ----- 百度地图 api ----- */
+// jsonp请求的接口请求函数
+export const getRegionCode = async (city) => {
+  try {
+    const res = await ajax(BASE + "/region", city, "GET");
+    if (res.status === 0) {
+      if (res.result_size === 0) {
+        return "unknown_city";
+      }
+      return res.districts.code;
+    } else {
+      return "error";
+    }
+  } catch (error) {
+    return "error";
+  }
+};
+
+export const getWeather = async (city) => {
+  const region_code = getRegionCode(city);
+  if (region_code === "error") {
+    return Promise.reject("定位错误");
+  }
+  if (region_code === "unknown_city") {
+    return Promise.reject("未知城市");
+  }
+  try {
+    const res = await ajax(BASE + "/weather", region_code, "GET");
+    if (res.status === 0 && res.message === "success") {
+      return Promise.resolve(res.result.now.text);
+    } else {
+      return Promise.reject("未知城市");
+    }
+  } catch (error) {
+    return Promise.reject("未知城市");
+  }
+};
+
 const BASE = "/api";
 
 // 登陆
