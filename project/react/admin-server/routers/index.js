@@ -20,63 +20,135 @@ const filter = { password: 0, __v: 0 };
 
 const ak = "ys9GjDQhXAavXKHQm2ULvbaywQsbFDFl";
 
+/* ----- 天气请求 ----- */
 router.get("/region", (req, res) => {
   const city = req.query.city || "杭州";
   const url = `https://api.map.baidu.com/api_region_search/v1/?keyword=${city}&ak=${ak}&sub_admin=0&extensions_code=1`;
+
+  /* ----- 真实请求 ----- */
   // axios
   //   .get(url)
   //   .then((response) => {
   //     res.send(response.data);
   //   })
   //   .catch((error) => {
-  //     console.log(error);
+  //     res.send({ status: 0, data: error });
   //   });
+
+  /* ----- 模拟请求 ----- */
+  res.send(
+    city === "杭州"
+      ? {
+          status: 0,
+          result_size: 1,
+          districts: [
+            {
+              code: "330100",
+              name: "杭州市",
+              level: 2,
+              districts: [],
+            },
+          ],
+        }
+      : {
+          status: 0,
+          result_size: 1,
+          districts: [
+            {
+              code: "330481",
+              name: "海宁市",
+              level: 3,
+              districts: [],
+            },
+          ],
+        }
+  );
+});
+
+router.get("/city", (req, res) => {
+  const url = `https://api.map.baidu.com/location/ip?ak=${ak}`;
+  /* ----- 真实请求 ----- */
+  // axios
+  //   .get(url)
+  //   .then((response) => {
+  //     res.send(response.data);
+  //   })
+  //   .catch((error) => {
+  //     res.send({ status: 0, data: error });
+  //   });
+
+  /* ----- 模拟请求 ----- */
   res.send({
-    status: 0,
-    result_size: 1,
-    districts: [
-      {
-        code: "330100",
-        name: "杭州市",
-        level: 2,
-        districts: [],
+    content: {
+      address_detail: {
+        province: "浙江省",
+        city: "嘉兴市",
+        city_code: 334,
+        adcode: "330400",
       },
-    ],
+    },
+    status: 0,
   });
 });
 
 router.get("/weather", (req, res) => {
   const code = req.query.code || "330100";
   const url = `https://api.map.baidu.com/weather/v1/?district_id=${code}&ak=${ak}&data_type=all`;
+  /* ----- 真实请求 ----- */
   // axios
   //   .get(url)
   //   .then((response) => {
   //     res.send(response.data);
   //   })
   //   .catch((error) => {
-  //     console.log(error);
+  //     res.send({ status: 0, data: error });
   //   });
-  res.send({
-    status: 0,
-    result: {
-      location: {
-        country: "中国",
-        province: "浙江省",
-        city: "杭州市",
-        name: "杭州",
-        id: "330100",
-      },
-      now: {
-        text: "晴",
-        temp: 18,
-        wind_class: "1级",
-        wind_dir: "西南风",
-      },
-    },
-    message: "success",
-  });
+
+  /* ----- 模拟请求 ----- */
+  res.send(
+    code === "330100"
+      ? {
+          status: 0,
+          result: {
+            location: {
+              country: "中国",
+              province: "浙江省",
+              city: "杭州市",
+              name: "杭州",
+              id: "330100",
+            },
+            now: {
+              text: "晴",
+              temp: 18,
+              wind_class: "1级",
+              wind_dir: "西南风",
+            },
+          },
+          message: "success",
+        }
+      : {
+          status: 0,
+          result: {
+            location: {
+              country: "中国",
+              province: "浙江省",
+              city: "嘉兴市",
+              name: "海宁",
+              id: "330481",
+            },
+            now: {
+              text: "大雨",
+              temp: 28,
+              wind_class: "2级",
+              wind_dir: "南风",
+            },
+          },
+          message: "success",
+        }
+  );
 });
 
+/* ----- 服务请求 ----- */
 // 登陆
 router.post("/login", (req, res) => {
   const { username, password } = req.body;

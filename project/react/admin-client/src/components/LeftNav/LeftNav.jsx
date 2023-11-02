@@ -11,6 +11,7 @@ import { getMenuNodes } from "../../utils/menuUtils";
 export default function LeftNav() {
   const selectKey = useLocation().pathname; // 当前请求的路径
   const openKey = useLocation().pathname.split("/").slice(0, -1).join("/"); // 当前请求的路径的父路径
+
   return (
     <div className="left-nav">
       <Link className="left-nav-header">

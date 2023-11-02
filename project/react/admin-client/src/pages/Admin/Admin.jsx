@@ -1,10 +1,11 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useNavigate, Navigate, Outlet } from "react-router-dom";
 import memoryUtils from "../../utils/memoryUtils";
 
 import { Layout } from "antd";
 import LeftNav from "../../components/LeftNav/LeftNav";
 import Header from "../../components/Header/Header";
+import storageUtils from "../../utils/storageUtils";
 const { Footer, Sider, Content } = Layout;
 
 export default function Admin() {
@@ -12,9 +13,11 @@ export default function Admin() {
   const user = memoryUtils.user; // 从内存中读取user
 
   /* ------ 如果用户未登录, 自动跳转到登录界面 ------ */
-  if (!user || !user._id) {
-    return <Navigate to="/login" replace />;
-  }
+  useEffect(() => {
+    if (!user || !user._id) {
+      navigator("/login", { replace: true });
+    }
+  }, []);
 
   return (
     <Layout style={{ height: "100%" }}>
@@ -33,6 +36,7 @@ export default function Admin() {
           <button
             onClick={() => {
               memoryUtils.user = {};
+              storageUtils.removeUser();
               navigator("/login");
             }}
           >
