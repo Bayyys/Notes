@@ -2125,6 +2125,11 @@ pify@^4.0.1:
   resolved "https://registry.npmmirror.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
+pinyin-pro@^3.17.0:
+  version "3.17.0"
+  resolved "https://registry.npmmirror.com/pinyin-pro/-/pinyin-pro-3.17.0.tgz#33c9f8306b875d1f0314539b150c29f28dc98654"
+  integrity sha512-0R+K1kDl2Fb21nqKjb9hxKHya/fWuOJCSElWqdh17THSL/cgq95PP/QrJINFezFooepCiP+pbUenV2pRloAHHQ==
+
 postcss@^8.4.27:
   version "8.4.31"
   resolved "https://registry.npmmirror.com/postcss/-/postcss-8.4.31.tgz#92b451050a9f914da6755af352bdc0192508656d"

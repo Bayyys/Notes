@@ -32,6 +32,21 @@ export const getMenuNodes = (menuList) => {
   });
 };
 
+export const getMunuName = (menuList, path) => {
+  let title;
+  menuList.forEach((element) => {
+    if (element.key === path) {
+      title = element.title;
+    } else if (element.children) {
+      const tmp = getMunuName(element.children, path);
+      if (tmp) {
+        title = tmp;
+      }
+    }
+  });
+  return title;
+};
+
 export const getMenuNodes_reduce = (menuList) => {
   return menuList.reduce((pre, item) => {
     if (!item.children) {

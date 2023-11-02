@@ -20,7 +20,13 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 app.use((req, res, next) => {
-  console.log(req.get("Host") + ": 请求服务器, 访问的资源路径是: " + req.path);
+  console.log(
+    req.get("Host") +
+      ": 请求服务器, 访问的资源路径是: " +
+      req.path +
+      ", query: " +
+      req._parsedUrl.query
+  );
   next();
 });
 
