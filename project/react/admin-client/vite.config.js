@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import requireTransform from "vite-plugin-require-transform";
-
+import commonjs from "@rollup/plugin-commonjs";
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
@@ -24,6 +24,10 @@ export default defineConfig({
     }),
     requireTransform({
       fileRegex: /.js$/,
+    }),
+    commonjs({
+      include: /node_modules/,
+      transformMixedEsModules: true,
     }),
   ],
 });

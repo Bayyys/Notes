@@ -11,6 +11,9 @@ import Bar from "../pages/Charts/Bar";
 import Line from "../pages/Charts/Line";
 import Pie from "../pages/Charts/Pie";
 import Order from "../pages/Order/Order";
+import ProductHome from "../pages/Product/ProductHome";
+import ProductAddUpdate from "../pages/Product/ProductAddUpdate";
+import ProductDetail from "../pages/Product/ProductDetail";
 
 const routes = [
   {
@@ -36,6 +39,24 @@ const routes = [
       {
         path: "product",
         element: <Product />,
+        children: [
+          {
+            path: "",
+            element: <Navigate to="/product/home" />,
+          },
+          {
+            path: "home",
+            element: <ProductHome />,
+          },
+          {
+            path: "addupdate",
+            element: <ProductAddUpdate />,
+          },
+          {
+            path: "detail",
+            element: <ProductDetail />,
+          },
+        ],
       },
       {
         path: "user",

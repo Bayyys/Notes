@@ -10,9 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@babel/core": "^7.23.2",
     "@babel/plugin-transform-react-jsx": "^7.22.15",
-    "antd": "^5.10.3",
+    "antd": "^5.11.0",
     "axios": "^1.6.0",
     "jsonp": "^0.2.1",
     "pinyin-pro": "^3.17.0",
