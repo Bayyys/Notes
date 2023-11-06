@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Card, Input, Select, Table } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
@@ -18,44 +18,50 @@ export default function ProductHome() {
   const navigate = useNavigate();
 
   // 获取指定页码的列表数据显示
-  const getProducts = async (pageNum) => {
-    setPageNum(pageNum); // 保存pageNum, 让其它方法可以看到
-    setLoading(true);
-    let result;
-    try {
-      if (searchName) {
-        result = await reqSearchProducts(
-          pageNum,
-          PAGE_SIZE,
-          searchName,
-          searchType
-        );
-      } else {
-        result = await reqProducts(pageNum, PAGE_SIZE);
+  const getProducts = useCallback(
+    async (pageNum) => {
+      setPageNum(pageNum); // 保存pageNum, 让其它方法可以看到
+      setLoading(true);
+      let result;
+      try {
+        if (searchName) {
+          result = await reqSearchProducts(
+            pageNum,
+            PAGE_SIZE,
+            searchName,
+            searchType
+          );
+        } else {
+          result = await reqProducts(pageNum, PAGE_SIZE);
+        }
+        if (result.status === 0) {
+          const { total, list } = result.data;
+          setProducts(list);
+          setTotal(total);
+        }
+      } catch (error) {
+        // message.error("获取商品列表失败");
       }
-      if (result.status === 0) {
-        const { total, list } = result.data;
-        setProducts(list);
-        setTotal(total);
-      }
-    } catch (error) {
-      // message.error("获取商品列表失败");
-    }
-    setLoading(false);
-  };
+      setLoading(false);
+    },
+    [searchName, searchType]
+  );
 
   // 更新指定商品的状态
-  const updateStatus = async (productId, status) => {
-    try {
-      const res = await reqUpdateStatus(productId, status);
-      if (res.status === 0) {
-        getProducts(pageNum);
-      }
-    } catch (error) {}
-  };
+  const updateStatus = useCallback(
+    async (productId, status) => {
+      try {
+        const res = await reqUpdateStatus(productId, status);
+        if (res.status === 0) {
+          getProducts(pageNum);
+        }
+      } catch (error) {}
+    },
+    [getProducts, pageNum]
+  );
 
   // 初始化table的列的数组
-  const initColumns = () => {
+  const initColumns = useCallback(() => {
     getProducts(pageNum);
     setColumns([
       {
@@ -117,7 +123,7 @@ export default function ProductHome() {
         },
       },
     ]);
-  };
+  }, [getProducts, pageNum, navigate, updateStatus]);
 
   const title = (
     <span>
@@ -162,7 +168,7 @@ export default function ProductHome() {
 
   useEffect(() => {
     initColumns();
-  }, []);
+  }, [initColumns]);
 
   return (
     <Card title={title} extra={extra}>

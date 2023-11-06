@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, TreeSelect } from "antd";
 const { Item } = Form;
 
@@ -8,11 +8,11 @@ export default function AddForm({ form, categorys, parentId }) {
       value: "一级分类",
       title: "一级分类",
       _id: "0",
-      children: [],
+      items: [],
     },
   ];
 
-  treeData[0].children = categorys.map((item) => {
+  treeData[0].items = categorys.map((item) => {
     return {
       value: item.name,
       title: item.name,

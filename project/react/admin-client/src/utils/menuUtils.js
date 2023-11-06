@@ -11,12 +11,12 @@ const { Item, SubMenu } = Menu;
  *  title: '首页', // 菜单标题名称
  *  key: '/home', // 对应的path
  *  icon: 'home', // 图标名称
- *  children: [], // 可能有, 也可能没有
+ *  items: [], // 可能有, 也可能没有
  * }]
  */
 export const getMenuNodes = (menuList) => {
   return menuList.map((item) => {
-    if (!item.children) {
+    if (!item.items) {
       return (
         <Item key={item.key} icon={<PieChartOutlined />}>
           <NavLink to={item.key}>{item.title}</NavLink>
@@ -25,7 +25,7 @@ export const getMenuNodes = (menuList) => {
     } else {
       return (
         <SubMenu key={item.key} icon={<MailOutlined />} title={item.title}>
-          {getMenuNodes(item.children)}
+          {getMenuNodes(item.items)}
         </SubMenu>
       );
     }
@@ -37,8 +37,8 @@ export const getMunuName = (menuList, path) => {
   menuList.forEach((element) => {
     if (element.key === path) {
       title = element.title;
-    } else if (element.children) {
-      const tmp = getMunuName(element.children, path);
+    } else if (element.items) {
+      const tmp = getMunuName(element.items, path);
       if (tmp) {
         title = tmp;
       }
@@ -49,7 +49,7 @@ export const getMunuName = (menuList, path) => {
 
 export const getMenuNodes_reduce = (menuList) => {
   return menuList.reduce((pre, item) => {
-    if (!item.children) {
+    if (!item.items) {
       pre.push(
         <Item key={item.key} icon={<PieChartOutlined />}>
           <NavLink to={item.key}>{item.title}</NavLink>
@@ -58,7 +58,7 @@ export const getMenuNodes_reduce = (menuList) => {
     } else {
       pre.push(
         <SubMenu key={item.key} icon={<MailOutlined />} title={item.title}>
-          {getMenuNodes_reduce(item.children)}
+          {getMenuNodes_reduce(item.items)}
         </SubMenu>
       );
     }

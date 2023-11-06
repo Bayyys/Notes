@@ -19,7 +19,7 @@ const routes = [
   {
     path: "/",
     element: <Admin />,
-    children: [
+    items: [
       {
         path: "",
         element: <Navigate to="/home" />,
@@ -46,7 +46,7 @@ const routes = [
       },
       {
         path: "charts",
-        children: [
+        items: [
           {
             path: "",
             element: <Navigate to="/charts/bar" />,

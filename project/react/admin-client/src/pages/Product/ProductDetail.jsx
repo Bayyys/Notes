@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Card, List, message } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ export default function ProductDetail() {
   const navigate = useNavigate();
   const { product: p } = useLocation().state;
 
-  const getCategory = async () => {
+  const getCategory = useCallback(async () => {
     try {
       if (p.pCategoryId === "0") {
         setParentNameFirst("一级分类");
@@ -31,7 +31,7 @@ export default function ProductDetail() {
     } catch (error) {
       message.error("获取分类失败");
     }
-  };
+  }, [p.pCategoryId, p.categoryId]);
 
   const title = (
     <span>
@@ -48,7 +48,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     getCategory();
-  }, []);
+  }, [getCategory]);
 
   return (
     <Card title={title} className="product-detail">

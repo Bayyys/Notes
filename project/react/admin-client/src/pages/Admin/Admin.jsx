@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from "react";
-import { useNavigate, Navigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import memoryUtils from "../../utils/memoryUtils";
 
 import { Layout } from "antd";
@@ -17,7 +17,7 @@ export default function Admin() {
     if (!user || !user._id) {
       navigator("/login", { replace: true });
     }
-  }, []);
+  }, [navigator, user]);
 
   return (
     <Layout style={{ height: "100%" }}>

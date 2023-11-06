@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Card, Table, Button, message, Modal, Form } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
@@ -19,20 +19,23 @@ export default function Category() {
   const [form] = Form.useForm();
 
   // 获取一级/二级分类列表
-  const showCategorys = async (new_parentId) => {
-    setLoading(false);
-    // 等待一秒后执行后续代码
-    new_parentId = new_parentId ? new_parentId : parentId;
-    setParentId(new_parentId);
-    try {
-      const res = await reqCategorys(new_parentId);
-      if (new_parentId === "0") setCategorys(res.data);
-      else setSubCategorys(res.data);
-    } catch (error) {
-      message.error(error.message);
-    }
-    setLoading(false);
-  };
+  const showCategorys = useCallback(
+    async (new_parentId) => {
+      setLoading(false);
+      // 等待一秒后执行后续代码
+      new_parentId = new_parentId ? new_parentId : parentId;
+      setParentId(new_parentId);
+      try {
+        const res = await reqCategorys(new_parentId);
+        if (new_parentId === "0") setCategorys(res.data);
+        else setSubCategorys(res.data);
+      } catch (error) {
+        message.error(error.message);
+      }
+      setLoading(false);
+    },
+    [parentId]
+  );
 
   // 获取二级分类列表
   const showSubCategory = (parent) => {
@@ -181,7 +184,7 @@ export default function Category() {
   useEffect(() => {
     // 初始化表格数据
     showCategorys("0");
-  }, []);
+  }, [showCategorys]);
 
   return (
     <Card title={title} extra={extra}>

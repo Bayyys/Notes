@@ -9,7 +9,7 @@ const menuList = [
     title: "商品",
     key: "/products",
     icon: "appstore",
-    children: [
+    items: [
       // 子菜单列表
       {
         title: "品类管理",
@@ -39,7 +39,7 @@ const menuList = [
     title: "图形图表",
     key: "/charts",
     icon: "area-chart",
-    children: [
+    items: [
       {
         title: "柱形图",
         key: "/charts/bar",
