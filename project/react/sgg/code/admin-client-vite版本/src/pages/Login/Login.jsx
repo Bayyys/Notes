@@ -3,7 +3,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message } from "antd";
 
-import "./Login.scss";
+import "./Login.less";
 import logo from "../../assets/images/logo.png";
 import { reqLogin } from "../../api/api";
 import memoryUtils from "../../utils/memoryUtils";
@@ -22,9 +22,7 @@ export default function Login() {
   const onFinish = async (values) => {
     const { username, password } = values;
     try {
-      console.log("请求登录", username, password);
       const response = await reqLogin(username, password); // 成功: {statys:0,data:user} 失败: {statys:1,msg:'xxx'}
-      console.log(response);
       if (response.status === 0) {
         message.success("登录成功"); // 提示登录成功
 

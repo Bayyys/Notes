@@ -3,7 +3,7 @@ import { Button, Card, List, message } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import "./product.scss";
+import "./product.less";
 import { reqCategory } from "../../api/api";
 const Item = List.Item;
 

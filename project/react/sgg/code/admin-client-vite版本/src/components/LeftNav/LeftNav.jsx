@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu } from "antd";
 
-import "./LeftNav.scss";
+import "./LeftNav.less";
 import logo from "../../assets/images/logo.png";
 import menuList from "../../config/menuConfig";
 

@@ -12,10 +12,7 @@ export default function Category() {
   const [loading, setLoading] = useState(true); // 是否正在获取数据中
   const [parentId, setParentId] = useState("0"); // 当前需要显示的分类列表的父分类ID
   const [parentName, setParentName] = useState(""); // 当前需要显示的分类列表的父分类名称
-  const [mTitle, setMTitle] = useState(""); // Card的标题
-  const [mContent, setMContent] = useState(""); // Card的内容
-  const [mOpen, setMOpen] = useState(false); // Card的打开状态
-  const [category, setCategory] = useState({}); // 当前需要修改的分类
+  const [modal, contextHolder] = Modal.useModal();
   const [form] = Form.useForm();
 
   // 获取一级/二级分类列表
@@ -29,7 +26,7 @@ export default function Category() {
       if (new_parentId === "0") setCategorys(res.data);
       else setSubCategorys(res.data);
     } catch (error) {
-      message.error(error.message);
+      message.error(err.message);
     }
     setLoading(false);
   };
@@ -84,9 +81,10 @@ export default function Category() {
 
   // 显示添加/修改分类的对话框
   const showCategoryModal = (category) => {
-    setMTitle(category ? `修改<${category.name}>分类` : "添加分类");
-    setMContent(
-      category ? (
+    modal.confirm({
+      destroyOnClose: true,
+      title: category ? `修改<${category.name}>分类` : "添加分类",
+      content: category ? (
         <UpdateForm
           form={form}
           category={category}
@@ -94,22 +92,13 @@ export default function Category() {
         />
       ) : (
         <AddForm form={form} categorys={categorys} parentId={parentId} />
-      )
-    );
-    setMOpen(true);
-    setCategory(category);
-  };
-
-  // 点击对话框的确定按钮
-  const handlerOnOk = () => {
-    form
-      .validateFields()
-      .then((values) => {
+      ),
+      onOk: () => {
         const { kind, name } = form.getFieldsValue();
         category ? updateCategory(category._id, name) : addCategory(kind, name);
-        setMOpen(false);
-      })
-      .catch((err) => {});
+      },
+      onCancel: () => {},
+    });
   };
 
   // 表格列的配置
@@ -193,18 +182,7 @@ export default function Category() {
         pagination={{ defaultPageSize: 5, showQuickJumper: true }}
         rowKey={(record) => record._id}
       />
-      <Modal
-        destroyOnClose={true}
-        okButtonProps={{ disabled: false }}
-        open={mOpen}
-        title={mTitle}
-        onOk={handlerOnOk}
-        onCancel={() => {
-          setMOpen(false);
-        }}
-      >
-        {mContent}
-      </Modal>
+      {contextHolder}
     </Card>
   );
 }

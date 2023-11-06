@@ -16,6 +16,7 @@ export default function Category() {
   const [mContent, setMContent] = useState(""); // Card的内容
   const [mOpen, setMOpen] = useState(false); // Card的打开状态
   const [category, setCategory] = useState({}); // 当前需要修改的分类
+  const [btnDisable, setBtnDisable] = useState(true); // 对话框的确定按钮是否可用
   const [form] = Form.useForm();
 
   // 获取一级/二级分类列表
@@ -29,7 +30,7 @@ export default function Category() {
       if (new_parentId === "0") setCategorys(res.data);
       else setSubCategorys(res.data);
     } catch (error) {
-      message.error(error.message);
+      message.error(err.message);
     }
     setLoading(false);
   };
@@ -91,6 +92,7 @@ export default function Category() {
           form={form}
           category={category}
           categorys={parentId === "0" ? categorys : subCategorys}
+          setBtnDisable={setBtnDisable}
         />
       ) : (
         <AddForm form={form} categorys={categorys} parentId={parentId} />

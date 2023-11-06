@@ -3,8 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Modal, Button } from "antd";
 import { CompassOutlined } from "@ant-design/icons";
 import { pinyin } from "pinyin-pro";
-
-import "./Header.scss";
+import "./Header.less";
 import { getWeather } from "../../api/api";
 import memoryUtils from "../../utils/memoryUtils";
 import storageUtils from "../../utils/storageUtils";
