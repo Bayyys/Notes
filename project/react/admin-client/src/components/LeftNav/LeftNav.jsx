@@ -9,8 +9,13 @@ import menuList from "../../config/menuConfig";
 import { getMenuNodes } from "../../utils/menuUtils";
 
 export default function LeftNav() {
-  const selectKey = useLocation().pathname; // 当前请求的路径
-  const openKey = useLocation().pathname.split("/").slice(0, -1).join("/"); // 当前请求的路径的父路径
+  let selectKey = useLocation().pathname; // 当前请求的路径
+  let openKey = useLocation().pathname.split("/").slice(0, -1).join("/"); // 当前请求的路径的父路径
+  if (selectKey.indexOf("/product") === 0) {
+    // 当前请求的是商品或其子路由界面
+    selectKey = "/product";
+    openKey = "/products";
+  }
 
   return (
     <div className="left-nav">

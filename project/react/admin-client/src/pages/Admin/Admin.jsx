@@ -5,7 +5,6 @@ import memoryUtils from "../../utils/memoryUtils";
 import { Layout } from "antd";
 import LeftNav from "../../components/LeftNav/LeftNav";
 import Header from "../../components/Header/Header";
-import storageUtils from "../../utils/storageUtils";
 const { Footer, Sider, Content } = Layout;
 
 export default function Admin() {
@@ -33,15 +32,6 @@ export default function Admin() {
         </Content>
         <Footer style={{ textAlign: "center", color: "#A0A0A1" }}>
           推荐使用谷歌浏览器, 可以获得更好的体验
-          <button
-            onClick={() => {
-              memoryUtils.user = {};
-              storageUtils.removeUser();
-              navigator("/login");
-            }}
-          >
-            退出
-          </button>
         </Footer>
       </Layout>
     </Layout>

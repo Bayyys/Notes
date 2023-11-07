@@ -22,7 +22,6 @@ export default function Category() {
   const showCategorys = useCallback(
     async (new_parentId) => {
       setLoading(false);
-      // 等待一秒后执行后续代码
       new_parentId = new_parentId ? new_parentId : parentId;
       setParentId(new_parentId);
       try {
