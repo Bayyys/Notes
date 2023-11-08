@@ -160,7 +160,7 @@ export default function ProductHome() {
         type="primary"
         icon={<PlusOutlined />}
         onClick={() =>
-          navigate("/product/addupdate", { state: { product: null } })
+          navigate("/product/addupdate", { state: { product: {} } })
         }
       >
         添加商品

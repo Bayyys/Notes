@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Card, Form, Input, Cascader, Upload, Button, message } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "antd/es/form/Form";
+import { reqCategorys } from "../../api/api";
+
 const { Item } = Form;
 const { TextArea } = Input;
 
 // 产品的添加和更新的路由组件
 export default function ProductAddUpdate() {
+  const [cascaderOptions, setCascaderOptions] = useState([]);
   const navigate = useNavigate();
   const [form] = useForm();
 
@@ -26,6 +29,49 @@ export default function ProductAddUpdate() {
       });
   };
 
+  const initCategorys = (categorys) => {
+    setCascaderOptions(
+      categorys.map((item) => ({
+        value: item._id,
+        label: item.name,
+        isLeaf: false,
+      }))
+    );
+  };
+
+  const getCategorys = useCallback(async (parentId) => {
+    try {
+      const result = await reqCategorys(parentId);
+      if (result.status === 0) {
+        const categorys = result.data;
+        if (parentId === "0") {
+          initCategorys(categorys);
+        } else {
+          return categorys;
+        }
+      }
+    } catch (error) {}
+  }, []);
+
+  const loadData = async (selectedOptions) => {
+    const targetOption = selectedOptions[selectedOptions.length - 1];
+    try {
+      const result = await getCategorys(targetOption.value);
+      if (result && result.length > 0) {
+        targetOption.children = result.map((item) => ({
+          value: item._id,
+          label: item.name,
+          isLeaf: true,
+        }));
+      } else {
+        targetOption.isLeaf = true;
+      }
+    } catch (error) {
+      message.error("加载数据失败");
+    }
+    setCascaderOptions([...cascaderOptions]);
+  };
+
   const title = (
     <span>
       <Button
@@ -35,7 +81,7 @@ export default function ProductAddUpdate() {
           navigate(-1);
         }}
       ></Button>
-      <span>{product ? "修改商品" : "添加商品"}</span>
+      <span>{product.name ? "修改商品" : "添加商品"}</span>
     </span>
   );
 
@@ -45,9 +91,18 @@ export default function ProductAddUpdate() {
     wrapperCol: { span: 8 }, // 右侧包裹的宽度
   };
 
+  useEffect(() => {
+    getCategorys("0");
+  }, [getCategorys]);
+
   return (
     <Card title={title}>
-      <Form {...formItemLayout} form={form} validateTrigger="onBlur">
+      <Form
+        {...formItemLayout}
+        form={form}
+        initialValues={product}
+        validateTrigger="onBlur"
+      >
         <Item
           label="商品名称"
           name="name"
@@ -102,10 +157,23 @@ export default function ProductAddUpdate() {
           validateFirst
           hasFeedback
         >
-          <Input type="number" defaultValue={0} addonAfter="元" />
+          <Input type="number" addonAfter="元" />
         </Item>
-        <Item label="商品分类">
-          <div>图书 --{">"} 科幻</div>
+        <Item
+          label="商品分类"
+          name="category"
+          rules={[
+            {
+              required: true,
+              message: "商品分类必须选择",
+            },
+          ]}
+        >
+          <Cascader
+            options={cascaderOptions}
+            loadData={loadData}
+            placeholder="Please select"
+          />
         </Item>
         <Item label="商品图片">
           <div>商品图片</div>
