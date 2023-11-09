@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Card, Form, Input, Cascader, Upload, Button, message } from "antd";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Card, Form, Input, Cascader, Button, message } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "antd/es/form/Form";
@@ -13,50 +13,77 @@ export default function ProductAddUpdate() {
   const [cascaderOptions, setCascaderOptions] = useState([]);
   const navigate = useNavigate();
   const [form] = useForm();
+  const pIds = useMemo(() => [], []);
 
   const {
     state: { product },
   } = useLocation();
 
   const validateForm = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        console.log(values);
-      })
-      .catch((errorInfo) => {
-        message.error("表单验证失败");
-      });
+    console.log(form.getFieldsValue());
+    // form
+    //   .validateFields()
+    //   .then((values) => {
+    //     console.log(values.category);
+    //   })
+    //   .catch((errorInfo) => {
+    //     message.error("表单验证失败");
+    //   });
   };
 
-  const initCategorys = (categorys) => {
-    setCascaderOptions(
-      categorys.map((item) => ({
-        value: item._id,
-        label: item.name,
-        isLeaf: false,
-      }))
-    );
-  };
-
-  const getCategorys = useCallback(async (parentId) => {
+  const getChildCategorys = useCallback(async (parentId) => {
     try {
       const result = await reqCategorys(parentId);
       if (result.status === 0) {
-        const categorys = result.data;
-        if (parentId === "0") {
-          initCategorys(categorys);
-        } else {
-          return categorys;
-        }
+        return result.data;
       }
     } catch (error) {}
   }, []);
 
+  const initCategorys = useCallback(
+    async (categorys) => {
+      const options = categorys.map((item) => ({
+        value: item._id,
+        label: item.name,
+        isLeaf: false,
+      }));
+      const { pCategoryId } = product;
+      if (pCategoryId !== "0") {
+        const subCategorys = await getChildCategorys(pCategoryId);
+        const childOptions = subCategorys.map((item) => ({
+          value: item._id,
+          label: item.name,
+          isLeaf: true,
+        }));
+        options.forEach((item) => {
+          if (item.value === pCategoryId) {
+            item.children = childOptions;
+            return;
+          }
+        });
+      }
+      setCascaderOptions(options);
+    },
+    [getChildCategorys, product]
+  );
+
+  const getFirstCategorys = useCallback(
+    async (parentId) => {
+      try {
+        const result = await reqCategorys(parentId);
+        if (result.status === 0) {
+          const categorys = result.data;
+          initCategorys(categorys);
+        }
+      } catch (error) {}
+    },
+    [initCategorys]
+  );
+
   const loadData = async (selectedOptions) => {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     try {
-      const result = await getCategorys(targetOption.value);
+      const result = await getChildCategorys(targetOption.value);
       if (result && result.length > 0) {
         targetOption.children = result.map((item) => ({
           value: item._id,
@@ -71,6 +98,18 @@ export default function ProductAddUpdate() {
     }
     setCascaderOptions([...cascaderOptions]);
   };
+
+  const initpid = useCallback(() => {
+    const { pCategoryId, categoryId } = product;
+    // 清空 pIDs
+    pIds.length = 0;
+    if (pCategoryId === "0") {
+      pIds.push(categoryId);
+    } else {
+      pIds.push(pCategoryId);
+      pIds.push(categoryId);
+    }
+  }, [product, pIds]);
 
   const title = (
     <span>
@@ -92,35 +131,22 @@ export default function ProductAddUpdate() {
   };
 
   useEffect(() => {
-    getCategorys("0");
-  }, [getCategorys]);
+    getFirstCategorys("0");
+    initpid();
+  }, [getFirstCategorys, initpid]);
 
   return (
     <Card title={title}>
       <Form
         {...formItemLayout}
         form={form}
-        initialValues={product}
         validateTrigger="onBlur"
+        initialValues={product}
       >
         <Item
           label="商品名称"
           name="name"
-          rules={[
-            { required: true, message: "商品名称必须输入" },
-            {
-              // 自定义校验规则: 长度必须大于等于 2 小于等于 6
-              validator: (_, value) => {
-                if (value.length >= 2 && value.length <= 6) {
-                  return Promise.resolve();
-                } else {
-                  return Promise.reject(
-                    new Error("长度必须大于等于 2 小于等于 6")
-                  );
-                }
-              },
-            },
-          ]}
+          rules={[{ required: true, message: "商品名称必须输入" }]}
           validateFirst
           hasFeedback
         >
@@ -168,6 +194,7 @@ export default function ProductAddUpdate() {
               message: "商品分类必须选择",
             },
           ]}
+          initialValue={pIds}
         >
           <Cascader
             options={cascaderOptions}
