@@ -3,6 +3,7 @@ import { Card, Form, Input, Cascader, Button, message } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "antd/es/form/Form";
+import ImgUpload from "./ImgUpload";
 import { reqCategorys } from "../../api/api";
 
 const { Item } = Form;
@@ -18,6 +19,7 @@ export default function ProductAddUpdate() {
   const {
     state: { product },
   } = useLocation();
+  const { pCategoryId, categoryId } = product;
 
   const validateForm = () => {
     console.log(form.getFieldsValue());
@@ -47,7 +49,7 @@ export default function ProductAddUpdate() {
         label: item.name,
         isLeaf: false,
       }));
-      const { pCategoryId } = product;
+
       if (pCategoryId !== "0") {
         const subCategorys = await getChildCategorys(pCategoryId);
         const childOptions = subCategorys.map((item) => ({
@@ -64,7 +66,7 @@ export default function ProductAddUpdate() {
       }
       setCascaderOptions(options);
     },
-    [getChildCategorys, product]
+    [getChildCategorys, pCategoryId]
   );
 
   const getFirstCategorys = useCallback(
@@ -100,7 +102,6 @@ export default function ProductAddUpdate() {
   };
 
   const initpid = useCallback(() => {
-    const { pCategoryId, categoryId } = product;
     // 清空 pIDs
     pIds.length = 0;
     if (pCategoryId === "0") {
@@ -109,7 +110,13 @@ export default function ProductAddUpdate() {
       pIds.push(pCategoryId);
       pIds.push(categoryId);
     }
-  }, [product, pIds]);
+  }, [categoryId, pCategoryId, pIds]);
+
+  const normFile = (e) => {
+    return e
+      ?.filter((item) => item.name !== "error.jpg")
+      .map((item) => item.name);
+  };
 
   const title = (
     <span>
@@ -199,11 +206,16 @@ export default function ProductAddUpdate() {
           <Cascader
             options={cascaderOptions}
             loadData={loadData}
-            placeholder="Please select"
+            placeholder="请选择商品分类"
           />
         </Item>
-        <Item label="商品图片">
-          <div>商品图片</div>
+        <Item
+          label="商品图片"
+          name="imgs"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+        >
+          <ImgUpload imgs={product.imgs} />
         </Item>
         <Item label="商品详情">
           <div>商品详情</div>

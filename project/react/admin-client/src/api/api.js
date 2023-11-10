@@ -133,6 +133,10 @@ export const reqSearchProducts = (pageNum, pageSize, searchName, searchType) =>
 export const reqDeleteImg = (name) =>
   ajax(BASE + "/manage/img/delete", { name }, "POST");
 
+// 检查图片是否存在
+export const reqCheckImg = (name) =>
+  ajax(BASE + "/manage/img/check", { name }, "GET");
+
 // 添加/修改商品
 export const reqAddOrUpdateProduct = (product) =>
   ajax(
