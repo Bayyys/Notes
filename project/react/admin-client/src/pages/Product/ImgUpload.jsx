@@ -12,6 +12,7 @@ const getBase64 = (file) =>
   });
 
 export default function ImgUpload(props) {
+  const [messageApi, messageContextHolder] = message.useMessage();
   const [previewOpen, setPreviewOpen] = useState(false); // 是否显示大图预览
   const [previewImage, setPreviewImage] = useState(""); // 大图的url
   const [previewTitle, setPreviewTitle] = useState(""); // 大图的标题
@@ -38,7 +39,7 @@ export default function ImgUpload(props) {
     if (file.status === "done") {
       const { status } = file.response;
       if (status === 0) {
-        message.success("上传图片成功");
+        messageApi.success("上传图片成功");
         const { name, url } = file.response.data;
         file.name = name; // 最新版中, file 与 fileList 中的文件对象是同一个
         file.url = url;
@@ -48,19 +49,19 @@ export default function ImgUpload(props) {
           fileList = newList;
         }
       } else {
-        message.error("上传图片失败");
+        messageApi.error("上传图片失败");
       }
     } else if (file.status === "removed") {
       if (file.name !== "error.jpg") {
         try {
           const response = await reqDeleteImg(file.name);
           if (response.status === 0) {
-            message.success("删除图片成功");
+            messageApi.success("删除图片成功");
           } else {
-            message.error("删除图片失败");
+            messageApi.error("删除图片失败");
           }
         } catch (error) {
-          message.error("删除图片失败");
+          messageApi.error("删除图片失败");
         }
       }
     }
@@ -103,6 +104,7 @@ export default function ImgUpload(props) {
 
   return (
     <>
+      {messageContextHolder}
       <Upload
         action="/api/manage/img/upload" // 上传图片的接口地址
         accept="image/*" // 只接收图片格式

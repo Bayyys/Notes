@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import "./product.scss";
 import { reqCategory } from "../../api/api";
+import { BASE_IMG_URL } from "../../utils/constants";
 const Item = List.Item;
 
 // 产品详情的路由组件
@@ -76,16 +77,14 @@ export default function ProductDetail() {
         <Item>
           <span className="product-detail-left">商品图片:</span>
           <span className="product-detail-right">
-            <img
-              src="http://localhost:3000/src/assets/images/sx.jpg"
-              alt="img"
-              className="product-detail-img"
-            />
-            <img
-              src="http://localhost:3000/src/assets/images/xx.jpg"
-              alt="img"
-              className="product-detail-img"
-            />
+            {p.imgs.map((img) => (
+              <img
+                key={img}
+                src={BASE_IMG_URL + img}
+                className="product-detail-img"
+                alt="img"
+              />
+            ))}
           </span>
         </Item>
         <Item>

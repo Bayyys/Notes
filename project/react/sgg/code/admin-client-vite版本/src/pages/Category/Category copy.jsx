@@ -7,6 +7,7 @@ import UpdateForm from "./UpdateForm";
 import AddForm from "./AddForm";
 
 export default function Category() {
+  const [messageApi, messageContextHolder] = message.useMessage();
   const [categorys, setCategorys] = useState([]); // 一级分类列表
   const [subCategorys, setSubCategorys] = useState([]); // 二级分类列表
   const [loading, setLoading] = useState(true); // 是否正在获取数据中
@@ -26,7 +27,7 @@ export default function Category() {
       if (new_parentId === "0") setCategorys(res.data);
       else setSubCategorys(res.data);
     } catch (error) {
-      message.error(err.message);
+      messageApi.error(err.message);
     }
     setLoading(false);
   };
@@ -47,11 +48,11 @@ export default function Category() {
         categoryName: name,
       });
       if (res.status === 0) {
-        message.success("更新分类成功");
+        messageApi.success("更新分类成功");
         showCategorys();
       }
     } catch (error) {
-      message.error("更新分类失败");
+      messageApi.error("更新分类失败");
     }
   };
 
@@ -64,11 +65,11 @@ export default function Category() {
     try {
       const res = await reqAddCategory(name, addPId);
       if (res.status === 0) {
-        message.success("添加分类成功");
+        messageApi.success("添加分类成功");
         showCategorys();
       }
     } catch (error) {
-      message.error("添加分类失败");
+      messageApi.error("添加分类失败");
     }
     if (addPId !== parentId) {
       if (addPId === "0") {
@@ -183,6 +184,7 @@ export default function Category() {
         rowKey={(record) => record._id}
       />
       {contextHolder}
+      {messageContextHolder}
     </Card>
   );
 }

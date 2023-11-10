@@ -35,7 +35,7 @@ export const getMenuNodes = (menuList) => {
 export const getMunuName = (menuList, path) => {
   let title;
   menuList.forEach((element) => {
-    if (element.key === path) {
+    if (path.indexOf(element.key) === 0) {
       title = element.title;
     } else if (element.items) {
       const tmp = getMunuName(element.items, path);

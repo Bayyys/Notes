@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Card, Table, Button, message, Modal, Form } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
@@ -7,6 +7,7 @@ import UpdateForm from "./UpdateForm";
 import AddForm from "./AddForm";
 
 export default function Category() {
+  const [messageApi, messageContextHolder] = message.useMessage();
   const [categorys, setCategorys] = useState([]); // 一级分类列表
   const [subCategorys, setSubCategorys] = useState([]); // 二级分类列表
   const [loading, setLoading] = useState(true); // 是否正在获取数据中
@@ -16,20 +17,23 @@ export default function Category() {
   const [form] = Form.useForm();
 
   // 获取一级/二级分类列表
-  const showCategorys = async (new_parentId) => {
-    setLoading(false);
-    // 等待一秒后执行后续代码
-    new_parentId = new_parentId ? new_parentId : parentId;
-    setParentId(new_parentId);
-    try {
-      const res = await reqCategorys(new_parentId);
-      if (new_parentId === "0") setCategorys(res.data);
-      else setSubCategorys(res.data);
-    } catch (error) {
-      message.error(err.message);
-    }
-    setLoading(false);
-  };
+  const showCategorys = useCallback(
+    async (new_parentId) => {
+      setLoading(false);
+      // 等待一秒后执行后续代码
+      new_parentId = new_parentId ? new_parentId : parentId;
+      setParentId(new_parentId);
+      try {
+        const res = await reqCategorys(new_parentId);
+        if (new_parentId === "0") setCategorys(res.data);
+        else setSubCategorys(res.data);
+      } catch (error) {
+        messageApi.error(error.message);
+      }
+      setLoading(false);
+    },
+    [parentId, messageApi]
+  );
 
   // 获取二级分类列表
   const showSubCategory = (parent) => {
@@ -47,11 +51,11 @@ export default function Category() {
         categoryName: name,
       });
       if (res.status === 0) {
-        message.success("更新分类成功");
+        messageApi.success("更新分类成功");
         showCategorys();
       }
     } catch (error) {
-      message.error("更新分类失败");
+      messageApi.error("更新分类失败");
     }
   };
 
@@ -64,11 +68,11 @@ export default function Category() {
     try {
       const res = await reqAddCategory(name, addPId);
       if (res.status === 0) {
-        message.success("添加分类成功");
+        messageApi.success("添加分类成功");
         showCategorys();
       }
     } catch (error) {
-      message.error("添加分类失败");
+      messageApi.error("添加分类失败");
     }
     if (addPId !== parentId) {
       if (addPId === "0") {
@@ -170,7 +174,7 @@ export default function Category() {
   useEffect(() => {
     // 初始化表格数据
     showCategorys("0");
-  }, []);
+  }, [showCategorys]);
 
   return (
     <Card title={title} extra={extra}>
@@ -182,6 +186,7 @@ export default function Category() {
         pagination={{ defaultPageSize: 5, showQuickJumper: true }}
         rowKey={(record) => record._id}
       />
+      {messageContextHolder}
       {contextHolder}
     </Card>
   );

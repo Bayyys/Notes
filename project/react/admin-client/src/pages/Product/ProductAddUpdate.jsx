@@ -4,7 +4,8 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "antd/es/form/Form";
 import ImgUpload from "./ImgUpload";
-import { reqCategorys } from "../../api/api";
+import { reqCategorys, reqAddOrUpdateProduct } from "../../api/api";
+import RichTextEditor from "./RichTextEditor";
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -21,16 +22,53 @@ export default function ProductAddUpdate() {
   } = useLocation();
   const { pCategoryId, categoryId } = product;
 
+  const addOrUpdate = async (product) => {
+    try {
+      const result = await reqAddOrUpdateProduct(product);
+      if (result.status === 0) {
+        message.success(`${product._id ? "更新" : "添加"}商品成功`);
+        navigate(-1);
+      } else {
+        message.error(`${product._id ? "更新" : "添加"}商品失败`);
+      }
+    } catch (error) {
+      message.error(`${product._id ? "更新" : "添加"}商品失败`);
+    }
+  };
+
   const validateForm = () => {
-    console.log(form.getFieldsValue());
-    // form
-    //   .validateFields()
-    //   .then((values) => {
-    //     console.log(values.category);
-    //   })
-    //   .catch((errorInfo) => {
-    //     message.error("表单验证失败");
-    //   });
+    form
+      .validateFields()
+      .then((values) => {
+        const { name, desc, price, category, imgs, detail } = values;
+        let pCategoryId, categoryId;
+        if (category.length === 1) {
+          pCategoryId = "0";
+          categoryId = category[0];
+        } else {
+          pCategoryId = category[0];
+          categoryId = category[1];
+        }
+        const nProduct = {
+          // 新的 product
+          ...product,
+          name,
+          desc,
+          price,
+          pCategoryId,
+          categoryId,
+          imgs,
+          detail,
+        };
+        if (product._id) {
+          // 若更新, 需要添加 _id
+          nProduct._id = product._id;
+        }
+        addOrUpdate(nProduct);
+      })
+      .catch((errorInfo) => {
+        message.error("表单验证失败");
+      });
   };
 
   const getChildCategorys = useCallback(async (parentId) => {
@@ -179,8 +217,8 @@ export default function ProductAddUpdate() {
               validator: (_, value) => {
                 if (value <= 0) {
                   return Promise.reject(new Error("价格必须大于 0"));
-                } else if (value >= 9999) {
-                  return Promise.reject(new Error("价格必须小于 9999"));
+                } else if (value >= 999999) {
+                  return Promise.reject(new Error("价格必须小于 999999"));
                 } else {
                   return Promise.resolve();
                 }
@@ -217,17 +255,19 @@ export default function ProductAddUpdate() {
         >
           <ImgUpload imgs={product.imgs} />
         </Item>
-        <Item label="商品详情">
-          <div>商品详情</div>
+        <Item label="商品详情" name="detail" wrapperCol={{ span: 20 }}>
+          <RichTextEditor placeholder="请填写商品详情信息" />
         </Item>
-        <Button
-          type="primary"
-          onClick={() => {
-            validateForm();
-          }}
-        >
-          提交
-        </Button>
+        <Item>
+          <Button
+            type="primary"
+            onClick={() => {
+              validateForm();
+            }}
+          >
+            提交
+          </Button>
+        </Item>
       </Form>
     </Card>
   );

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Card, Input, Select, Table } from "antd";
+import { Button, Card, Input, Select, Table, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +40,7 @@ export default function ProductHome() {
           setTotal(total);
         }
       } catch (error) {
-        // message.error("获取商品列表失败");
+        message.error("获取商品列表失败");
       }
       setLoading(false);
     },
