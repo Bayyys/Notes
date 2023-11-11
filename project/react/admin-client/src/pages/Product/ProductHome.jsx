@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { Button, Card, Input, Select, Table, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
@@ -16,36 +22,38 @@ export default function ProductHome() {
   const [searchType, setSearchType] = useState("productName"); // 根据哪个字段搜索
   const [pageNum, setPageNum] = useState(1); // 当前显示第几页的数据
   const navigate = useNavigate();
+  const pageInfoRef = useRef();
+
+  useLayoutEffect(() => {
+    pageInfoRef.current = { pageNum, searchName, searchType };
+  });
 
   // 获取指定页码的列表数据显示
-  const getProducts = useCallback(
-    async (pageNum) => {
-      setPageNum(pageNum); // 保存pageNum, 让其它方法可以看到
-      setLoading(true);
-      let result;
-      try {
-        if (searchName) {
-          result = await reqSearchProducts(
-            pageNum,
-            PAGE_SIZE,
-            searchName,
-            searchType
-          );
-        } else {
-          result = await reqProducts(pageNum, PAGE_SIZE);
-        }
-        if (result.status === 0) {
-          const { total, list } = result.data;
-          setProducts(list);
-          setTotal(total);
-        }
-      } catch (error) {
-        message.error("获取商品列表失败");
+  const getProducts = useCallback(async (pageNum) => {
+    setPageNum(pageNum); // 保存pageNum, 让其它方法可以看到
+    setLoading(true);
+    let result;
+    try {
+      if (pageInfoRef.current.searchName) {
+        result = await reqSearchProducts(
+          pageNum,
+          PAGE_SIZE,
+          pageInfoRef.current.searchName,
+          pageInfoRef.current.searchType
+        );
+      } else {
+        result = await reqProducts(pageNum, PAGE_SIZE);
       }
-      setLoading(false);
-    },
-    [searchName, searchType]
-  );
+      if (result.status === 0) {
+        const { total, list } = result.data;
+        setProducts(list);
+        setTotal(total);
+      }
+    } catch (error) {
+      message.error("获取商品列表失败");
+    }
+    setLoading(false);
+  }, []);
 
   // 更新指定商品的状态
   const updateStatus = useCallback(
@@ -53,16 +61,16 @@ export default function ProductHome() {
       try {
         const res = await reqUpdateStatus(productId, status);
         if (res.status === 0) {
-          getProducts(pageNum);
+          getProducts(pageInfoRef.current.pageNum);
         }
       } catch (error) {}
     },
-    [getProducts, pageNum]
+    [getProducts]
   );
 
   // 初始化table的列的数组
   const initColumns = useCallback(() => {
-    getProducts(pageNum);
+    getProducts(pageInfoRef.current.pageNum);
     setColumns([
       {
         title: "商品名称",
@@ -123,7 +131,7 @@ export default function ProductHome() {
         },
       },
     ]);
-  }, [getProducts, pageNum, navigate, updateStatus]);
+  }, [getProducts, navigate, updateStatus]);
 
   const title = (
     <span>

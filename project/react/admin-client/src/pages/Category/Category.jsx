@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { Card, Table, Button, message, Modal, Form } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { PlusOutlined } from "@ant-design/icons";
@@ -17,13 +23,18 @@ export default function Category() {
   const [mContent, setMContent] = useState(""); // Card的内容
   const [mOpen, setMOpen] = useState(false); // Card的打开状态
   const [category, setCategory] = useState({}); // 当前需要修改的分类
+  const idRef = useRef();
   const [form] = Form.useForm();
+
+  useLayoutEffect(() => {
+    idRef.current = parentId;
+  });
 
   // 获取一级/二级分类列表
   const showCategorys = useCallback(
     async (new_parentId) => {
       setLoading(false);
-      new_parentId = new_parentId ? new_parentId : parentId;
+      new_parentId = new_parentId ? new_parentId : idRef.current;
       setParentId(new_parentId);
       try {
         const res = await reqCategorys(new_parentId);
@@ -34,7 +45,7 @@ export default function Category() {
       }
       setLoading(false);
     },
-    [parentId, messageApi]
+    [messageApi]
   );
 
   // 获取二级分类列表

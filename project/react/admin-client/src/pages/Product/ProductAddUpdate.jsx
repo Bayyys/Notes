@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Card, Form, Input, Cascader, Button, message } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function ProductAddUpdate() {
   const [cascaderOptions, setCascaderOptions] = useState([]);
   const navigate = useNavigate();
   const [form] = useForm();
-  const pIds = useMemo(() => [], []);
+  const pIdsRef = useRef([]);
 
   const {
     state: { product },
@@ -141,14 +141,14 @@ export default function ProductAddUpdate() {
 
   const initpid = useCallback(() => {
     // 清空 pIDs
-    pIds.length = 0;
+    pIdsRef.current.length = 0;
     if (pCategoryId === "0") {
-      pIds.push(categoryId);
+      pIdsRef.current.push(categoryId);
     } else {
-      pIds.push(pCategoryId);
-      pIds.push(categoryId);
+      pIdsRef.current.push(pCategoryId);
+      pIdsRef.current.push(categoryId);
     }
-  }, [categoryId, pCategoryId, pIds]);
+  }, [categoryId, pCategoryId]);
 
   const normFile = (e) => {
     return e
@@ -239,7 +239,7 @@ export default function ProductAddUpdate() {
               message: "商品分类必须选择",
             },
           ]}
-          initialValue={pIds}
+          initialValue={pIdsRef.current}
         >
           <Cascader
             options={cascaderOptions}
