@@ -1,8 +1,9 @@
 import React from "react";
-import { Modal, Form, Input, Spin } from "antd";
+import { Modal, Form, Input, Spin, Tree } from "antd";
+import menuList from "../../config/menuConfig";
 const { Item } = Form;
 
-export default function RoleAdd({ open, setOpen, addRole }) {
+export default function RoleEdit({ open, setOpen, editRole, role }) {
   const [form] = Form.useForm();
   const [loading, setLoading] = React.useState(false);
 
@@ -11,12 +12,25 @@ export default function RoleAdd({ open, setOpen, addRole }) {
     try {
       const result = await form.validateFields();
       if (result) {
-        addRole(result.name);
+        console.log(role);
+        editRole(role);
         setOpen(false);
       }
     } catch (error) {}
     setLoading(false);
   };
+
+  const initMenuList = () => {
+    const treeList = [];
+    treeList.push({
+      title: "平台权限",
+      key: "all",
+      children: menuList,
+    });
+    return treeList;
+  };
+
+  const treeData = initMenuList();
 
   return (
     <Modal
@@ -26,18 +40,15 @@ export default function RoleAdd({ open, setOpen, addRole }) {
         setOpen(false);
       }}
       onOk={() => handleAddOk(form)}
-      title="添加角色"
+      title="角色权限设置"
     >
       <Spin spinning={loading}>
         <Form form={form} preserve={false}>
-          <Item
-            label="角色名称"
-            name="name"
-            rules={[{ required: true, message: "角色名称不能为空" }]}
-          >
-            <Input placeholder="请输入角色名称"></Input>
+          <Item label="角色名称" name="name" initialValue={role.name}>
+            <Input disabled={true}></Input>
           </Item>
         </Form>
+        <Tree treeData={treeData} checkable defaultExpandAll />
       </Spin>
     </Modal>
   );

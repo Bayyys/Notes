@@ -1,14 +1,15 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu } from "antd";
 
 import "./LeftNav.scss";
 import logo from "../../assets/images/logo.png";
-import menuList from "../../config/menuConfig";
 
+import menuList from "../../config/menuConfig";
 import { getMenuNodes } from "../../utils/menuUtils";
 
 export default function LeftNav() {
+  const navigate = useNavigate();
   let selectKey = useLocation().pathname; // 当前请求的路径
   let openKey = useLocation().pathname.split("/").slice(0, -1).join("/"); // 当前请求的路径的父路径
   if (selectKey.indexOf("/product") === 0) {
@@ -29,9 +30,11 @@ export default function LeftNav() {
         defaultOpenKeys={[openKey]} // 默认展开
         mode="inline" // 菜单类型: vertical(垂直) | horizontal(水平) | inline(内嵌)
         theme="dark"
-      >
-        {getMenuNodes(menuList)}
-      </Menu>
+        items={getMenuNodes(menuList)}
+        onClick={(item) => {
+          navigate(item.key);
+        }}
+      ></Menu>
     </div>
   );
 }

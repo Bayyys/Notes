@@ -14,9 +14,9 @@ const { Item, SubMenu } = Menu;
  *  items: [], // 可能有, 也可能没有
  * }]
  */
-export const getMenuNodes = (menuList) => {
+export const getMenuNodes_old = (menuList) => {
   return menuList.map((item) => {
-    if (!item.items) {
+    if (!item.children) {
       return (
         <Item key={item.key} icon={<PieChartOutlined />}>
           <NavLink to={item.key}>{item.title}</NavLink>
@@ -25,8 +25,33 @@ export const getMenuNodes = (menuList) => {
     } else {
       return (
         <SubMenu key={item.key} icon={<MailOutlined />} title={item.title}>
-          {getMenuNodes(item.items)}
+          {getMenuNodes_old(item.children)}
         </SubMenu>
+      );
+    }
+  });
+};
+
+function getItem(label, key, icon, children, type) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  };
+}
+
+export const getMenuNodes = (menuList) => {
+  return menuList.map((item) => {
+    if (!item.children) {
+      return getItem(item.title, item.key, <MailOutlined />, null);
+    } else {
+      return getItem(
+        item.title,
+        item.key,
+        <PieChartOutlined />,
+        getMenuNodes(item.children)
       );
     }
   });
@@ -37,8 +62,8 @@ export const getMunuName = (menuList, path) => {
   menuList.forEach((element) => {
     if (path.indexOf(element.key) === 0) {
       title = element.title;
-    } else if (element.items) {
-      const tmp = getMunuName(element.items, path);
+    } else if (element.children) {
+      const tmp = getMunuName(element.children, path);
       if (tmp) {
         title = tmp;
       }

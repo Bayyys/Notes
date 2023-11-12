@@ -3,13 +3,15 @@ import { Card, Table, Button, message } from "antd";
 import { PAGE_SIZE } from "../../utils/constants";
 import { reqAddRole, reqRoles } from "../../api/api";
 import RoleAdd from "./RoleAdd";
+import RoleEdit from "./RoleEdit";
 
 export default function Role() {
   const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(false);
   const [roles, setRoles] = useState([]); // 所有角色的列表
   const [role, setRole] = useState({}); // 选中的角色
-  const [mOpen, setMOpen] = useState(false); // 添加角色的对话框是否显示
+  const [aOpen, setAOpen] = useState(false); // 添加角色的对话框是否显示
+  const [eOpen, setEOpen] = useState(false); // 设置角色权限的对话框是否显示
 
   // 获取角色列表
   const getRoles = useCallback(async () => {
@@ -50,6 +52,13 @@ export default function Role() {
     }
   };
 
+  const editRole = async (role) => {
+    console.log("setRole", role);
+    // try {
+    //   const result = await reqUpdateRole(role);
+    // } catch (error) {}
+  };
+
   // 表格列的配置
   const columns = [
     { title: "角色名称", dataIndex: "name" },
@@ -64,13 +73,19 @@ export default function Role() {
       <Button
         type="primary"
         onClick={() => {
-          setMOpen(true);
+          setAOpen(true);
         }}
       >
         创建角色
       </Button>
       &nbsp;&nbsp;
-      <Button type="primary" disabled={!role._id}>
+      <Button
+        type="primary"
+        disabled={!role._id}
+        onClick={() => {
+          setEOpen(true);
+        }}
+      >
         设置角色权限
       </Button>
     </span>
@@ -98,7 +113,13 @@ export default function Role() {
         onRow={onRowClick}
         pagination={{ pageSize: PAGE_SIZE, showQuickJumper: true }}
       ></Table>
-      <RoleAdd mOpen={mOpen} setMOpen={setMOpen} addRole={addRole} />
+      <RoleAdd open={aOpen} setOpen={setAOpen} addRole={addRole} />
+      <RoleEdit
+        open={eOpen}
+        setOpen={setEOpen}
+        editRole={editRole}
+        role={role}
+      />
       {contextHolder}
     </Card>
   );
