@@ -1,9 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { Card, Table, Button, message } from "antd";
 import { PAGE_SIZE } from "../../utils/constants";
-import { reqAddRole, reqRoles } from "../../api/api";
+import { reqAddRole, reqRoles, reqUpdateRole } from "../../api/api";
 import RoleAdd from "./RoleAdd";
 import RoleEdit from "./RoleEdit";
+import { formateDate } from "../../utils/dateUtils";
 
 export default function Role() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -12,6 +18,10 @@ export default function Role() {
   const [role, setRole] = useState({}); // 选中的角色
   const [aOpen, setAOpen] = useState(false); // 添加角色的对话框是否显示
   const [eOpen, setEOpen] = useState(false); // 设置角色权限的对话框是否显示
+
+  useLayoutEffect(() => {
+    setRole({});
+  }, [roles]);
 
   // 获取角色列表
   const getRoles = useCallback(async () => {
@@ -53,17 +63,36 @@ export default function Role() {
   };
 
   const editRole = async (role) => {
-    console.log("setRole", role);
-    // try {
-    //   const result = await reqUpdateRole(role);
-    // } catch (error) {}
+    try {
+      const result = await reqUpdateRole(role);
+      if (result.status === 0) {
+        messageApi.success("设置角色权限成功");
+        setRoles(
+          roles.map((item) => {
+            if (item._id === role._id) {
+              return result.data;
+            } else {
+              return item;
+            }
+          })
+        );
+      } else {
+        messageApi.error("设置角色权限失败");
+      }
+    } catch (error) {
+      messageApi.error("设置角色权限失败");
+    }
   };
 
   // 表格列的配置
   const columns = [
     { title: "角色名称", dataIndex: "name" },
-    { title: "创建时间", dataIndex: "create_time" },
-    { title: "授权时间", dataIndex: "auth_time" },
+    {
+      title: "创建时间",
+      dataIndex: "create_time",
+      render: formateDate,
+    },
+    { title: "授权时间", dataIndex: "auth_time", render: formateDate },
     { title: "授权人", dataIndex: "auth_name" },
   ];
 

@@ -1,36 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal, Form, Input, Spin, Tree } from "antd";
 import menuList from "../../config/menuConfig";
+import memoryUtils from "../../utils/memoryUtils";
 const { Item } = Form;
+
+const initMenuList = () => {
+  const treeList = [];
+  treeList.push({
+    title: "平台权限",
+    key: "/all",
+    children: menuList,
+  });
+  return treeList;
+};
 
 export default function RoleEdit({ open, setOpen, editRole, role }) {
   const [form] = Form.useForm();
   const [loading, setLoading] = React.useState(false);
+  const [selectedKeys, setSelectedKeys] = React.useState([]); // 选中的菜单项的key数组
+  const treeData = initMenuList(); // 生成树形结构的菜单列表
 
-  const handleAddOk = async (form) => {
+  const handleAddOk = async () => {
     setLoading(true);
-    try {
-      const result = await form.validateFields();
-      if (result) {
-        console.log(role);
-        editRole(role);
-        setOpen(false);
-      }
-    } catch (error) {}
+    const { _id } = role;
+    const menus = selectedKeys;
+    const auth_name = memoryUtils.user.username;
+    editRole({ _id, menus, auth_name });
+    setOpen(false);
     setLoading(false);
   };
 
-  const initMenuList = () => {
-    const treeList = [];
-    treeList.push({
-      title: "平台权限",
-      key: "all",
-      children: menuList,
-    });
-    return treeList;
+  const handleOnCheck = (checkedKeys) => {
+    setSelectedKeys(checkedKeys);
   };
 
-  const treeData = initMenuList();
+  useEffect(() => {
+    setSelectedKeys(role.menus);
+  }, [role]);
 
   return (
     <Modal
@@ -39,7 +45,7 @@ export default function RoleEdit({ open, setOpen, editRole, role }) {
       onCancel={() => {
         setOpen(false);
       }}
-      onOk={() => handleAddOk(form)}
+      onOk={handleAddOk}
       title="角色权限设置"
     >
       <Spin spinning={loading}>
@@ -48,7 +54,13 @@ export default function RoleEdit({ open, setOpen, editRole, role }) {
             <Input disabled={true}></Input>
           </Item>
         </Form>
-        <Tree treeData={treeData} checkable defaultExpandAll />
+        <Tree
+          treeData={treeData}
+          checkable
+          defaultExpandAll
+          defaultCheckedKeys={role.menus}
+          onCheck={handleOnCheck}
+        />
       </Spin>
     </Modal>
   );
