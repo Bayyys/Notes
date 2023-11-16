@@ -187,6 +187,7 @@ export default function ProductHome() {
         dataSource={products}
         columns={columns}
         pagination={{
+          current: pageNum,
           defaultPageSize: PAGE_SIZE,
           showQuickJumper: true,
           total: total,

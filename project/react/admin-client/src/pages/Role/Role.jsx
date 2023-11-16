@@ -10,9 +10,13 @@ import { reqAddRole, reqRoles, reqUpdateRole } from "../../api/api";
 import RoleAdd from "./RoleAdd";
 import RoleEdit from "./RoleEdit";
 import { formateDate } from "../../utils/dateUtils";
+import memoryUtils from "../../utils/memoryUtils";
+import storageUtils from "../../utils/storageUtils";
+import { useNavigate } from "react-router-dom";
 
 export default function Role() {
   const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [roles, setRoles] = useState([]); // 所有角色的列表
   const [role, setRole] = useState({}); // 选中的角色
@@ -67,15 +71,22 @@ export default function Role() {
       const result = await reqUpdateRole(role);
       if (result.status === 0) {
         messageApi.success("设置角色权限成功");
-        setRoles(
-          roles.map((item) => {
-            if (item._id === role._id) {
-              return result.data;
-            } else {
-              return item;
-            }
-          })
-        );
+        // 判断是否是当前角色，如果是则退出登录
+        if (role._id === memoryUtils.user.role_id) {
+          memoryUtils.user = {};
+          storageUtils.removeUser();
+          navigate("/login", { replace: true });
+        } else {
+          setRoles(
+            roles.map((item) => {
+              if (item._id === role._id) {
+                return result.data;
+              } else {
+                return item;
+              }
+            })
+          );
+        }
       } else {
         messageApi.error("设置角色权限失败");
       }

@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { MailOutlined, PieChartOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
+import memoryUtils from "../utils/memoryUtils";
 
 const { Item, SubMenu } = Menu;
 
@@ -32,6 +33,30 @@ export const getMenuNodes_old = (menuList) => {
   });
 };
 
+/**
+ * 判断当前登录用户对item是否有权限
+ * @param {*} item 列表项
+ * @returns 有权限返回true，没有权限返回false
+ */
+function hasAuth(item) {
+  const user = memoryUtils.user;
+  const menus = user.role.menus;
+  const { key, isPublic } = item;
+  // 如果当前用户是admin, 直接返回true
+  if (
+    isPublic ||
+    user.username === "admin" ||
+    menus.indexOf(key) !== -1
+  ) {
+    return true;
+  }
+  // 判断是否有item的子item的权限
+  else if (item.children) {
+    return !!item.children.find((child) => menus.indexOf(child.key) !== -1);
+  }
+  return false;
+}
+
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -44,15 +69,18 @@ function getItem(label, key, icon, children, type) {
 
 export const getMenuNodes = (menuList) => {
   return menuList.map((item) => {
-    if (!item.children) {
+    if (!item.children && hasAuth(item)) {
       return getItem(item.title, item.key, <MailOutlined />, null);
     } else {
-      return getItem(
-        item.title,
-        item.key,
-        <PieChartOutlined />,
-        getMenuNodes(item.children)
-      );
+      if (!hasAuth(item)) {
+        return null;
+      } else
+        return getItem(
+          item.title,
+          item.key,
+          <PieChartOutlined />,
+          getMenuNodes(item.children)
+        );
     }
   });
 };
