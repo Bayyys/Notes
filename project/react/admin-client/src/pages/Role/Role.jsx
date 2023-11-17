@@ -10,9 +10,9 @@ import { reqAddRole, reqRoles, reqUpdateRole } from "../../api/api";
 import RoleAdd from "./RoleAdd";
 import RoleEdit from "./RoleEdit";
 import { formateDate } from "../../utils/dateUtils";
-import memoryUtils from "../../utils/memoryUtils";
-import storageUtils from "../../utils/storageUtils";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/user";
 
 export default function Role() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -22,6 +22,8 @@ export default function Role() {
   const [role, setRole] = useState({}); // 选中的角色
   const [aOpen, setAOpen] = useState(false); // 添加角色的对话框是否显示
   const [eOpen, setEOpen] = useState(false); // 设置角色权限的对话框是否显示
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     setRole({});
@@ -72,9 +74,8 @@ export default function Role() {
       if (result.status === 0) {
         messageApi.success("设置角色权限成功");
         // 判断是否是当前角色，如果是则退出登录
-        if (role._id === memoryUtils.user.role_id) {
-          memoryUtils.user = {};
-          storageUtils.removeUser();
+        if (role._id === user.role_id) {
+          dispatch(logout());
           navigate("/login", { replace: true });
         } else {
           setRoles(

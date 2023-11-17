@@ -26,7 +26,7 @@ const routes = [
     children: [
       {
         path: "",
-        element: <Navigate to="/home" />,
+        element: <Navigate to="/home" replace />,
       },
       {
         path: "home",
@@ -42,7 +42,7 @@ const routes = [
         children: [
           {
             path: "",
-            element: <Navigate to="/product/home" />,
+            element: <Navigate to="/product/home" replace />,
           },
           {
             path: "home",
@@ -71,7 +71,7 @@ const routes = [
         children: [
           {
             path: "",
-            element: <Navigate to="/charts/bar" />,
+            element: <Navigate to="/charts/bar" replace />,
           },
           {
             path: "bar",

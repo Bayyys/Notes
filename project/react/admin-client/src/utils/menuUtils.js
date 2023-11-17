@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { MailOutlined, PieChartOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
-import memoryUtils from "../utils/memoryUtils";
+import storageUtils from "./storageUtils";
 
 const { Item, SubMenu } = Menu;
 
@@ -39,15 +39,14 @@ export const getMenuNodes_old = (menuList) => {
  * @returns 有权限返回true，没有权限返回false
  */
 function hasAuth(item) {
-  const user = memoryUtils.user;
+  const user = storageUtils.getUser();
+  if (!user._id) {
+    return false;
+  }
   const menus = user.role.menus;
   const { key, isPublic } = item;
   // 如果当前用户是admin, 直接返回true
-  if (
-    isPublic ||
-    user.username === "admin" ||
-    menus.indexOf(key) !== -1
-  ) {
+  if (isPublic || user.username === "admin" || menus.indexOf(key) !== -1) {
     return true;
   }
   // 判断是否有item的子item的权限

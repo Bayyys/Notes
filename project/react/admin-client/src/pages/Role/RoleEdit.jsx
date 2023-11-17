@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Modal, Form, Input, Spin, Tree } from "antd";
 import menuList from "../../config/menuConfig";
-import memoryUtils from "../../utils/memoryUtils";
+import { useSelector } from "react-redux";
 const { Item } = Form;
 
 const initMenuList = () => {
@@ -19,12 +19,12 @@ export default function RoleEdit({ open, setOpen, editRole, role }) {
   const [loading, setLoading] = React.useState(false);
   const [selectedKeys, setSelectedKeys] = React.useState([]); // 选中的菜单项的key数组
   const treeData = initMenuList(); // 生成树形结构的菜单列表
+  const auth_name = useSelector((state) => state.user.user.username);
 
   const handleAddOk = async () => {
     setLoading(true);
     const { _id } = role;
     const menus = selectedKeys;
-    const auth_name = memoryUtils.user.username;
     editRole({ _id, menus, auth_name });
     setOpen(false);
     setLoading(false);

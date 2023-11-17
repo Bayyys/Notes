@@ -1,19 +1,20 @@
 import React, { Suspense, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import memoryUtils from "../../utils/memoryUtils";
 
 import { Layout } from "antd";
 import LeftNav from "../../components/LeftNav/LeftNav";
 import Header from "../../components/Header/Header";
+import { useSelector } from "react-redux";
+
 const { Footer, Sider, Content } = Layout;
 
 export default function Admin() {
   const navigator = useNavigate();
-  const user = memoryUtils.user; // 从内存中读取user
+  const user = useSelector((state) => state.user.user);
 
   /* ------ 如果用户未登录, 自动跳转到登录界面 ------ */
   useEffect(() => {
-    if (!user || !user._id) {
+    if (!user._id) {
       navigator("/login", { replace: true });
     }
   }, [navigator, user]);

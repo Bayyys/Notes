@@ -1,46 +1,28 @@
-import React from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message } from "antd";
 
 import "./Login.scss";
 import logo from "../../assets/images/logo.png";
-import { reqLogin } from "../../api/api";
-import memoryUtils from "../../utils/memoryUtils";
-import storageUtils from "../../utils/storageUtils";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../redux/user";
 
 export default function Login() {
+  const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
-
-  /* ------ 如果用户已经登录, 自动跳转到管理界面 ------ */
-  const user = memoryUtils.user;
-  if (user._id) {
-    return <Navigate to="/" replace />;
-  }
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   /* ------ 表单提交功能 ------ */
   const onFinish = async (values) => {
     const { username, password } = values;
-    try {
-      const response = await reqLogin(username, password); // 成功: {statys:0,data:user} 失败: {statys:1,msg:'xxx'}
-      if (response.status === 0) {
-        message.success("登录成功"); // 提示登录成功
-
-        // 保存user到local中
-        memoryUtils.user = response.data; // 保存在内存中
-        storageUtils.saveUser(response.data); // 保存到local中
-
-        navigate("/", { replace: true }); // 跳转到管理界面 (不需要回退到登录界面)
-      } else {
-        message.error("用户名或密码错误, 登录失败!");
-      }
-    } catch (error) {
-      console.log("-----");
-    }
+    dispatch(login(username, password)); // 发送登录的异步请求, 请求后会自动刷新页面
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+    messageApi.error("表单验证失败: " + errorInfo.errorFields[0].errors[0]);
   };
 
   /* ------ 表单验证规则 ------ */
@@ -57,6 +39,13 @@ export default function Login() {
     },
   ];
 
+  useEffect(() => {
+    /* ------ 如果用户已经登录, 自动跳转到管理界面 ------ */
+    if (user.user && user.user._id) {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate, dispatch]);
+
   return (
     <div className="login">
       <header className="login-header">
@@ -64,6 +53,9 @@ export default function Login() {
         <h1>后台管理系统</h1>
       </header>
       <section className="login-content">
+        <div className={user.msg ? "error-msg show" : "error-msg"}>
+          {user.msg}
+        </div>
         <h2>用户登录</h2>
         <Form
           name="login"
@@ -119,6 +111,7 @@ export default function Login() {
           </Form.Item>
         </Form>
       </section>
+      {contextHolder}
     </div>
   );
 }

@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "antd";
 import { CompassOutlined } from "@ant-design/icons";
 import { pinyin } from "pinyin-pro";
 
 import "./Header.scss";
 import { getWeather } from "../../api/api";
-import memoryUtils from "../../utils/memoryUtils";
-import storageUtils from "../../utils/storageUtils";
-import { getMunuName as getMenuName } from "../../utils/menuUtils";
-import menuList from "../../config/menuConfig";
 import Timer from "./Timer";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/user";
 
 export default function Header() {
   const [weather, setWeather] = useState("");
   const [city, setCity] = useState("");
   const [modal, contextHolder] = Modal.useModal();
 
-  const username = memoryUtils.user.username;
-  const pathname = useLocation().pathname;
-  const title = getMenuName(menuList, pathname);
+  const username = useSelector((state) => state.user.user.username);
+  const title = useSelector((state) => state.headTitle.title);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onLogout = () => {
@@ -27,8 +25,7 @@ export default function Header() {
       content: "确定退出吗?",
       onOk: () => {
         // 删除保存的 user 数据, 跳转到 login
-        memoryUtils.user = {};
-        storageUtils.removeUser();
+        dispatch(logout());
         navigate("/login", { replace: true });
       },
     });
