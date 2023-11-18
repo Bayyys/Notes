@@ -14,6 +14,7 @@ import Order from "../pages/Order/Order";
 import ProductHome from "../pages/Product/ProductHome";
 import ProductAddUpdate from "../pages/Product/ProductAddUpdate";
 import ProductDetail from "../pages/Product/ProductDetail";
+import NotFound from "../pages/NotFound/NotFound";
 
 const routes = [
   {
@@ -94,6 +95,10 @@ const routes = [
       {
         path: "order",
         element: <Order />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

@@ -32,24 +32,23 @@ app.use((req, res, next) => {
 
 // 声明使用路由器中间件
 const indexRouter = require("./routers");
-app.use("/", indexRouter); //
+app.use("/api", indexRouter); // 一级路A
 
 const fs = require("fs");
-
 // 必须在路由器中间之后声明使用
-/*app.use((req, res) => {
-  fs.readFile(__dirname + '/public/index.html', (err, data)=>{
-    if(err){
-      console.log(err)
-      res.send('后台错误')
+app.use((req, res, next) => {
+  fs.readFile(__dirname + "/public/index.html", (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send("后台错误");
     } else {
       res.writeHead(200, {
-        'Content-Type': 'text/html; charset=utf-8',
+        "Content-Type": "text/html; charset=utf-8",
       });
-      res.end(data)
+      res.end(data);
     }
-  })
-})*/
+  });
+});
 
 // 通过mongoose连接数据库
 mongoose
