@@ -225,3 +225,25 @@ for (auto i = n.crbegin(); i != n.crend(); i++) // 常量反向迭代器, 不可
 ## 3.9 四数之和
 
 1. [18.四数之和](./leetcode/18.4-sum.cpp)
+
+# 4. 字符串
+
+## 4.1 反转字符串
+
+1. [344.反转字符串](./leetcode/344.reverse-string.cpp)
+
+## 4.2 反转字符串II
+
+1. [541.反转字符串II](./leetcode/541.reverse-string-ii.cpp)
+
+## 4.3 替换数字
+
+1. [1844.替换所有数字](./leetcode/1844.replace-all-digits-with-characters.cpp)
+
+## 4.4 翻转字符串里的单词
+
+1. [151.翻转字符串里的单词](./leetcode/151.reverse-words-in-a-string.cpp)
+
+## 4.5 实现strStr() KMP算法
+
+1. [28.实现strStr()](./leetcode/28.implement-strstr.cpp)
