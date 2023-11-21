@@ -592,3 +592,4 @@
 > [Project_Vue3](./project/vue) 项目实战笔记
 
 - [x] 创建 `Project_Vue` 项目 (11.21.2023)
+- [ ] 1. vue3组件通信方式 (11.21.2023-x)
