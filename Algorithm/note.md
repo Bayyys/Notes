@@ -247,3 +247,44 @@ for (auto i = n.crbegin(); i != n.crend(); i++) // 常量反向迭代器, 不可
 ## 4.5 实现strStr() KMP算法
 
 1. [28.实现strStr()](./leetcode/28.implement-strstr.cpp)
+
+- 统一减一
+```cpp
+void getNext(int* next, const string& s) {
+    int j = -1;
+    next[0] = j;
+    for (int i = 1; i < s.size(); i++) {
+      while (j >= 0 && s[i] != s[j + 1]) j = next[j];
+      if (s[i] == s[j + 1]) j++;
+      next[i] = j;
+    }
+  }
+```
+
+- 最长公共前后缀
+```cpp
+void getNext(int* next, const string& s) {
+  int j = 0;
+  next[0] = j;
+  for (int i = 1; i < s.size(); i++) {
+    while (j > 0 && s[i] != s[j]) j = next[j - 1];
+    if (s[i] == s[j]) j++;
+    next[i] = j;
+  }
+}
+```
+
+## 4.6 重复的子字符串
+
+1. [459.重复的子字符串](./leetcode/459.repeated-substring-pattern.cpp)
+
+
+# 5. 双指针法
+
+## 5.1 移除元素
+
+1. [27.移除元素](./leetcode/27.remove-element.cpp)
+2. [26.删除有序数组中的重复项](./leetcode/26.remove-duplicates-from-sorted-array.cpp)
+3. [283.移动零](./leetcode/283.move-zeroes.cpp)
+4. [844.比较含退格的字符串](./leetcode/844.backspace-string-compare.cpp)
+5. [977.有序数组的平方](./leetcode/977.squares-of-a-sorted-array.cpp)
