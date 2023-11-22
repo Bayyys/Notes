@@ -1,14 +1,17 @@
 <template>
   <div>
-    <h1>v-model:钱数{{ money }}{{pageNo}}{{pageSize}}</h1>
+    <h1>
+      money: {{ money }}; pageNo: {{ pageNo }}; pageSize: {{ pageSize }}
+    </h1>
+    <h2 v-show="info">info: {{ info }}</h2>
     <input type="text" v-model="info" />
     <hr />
     <!-- props:父亲给儿子数据 -->
     <!-- <Child :modelValue="money" @update:modelValue="handler"></Child> -->
     <!-- 
-       v-model组件身上使用
-       第一:相当有给子组件传递props[modelValue] = 10000
-       第二:相当于给子组件绑定自定义事件update:modelValue
+      v-model组件身上使用
+      第一:相当有给子组件传递props[modelValue] = 10000
+      第二:相当于给子组件绑定自定义事件update:modelValue
      -->
     <Child v-model="money"></Child>
     <hr />
@@ -28,16 +31,15 @@ import { ref } from "vue";
 let info = ref("");
 //父组件的数据钱数
 let money = ref(10000);
-//自定义事件的回调
-const handler = (num) => {
-  //将来接受子组件传递过来的数据
-  money.value = num;
-};
+// 自定义事件的回调
+// const handler = (num: number) => {
+//   // 将来接受子组件传递过来的数据
+//   money.value = num;
+// };
 
 //父亲的数据
 let pageNo = ref(1);
 let pageSize = ref(3);
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

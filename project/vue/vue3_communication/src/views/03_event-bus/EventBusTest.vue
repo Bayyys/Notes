@@ -21,7 +21,8 @@ import Child2 from "./Child2.vue";
   height: 400px;
   background: yellowgreen;
 }
-.container{
+
+.container {
   display: flex;
   justify-content: space-between;
 }
