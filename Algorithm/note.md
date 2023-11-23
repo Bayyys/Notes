@@ -288,3 +288,77 @@ void getNext(int* next, const string& s) {
 3. [283.移动零](./leetcode/283.move-zeroes.cpp)
 4. [844.比较含退格的字符串](./leetcode/844.backspace-string-compare.cpp)
 5. [977.有序数组的平方](./leetcode/977.squares-of-a-sorted-array.cpp)
+
+# 6. 栈与队列
+
+## 6.1 基础理论
+
+### 6.1.1 STL版本
+
+> - STL（C++标准库）
+
+1. HP STL 其他版本的C++ STL，一般是以HP STL为蓝本实现出来的，HP STL是C++ STL的第一个实现版本，而且开放源代码
+2. P.J.Plauger STL 由P.J.Plauger参照HP STL实现出来的，被Visual C++编译器所采用，不是开源的
+3. **SGI STL** 由Silicon Graphics Computer Systems公司参照HP STL实现，被Linux的C++编译器GCC所采用，SGI STL是开源软件，源码可读性甚高
+   - 日常使用此版本
+
+### 6.1.2 构造
+
+- 栈是以底层容器完成其所有的工作，对外提供统一的接口，底层容器是可插拔的（也就是说我们可以控制使用哪种容器来实现栈的功能）
+
+  - 所以STL中栈和队列往往不被归类为容器，而被归类为**container adapter（容器适配器）**
+
+- SGI STL中 队列底层实现缺省情况下一样使用`deque`实现的
+
+  - ```cpp
+    // 指定底层实现
+    std::stack<int, std::vector<int> > third;  // 使用vector为底层容器的栈
+    ```
+
+- SGI STL中队列一样是以`deque`为缺省情况下的底部结构
+
+  - ```cpp
+    // 指定底层实现
+    std::queue<int, std::list<int>> third; // 定义以list为底层容器的队列
+    ```
+
+### 6.1.3 常用操作
+
+- 栈 stack
+
+```cpp
+stack<int> s;
+s.push(val);	// 将val压入栈顶
+s.top();			// 返回栈顶元素
+s.pop();			// 弹出栈顶元素
+s.size();			// 返回栈中元素的个数
+s.empty();		// 检查栈是否为空
+```
+
+- 队列 queue
+
+```cpp
+queue<int> q;
+q.push() 	// 在队尾插入一个元素
+q.pop() 	// 删除队列第一个元素
+q.size() 	// 返回队列中元素个数
+q.empty() // 如果队列空则返回true
+q.front() // 返回队列中的第一个元素
+q.back() 	// 返回队列中最后一个元素
+```
+
+## 6.2 用栈实现队列
+
+1. [232.用栈实现队列](./leetcode/232.implement-queue-using-stacks.cpp)
+
+## 6.3 用队列实现栈
+
+1. [225.用队列实现栈](./leetcode/225.implement-stack-using-queues.cpp)
+
+## 6.4 有效的括号
+
+1. [20.有效的括号](./leetcode/20.valid-parentheses.cpp)
+
+## 6.5 删除字符串中的所有相邻重复项
+
+1. [1047.删除字符串中的所有相邻重复项](./leetcode/1047.remove-all-adjacent-duplicates-in-string.cpp)
