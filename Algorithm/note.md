@@ -362,3 +362,15 @@ q.back() 	// 返回队列中最后一个元素
 ## 6.5 删除字符串中的所有相邻重复项
 
 1. [1047.删除字符串中的所有相邻重复项](./leetcode/1047.remove-all-adjacent-duplicates-in-string.cpp)
+
+## 6.6 逆波兰表达式求值
+
+1. [150.逆波兰表达式求值](./leetcode/150.evaluate-reverse-polish-notation.cpp)
+
+## 6.7 滑动窗口最大值
+
+1. [239. 滑动窗口最大值](./leetcode/239.sliding-window-maximum.cpp)
+
+## 6.8 前k个高频元素
+
+1. [347.前k个高频元素](./leetcode/347.top-k-frequent-elements.cpp)
