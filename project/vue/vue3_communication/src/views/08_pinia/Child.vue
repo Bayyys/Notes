@@ -1,6 +1,6 @@
 <template>
   <div class="child">
-    <h1>{{ infoStore.count }}---{{infoStore.total}}</h1>
+    <h1>{{ infoStore.count }}---{{ infoStore.total }}</h1>
     <button @click="updateCount">点击我修改仓库数据</button>
   </div>
 </template>
@@ -13,7 +13,9 @@ console.log(infoStore);
 //修改数据方法
 const updateCount = () => {
   //仓库调用自身的方法去修改仓库的数据
-  infoStore.updateNum(66,77);
+  infoStore.updateNum(66, 77);
+  // 也可以直接修改仓库的数据
+  infoStore.$patch({ count: infoStore.count + 100 });
 };
 </script>
 

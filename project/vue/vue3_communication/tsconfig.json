@@ -6,9 +6,9 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["element-plus/global"]
+    "types": ["element-plus/global"],
+    "ignoreDeprecations": "5.0"
   },
-
   "references": [
     {
       "path": "./tsconfig.config.json"

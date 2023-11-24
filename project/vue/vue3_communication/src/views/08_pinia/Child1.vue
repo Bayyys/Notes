@@ -1,7 +1,7 @@
 <template>
   <div class="child1">
     {{ infoStore.count }}
-    <p @click="updateTodo">{{ todoStore.arr }}{{todoStore.total}}</p>
+    <p @click="updateTodo">{{ todoStore.arr }}{{ todoStore.total }}</p>
   </div>
 </template>
 

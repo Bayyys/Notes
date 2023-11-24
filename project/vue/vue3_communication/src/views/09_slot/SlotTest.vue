@@ -41,5 +41,4 @@ let todos = ref([
 ]);
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
