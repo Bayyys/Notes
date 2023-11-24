@@ -374,3 +374,270 @@ q.back() 	// 返回队列中最后一个元素
 ## 6.8 前k个高频元素
 
 1. [347.前k个高频元素](./leetcode/347.top-k-frequent-elements.cpp)
+
+## 7. 二叉树
+
+## 7.1 理论基础
+
+```cpp
+// 二叉树的定义
+struct TreeNode {
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+}
+```
+
+## 7.2 递归遍历
+
+### 7.2.1 遍历方法
+
+- 前序遍历
+  ```cpp
+  // 中 -> 左 -> 右
+  void preorder(TreeNode* cur, vector<int>& vec) {
+    if(cur == nullptr) return;
+    vec.push_back(cur->val);  // 中
+    preorder(cur->left, vec); // 左
+    preorder(cur->right, vec);// 右
+  }
+  ```
+- 中序遍历
+  ```cpp
+  // 左 -> 中 -> 右
+  void inorder(TreeNode* cur, vector<int>& vec) {
+    if(cur == nullptr) return;
+    inorder(cur->left, vec);  // 左
+    vec.push_back(cur->val);  // 中
+    inorder(cur->right, vec); // 右
+  }
+  ```
+- 后序遍历
+  ```cpp
+  // 左 -> 右 -> 中
+  void postorder(TreeNode* cur, vector<int>& vec) {
+    if(cur == nullptr) return;
+    postorder(cur->left, vec);  // 左
+    postorder(cur->right, vec); // 右
+    vec.push_back(cur->val);    // 中
+  }
+  ```
+
+### 7.2.2 习题
+
+1. [144.二叉树的前序遍历](./leetcode/144.binary-tree-preorder-traversal.cpp)
+2. [145. 二叉树的后序遍历](./leetcode/145.binary-tree-postorder-traversal.cpp)
+3. [94.二叉树的中序遍历](./leetcode/94.binary-tree-inorder-traversal.cpp)
+
+## 7.3 迭代遍历
+
+### 7.3.1 迭代遍历方法
+
+- 前序遍历
+  ```cpp
+  // 中 -> 左 -> 右
+  vector<int> preorder(TreeNode* root) {
+    stack<TreeNode*> st;
+    vector<int> res;
+    if(root == nullptr) return vec;
+    st.push(root);
+    while(!st.empty){
+      TreeNode* node = st.top();
+      st.pop();
+      res.push_back(node->val); // 中
+      if(node->right) st.push(node->right); // 右(先进后出)
+      if(node->left) st.push(node->left); // 左
+    }
+    return res;
+  }
+  ```
+- 中序遍历
+  ```cpp
+  // 左 -> 中 -> 右
+  vector<int> inorder(TreeNode* root) {
+    vector<int> res;
+    if(root == nullptr) return vec;
+    stack<TreeNode*> st;
+    TreeNode* cur=root;
+    while(cur!=nullptr || !st.empty()) {
+      if(cur!=nullptr) {
+        st.push(cur);
+        cur = cur->left;
+      } else {
+        cur = st.top();
+        st.pop();
+        res.push_back(cur->val); // 中
+        cur = cur->right; // 右
+      }
+    }
+    return res;
+  }
+  ```
+- 后序遍历
+  ```cpp
+  // 左 -> 右 -> 中
+  vector<int> postorder(TreeNode* root) {
+    stack<TreeNode*> st;
+    vector<int> res;
+    if(root == nullptr) return vec;
+    st.push(root);
+    while(!st.empty){
+      TreeNode* node = st.top();
+      st.pop();
+      res.push_back(node->val); // 中
+      if(node->left) st.push(node->left); // 左
+      if(node->right) st.push(node->right); // 右
+    }
+    reverse(res.begin(), res.end()); // 反转
+    return res;
+  }
+  ```
+
+### 7.3.2 习题
+
+1. [144.二叉树的前序遍历](./leetcode/144.binary-tree-preorder-traversal.cpp)
+2. [145. 二叉树的后序遍历](./leetcode/145.binary-tree-postorder-traversal.cpp)
+3. [94.二叉树的中序遍历](./leetcode/94.binary-tree-inorder-traversal.cpp)
+
+## 7.4 统一迭代法
+
+- 前序遍历
+  ```cpp
+  // 中 -> 左 -> 右
+  vector<int> preorder(TreeNode* root) {
+    vector<int> res;
+    stack<TreeNode*> st;
+    if(root!=nullptr) st.push(root);
+    while(!st.empty()) {
+      TreeNode* node = st.top();
+      if (node != nullptr) {
+        st.pop();
+        if(node->right) st.push(node->right); // 右
+        if(node->left) st.push(node->left); // 左
+        st.push(node); // 中
+        st.push(nullptr); // 空标记
+      } else {
+        st.pop();
+        node = st.top();
+        st.pop();
+        res.push_back(node->val); // 中
+      }
+    }
+    return res;
+  }
+  ```
+- 中序遍历
+  ```cpp
+  // 中 -> 左 -> 右
+  vector<int> preorder(TreeNode* root) {
+    vector<int> res;
+    stack<TreeNode*> st;
+    if(root!=nullptr) st.push(root);
+    while(!st.empty()) {
+      TreeNode* node = st.top();
+      if (node != nullptr) {
+        st.pop();
+        if(node->right) st.push(node->right); // 右
+        st.push(node); // 中
+        st.push(nullptr); // 空标记
+        if(node->left) st.push(node->left); // 左
+      } else {
+        st.pop();
+        node = st.top();
+        st.pop();
+        res.push_back(node->val); // 中
+      }
+    }
+    return res;
+  }
+  ```
+- 后序遍历
+  ```cpp
+  // 中 -> 左 -> 右
+  vector<int> preorder(TreeNode* root) {
+    vector<int> res;
+    stack<TreeNode*> st;
+    if(root!=nullptr) st.push(root);
+    while(!st.empty()) {
+      TreeNode* node = st.top();
+      if (node != nullptr) {
+        st.pop();
+        st.push(node); // 中
+        st.push(nullptr); // 空标记
+        if(node->right) st.push(node->right); // 右
+        if(node->left) st.push(node->left); // 左
+      } else {
+        st.pop();
+        node = st.top();
+        st.pop();
+        res.push_back(node->val); // 中
+      }
+    }
+    return res;
+  }
+  ```
+
+## 7.5 层次遍历
+
+### 7.5.1 层次遍历方法
+
+- 迭代
+  ```cpp
+  vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> res;
+    queue<TreeNode*> q;
+    if(root != nullptr) q.push(root);
+    while(!q.empty()) {
+      int size = q.size();
+      vector<int> vec;
+      for (int i = 0; i < size; i++) {
+        TreeNode* node = q.front();
+        q.pop();
+        vec.push_back(node->val);
+        if(node->left) q.push(node->left);
+        if(node->right) q.push(node->right);
+      }
+      res.push_back(vec);
+    }
+    return res;
+  }
+  ```
+- 递归
+  ```cpp
+  void order(TreeNode* root, vector<vector<int>>& res, int depth) {
+    if(root == nullptr) return;
+    if(res.size() == depth) res.push_back(vector<int>());
+    res[depth].push_back(root->val);
+    order(root->left, res, depth + 1);
+    order(root->right, res, depth + 1);
+  }
+
+  vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> res;
+    int depth = 0;
+    order(root, res, depth);
+    return res;
+  }
+  ```
+
+### 7.5.2 习题
+
+1. [102. 二叉树的层序遍历](./leetcode/102.binary-tree-level-order-traversal.cpp)
+2. [107. 二叉树的层序遍历 II](./leetcode/107.binary-tree-level-order-traversal-ii.cpp)
+3. [199. 二叉树的右视图](./leetcode/199.binary-tree-right-side-view.cpp)
+4. [637. 二叉树的层平均值](./leetcode/637.average-of-levels-in-binary-tree.cpp)
+5. [429. N叉树的层序遍历](./leetcode/429.n-ary-tree-level-order-traversal.cpp)
+6. [515. 在每个树行中找最大值](./leetcode/515.find-largest-value-in-each-tree-row.cpp)
+7. [116. 填充每个节点的下一个右侧节点指针](./leetcode/116.populating-next-right-pointers-in-each-node.cpp)
+8. [117. 填充每个节点的下一个右侧节点指针 II](./leetcode/117.populating-next-right-pointers-in-each-node-ii.cpp)
+9. [104. 二叉树的最大深度](./leetcode/104.maximum-depth-of-binary-tree.cpp)
+10. [111. 二叉树的最小深度](./leetcode/111.minimum-depth-of-binary-tree.cpp)3
+
+## 7.6 翻转二叉树
+
+1. [226.翻转二叉树](./leetcode/226.invert-binary-tree.cpp)
+
+## 7.7 对称二叉树
+
+1. [101.对称二叉树](./leetcode/101.symmetric-tree.cpp)
