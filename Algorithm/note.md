@@ -641,3 +641,7 @@ struct TreeNode {
 ## 7.7 对称二叉树
 
 1. [101.对称二叉树](./leetcode/101.symmetric-tree.cpp)
+2. [100. 相同的树](./leetcode/100.same-tree.cpp)
+3. [572. 另一个树的子树](./leetcode/572.subtree-of-another-tree.cpp)
+
+## 7.9 二叉树的最大深度
