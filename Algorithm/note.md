@@ -644,4 +644,10 @@ struct TreeNode {
 2. [100. 相同的树](./leetcode/100.same-tree.cpp)
 3. [572. 另一个树的子树](./leetcode/572.subtree-of-another-tree.cpp)
 
-## 7.9 二叉树的最大深度
+## 7.8 完全二叉树的节点个数
+
+1. [222.完全二叉树的节点个数](./leetcode/222.count-complete-tree-nodes.cpp)
+
+## 7.9 平衡二叉树
+
+1. [110.平衡二叉树](./leetcode/110.balanced-binary-tree.cpp)

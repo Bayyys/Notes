@@ -210,7 +210,7 @@
 > [Algorithm](./Algorithm/) 算法笔记
 >
 > - Reference
->   - Website：[代随想录码](https://programmercarl.com/)
+>   - Website：[代码随想录](https://programmercarl.com/)
 >   - Leetcode: [Leetcode](https://leetcode-cn.com/problemset/all/)
 
 - [x] 创建 `Algorithm` 学习项目 (07.31.2023)
