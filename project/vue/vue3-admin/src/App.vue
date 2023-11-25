@@ -1,13 +1,12 @@
 <template>
   <div class="box">
     <h1>App</h1>
-    <h1>{{ str }}</h1>
+    <svg-icon name="phone" color="white" />
+    <pagination />
   </div>
 </template>
 
-<script setup lang="ts">
-const str = 'hello world'
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .box {
