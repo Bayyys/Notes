@@ -9,6 +9,8 @@ import 'virtual:svg-icons-register'
 import gloablComponent from './components/index'
 // 全局样式
 import '@/styles/index.scss'
+// 路由注册
+import router from './router'
 import App from '@/App.vue'
 
 const app = createApp(App)
@@ -16,4 +18,5 @@ app.use(ElementPlus, {
   locale: zhCn,
 })
 app.use(gloablComponent)
+app.use(router)
 app.mount('#app')
