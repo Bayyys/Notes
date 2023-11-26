@@ -673,3 +673,19 @@ struct TreeNode {
 
 1. [106.从中序与后序遍历序列构造二叉树](./leetcode/106.construct-binary-tree-from-inorder-and-postorder-traversal.cpp)
 2. [105.从前序与中序遍历序列构造二叉树](./leetcode/105.construct-binary-tree-from-preorder-and-inorder-traversal.cpp)
+
+## 7.15 最大二叉树
+
+1. [654.最大二叉树](./leetcode/654.maximum-binary-tree.cpp)
+
+## 7.16 合并二叉树
+
+1. [617.合并二叉树](./leetcode/617.merge-two-binary-trees.cpp)
+
+## 7.17 二叉搜索树中的搜索
+
+1. [700.二叉搜索树中的搜索](./leetcode/700.search-in-a-binary-search-tree.cpp)
+
+## 7.18 验证二叉搜索树
+
+1. [98.验证二叉搜索树](./leetcode/98.validate-binary-search-tree.cpp)

@@ -40,7 +40,7 @@ class Solution {
  public:
   TreeNode* traversal(vector<int>& inorder, int in_left, int in_right,
                       vector<int>& postorder, int post_left, int post_right) {
-    if (post_left >= post_right) return nullptr;
+    if (post_left == post_right) return nullptr;
     int node_val = postorder[post_right - 1];
     TreeNode* node = new TreeNode(node_val);
     if (post_left == post_right - 1) return node;  // 只有一个节点
