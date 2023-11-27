@@ -689,3 +689,15 @@ struct TreeNode {
 ## 7.18 验证二叉搜索树
 
 1. [98.验证二叉搜索树](./leetcode/98.validate-binary-search-tree.cpp)
+
+## 7.19 二叉搜索树的最小绝对差
+
+1. [530.二叉搜索树的最小绝对差](./leetcode/530.minimum-absolute-difference-in-bst.cpp)
+
+## 7.20 二叉搜索树中的众数
+
+1. [501.二叉搜索树中的众数](./leetcode/501.find-mode-in-binary-search-tree.cpp)
+
+## 7.21 二叉树的最近公共节点
+
+1. [236.二叉树的最近公共节点](./leetcode/236.lowest-common-ancestor-of-a-binary-tree.cpp)
