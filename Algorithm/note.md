@@ -701,3 +701,19 @@ struct TreeNode {
 ## 7.21 二叉树的最近公共节点
 
 1. [236.二叉树的最近公共节点](./leetcode/236.lowest-common-ancestor-of-a-binary-tree.cpp)
+
+## 7.22 二叉搜索树的最近公共节点
+
+1. [235.二叉搜索树的最近公共节点](./leetcode/235.lowest-common-ancestor-of-a-binary-search-tree.cpp)
+
+## 7.23 二叉搜索树中的插入操作
+
+1. [701.二叉搜索树中的插入操作](./leetcode/701.insert-into-a-binary-search-tree.cpp)
+
+## 7.24 删除二叉搜索树中的节点
+
+1. [450.删除二叉搜索树中的节点](./leetcode/450.delete-node-in-a-bst.cpp)
+
+## 7.25 修剪二叉搜索树
+
+1. [669.修剪二叉搜索树](./leetcode/669.trim-a-binary-search-tree.cpp)
