@@ -717,3 +717,11 @@ struct TreeNode {
 ## 7.25 修剪二叉搜索树
 
 1. [669.修剪二叉搜索树](./leetcode/669.trim-a-binary-search-tree.cpp)
+
+## 7.26 将有序数组转换为二叉搜索树
+
+1. [108.将有序数组转换为二叉搜索树](./leetcode/108.convert-sorted-array-to-binary-search-tree.cpp)
+
+## 7.27 把二叉搜索树转换为累加树
+
+1. [538.把二叉搜索树转换为累加树](./leetcode/538.convert-bst-to-greater-tree.cpp)
