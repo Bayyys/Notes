@@ -11,6 +11,8 @@ import gloablComponent from './components/index'
 import '@/styles/index.scss'
 // 路由注册
 import router from './router'
+// 引入 pinia
+import store from './store'
 import App from '@/App.vue'
 
 const app = createApp(App)
@@ -19,4 +21,5 @@ app.use(ElementPlus, {
 })
 app.use(gloablComponent)
 app.use(router)
+app.use(store)
 app.mount('#app')
