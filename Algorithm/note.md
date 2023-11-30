@@ -725,3 +725,35 @@ struct TreeNode {
 ## 7.27 把二叉搜索树转换为累加树
 
 1. [538.把二叉搜索树转换为累加树](./leetcode/538.convert-bst-to-greater-tree.cpp)
+
+# 8. 回溯算法
+
+> - 回溯法也可以叫做回溯搜索法，它是一种搜索的方式
+> - 效率: 回溯的本质是穷举, 穷举所有可能, 然后选出我们想要的答案, 所以回溯算法的时间复杂度一般都很高
+
+```c
+void backtracking(参数) {
+    if (终止条件) {
+        存放结果;
+        return;
+    }
+
+    for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) {
+        处理节点;
+        backtracking(路径，选择列表); // 递归
+        回溯，撤销处理结果
+    }
+}
+```
+
+## 8.1 组合问题
+
+1. [77.组合](./leetcode/77.combinations.cpp)
+
+## 8.2 组合总和III
+
+1. [216.组合总和III](./leetcode/216.combination-sum-iii.cpp)
+
+## 8.3 电话号码的字母组合
+
+1. [17.电话号码的字母组合](./leetcode/17.letter-combinations-of-a-phone-number.cpp)
