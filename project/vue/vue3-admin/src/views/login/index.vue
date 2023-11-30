@@ -28,6 +28,7 @@
               type="primary"
               size="default"
               @click="login"
+              :loading="loading"
             >
               登录
             </el-button>
@@ -40,12 +41,14 @@
 
 <script setup lang="ts">
 import { User, Lock } from '@element-plus/icons-vue'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import useUserStore from '@/store/modules/user'
+import { getTimePeriod } from '@/utils/time'
 let $router = useRouter()
 const userStore = useUserStore()
+let loading = ref(false)
 // 登录表单(账号+密码)
 let loginForm = reactive({
   username: 'admin',
@@ -53,16 +56,18 @@ let loginForm = reactive({
 })
 
 /**
- * 登录按钮点击回调
+ * @description: 登录按钮点击回调
+ * @async
  */
 const login = async () => {
+  loading.value = true
   try {
     await userStore.userLogin(loginForm)
     $router.push({ path: '/' })
     ElNotification({
-      title: '登录成功',
-      message: '欢迎回来',
       type: 'success',
+      message: '欢迎回来',
+      title: `HI, ${getTimePeriod()}好`,
     })
   } catch (error) {
     ElNotification({
@@ -70,6 +75,8 @@ const login = async () => {
       message: (error as Error).message,
       type: 'error',
     })
+  } finally {
+    loading.value = false
   }
 }
 </script>
