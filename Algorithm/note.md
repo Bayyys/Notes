@@ -757,3 +757,12 @@ void backtracking(参数) {
 ## 8.3 电话号码的字母组合
 
 1. [17.电话号码的字母组合](./leetcode/17.letter-combinations-of-a-phone-number.cpp)
+
+## 8.4 组合总和
+
+1. [39.组合总和](./leetcode/39.combination-sum.cpp)
+2. [40.组合总和II](./leetcode/40.combination-sum-ii.cpp)
+
+## 8.5 分割回文串
+
+1. [131.分割回文串](./leetcode/131.palindrome-partitioning.cpp)
