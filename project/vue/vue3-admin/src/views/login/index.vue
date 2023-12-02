@@ -3,17 +3,22 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_form">
+        <el-form
+          class="login_form"
+          :model="loginForm"
+          :rules="loginRules"
+          ref="loginFormRef"
+        >
           <h1>Welcome!</h1>
           <h2>欢迎来到管理界面</h2>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input
               v-model="loginForm.username"
               placeholder="请输入用户名"
               :prefix-icon="User"
             />
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               v-model="loginForm.password"
               type="password"
@@ -49,18 +54,44 @@ import { getTimePeriod } from '@/utils/time'
 let $router = useRouter()
 const userStore = useUserStore()
 let loading = ref(false)
-// 登录表单(账号+密码)
+let loginFormRef = ref() // 表单ref
+
+/**  登录表单(账号+密码)
+ */
 let loginForm = reactive({
   username: 'admin',
   password: 'admin',
 })
 
-/**
- * @description: 登录按钮点击回调
+/** 登录表单验证规则
+ */
+const loginRules = reactive({
+  username: [
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    {
+      min: 5,
+      max: 20,
+      message: '用户名长度在 5 到 20 个字符',
+      trigger: 'blur',
+    },
+  ],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    {
+      min: 6,
+      max: 20,
+      message: '密码长度在 6 到 20 个字符',
+      trigger: 'blur',
+    },
+  ],
+})
+
+/** 登录按钮点击回调
  * @async
  */
 const login = async () => {
   loading.value = true
+  await loginFormRef.value.validate() // 校验表单
   try {
     await userStore.userLogin(loginForm)
     $router.push({ path: '/' })
