@@ -1,2 +1,15 @@
 // 引入reset.scss
 @import './reset.scss';
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #001529;
+}
+::-webkit-scrollbar-thumb {
+  background: #1890ff;
+  border-radius: 5px;
+  padding: 5px;
+}

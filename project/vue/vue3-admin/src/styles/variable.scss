@@ -1,3 +1,24 @@
 // scss全局变量
 // 可以定义一些全局的scss变量，比如颜色、字体大小等等
 // 也可以定义项目主题颜色
+
+// 1. 左侧菜单栏
+// 宽度 (sidebar width)
+$base-menu-width: 260px;
+// 背景色 (sidebar background color)
+$base-menu-bg: #001529;
+// 1.1 logo
+// 高度 (logo height)
+$base-logo-height: 100px;
+// 文字尺寸 (logo font size)
+$base-logo-font-size: 20px;
+
+// 2. 顶部导航栏
+// 高度 (header height)
+$base-tabbar-height: 100px;
+// 背景色
+$base-tabbar-bg: pink;
+
+// 3. 内容区
+// 背景色
+$base-main-bg: #f0f2f5;
