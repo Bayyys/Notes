@@ -766,3 +766,7 @@ void backtracking(参数) {
 ## 8.5 分割回文串
 
 1. [131.分割回文串](./leetcode/131.palindrome-partitioning.cpp)
+
+## 8.6 复原IP地址
+
+1. [93.复原IP地址](./leetcode/93.restore-ip-addresses.cpp)
