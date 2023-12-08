@@ -3,6 +3,22 @@
     <!-- 左侧菜单 -->
     <div class="layout_slider">
       <Logo />
+      <!-- 展示菜单 -->
+      <el-scrollbar class="scrollbar">
+        <el-menu background-color="#001529" text-color="white">
+          <el-menu-item index="1">首页</el-menu-item>
+          <el-menu-item index="2">数据大屏</el-menu-item>
+          <!-- 折叠菜单 -->
+          <el-sub-menu index="3">
+            <template #title>
+              <span>Navigator One</span>
+            </template>
+            <el-menu-item index="3-1">用户管理</el-menu-item>
+            <el-menu-item index="3-2">角色管理</el-menu-item>
+            <el-menu-item index="3-3">权限管理</el-menu-item>
+          </el-sub-menu>
+        </el-menu>
+      </el-scrollbar>
     </div>
     <!-- 顶部导航 -->
     <div class="layout_tabbar"></div>
@@ -26,6 +42,11 @@ import Logo from './logo/index.vue'
     width: $base-menu-width;
     height: 100vh;
     background: $base-menu-bg;
+    .scrollbar {
+      width: 100%;
+      height: calc(100vh - #{$base-logo-height});
+      color: white;
+    }
   }
   .layout_tabbar {
     position: fixed;
