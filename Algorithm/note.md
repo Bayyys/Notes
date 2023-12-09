@@ -770,3 +770,21 @@ void backtracking(参数) {
 ## 8.6 复原IP地址
 
 1. [93.复原IP地址](./leetcode/93.restore-ip-addresses.cpp)
+
+## 8.7 子集
+
+1. [78.子集](./leetcode/78.subsets.cpp)
+2. [90.子集II](./leetcode/90.subsets-ii.cpp)
+
+## 8.8 递增子序列
+
+1. [491.递增子序列](./leetcode/491.increasing-subsequences.cpp)
+
+## 8.9 全排列
+
+1. [46.全排列](./leetcode/46.permutations.cpp)
+2. [47.全排列II](./leetcode/47.permutations-ii.cpp)
+
+## 8.10 重新安排行程
+
+1. [332.重新安排行程](./leetcode/332.reconstruct-itinerary.cpp) ...
