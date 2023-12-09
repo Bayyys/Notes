@@ -5,23 +5,44 @@ export const constantRoute = [
     path: '/login',
     component: () => import('@/views/login/index.vue'), // 路由懒加载
     name: 'login', // 命名路由 (权限管理时使用)
+    meta: {
+      title: '登录', // 菜单标题
+    },
   },
   {
     // 登录成功后, 展示数据的路由
     path: '/',
     component: () => import('@/layout/index.vue'),
     name: 'layout',
+    meta: {
+      title: 'layout',
+    },
+    children: [
+      {
+        path: '/home',
+        component: () => import('@/views/home/index.vue'),
+        meta: {
+          title: '首页',
+        },
+      },
+    ],
   },
   {
     // 404路由
     path: '/404',
     component: () => import('@/views/404/index.vue'),
     name: '404',
+    meta: {
+      title: '404',
+    },
   },
   {
     // 重定向: 如果访问的路由不存在, 重定向到404路由
     path: '/:pathMatch(.*)*',
     redirect: '/404',
     name: 'Any',
+    meta: {
+      title: 'Any',
+    },
   },
 ]
