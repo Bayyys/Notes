@@ -787,4 +787,13 @@ void backtracking(参数) {
 
 ## 8.10 重新安排行程
 
-1. [332.重新安排行程](./leetcode/332.reconstruct-itinerary.cpp) ...
+1. [332.重新安排行程](./leetcode/332.reconstruct-itinerary.cpp)
+
+## 8.11 N皇后
+
+1. [51.N皇后](./leetcode/51.n-queens.cpp)
+
+
+## 8.12 数独
+
+1. [37.数独](./leetcode/37.sudoku-solver.cpp)

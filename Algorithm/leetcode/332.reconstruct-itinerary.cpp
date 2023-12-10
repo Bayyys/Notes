@@ -5,7 +5,6 @@
  * [332] 重新安排行程
  */
 
-
 // @lcpr-template-start
 using namespace std;
 #include <algorithm>
@@ -26,14 +25,41 @@ using namespace std;
 // @lcpr-template-end
 // @lc code=start
 class Solution {
-public:
-    vector<string> findItinerary(vector<vector<string>>& tickets) {
-
+ public:
+  vector<string> res;
+  unordered_map<string, map<string, int>>
+      graph;  // undered_map<出发机场, map<到达机场, 航班次数>> graph;
+  int spent = 0;
+  bool TV() {
+    if (res.size() == spent + 1) {
+      // 所有机票都用完了
+      return true;
     }
+    for (auto& [to, count] : graph[res[res.size() - 1]]) {
+      if (count > 0) {
+        res.push_back(to);
+        count--;
+        if (TV()) {
+          return true;
+        }
+        res.pop_back();
+        count++;
+      }
+    }
+    return false;
+  }
+
+  vector<string> findItinerary(vector<vector<string>>& tickets) {
+    for (auto& ticket : tickets) {
+      graph[ticket[0]][ticket[1]]++;
+    }
+    res.push_back("JFK");
+    spent = tickets.size();
+    TV();
+    return res;
+  }
 };
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -45,4 +71,3 @@ public:
 // @lcpr case=end
 
  */
-
