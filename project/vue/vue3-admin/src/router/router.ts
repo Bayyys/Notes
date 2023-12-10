@@ -7,6 +7,7 @@ export const constantRoute = [
     name: 'login', // 命名路由 (权限管理时使用)
     meta: {
       title: '登录', // 菜单标题
+      hidden: true, // 是否在菜单中隐藏该路由
     },
   },
   {
@@ -16,6 +17,7 @@ export const constantRoute = [
     name: 'layout',
     meta: {
       title: 'layout',
+      hidden: false,
     },
     children: [
       {
@@ -23,6 +25,15 @@ export const constantRoute = [
         component: () => import('@/views/home/index.vue'),
         meta: {
           title: '首页',
+          hidden: false,
+        },
+      },
+      {
+        path: '/test',
+        component: () => import('@/views/home/index.vue'),
+        meta: {
+          title: '测试',
+          hidden: false,
         },
       },
     ],
@@ -34,6 +45,7 @@ export const constantRoute = [
     name: '404',
     meta: {
       title: '404',
+      hidden: true,
     },
   },
   {
@@ -43,6 +55,7 @@ export const constantRoute = [
     name: 'Any',
     meta: {
       title: 'Any',
+      hidden: true,
     },
   },
 ]

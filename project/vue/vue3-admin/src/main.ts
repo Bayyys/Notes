@@ -14,6 +14,8 @@ import router from './router'
 // 引入 pinia
 import store from './store'
 import App from '@/App.vue'
+// 递归调用组件
+// import MyMenu from '@/layout/menu/index.vue'
 
 const app = createApp(App)
 app.use(ElementPlus, {
@@ -22,4 +24,5 @@ app.use(ElementPlus, {
 app.use(gloablComponent)
 app.use(router)
 app.use(store)
+// app.component('MyMenu', MyMenu)
 app.mount('#app')
