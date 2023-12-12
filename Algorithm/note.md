@@ -797,3 +797,21 @@ void backtracking(参数) {
 ## 8.12 数独
 
 1. [37.数独](./leetcode/37.sudoku-solver.cpp)
+
+# 9. 贪心算法
+
+## 9.1 分发饼干
+
+1. [455.分发饼干](./leetcode/455.assign-cookies.cpp)
+
+## 9.2 摆动序列
+
+1. [376.摆动序列](./leetcode/376.wiggle-subsequence.cpp)
+
+## 9.3 最大子数组和
+
+1. [53.最大子数组和](./leetcode/53.maximum-subarray.cpp)
+
+## 9.4 买卖股票的最佳时机II
+
+1. [122.买卖股票的最佳时机II](./leetcode/122.best-time-to-buy-and-sell-stock-ii.cpp)
