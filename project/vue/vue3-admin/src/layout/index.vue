@@ -15,7 +15,7 @@
     <div class="layout_tabbar"></div>
     <!-- 内容展示 -->
     <div class="layout_main">
-      <p style="height: 10000px"></p>
+      <router-view></router-view>
     </div>
   </div>
 </template>
