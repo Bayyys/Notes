@@ -815,3 +815,17 @@ void backtracking(参数) {
 ## 9.4 买卖股票的最佳时机II
 
 1. [122.买卖股票的最佳时机II](./leetcode/122.best-time-to-buy-and-sell-stock-ii.cpp)
+
+## 9.5 跳跃游戏
+
+1. [55.跳跃游戏](./leetcode/55.jump-game.cpp)
+2. [45.跳跃游戏II](./leetcode/45.jump-game-ii.cpp)
+
+## 9.6 k次取反后最大化的数组和
+
+1. [1005.k次取反后最大化的数组和](./leetcode/1005.maximize-sum-of-array-after-k-negations.cpp)
+
+
+## 9.7 加油站
+
+1. [134.加油站](./leetcode/134.gas-station.cpp)
