@@ -5,7 +5,6 @@
  * [134] 加油站
  */
 
-
 // @lcpr-template-start
 using namespace std;
 #include <algorithm>
@@ -26,14 +25,22 @@ using namespace std;
 // @lcpr-template-end
 // @lc code=start
 class Solution {
-public:
-    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-
+ public:
+  int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+    int tSum = 0, curSum = 0, start = 0;
+    for (int i = 0; i < gas.size(); i++) {
+      tSum += gas[i] - cost[i];
+      curSum += gas[i] - cost[i];
+      if (curSum < 0) {
+        start = i + 1;
+        curSum = 0;
+      }
     }
+    if (tSum < 0) return -1;
+    return start;
+  }
 };
 // @lc code=end
-
-
 
 /*
 // @lcpr case=start
@@ -45,4 +52,3 @@ public:
 // @lcpr case=end
 
  */
-

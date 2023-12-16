@@ -828,4 +828,12 @@ void backtracking(参数) {
 
 ## 9.7 加油站
 
-1. [134.加油站](./leetcode/134.gas-station.cpp) ... 
+1. [134.加油站](./leetcode/134.gas-station.cpp)
+
+## 9.8 分发糖果
+
+1. [135.分发糖果](./leetcode/135.candy.cpp)
+
+## 9.9 柠檬水找零
+
+1. [860.柠檬水找零](./leetcode/860.lemonade-change.cpp)
