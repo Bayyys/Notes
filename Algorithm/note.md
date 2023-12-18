@@ -838,3 +838,6 @@ void backtracking(参数) {
 
 1. [860.柠檬水找零](./leetcode/860.lemonade-change.cpp)
 
+## 9.10 根据审稿重建队列
+
+1. [406.根据身高重建队列](./leetcode/406.queue-reconstruction-by-height.cpp)
