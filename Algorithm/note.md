@@ -841,3 +841,20 @@ void backtracking(参数) {
 ## 9.10 根据审稿重建队列
 
 1. [406.根据身高重建队列](./leetcode/406.queue-reconstruction-by-height.cpp)
+
+## 9.11 用最少数量的箭引爆气球
+
+1. [452.用最少数量的箭引爆气球](./leetcode/452.minimum-number-of-arrows-to-burst-balloons.cpp)
+
+
+## 9.12 无重叠区间
+
+1. [435.无重叠区间](./leetcode/435.non-overlapping-intervals.cpp)
+
+## 9.13 划分字母区间
+
+1. [763.划分字母区间](./leetcode/763.partition-labels.cpp)
+
+## 9.14 合并区间
+
+1. [56.合并区间](./leetcode/56.merge-intervals.cpp)
