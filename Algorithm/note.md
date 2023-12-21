@@ -35,29 +35,12 @@
 
 # 2 链表
 
-## 2.1 移除链表元素
-
 1. [203.移除链表元素](./leetcode/203.移除链表元素.cpp)
-
-## 2.2 设计链表
-
-1. [707.设计链表](./leetcode/707.设计链表.cpp)
-
-## 2.3 翻转链表
-
-1. [206.反转链表](./leetcode/206.反转链表.cpp)
-
-## 2.4 交换节点
-
-1. [24.两两交换链表中的节点](./leetcode/24.两两交换链表中的节点.cpp)
-
-## 2.5 删除倒数第N个节点
-
-1. [19.删除链表的倒数第N个节点](./leetcode/19.删除链表的倒数第N个节点.cpp)
-
-## 2.6 链表相交
-
-1. [160.相交链表](./leetcode/160.相交链表.cpp)
+2. [707.设计链表](./leetcode/707.设计链表.cpp)
+3. [206.反转链表](./leetcode/206.反转链表.cpp)
+4. [24.两两交换链表中的节点](./leetcode/24.两两交换链表中的节点.cpp)
+5. [19.删除链表的倒数第N个节点](./leetcode/19.删除链表的倒数第N个节点.cpp)
+6. [160.相交链表](./leetcode/160.相交链表.cpp)
 
 ## 2.7 环形链表
 
@@ -201,52 +184,20 @@ for (auto i = n.crbegin(); i != n.crend(); i++) // 常量反向迭代器, 不可
 
 1. [349.两个数组的交集](./leetcode/349.intersection-of-two-arrays.cpp)
 2. [350. 两个数组的交集 II](./leetcode/350.intersection-of-two-arrays-ii.cpp)
-
-## 3.4 快乐数
-
-1. [202.快乐数](./leetcode/202.happy-number.cpp)
-
-## 3.5 两数之和
-
-1. [1. 两数之和](./leetcode/1.two-sum.cpp)
-
-## 3.6 四数相加II
-
-1. [454.四数相加II](./leetcode/454.4-sum-ii.cpp)
-
-## 3.7 赎金信
-
-1. [383. 赎金信](./leetcode/383.ransom-note.cpp)
-
-## 3.8 三数之和
-
-1. [15.三数之和](./leetcode/15.3-sum.cpp)
-
-## 3.9 四数之和
-
-1. [18.四数之和](./leetcode/18.4-sum.cpp)
+3. [202.快乐数](./leetcode/202.happy-number.cpp)
+4. [1. 两数之和](./leetcode/1.two-sum.cpp)
+5. [454.四数相加II](./leetcode/454.4-sum-ii.cpp)
+6. [383. 赎金信](./leetcode/383.ransom-note.cpp)
+7. [15.三数之和](./leetcode/15.3-sum.cpp)
+8. [18.四数之和](./leetcode/18.4-sum.cpp)
 
 # 4. 字符串
 
-## 4.1 反转字符串
-
 1. [344.反转字符串](./leetcode/344.reverse-string.cpp)
-
-## 4.2 反转字符串II
-
-1. [541.反转字符串II](./leetcode/541.reverse-string-ii.cpp)
-
-## 4.3 替换数字
-
-1. [1844.替换所有数字](./leetcode/1844.replace-all-digits-with-characters.cpp)
-
-## 4.4 翻转字符串里的单词
-
-1. [151.翻转字符串里的单词](./leetcode/151.reverse-words-in-a-string.cpp)
-
-## 4.5 实现strStr() KMP算法
-
-1. [28.实现strStr()](./leetcode/28.implement-strstr.cpp)
+2. [541.反转字符串II](./leetcode/541.reverse-string-ii.cpp)
+3. [1844.替换所有数字](./leetcode/1844.replace-all-digits-with-characters.cpp)
+4. [151.翻转字符串里的单词](./leetcode/151.reverse-words-in-a-string.cpp)
+5. [28.实现strStr()](./leetcode/28.implement-strstr.cpp)
 
 - 统一减一
 ```cpp
@@ -347,33 +298,15 @@ q.front() // 返回队列中的第一个元素
 q.back() 	// 返回队列中最后一个元素
 ```
 
-## 6.2 用栈实现队列
+## 6.2 题目
 
 1. [232.用栈实现队列](./leetcode/232.implement-queue-using-stacks.cpp)
-
-## 6.3 用队列实现栈
-
-1. [225.用队列实现栈](./leetcode/225.implement-stack-using-queues.cpp)
-
-## 6.4 有效的括号
-
-1. [20.有效的括号](./leetcode/20.valid-parentheses.cpp)
-
-## 6.5 删除字符串中的所有相邻重复项
-
-1. [1047.删除字符串中的所有相邻重复项](./leetcode/1047.remove-all-adjacent-duplicates-in-string.cpp)
-
-## 6.6 逆波兰表达式求值
-
-1. [150.逆波兰表达式求值](./leetcode/150.evaluate-reverse-polish-notation.cpp)
-
-## 6.7 滑动窗口最大值
-
-1. [239. 滑动窗口最大值](./leetcode/239.sliding-window-maximum.cpp)
-
-## 6.8 前k个高频元素
-
-1. [347.前k个高频元素](./leetcode/347.top-k-frequent-elements.cpp)
+2. [225.用队列实现栈](./leetcode/225.implement-stack-using-queues.cpp)
+3. [20.有效的括号](./leetcode/20.valid-parentheses.cpp)
+4. [1047.删除字符串中的所有相邻重复项](./leetcode/1047.remove-all-adjacent-duplicates-in-string.cpp)
+5. [150.逆波兰表达式求值](./leetcode/150.evaluate-reverse-polish-notation.cpp)
+6. [239. 滑动窗口最大值](./leetcode/239.sliding-window-maximum.cpp)
+7. [347.前k个高频元素](./leetcode/347.top-k-frequent-elements.cpp)
 
 ## 7. 二叉树
 
@@ -634,97 +567,34 @@ struct TreeNode {
 9. [104. 二叉树的最大深度](./leetcode/104.maximum-depth-of-binary-tree.cpp)
 10. [111. 二叉树的最小深度](./leetcode/111.minimum-depth-of-binary-tree.cpp)3
 
-## 7.6 翻转二叉树
+## 7.6 其他题目
 
 1. [226.翻转二叉树](./leetcode/226.invert-binary-tree.cpp)
-
-## 7.7 对称二叉树
-
-1. [101.对称二叉树](./leetcode/101.symmetric-tree.cpp)
-2. [100. 相同的树](./leetcode/100.same-tree.cpp)
-3. [572. 另一个树的子树](./leetcode/572.subtree-of-another-tree.cpp)
-
-## 7.8 完全二叉树的节点个数
-
-1. [222.完全二叉树的节点个数](./leetcode/222.count-complete-tree-nodes.cpp)
-
-## 7.9 平衡二叉树
-
-1. [110.平衡二叉树](./leetcode/110.balanced-binary-tree.cpp)
-
-## 7.10 二叉树的所有路径
-
-1. [257.二叉树的所有路径](./leetcode/257.binary-tree-paths.cpp)
-
-## 7.11 左叶子之和
-
-1. [404.左叶子之和](./leetcode/404.sum-of-left-leaves.cpp)
-
-## 7.12 找树左下角的值
-
-1. [513.找树左下角的值](./leetcode/513.find-bottom-left-tree-value.cpp)
-
-## 7.13 路径总和
-
-1. [112.路径总和](./leetcode/112.path-sum.cpp)
-2. [113.路径总和II](./leetcode/113.path-sum-ii.cpp)
-
-## 7.14 从中序与后序遍历序列构造二叉树
-
-1. [106.从中序与后序遍历序列构造二叉树](./leetcode/106.construct-binary-tree-from-inorder-and-postorder-traversal.cpp)
-2. [105.从前序与中序遍历序列构造二叉树](./leetcode/105.construct-binary-tree-from-preorder-and-inorder-traversal.cpp)
-
-## 7.15 最大二叉树
-
-1. [654.最大二叉树](./leetcode/654.maximum-binary-tree.cpp)
-
-## 7.16 合并二叉树
-
-1. [617.合并二叉树](./leetcode/617.merge-two-binary-trees.cpp)
-
-## 7.17 二叉搜索树中的搜索
-
-1. [700.二叉搜索树中的搜索](./leetcode/700.search-in-a-binary-search-tree.cpp)
-
-## 7.18 验证二叉搜索树
-
-1. [98.验证二叉搜索树](./leetcode/98.validate-binary-search-tree.cpp)
-
-## 7.19 二叉搜索树的最小绝对差
-
-1. [530.二叉搜索树的最小绝对差](./leetcode/530.minimum-absolute-difference-in-bst.cpp)
-
-## 7.20 二叉搜索树中的众数
-
-1. [501.二叉搜索树中的众数](./leetcode/501.find-mode-in-binary-search-tree.cpp)
-
-## 7.21 二叉树的最近公共节点
-
-1. [236.二叉树的最近公共节点](./leetcode/236.lowest-common-ancestor-of-a-binary-tree.cpp)
-
-## 7.22 二叉搜索树的最近公共节点
-
-1. [235.二叉搜索树的最近公共节点](./leetcode/235.lowest-common-ancestor-of-a-binary-search-tree.cpp)
-
-## 7.23 二叉搜索树中的插入操作
-
-1. [701.二叉搜索树中的插入操作](./leetcode/701.insert-into-a-binary-search-tree.cpp)
-
-## 7.24 删除二叉搜索树中的节点
-
-1. [450.删除二叉搜索树中的节点](./leetcode/450.delete-node-in-a-bst.cpp)
-
-## 7.25 修剪二叉搜索树
-
-1. [669.修剪二叉搜索树](./leetcode/669.trim-a-binary-search-tree.cpp)
-
-## 7.26 将有序数组转换为二叉搜索树
-
-1. [108.将有序数组转换为二叉搜索树](./leetcode/108.convert-sorted-array-to-binary-search-tree.cpp)
-
-## 7.27 把二叉搜索树转换为累加树
-
-1. [538.把二叉搜索树转换为累加树](./leetcode/538.convert-bst-to-greater-tree.cpp)
+2. [101.对称二叉树](./leetcode/101.symmetric-tree.cpp)
+3. [100. 相同的树](./leetcode/100.same-tree.cpp)
+4. [572. 另一个树的子树](./leetcode/572.subtree-of-another-tree.cpp)
+5. [222.完全二叉树的节点个数](./leetcode/222.count-complete-tree-nodes.cpp)
+6. [110.平衡二叉树](./leetcode/110.balanced-binary-tree.cpp)
+7. [257.二叉树的所有路径](./leetcode/257.binary-tree-paths.cpp)
+8. [404.左叶子之和](./leetcode/404.sum-of-left-leaves.cpp)
+9. [513.找树左下角的值](./leetcode/513.find-bottom-left-tree-value.cpp)
+10. [112.路径总和](./leetcode/112.path-sum.cpp)
+11. [113.路径总和II](./leetcode/113.path-sum-ii.cpp)
+12. [106.从中序与后序遍历序列构造二叉树](./leetcode/106.construct-binary-tree-from-inorder-and-postorder-traversal.cpp)
+13. [105.从前序与中序遍历序列构造二叉树](./leetcode/105.construct-binary-tree-from-preorder-and-inorder-traversal.cpp)
+14. [654.最大二叉树](./leetcode/654.maximum-binary-tree.cpp)
+15. [617.合并二叉树](./leetcode/617.merge-two-binary-trees.cpp)
+16. [700.二叉搜索树中的搜索](./leetcode/700.search-in-a-binary-search-tree.cpp)
+17. [98.验证二叉搜索树](./leetcode/98.validate-binary-search-tree.cpp)
+18. [530.二叉搜索树的最小绝对差](./leetcode/530.minimum-absolute-difference-in-bst.cpp)
+19. [501.二叉搜索树中的众数](./leetcode/501.find-mode-in-binary-search-tree.cpp)
+20. [236.二叉树的最近公共节点](./leetcode/236.lowest-common-ancestor-of-a-binary-tree.cpp)
+21. [235.二叉搜索树的最近公共节点](./leetcode/235.lowest-common-ancestor-of-a-binary-search-tree.cpp)
+22. [701.二叉搜索树中的插入操作](./leetcode/701.insert-into-a-binary-search-tree.cpp)
+23. [450.删除二叉搜索树中的节点](./leetcode/450.delete-node-in-a-bst.cpp)
+24. [669.修剪二叉搜索树](./leetcode/669.trim-a-binary-search-tree.cpp)
+25. [108.将有序数组转换为二叉搜索树](./leetcode/108.convert-sorted-array-to-binary-search-tree.cpp)
+26. [538.把二叉搜索树转换为累加树](./leetcode/538.convert-bst-to-greater-tree.cpp)
 
 # 8. 回溯算法
 
@@ -746,94 +616,42 @@ void backtracking(参数) {
 }
 ```
 
-## 8.1 组合问题
+## 8.1 题目
 
 1. [77.组合](./leetcode/77.combinations.cpp)
-
-## 8.2 组合总和III
-
-1. [216.组合总和III](./leetcode/216.combination-sum-iii.cpp)
-
-## 8.3 电话号码的字母组合
-
-1. [17.电话号码的字母组合](./leetcode/17.letter-combinations-of-a-phone-number.cpp)
-
-## 8.4 组合总和
-
-1. [39.组合总和](./leetcode/39.combination-sum.cpp)
-2. [40.组合总和II](./leetcode/40.combination-sum-ii.cpp)
-
-## 8.5 分割回文串
-
-1. [131.分割回文串](./leetcode/131.palindrome-partitioning.cpp)
-
-## 8.6 复原IP地址
-
-1. [93.复原IP地址](./leetcode/93.restore-ip-addresses.cpp)
-
-## 8.7 子集
-
-1. [78.子集](./leetcode/78.subsets.cpp)
-2. [90.子集II](./leetcode/90.subsets-ii.cpp)
-
-## 8.8 递增子序列
-
-1. [491.递增子序列](./leetcode/491.increasing-subsequences.cpp)
-
-## 8.9 全排列
-
-1. [46.全排列](./leetcode/46.permutations.cpp)
-2. [47.全排列II](./leetcode/47.permutations-ii.cpp)
-
-## 8.10 重新安排行程
-
-1. [332.重新安排行程](./leetcode/332.reconstruct-itinerary.cpp)
-
-## 8.11 N皇后
-
-1. [51.N皇后](./leetcode/51.n-queens.cpp)
-
-
-## 8.12 数独
-
-1. [37.数独](./leetcode/37.sudoku-solver.cpp)
+2. [216.组合总和III](./leetcode/216.combination-sum-iii.cpp)
+3. [17.电话号码的字母组合](./leetcode/17.letter-combinations-of-a-phone-number.cpp)
+4. [39.组合总和](./leetcode/39.combination-sum.cpp)
+5. [40.组合总和II](./leetcode/40.combination-sum-ii.cpp)
+6. [131.分割回文串](./leetcode/131.palindrome-partitioning.cpp)
+7. [93.复原IP地址](./leetcode/93.restore-ip-addresses.cpp)
+8. [78.子集](./leetcode/78.subsets.cpp)
+9. [90.子集II](./leetcode/90.subsets-ii.cpp)
+10. [491.递增子序列](./leetcode/491.increasing-subsequences.cpp)
+11. [46.全排列](./leetcode/46.permutations.cpp)
+12. [47.全排列II](./leetcode/47.permutations-ii.cpp)
+13. [332.重新安排行程](./leetcode/332.reconstruct-itinerary.cpp)
+14. [51.N皇后](./leetcode/51.n-queens.cpp)
+15. [37.数独](./leetcode/37.sudoku-solver.cpp)
 
 # 9. 贪心算法
 
-## 9.1 分发饼干
+## 9.1 题目
 
 1. [455.分发饼干](./leetcode/455.assign-cookies.cpp)
-
-## 9.2 摆动序列
-
-1. [376.摆动序列](./leetcode/376.wiggle-subsequence.cpp)
-
-## 9.3 最大子数组和
-
-1. [53.最大子数组和](./leetcode/53.maximum-subarray.cpp)
-
-## 9.4 买卖股票的最佳时机II
-
-1. [122.买卖股票的最佳时机II](./leetcode/122.best-time-to-buy-and-sell-stock-ii.cpp)
-
-## 9.5 跳跃游戏
-
-1. [55.跳跃游戏](./leetcode/55.jump-game.cpp)
-2. [45.跳跃游戏II](./leetcode/45.jump-game-ii.cpp)
-
-## 9.6 k次取反后最大化的数组和
-
-1. [1005.k次取反后最大化的数组和](./leetcode/1005.maximize-sum-of-array-after-k-negations.cpp)
-
-
-## 9.7 加油站
-
-1. [134.加油站](./leetcode/134.gas-station.cpp)
-
-## 9.8 分发糖果
-
-1. [135.分发糖果](./leetcode/135.candy.cpp)
-
-## 9.9 柠檬水找零
-
-1. [860.柠檬水找零](./leetcode/860.lemonade-change.cpp)
+2. [376.摆动序列](./leetcode/376.wiggle-subsequence.cpp)
+3. [53.最大子数组和](./leetcode/53.maximum-subarray.cpp)
+4. [122.买卖股票的最佳时机II](./leetcode/122.best-time-to-buy-and-sell-stock-ii.cpp)
+5. [55.跳跃游戏](./leetcode/55.jump-game.cpp)
+6. [45.跳跃游戏II](./leetcode/45.jump-game-ii.cpp)
+7. [1005.k次取反后最大化的数组和](./leetcode/1005.maximize-sum-of-array-after-k-negations.cpp)
+8. [134.加油站](./leetcode/134.gas-station.cpp)
+9. [135.分发糖果](./leetcode/135.candy.cpp)
+10. [860.柠檬水找零](./leetcode/860.lemonade-change.cpp)
+11. [406.根据身高重建队列](./leetcode/406.queue-reconstruction-by-height.cpp)
+12. [452.用最少数量的箭引爆气球](./leetcode/452.minimum-number-of-arrows-to-burst-balloons.cpp)
+13. [435.无重叠区间](./leetcode/435.non-overlapping-intervals.cpp)
+14. [763.划分字母区间](./leetcode/763.partition-labels.cpp)
+15. [56.合并区间](./leetcode/56.merge-intervals.cpp)
+16. [738.单调递增的数字](./leetcode/738.monotone-increasing-digits.cpp)
+17. [968.监控二叉树](./leetcode/968.binary-tree-cameras.cpp)
