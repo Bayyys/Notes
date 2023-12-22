@@ -5,9 +5,13 @@
       <Logo />
       <!-- 展示菜单 -->
       <el-scrollbar class="scrollbar">
-        <el-menu background-color="#001529" text-color="white">
+        <el-menu
+          background-color="#001529"
+          text-color="white"
+          :default-active="$route.path"
+        >
           <!-- 动态菜单项 -->
-          <Menu :menuList="userStore.menuRoutes" />
+          <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -15,17 +19,20 @@
     <div class="layout_tabbar"></div>
     <!-- 内容展示 -->
     <div class="layout_main">
-      <router-view></router-view>
+      <Main></Main>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
+import Main from './mainwin/index.vue'
 import useUserState from '@/store/modules/user'
 
 const userStore = useUserState()
+const $route = useRoute()
 </script>
 
 <style scoped lang="scss">
