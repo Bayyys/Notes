@@ -8,7 +8,7 @@
   </router-view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts" name="Mainwin"></script>
 
 <style scoped>
 .fade-enter-from {
