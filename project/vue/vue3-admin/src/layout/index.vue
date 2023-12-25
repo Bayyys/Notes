@@ -1,7 +1,7 @@
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="layout_slider">
+    <div class="layout_slider" :class="{ fold: LayoutSettingStore.fold }">
       <Logo />
       <!-- 展示菜单 -->
       <el-scrollbar class="scrollbar">
@@ -16,7 +16,9 @@
       </el-scrollbar>
     </div>
     <!-- 顶部导航 -->
-    <div class="layout_tabbar"></div>
+    <div class="layout_tabbar">
+      <Tabbar></Tabbar>
+    </div>
     <!-- 内容展示 -->
     <div class="layout_main">
       <Main></Main>
@@ -24,14 +26,17 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="Layout">
 import { useRoute } from 'vue-router'
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
 import Main from './mainwin/index.vue'
+import Tabbar from './tabbaar/index.vue'
 import useUserState from '@/store/modules/user'
+import useLayoutSettingStore from '@/store/modules/setting'
 
 const userStore = useUserState()
+const LayoutSettingStore = useLayoutSettingStore()
 const $route = useRoute()
 </script>
 
@@ -49,6 +54,9 @@ const $route = useRoute()
       height: calc(100vh - #{$base-logo-height});
       color: white;
     }
+    &.fold {
+      width: 50px;
+    }
   }
   .layout_tabbar {
     position: fixed;
@@ -56,7 +64,6 @@ const $route = useRoute()
     left: $base-menu-width;
     width: calc(100% - #{$base-menu-width});
     height: $base-tabbar-height;
-    background: $base-tabbar-bg;
   }
   .layout_main {
     position: absolute;

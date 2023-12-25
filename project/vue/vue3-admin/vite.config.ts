@@ -3,6 +3,7 @@ import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { UserConfigExport, ConfigEnv } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
+import vueSetupExtend from 'unplugin-vue-setup-extend-plus/vite'
 
 export default ({ command }: ConfigEnv): UserConfigExport => {
   return {
@@ -14,6 +15,7 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
         symbolId: 'icon-[dir]-[name]',
       }),
       vue(),
+      vueSetupExtend({}),
       viteMockServe({
         localEnabled: command === 'serve', // 在开发环境下开启mock服务
       }),

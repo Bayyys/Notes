@@ -41,23 +41,18 @@
         </el-icon>
         <span>{{ item.meta.title }}</span>
       </template>
-      <NewMenu :menuList="item.children"></NewMenu>
+      <Menu :menuList="item.children"></Menu>
     </el-sub-menu>
   </template>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="Menu">
 import { useRouter } from 'vue-router'
 defineProps(['menuList'])
 let $router = useRouter()
 const goRoute = (route: any) => {
   console.log(route)
   $router.push(route.index)
-}
-</script>
-<script lang="ts">
-export default {
-  name: 'NewMenu',
 }
 </script>
 
