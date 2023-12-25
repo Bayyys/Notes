@@ -636,7 +636,7 @@ void backtracking(参数) {
 
 # 9. 贪心算法
 
-## 9.1 题目
+## 9.1 相关题目
 
 1. [455.分发饼干](./leetcode/455.assign-cookies.cpp)
 2. [376.摆动序列](./leetcode/376.wiggle-subsequence.cpp)
@@ -655,3 +655,27 @@ void backtracking(参数) {
 15. [56.合并区间](./leetcode/56.merge-intervals.cpp)
 16. [738.单调递增的数字](./leetcode/738.monotone-increasing-digits.cpp)
 17. [968.监控二叉树](./leetcode/968.binary-tree-cameras.cpp)
+
+# 10. 动态规划
+
+## 10.1 理论基础
+
+- 动态规划 (Dynamic Programming, DP): 通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法
+  - 动态规划常常适用于有重叠子问题和最优子结构性质的问题
+- 解题步骤
+  1. 确定 **DP数组** 以及下标的定义
+  2. 确定递推公式
+  3. DP数组如何初始化
+  4. 确定遍历顺序
+  5. 举例推导DP数组
+- debug方式: **打印dp数组**
+
+## 10.2 相关题目
+
+1. [509.斐波那契数](./leetcode/509.fibonacci-number.cpp)
+2. [70.爬楼梯](./leetcode/70.climbing-stairs.cpp)
+3. [746.使用最小花费爬楼梯](./leetcode/746.min-cost-climbing-stairs.cpp)
+4. [62.不同路径](./leetcode/62.unique-paths.cpp)
+5. [63.不同路径II](./leetcode/63.unique-paths-ii.cpp)
+6. [343.整数拆分](./leetcode/343.integer-break.cpp)
+7. [96.不同的二叉搜索树](./leetcode/96.unique-binary-search-trees.cpp)
