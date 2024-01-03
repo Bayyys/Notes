@@ -8,7 +8,24 @@
   </router-view>
 </template>
 
-<script setup lang="ts" name="Mainwin"></script>
+<script setup lang="ts" name="Mainwin">
+import { watch, ref, nextTick } from 'vue'
+import useLayoutSettingStore from '@/store/modules/setting'
+let layoutSettingStore = useLayoutSettingStore()
+
+// 控制当前组件是否销毁重建
+let flag = ref(true)
+
+watch(
+  () => layoutSettingStore.refresh,
+  () => {
+    flag.value = false
+    nextTick(() => {
+      flag.value = true
+    })
+  },
+)
+</script>
 
 <style scoped>
 .fade-enter-from {

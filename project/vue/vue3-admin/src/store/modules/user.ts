@@ -1,8 +1,8 @@
 // 定义 用户相关 小仓库
 import { defineStore } from 'pinia'
-import { reqLogin } from '@/api/user_api'
+import { reqLogin, reqUserInfo } from '@/api/user_api'
 import { LoginForm, LoginResponseData } from '@/api/user_api/type'
-import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
+import { GET_TOKEN, REMOVE_TOKEN, SET_TOKEN } from '@/utils/token'
 import { UserState } from './types/type'
 import { constantRoute } from '@/router/router'
 
@@ -13,10 +13,13 @@ const useUserStore = defineStore('User', {
     return {
       token: GET_TOKEN(), // 用户token
       menuRoutes: constantRoute, // 菜单路由
+      username: '', // 用户名
+      avatar: '', // 用户头像
     }
   },
   // 异步 | 逻辑处理
   actions: {
+    // 用户登录
     async userLogin(userForm: LoginForm) {
       const res: LoginResponseData = await reqLogin(userForm) // 发送登录请求
       if (res.code === 200) {
@@ -26,6 +29,25 @@ const useUserStore = defineStore('User', {
       } else {
         return Promise.reject(new Error(res.data.message))
       }
+    },
+    // 获取用户信息
+    async userInfo() {
+      const res = await reqUserInfo()
+      if (res.code === 200) {
+        this.username = res.data.checkUser.username
+        this.avatar = res.data.checkUser.avatar
+        return Promise.resolve('获取用户信息成功')
+      }
+    },
+    // 退出登录
+    async userLogout() {
+      // 重置仓库数据
+      this.token = ''
+      this.username = ''
+      this.avatar = ''
+      // 删除本地token
+      REMOVE_TOKEN()
+      return Promise.resolve('退出登录成功')
     },
   },
   getters: {},

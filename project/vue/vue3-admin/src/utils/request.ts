@@ -1,5 +1,7 @@
 import axios from 'axios' // 引入axios
 import { ElMessage } from 'element-plus'
+// 引入用户相关仓库
+import useUserStore from '@/store/modules/user'
 
 //创建axios实例
 const request = axios.create({
@@ -11,6 +13,11 @@ const request = axios.create({
 request.interceptors.request.use((config) => {
   // config配置对象, 例如: headers属性请求头, 可以给服务器端携带公共参数
   // config.headers.test = 123
+  const userStore = useUserStore() // 获取用户相关仓库
+  if (userStore.token) {
+    // 如果token存在, 则给请求头添加token
+    config.headers.token = userStore.token
+  }
   return config
 })
 

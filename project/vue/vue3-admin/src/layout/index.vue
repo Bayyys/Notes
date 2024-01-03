@@ -6,6 +6,7 @@
       <!-- 展示菜单 -->
       <el-scrollbar class="scrollbar">
         <el-menu
+          :collapse="LayoutSettingStore.fold"
           background-color="#001529"
           text-color="white"
           :default-active="$route.path"
@@ -16,11 +17,11 @@
       </el-scrollbar>
     </div>
     <!-- 顶部导航 -->
-    <div class="layout_tabbar">
+    <div class="layout_tabbar" :class="{ fold: LayoutSettingStore.fold }">
       <Tabbar></Tabbar>
     </div>
     <!-- 内容展示 -->
-    <div class="layout_main">
+    <div class="layout_main" :class="{ fold: LayoutSettingStore.fold }">
       <Main></Main>
     </div>
   </div>
@@ -49,13 +50,14 @@ const $route = useRoute()
     width: $base-menu-width;
     height: 100vh;
     background: $base-menu-bg;
+    transition: all 0.3s;
     .scrollbar {
       width: 100%;
       height: calc(100vh - #{$base-logo-height});
       color: white;
     }
     &.fold {
-      width: 50px;
+      width: $base-menu-min-width;
     }
   }
   .layout_tabbar {
@@ -64,6 +66,11 @@ const $route = useRoute()
     left: $base-menu-width;
     width: calc(100% - #{$base-menu-width});
     height: $base-tabbar-height;
+    transition: all 0.3s;
+    &.fold {
+      left: $base-menu-min-width;
+      width: calc(100vw - #{$base-menu-min-width});
+    }
   }
   .layout_main {
     position: absolute;
@@ -74,6 +81,11 @@ const $route = useRoute()
     height: calc(100vh - #{$base-tabbar-height});
     background: $base-main-bg;
     overflow: auto;
+    transition: all 0.3s;
+    &.fold {
+      left: $base-menu-min-width;
+      width: calc(100vw - #{$base-menu-min-width});
+    }
   }
 }
 </style>

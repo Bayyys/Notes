@@ -8,3 +8,8 @@ export const SET_TOKEN = (token: string) => {
 export const GET_TOKEN = (): string => {
   return localStorage.getItem('TOKEN') || ''
 }
+
+// 删除TOKEN
+export const REMOVE_TOKEN = () => {
+  localStorage.removeItem('TOKEN')
+}
