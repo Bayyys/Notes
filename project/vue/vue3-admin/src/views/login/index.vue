@@ -60,7 +60,7 @@ let loginFormRef = ref() // 表单ref
  */
 let loginForm = reactive({
   username: 'admin',
-  password: 'admin',
+  password: 'atguigu123',
 })
 
 /** 登录表单验证规则
@@ -97,11 +97,11 @@ const login = async () => {
     if ($route.query.redirect)
       $router.push({ path: $route.query.redirect as string })
     else $router.push({ path: '/' })
-    // ElNotification({
-    //   type: 'success',
-    //   message: '欢迎回来',
-    //   title: `HI, ${getTimePeriod()}好`,
-    // })
+    ElNotification({
+      type: 'success',
+      message: '欢迎回来',
+      title: `HI, 你好`,
+    })
   } catch (error) {
     ElNotification({
       title: '登录失败',

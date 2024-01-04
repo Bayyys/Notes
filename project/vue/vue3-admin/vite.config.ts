@@ -1,11 +1,12 @@
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import { UserConfigExport, ConfigEnv } from 'vite'
+import { UserConfigExport, ConfigEnv, loadEnv } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
 import vueSetupExtend from 'unplugin-vue-setup-extend-plus/vite'
 
-export default ({ command }: ConfigEnv): UserConfigExport => {
+export default ({ command, mode }: ConfigEnv): UserConfigExport => {
+  const env = loadEnv(mode, process.cwd())
   return {
     plugins: [
       createSvgIconsPlugin({
@@ -30,6 +31,13 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
       open: true, // 自动打开浏览器
       port: 3000, // 启动端口号
       strictPort: false, // 如果端口号被占用，是否自动提升
+      proxy: {
+        [env.VITE_APP_BASE_API]: {
+          target: env.VITE_SERVE, // 获取数据服务器地址的设置
+          changeOrigin: true, // 需要代理跨域
+          rewrite: (path) => path.replace(/^\/api/, ''), // 路径重写
+        },
+      },
     },
     css: {
       preprocessorOptions: {

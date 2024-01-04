@@ -24,5 +24,7 @@ app.use(ElementPlus, {
 app.use(gloablComponent)
 app.use(router)
 app.use(store)
+// 引入路由鉴权
+import './permission'
 // app.component('MyMenu', MyMenu)
 app.mount('#app')

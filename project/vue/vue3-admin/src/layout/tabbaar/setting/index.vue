@@ -62,11 +62,11 @@ const fullScreen = () => {
   }
 }
 // 退出登录
-const logout = () => {
+const logout = async () => {
   // 1. 向服务器发送退出请求
   // 2. 相关数据清空
   // 3. 跳转到登录页面
-  userStore
+  await userStore
     .userLogout()
     .then(() => {
       ElNotification({

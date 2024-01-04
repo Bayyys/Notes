@@ -1,7 +1,7 @@
 <template>
   <div class="layout_container">
     <!-- 左侧菜单 -->
-    <div class="layout_slider" :class="{ fold: LayoutSettingStore.fold }">
+    <div class="layout_slider">
       <Logo />
       <!-- 展示菜单 -->
       <el-scrollbar class="scrollbar">
@@ -55,9 +55,6 @@ const $route = useRoute()
       width: 100%;
       height: calc(100vh - #{$base-logo-height});
       color: white;
-    }
-    &.fold {
-      width: $base-menu-min-width;
     }
   }
   .layout_tabbar {
