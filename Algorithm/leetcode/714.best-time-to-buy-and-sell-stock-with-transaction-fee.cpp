@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=122 lang=cpp
- * @lcpr version=30111
+ * @lc app=leetcode.cn id=714 lang=cpp
+ * @lcpr version=30112
  *
- * [122] 买卖股票的最佳时机 II
+ * [714] 买卖股票的最佳时机含手续费
  */
 
 // @lcpr-template-start
@@ -26,19 +26,17 @@ using namespace std;
 // @lc code=start
 class Solution {
  public:
-  int maxProfit(vector<int>& prices) {
-    // dp[i][0]: 第i天不持有股票的最高收益
-    //         1. 第i-1天不持有股票: dp[i-1][0]
-    //         2. 第i-1天持有股票，第i天卖出: dp[i-1][1] + prices[i]
-    // dp[i][1]: 第i天持有股票的最高收益
-    //         1. 第i-1天持有股票: dp[i-1][1]
-    //         2. 第i-1天不持有股票，第i天买入:  dp[i-1][0] - prices[i]
+  int maxProfit(vector<int>& prices, int fee) {
     vector<vector<int>> dp(2, vector<int>(2, 0));
-    dp[0][0] = 0;
-    dp[0][1] = -prices[0];
+    dp[0][0] = 0;  // 第i天不持有股票(保持昨天状态/今天卖出)
+                   //      = max(dp[i-1][0], dp[i-1][1] + prices[i])
+    dp[0][1] = -prices[0] -
+               fee;  // 第i天持有股票(保持昨天状态/今天买入)
+                     //      = max(dp[i-1][1], dp[i-1][0] - prices[i] - fee)
     for (int i = 1; i < prices.size(); i++) {
       dp[i % 2][0] = max(dp[(i - 1) % 2][0], dp[(i - 1) % 2][1] + prices[i]);
-      dp[i % 2][1] = max(dp[(i - 1) % 2][1], dp[(i - 1) % 2][0] - prices[i]);
+      dp[i % 2][1] =
+          max(dp[(i - 1) % 2][1], dp[(i - 1) % 2][0] - prices[i] - fee);
     }
     return dp[(prices.size() - 1) % 2][0];
   }
@@ -47,15 +45,11 @@ class Solution {
 
 /*
 // @lcpr case=start
-// [7,1,5,3,6,4]\n
+// [1, 3, 2, 8, 4, 9]\n2\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [1,2,3,4,5]\n
-// @lcpr case=end
-
-// @lcpr case=start
-// [7,6,4,3,1]\n
+// [1,3,7,5,10,3]\n3\n
 // @lcpr case=end
 
  */
