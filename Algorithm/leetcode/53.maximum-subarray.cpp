@@ -27,14 +27,14 @@ using namespace std;
 class Solution {
  public:
   int maxSubArray(vector<int>& nums) {
-    int res = INT32_MIN;
-    int count = 0;  // 以nums[i]结尾的最大子数组和
-    for (int i = 0; i < nums.size(); i++) {
-      count += nums[i];
-      res = max(res, count);
-      if (count < 0) {  // 对后续加和起到副作用, 直接舍弃, 从下一个元素重新开始
-        count = 0;
-      }
+    // dp[i]: 以nums[i]结尾的最大子数组和
+    //  = max(dp[i-1]+nums[i], nums[i])
+    vector<int> dp(nums.size(), 1);
+    dp[0] = nums[0];
+    int res = nums[0];
+    for (int i = 1; i < nums.size(); i++) {
+      dp[i] = max(dp[i - 1] + nums[i], nums[i]);
+      if (res < dp[i]) res = dp[i];
     }
     return res;
   }

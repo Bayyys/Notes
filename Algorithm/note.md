@@ -701,3 +701,8 @@ void backtracking(参数) {
 27. [300.最长递增子序列](./leetcode/300.longest-increasing-subsequence.cpp)
 28. [674.最长连续递增序列](./leetcode/674.longest-continuous-increasing-subsequence.cpp)
 29. [718.最长重复子数组](./leetcode/718.maximum-length-of-repeated-subarray.cpp)
+30. [1143.最长公共子序列](./leetcode/1143.longest-common-subsequence.cpp)
+31. [1035.不相交的线](./leetcode/1035.uncrossed-lines.cpp)
+32. [53.最大子序和](./leetcode/53.maximum-subarray.cpp)
+33. [392.判断子序列](./leetcode/392.is-subsequence.cpp)
+34. [115.不同的子序列](./leetcode/115.distinct-subsequences.cpp)...
