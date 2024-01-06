@@ -2,11 +2,17 @@
 import SvgIcon from '@/components/SvgIcon/index.vue'
 // 分页器组件
 import Pagination from '@/components/Pagination/index.vue'
+// 三级分类组件
+import Category from '@/components/Category/index.vue'
 // element-plus: Icon组件
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // 输出测试: console.log(ElementPlusIconsVue)
 import type { App, Component } from 'vue'
-const components: { [name: string]: Component } = { SvgIcon, Pagination }
+const components: { [name: string]: Component } = {
+  SvgIcon,
+  Pagination,
+  Category,
+}
 // 注册全局组件
 export default {
   // install方法必须有
