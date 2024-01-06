@@ -705,4 +705,18 @@ void backtracking(参数) {
 31. [1035.不相交的线](./leetcode/1035.uncrossed-lines.cpp)
 32. [53.最大子序和](./leetcode/53.maximum-subarray.cpp)
 33. [392.判断子序列](./leetcode/392.is-subsequence.cpp)
-34. [115.不同的子序列](./leetcode/115.distinct-subsequences.cpp)...
+34. [115.不同的子序列](./leetcode/115.distinct-subsequences.cpp)
+35. [583.两个字符串的删除操作](./leetcode/583.delete-operation-for-two-strings.cpp)
+36. [72.编辑距离](./leetcode/72.edit-distance.cpp)
+37. [647.回文子串](./leetcode/647.palindromic-substrings.cpp)
+38. [516.最长回文子序列](./leetcode/516.longest-palindromic-subsequence.cpp)
+
+# 11. 单调栈
+
+## 11.1 相关题目
+
+1. [739.每日温度](./leetcode/739.daily-temperatures.cpp)
+2. [496.下一个更大元素I](./leetcode/496.next-greater-element-i.cpp)
+3. [503.下一个更大元素II](./leetcode/503.next-greater-element-ii.cpp)
+4. [42.接雨水](./leetcode/42.trapping-rain-water.cpp)
+5. [84.柱状图中最大的矩形](./leetcode/84.largest-rectangle-in-histogram.cpp)
