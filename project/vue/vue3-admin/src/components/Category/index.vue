@@ -3,25 +3,41 @@
     <el-card>
       <el-form ref="formRef" label-width="auto" inline>
         <el-form-item label="一级分类">
-          <el-select placeholder="请选择" v-model="c1Id">
+          <el-select
+            placeholder="请选择"
+            v-model="categoryStore.C1Id"
+            @change="getC2"
+          >
             <el-option
-              v-for="c1 in c1Arr"
+              v-for="c1 in categoryStore.C1Arr"
               :key="c1.id"
               :label="c1.name"
               :value="c1.id"
-            />
+            ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="二级分类">
-          <el-select placeholder="请选择">
-            <el-option label="Options1" value="1" />
-            <el-option label="Options2" value="2" />
+          <el-select
+            placeholder="请选择"
+            v-model="categoryStore.C2Id"
+            @change="getC3"
+          >
+            <el-option
+              v-for="c2 in categoryStore.C2Arr"
+              :key="c2.id"
+              :label="c2.name"
+              :value="c2.id"
+            ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="三级分类">
-          <el-select placeholder="请选择">
-            <el-option label="Options1" value="1" />
-            <el-option label="Options2" value="2" />
+          <el-select placeholder="请选择" v-model="categoryStore.C3Id">
+            <el-option
+              v-for="c3 in categoryStore.C3Arr"
+              :key="c3.id"
+              :label="c3.name"
+              :value="c3.id"
+            ></el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -30,18 +46,23 @@
 </template>
 
 <script setup lang="ts" name="Category">
-import { reqC1 } from '@/api/product_api/attr'
-import { onMounted, ref } from 'vue'
-let c1Arr = ref<any>()
-let c1Id = ref<number | string>('')
-// 获取一级分类列表
-const getC1 = async () => {
-  const res = await reqC1()
-  if (res.code === 200) {
-    c1Arr.value = res.data
-  }
+import { onMounted } from 'vue'
+import useCategoryStore from '@/store/modules/category'
+let categoryStore = useCategoryStore()
+
+const getC1 = () => {
+  categoryStore.getC1()
 }
 
+const getC2 = () => {
+  categoryStore.getC2()
+}
+
+const getC3 = () => {
+  categoryStore.getC3()
+}
+
+// 挂载时获取分类列表
 onMounted(() => {
   getC1()
 })
