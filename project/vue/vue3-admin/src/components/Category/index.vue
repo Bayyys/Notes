@@ -4,6 +4,7 @@
       <el-form ref="formRef" label-width="auto" inline>
         <el-form-item label="一级分类">
           <el-select
+            :disabled="scene === 1"
             placeholder="请选择"
             v-model="categoryStore.C1Id"
             @change="getC2"
@@ -18,6 +19,7 @@
         </el-form-item>
         <el-form-item label="二级分类">
           <el-select
+            :disabled="scene === 1"
             placeholder="请选择"
             v-model="categoryStore.C2Id"
             @change="getC3"
@@ -31,7 +33,11 @@
           </el-select>
         </el-form-item>
         <el-form-item label="三级分类">
-          <el-select placeholder="请选择" v-model="categoryStore.C3Id">
+          <el-select
+            :disabled="scene === 1"
+            placeholder="请选择"
+            v-model="categoryStore.C3Id"
+          >
             <el-option
               v-for="c3 in categoryStore.C3Arr"
               :key="c3.id"
@@ -49,6 +55,7 @@
 import { onMounted } from 'vue'
 import useCategoryStore from '@/store/modules/category'
 let categoryStore = useCategoryStore()
+defineProps(['scene'])
 
 const getC1 = () => {
   categoryStore.getC1()
