@@ -22,9 +22,10 @@ export interface CategoryResponseData extends ResponseData {
 // 属性接口数据类型
 // 属性值对象数据类型
 export interface AttrValue {
-  id: number
+  id?: number
   valueName: string
-  attrId: number
+  attrId?: number
+  flag?: boolean // 控制属性值编辑的显示与隐藏
 }
 
 // 属性值数组类型
@@ -32,9 +33,9 @@ export type AttrValueList = AttrValue[]
 
 // 属性对象
 export interface Attr {
-  id: number
+  id?: number
   attrName: string
-  categoryId: number
+  categoryId: number | string
   categoryLevel: number
   attrValueList: AttrValueList
 }
