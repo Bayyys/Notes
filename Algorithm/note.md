@@ -720,3 +720,55 @@ void backtracking(参数) {
 3. [503.下一个更大元素II](./leetcode/503.next-greater-element-ii.cpp)
 4. [42.接雨水](./leetcode/42.trapping-rain-water.cpp)
 5. [84.柱状图中最大的矩形](./leetcode/84.largest-rectangle-in-histogram.cpp)
+
+# 12. 图论
+
+## 12.1 搜索基础理论
+
+### 12.1.1 DFS
+
+- 深度优先搜索(Depth First Search, DFS)
+- ```Cpp
+  void dfs(args){
+    if(终止条件) {
+      存放结果;
+      return;
+    }
+    for (选择: 本节点所连接的其他节点) {
+      处理节点;
+      dfs(路径，选择列表); // 递归
+      回溯，撤销处理结果
+    }
+  }
+  ```
+
+### 12.1.2 BFS
+
+- 广度优先搜索(Breadth First Search, BFS)
+  - 适合于解决两个点之间的最短路径问题
+- ```cpp
+  void bfs(args) {
+    queue<type> q;
+    visted[start] = true;
+    q.push(start);
+    while(!q.empty()) {
+      auto cur = q.front();
+      q.pop();
+      for (auto next : cur的所有相邻节点) {
+        if (!visted[next]) {
+          q.push(next);
+        }
+      }
+    }
+  }
+  ```
+
+## 12.2 相关题目
+
+### 12.2.1 DFS & BFS
+
+1. [797.所有可能的路径](./leetcode/797.all-paths-from-source-to-target.cpp)
+2. [695.岛屿的最大面积](./leetcode/695.max-area-of-island.cpp)
+3. [200.岛屿数量](./leetcode/200.number-of-islands.cpp)
+4. [1020.飞地的数量](./leetcode/1020.number-of-enclaves.cpp)
+5. [130.被围绕的区域](./leetcode/130.surrounded-regions.cpp)
