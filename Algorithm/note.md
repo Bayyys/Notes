@@ -720,3 +720,8 @@ void backtracking(参数) {
 3. [503.下一个更大元素II](./leetcode/503.next-greater-element-ii.cpp)
 4. [42.接雨水](./leetcode/42.trapping-rain-water.cpp)
 5. [84.柱状图中最大的矩形](./leetcode/84.largest-rectangle-in-histogram.cpp)
+6. [417.太平洋大西洋水流问题](./leetcode/417.pacific-atlantic-water-flow.cpp)
+7. [827.最大人工岛](./leetcode/827.making-a-large-island.cpp)
+8. [127.单词接龙](./leetcode/127.word-ladder.cpp)
+9. [841.钥匙和房间](./leetcode/841.keys-and-rooms.cpp)
+10. [463.岛屿的周长](./leetcode/463.island-perimeter.cpp)
