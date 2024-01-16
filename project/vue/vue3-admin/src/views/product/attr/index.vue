@@ -233,7 +233,6 @@ const toLook = (row: AttrValue, $index: number) => {
     // 名称为空
     attrParams.attrValueList.splice($index, 1)
     ElMessage.error('属性值不能为空')
-    row.flag = true
     return
   }
   let repeat = attrParams.attrValueList.some(
@@ -243,7 +242,6 @@ const toLook = (row: AttrValue, $index: number) => {
     // 属性值重复
     attrParams.attrValueList.splice($index, 1)
     ElMessage.error('属性值不能重复')
-    row.flag = true
   }
   row.flag = false
 }
