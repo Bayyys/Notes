@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=283 lang=cpp
- * @lcpr version=30110
+ * @lc app=leetcode.cn id=189 lang=cpp
+ * @lcpr version=30113
  *
- * [283] 移动零
+ * [189] 轮转数组
  */
 
 // @lcpr-template-start
@@ -26,31 +26,22 @@ using namespace std;
 // @lc code=start
 class Solution {
  public:
-  void moveZeroes(vector<int>& nums) {
-    int slow = 0, fast = 0;
-    int length = nums.size();
-    while (fast < length) {
-      if (nums[fast] != 0) {
-        nums[slow] = nums[fast];
-        slow++;
-      }
-      fast++;
-    }
-    while (slow < length) {
-      nums[slow] = 0;
-      slow++;
-    }
+  void rotate(vector<int>& nums, int k) {
+    k = k % nums.size();
+    reverse(nums.begin(), nums.end());
+    reverse(nums.begin(), nums.begin() + k);
+    reverse(nums.begin() + k, nums.end());
   }
 };
 // @lc code=end
 
 /*
 // @lcpr case=start
-// [0,1,0,3,12]\n
+// [1,2,3,4,5,6,7]\n3\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [0]\n
+// [-1,-100,3,99]\n2\n
 // @lcpr case=end
 
  */

@@ -1,8 +1,8 @@
 /*
- * @lc app=leetcode.cn id=283 lang=cpp
- * @lcpr version=30110
+ * @lc app=leetcode.cn id=922 lang=cpp
+ * @lcpr version=30113
  *
- * [283] 移动零
+ * [922] 按奇偶排序数组 II
  */
 
 // @lcpr-template-start
@@ -26,31 +26,30 @@ using namespace std;
 // @lc code=start
 class Solution {
  public:
-  void moveZeroes(vector<int>& nums) {
-    int slow = 0, fast = 0;
+  vector<int> sortArrayByParityII(vector<int>& nums) {
     int length = nums.size();
-    while (fast < length) {
-      if (nums[fast] != 0) {
-        nums[slow] = nums[fast];
-        slow++;
+    int even = 0, odd = 1;
+    while (even < length && odd < length) {
+      while (even < length && nums[even] % 2 == 0) even += 2;
+      while (odd < length && nums[odd] % 2 == 1) odd += 2;
+      if (even < length && odd < length) {
+        swap(nums[even], nums[odd]);
+        even += 2;
+        odd += 2;
       }
-      fast++;
     }
-    while (slow < length) {
-      nums[slow] = 0;
-      slow++;
-    }
+    return nums;
   }
 };
 // @lc code=end
 
 /*
 // @lcpr case=start
-// [0,1,0,3,12]\n
+// [4,2,5,7]\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [0]\n
+// [2,3]\n
 // @lcpr case=end
 
  */
