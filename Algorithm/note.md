@@ -174,6 +174,9 @@
 2. [383. 赎金信](./leetcode/383.ransom-note.cpp)
 3. [49. 字母异位词分组](./leetcode/49.group-anagrams.cpp)
 4. [438. 找到字符串中所有字母异位词](./leetcode/438.find-all-anagrams-in-a-string.cpp)
+5. [205. 同构字符串](./leetcode/205.isomorphic-strings.cpp) 
+6. [1002. 查找常用字符](./leetcode/1002.find-common-characters.cpp)
+7. [925. 长按键入](./leetcode/925.long-pressed-name.cpp)
 
 ```cpp
 // 数组循环遍历的for方法
@@ -320,7 +323,7 @@ q.back() 	// 返回队列中最后一个元素
 6. [239. 滑动窗口最大值](./leetcode/239.sliding-window-maximum.cpp)
 7. [347.前k个高频元素](./leetcode/347.top-k-frequent-elements.cpp)
 
-## 7. 二叉树
+# 7. 二叉树
 
 ## 7.1 理论基础
 
@@ -578,6 +581,9 @@ struct TreeNode {
 8. [117. 填充每个节点的下一个右侧节点指针 II](./leetcode/117.populating-next-right-pointers-in-each-node-ii.cpp)
 9. [104. 二叉树的最大深度](./leetcode/104.maximum-depth-of-binary-tree.cpp)
 10. [111. 二叉树的最小深度](./leetcode/111.minimum-depth-of-binary-tree.cpp)3
+11. [129. 求根到叶子节点数字之和](./leetcode/129.sum-root-to-leaf-numbers.cpp)
+12. [1382. 将二叉搜索树变平衡](./leetcode/1382.balance-a-binary-search-tree.cpp)
+
 
 ## 7.6 其他题目
 
@@ -645,6 +651,7 @@ void backtracking(参数) {
 13. [332.重新安排行程](./leetcode/332.reconstruct-itinerary.cpp)
 14. [51.N皇后](./leetcode/51.n-queens.cpp)
 15. [37.数独](./leetcode/37.sudoku-solver.cpp)
+16. [52.N皇后II](./leetcode/52.n-queens-ii.cpp)
 
 # 9. 贪心算法
 
