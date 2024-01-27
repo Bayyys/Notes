@@ -121,21 +121,21 @@ export const constantRoute = [
         },
       },
       {
-        path: '/product/sku',
-        name: 'Sku',
-        component: () => import('@/views/product/sku/index.vue'),
-        meta: {
-          title: 'SKU管理',
-          icon: 'Calendar',
-        },
-      },
-      {
         path: '/product/spu',
         name: 'Spu',
         component: () => import('@/views/product/spu/index.vue'),
         meta: {
           title: 'SPU管理',
           icon: 'CreditCard',
+        },
+      },
+      {
+        path: '/product/sku',
+        name: 'Sku',
+        component: () => import('@/views/product/sku/index.vue'),
+        meta: {
+          title: 'SKU管理',
+          icon: 'Calendar',
         },
       },
     ],

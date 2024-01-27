@@ -30,14 +30,26 @@
           />
           <el-table-column label="SPU操作">
             <template v-slot="{ row }">
-              <el-button type="primary" size="small" icon="Plus"></el-button>
+              <el-button
+                type="primary"
+                size="small"
+                icon="Plus"
+                title="添加SKU"
+                @click="addSKU(row)"
+              ></el-button>
               <el-button
                 type="warning"
                 size="small"
                 icon="Edit"
+                title="修改SPU"
                 @click="updateSPU(row)"
               ></el-button>
-              <el-button type="info" size="small" icon="Location"></el-button>
+              <el-button
+                type="info"
+                size="small"
+                icon="Location"
+                title="查看SKU列表"
+              ></el-button>
               <el-popconfirm
                 :title="`确认删除${row.attrName}?`"
                 icon="Delete"
@@ -48,6 +60,7 @@
                     size="small"
                     type="danger"
                     icon="Delete"
+                    title="=删除SPU"
                   ></el-button>
                 </template>
               </el-popconfirm>
@@ -71,7 +84,11 @@
         v-show="scene === 1"
         @changeScene="changeScene"
       ></SPUFrom>
-      <SKUFrom v-show="scene === 2"></SKUFrom>
+      <SKUFrom
+        ref="SKUFormRef"
+        v-show="scene === 2"
+        @changeScene="changeScene"
+      ></SKUFrom>
       <el-button @click="scene = (scene + 1) % 3">Default</el-button>
     </el-card>
   </div>
@@ -96,6 +113,7 @@ let total = ref<number>(0) // 总条数
 let records = ref<Records>([]) // SPU列表
 let scene = ref<number>(0) // 场景(0:SPU列表, 1:添加|修改SPU, 2:添加SKU)
 let SPUFormRef = ref<any>(null) // SPUForm引用
+let SKUFormRef = ref<any>(null) // SKUForm引用
 let headTitle = ref<string>('添加SPU') // 头部标题
 
 // 添加SPU按钮回调
@@ -112,10 +130,16 @@ const updateSPU = (row: SpuData) => {
   scene.value = 1
 }
 
+// 添加SKU按钮回调
+const addSKU = (row: SpuData) => {
+  scene.value = 2
+  SKUFormRef.value.initSKUData(categoryStore.C1Id, categoryStore.C2Id, row)
+}
+
 // 子组件SPUForm回调: 改变场景
 const changeScene = (res: any) => {
   scene.value = res.scene
-  if (res.addFlag) {
+  if (res.returnFirstPage) {
     // 添加回到首页
     getHasSPU()
   } else {

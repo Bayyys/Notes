@@ -202,7 +202,7 @@ const save = async () => {
     ElMessage.success(`${SpuParams.value.id ? '修改' : '添加'}成功`)
     $emit('changeScene', {
       scene: 0,
-      addFlag: SpuParams.value.id ? false : true,
+      returnFirstPage: SpuParams.value.id ? false : true,
     })
   } else {
     ElMessage.error(`${SpuParams.value.id ? '修改' : '添加'}失败`)
