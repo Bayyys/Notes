@@ -675,6 +675,7 @@ void backtracking(参数) {
 16. [738.单调递增的数字](./leetcode/738.monotone-increasing-digits.cpp)
 17. [968.监控二叉树](./leetcode/968.binary-tree-cameras.cpp)
 18. [649.Dota2参议院](./leetcode/649.dota2-senate.cpp)
+19. [1221.分割平衡字符串](./leetcode/1221.split-a-string-in-balanced-strings.cpp)
 
 # 10. 动态规划
 
@@ -730,6 +731,7 @@ void backtracking(参数) {
 36. [72.编辑距离](./leetcode/72.edit-distance.cpp)
 37. [647.回文子串](./leetcode/647.palindromic-substrings.cpp)
 38. [516.最长回文子序列](./leetcode/516.longest-palindromic-subsequence.cpp)
+39. [5.最长回文子串](./leetcode/5.longest-palindromic-substring.cpp)
 
 # 11. 单调栈
 
