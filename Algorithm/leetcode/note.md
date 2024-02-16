@@ -4,59 +4,59 @@
 
 ## 1.1 数组
 
-1. [704.二分查找](./leetcode/704.二分查找.cpp)
-2. [35.搜索插入位置](./leetcode/35.搜索插入位置.cpp)
-3. [34.在排序数组中查找元素的第一个和最后一个位置](./leetcode/34.在排序数组中查找元素的第一个和最后一个位置.cpp)
-4. [69.x的平方根](./leetcode/69.x的平方根.cpp)
-5. [367.有效的完全平方数](./leetcode/367.有效的完全平方数.cpp)
-6. [1365.有多少小于当前数字的数字](./leetcode/1365.有多少小于当前数字的数字.cpp)
-7. [941.有效的山脉数组](./leetcode/941.有效的山脉数组.cpp)
-8. [1207.独一无二的出现次数](./leetcode/1207.独一无二的出现次数.cpp)
-9. [283.移动零](./leetcode/283.移动零.cpp)
-10. [189.旋转数组](./leetcode/189.旋转数组.cpp)
-11. [724.寻找数组的中心索引](./leetcode/724.寻找数组的中心索引.cpp)
-12. [922.按奇偶排序数组II](./leetcode/922.按奇偶排序数组II.cpp)
-13. [35.搜索插入位置](./leetcode/35.搜索插入位置.cpp)
+1. [704.二分查找](./practice/704.二分查找.cpp)
+2. [35.搜索插入位置](./practice/35.搜索插入位置.cpp)
+3. [34.在排序数组中查找元素的第一个和最后一个位置](./practice/34.在排序数组中查找元素的第一个和最后一个位置.cpp)
+4. [69.x的平方根](./practice/69.x的平方根.cpp)
+5. [367.有效的完全平方数](./practice/367.有效的完全平方数.cpp)
+6. [1365.有多少小于当前数字的数字](./practice/1365.有多少小于当前数字的数字.cpp)
+7. [941.有效的山脉数组](./practice/941.有效的山脉数组.cpp)
+8. [1207.独一无二的出现次数](./practice/1207.独一无二的出现次数.cpp)
+9. [283.移动零](./practice/283.移动零.cpp)
+10. [189.旋转数组](./practice/189.旋转数组.cpp)
+11. [724.寻找数组的中心索引](./practice/724.寻找数组的中心索引.cpp)
+12. [922.按奇偶排序数组II](./practice/922.按奇偶排序数组II.cpp)
+13. [35.搜索插入位置](./practice/35.搜索插入位置.cpp)
 
 ## 1.2 移除元素
 
-1. [27.移除元素](./leetcode/27.移除元素.cpp)
-2. [26.删除有序数组中的重复项](./leetcode/26.删除有序数组中的重复项.cpp)
-3. [283.移动零](./leetcode/283.移动零.cpp)
-4. [844.比较含退格的字符串](./leetcode/844.比较含退格的字符串.cpp)
-5. [977.有序数组的平方](./leetcode/977.有序数组的平方.cpp)
+1. [27.移除元素](./practice/27.移除元素.cpp)
+2. [26.删除有序数组中的重复项](./practice/26.删除有序数组中的重复项.cpp)
+3. [283.移动零](./practice/283.移动零.cpp)
+4. [844.比较含退格的字符串](./practice/844.比较含退格的字符串.cpp)
+5. [977.有序数组的平方](./practice/977.有序数组的平方.cpp)
 
 ## 1.3 有序数组的平方
 
-1. [977.有序数组的平方](./leetcode/977.有序数组的平方.cpp)
+1. [977.有序数组的平方](./practice/977.有序数组的平方.cpp)
 
 ## 1.4 长度最小子数组
 
-1. [209.长度最小的子数组](./leetcode/209.长度最小的子数组.cpp)
-2. [904.水果成篮](./leetcode/904.水果成篮.cpp)
-3. [76.最小覆盖子串](./leetcode/76.最小覆盖子串.cpp)
+1. [209.长度最小的子数组](./practice/209.长度最小的子数组.cpp)
+2. [904.水果成篮](./practice/904.水果成篮.cpp)
+3. [76.最小覆盖子串](./practice/76.最小覆盖子串.cpp)
 
 ## 1.5 螺旋矩阵
 
-1. [54.螺旋矩阵](./leetcode/54.螺旋矩阵.cpp)
-2. [Offer_29.顺时针打印矩阵](./leetcode/Offer29.顺时针打印矩阵.cpp)
+1. [54.螺旋矩阵](./practice/54.螺旋矩阵.cpp)
+2. [Offer_29.顺时针打印矩阵](./practice/Offer29.顺时针打印矩阵.cpp)
 
 # 2 链表
 
-1. [203.移除链表元素](./leetcode/203.移除链表元素.cpp)
-2. [707.设计链表](./leetcode/707.设计链表.cpp)
-3. [206.反转链表](./leetcode/206.反转链表.cpp)
-4. [24.两两交换链表中的节点](./leetcode/24.两两交换链表中的节点.cpp)
-5. [19.删除链表的倒数第N个节点](./leetcode/19.删除链表的倒数第N个节点.cpp)
-6. [160.相交链表](./leetcode/160.相交链表.cpp)
-7. [24.两两交换链表中的节点](./leetcode/24.两两交换链表中的节点.cpp)
-8. [234.回文链表](./leetcode/234.回文链表.cpp)
-9. [143.重排链表](./leetcode/143.重排链表.cpp)
+1. [203.移除链表元素](./practice/203.移除链表元素.cpp)
+2. [707.设计链表](./practice/707.设计链表.cpp)
+3. [206.反转链表](./practice/206.反转链表.cpp)
+4. [24.两两交换链表中的节点](./practice/24.两两交换链表中的节点.cpp)
+5. [19.删除链表的倒数第N个节点](./practice/19.删除链表的倒数第N个节点.cpp)
+6. [160.相交链表](./practice/160.相交链表.cpp)
+7. [24.两两交换链表中的节点](./practice/24.两两交换链表中的节点.cpp)
+8. [234.回文链表](./practice/234.回文链表.cpp)
+9. [143.重排链表](./practice/143.重排链表.cpp)
 
 ## 2.7 环形链表
 
-1. [141.环形链表](./leetcode/141.环形链表.cpp)
-2. [142.环形链表II](./leetcode/142.环形链表II.cpp)
+1. [141.环形链表](./practice/141.环形链表.cpp)
+2. [142.环形链表II](./practice/142.环形链表II.cpp)
 
 # 3. 哈希表
 
@@ -170,13 +170,13 @@
 
 ## 3.2 有效的字母异位词
 
-1. [242.有效的字母异位词](./leetcode/242.valid-anagram.cpp)
-2. [383. 赎金信](./leetcode/383.ransom-note.cpp)
-3. [49. 字母异位词分组](./leetcode/49.group-anagrams.cpp)
-4. [438. 找到字符串中所有字母异位词](./leetcode/438.find-all-anagrams-in-a-string.cpp)
-5. [205. 同构字符串](./leetcode/205.isomorphic-strings.cpp) 
-6. [1002. 查找常用字符](./leetcode/1002.find-common-characters.cpp)
-7. [925. 长按键入](./leetcode/925.long-pressed-name.cpp)
+1. [242.有效的字母异位词](./practice/242.valid-anagram.cpp)
+2. [383. 赎金信](./practice/383.ransom-note.cpp)
+3. [49. 字母异位词分组](./practice/49.group-anagrams.cpp)
+4. [438. 找到字符串中所有字母异位词](./practice/438.find-all-anagrams-in-a-string.cpp)
+5. [205. 同构字符串](./practice/205.isomorphic-strings.cpp) 
+6. [1002. 查找常用字符](./practice/1002.find-common-characters.cpp)
+7. [925. 长按键入](./practice/925.long-pressed-name.cpp)
 
 ```cpp
 // 数组循环遍历的for方法
@@ -197,22 +197,22 @@ for (auto i = n.crbegin(); i != n.crend(); i++) // 常量反向迭代器, 不可
 
 ## 3.3 两个数组的交集
 
-1. [349.两个数组的交集](./leetcode/349.intersection-of-two-arrays.cpp)
-2. [350. 两个数组的交集 II](./leetcode/350.intersection-of-two-arrays-ii.cpp)
-3. [202.快乐数](./leetcode/202.happy-number.cpp)
-4. [1. 两数之和](./leetcode/1.two-sum.cpp)
-5. [454.四数相加II](./leetcode/454.4-sum-ii.cpp)
-6. [383. 赎金信](./leetcode/383.ransom-note.cpp)
-7. [15.三数之和](./leetcode/15.3-sum.cpp)
-8. [18.四数之和](./leetcode/18.4-sum.cpp)
+1. [349.两个数组的交集](./practice/349.intersection-of-two-arrays.cpp)
+2. [350. 两个数组的交集 II](./practice/350.intersection-of-two-arrays-ii.cpp)
+3. [202.快乐数](./practice/202.happy-number.cpp)
+4. [1. 两数之和](./practice/1.two-sum.cpp)
+5. [454.四数相加II](./practice/454.4-sum-ii.cpp)
+6. [383. 赎金信](./practice/383.ransom-note.cpp)
+7. [15.三数之和](./practice/15.3-sum.cpp)
+8. [18.四数之和](./practice/18.4-sum.cpp)
 
 # 4. 字符串
 
-1. [344.反转字符串](./leetcode/344.reverse-string.cpp)
-2. [541.反转字符串II](./leetcode/541.reverse-string-ii.cpp)
-3. [1844.替换所有数字](./leetcode/1844.replace-all-digits-with-characters.cpp)
-4. [151.翻转字符串里的单词](./leetcode/151.reverse-words-in-a-string.cpp)
-5. [28.实现strStr()](./leetcode/28.implement-strstr.cpp)
+1. [344.反转字符串](./practice/344.reverse-string.cpp)
+2. [541.反转字符串II](./practice/541.reverse-string-ii.cpp)
+3. [1844.替换所有数字](./practice/1844.replace-all-digits-with-characters.cpp)
+4. [151.翻转字符串里的单词](./practice/151.reverse-words-in-a-string.cpp)
+5. [28.实现strStr()](./practice/28.implement-strstr.cpp)
 
 - 统一减一
 ```cpp
@@ -242,18 +242,18 @@ void getNext(int* next, const string& s) {
 
 ## 4.6 重复的子字符串
 
-1. [459.重复的子字符串](./leetcode/459.repeated-substring-pattern.cpp)
+1. [459.重复的子字符串](./practice/459.repeated-substring-pattern.cpp)
 
 
 # 5. 双指针法
 
 ## 5.1 移除元素
 
-1. [27.移除元素](./leetcode/27.remove-element.cpp)
-2. [26.删除有序数组中的重复项](./leetcode/26.remove-duplicates-from-sorted-array.cpp)
-3. [283.移动零](./leetcode/283.move-zeroes.cpp)
-4. [844.比较含退格的字符串](./leetcode/844.backspace-string-compare.cpp)
-5. [977.有序数组的平方](./leetcode/977.squares-of-a-sorted-array.cpp)
+1. [27.移除元素](./practice/27.remove-element.cpp)
+2. [26.删除有序数组中的重复项](./practice/26.remove-duplicates-from-sorted-array.cpp)
+3. [283.移动零](./practice/283.move-zeroes.cpp)
+4. [844.比较含退格的字符串](./practice/844.backspace-string-compare.cpp)
+5. [977.有序数组的平方](./practice/977.squares-of-a-sorted-array.cpp)
 
 # 6. 栈与队列
 
@@ -315,13 +315,13 @@ q.back() 	// 返回队列中最后一个元素
 
 ## 6.2 题目
 
-1. [232.用栈实现队列](./leetcode/232.implement-queue-using-stacks.cpp)
-2. [225.用队列实现栈](./leetcode/225.implement-stack-using-queues.cpp)
-3. [20.有效的括号](./leetcode/20.valid-parentheses.cpp)
-4. [1047.删除字符串中的所有相邻重复项](./leetcode/1047.remove-all-adjacent-duplicates-in-string.cpp)
-5. [150.逆波兰表达式求值](./leetcode/150.evaluate-reverse-polish-notation.cpp)
-6. [239. 滑动窗口最大值](./leetcode/239.sliding-window-maximum.cpp)
-7. [347.前k个高频元素](./leetcode/347.top-k-frequent-elements.cpp)
+1. [232.用栈实现队列](./practice/232.implement-queue-using-stacks.cpp)
+2. [225.用队列实现栈](./practice/225.implement-stack-using-queues.cpp)
+3. [20.有效的括号](./practice/20.valid-parentheses.cpp)
+4. [1047.删除字符串中的所有相邻重复项](./practice/1047.remove-all-adjacent-duplicates-in-string.cpp)
+5. [150.逆波兰表达式求值](./practice/150.evaluate-reverse-polish-notation.cpp)
+6. [239. 滑动窗口最大值](./practice/239.sliding-window-maximum.cpp)
+7. [347.前k个高频元素](./practice/347.top-k-frequent-elements.cpp)
 
 # 7. 二叉树
 
@@ -374,9 +374,9 @@ struct TreeNode {
 
 ### 7.2.2 习题
 
-1. [144.二叉树的前序遍历](./leetcode/144.binary-tree-preorder-traversal.cpp)
-2. [145. 二叉树的后序遍历](./leetcode/145.binary-tree-postorder-traversal.cpp)
-3. [94.二叉树的中序遍历](./leetcode/94.binary-tree-inorder-traversal.cpp)
+1. [144.二叉树的前序遍历](./practice/144.binary-tree-preorder-traversal.cpp)
+2. [145. 二叉树的后序遍历](./practice/145.binary-tree-postorder-traversal.cpp)
+3. [94.二叉树的中序遍历](./practice/94.binary-tree-inorder-traversal.cpp)
 
 ## 7.3 迭代遍历
 
@@ -444,9 +444,9 @@ struct TreeNode {
 
 ### 7.3.2 习题
 
-1. [144.二叉树的前序遍历](./leetcode/144.binary-tree-preorder-traversal.cpp)
-2. [145. 二叉树的后序遍历](./leetcode/145.binary-tree-postorder-traversal.cpp)
-3. [94.二叉树的中序遍历](./leetcode/94.binary-tree-inorder-traversal.cpp)
+1. [144.二叉树的前序遍历](./practice/144.binary-tree-preorder-traversal.cpp)
+2. [145. 二叉树的后序遍历](./practice/145.binary-tree-postorder-traversal.cpp)
+3. [94.二叉树的中序遍历](./practice/94.binary-tree-inorder-traversal.cpp)
 
 ## 7.4 统一迭代法
 
@@ -571,48 +571,48 @@ struct TreeNode {
 
 ### 7.5.2 习题
 
-1. [102. 二叉树的层序遍历](./leetcode/102.binary-tree-level-order-traversal.cpp)
-2. [107. 二叉树的层序遍历 II](./leetcode/107.binary-tree-level-order-traversal-ii.cpp)
-3. [199. 二叉树的右视图](./leetcode/199.binary-tree-right-side-view.cpp)
-4. [637. 二叉树的层平均值](./leetcode/637.average-of-levels-in-binary-tree.cpp)
-5. [429. N叉树的层序遍历](./leetcode/429.n-ary-tree-level-order-traversal.cpp)
-6. [515. 在每个树行中找最大值](./leetcode/515.find-largest-value-in-each-tree-row.cpp)
-7. [116. 填充每个节点的下一个右侧节点指针](./leetcode/116.populating-next-right-pointers-in-each-node.cpp)
-8. [117. 填充每个节点的下一个右侧节点指针 II](./leetcode/117.populating-next-right-pointers-in-each-node-ii.cpp)
-9. [104. 二叉树的最大深度](./leetcode/104.maximum-depth-of-binary-tree.cpp)
-10. [111. 二叉树的最小深度](./leetcode/111.minimum-depth-of-binary-tree.cpp)3
-11. [129. 求根到叶子节点数字之和](./leetcode/129.sum-root-to-leaf-numbers.cpp)
-12. [1382. 将二叉搜索树变平衡](./leetcode/1382.balance-a-binary-search-tree.cpp)
+1. [102. 二叉树的层序遍历](./practice/102.binary-tree-level-order-traversal.cpp)
+2. [107. 二叉树的层序遍历 II](./practice/107.binary-tree-level-order-traversal-ii.cpp)
+3. [199. 二叉树的右视图](./practice/199.binary-tree-right-side-view.cpp)
+4. [637. 二叉树的层平均值](./practice/637.average-of-levels-in-binary-tree.cpp)
+5. [429. N叉树的层序遍历](./practice/429.n-ary-tree-level-order-traversal.cpp)
+6. [515. 在每个树行中找最大值](./practice/515.find-largest-value-in-each-tree-row.cpp)
+7. [116. 填充每个节点的下一个右侧节点指针](./practice/116.populating-next-right-pointers-in-each-node.cpp)
+8. [117. 填充每个节点的下一个右侧节点指针 II](./practice/117.populating-next-right-pointers-in-each-node-ii.cpp)
+9. [104. 二叉树的最大深度](./practice/104.maximum-depth-of-binary-tree.cpp)
+10. [111. 二叉树的最小深度](./practice/111.minimum-depth-of-binary-tree.cpp)3
+11. [129. 求根到叶子节点数字之和](./practice/129.sum-root-to-leaf-numbers.cpp)
+12. [1382. 将二叉搜索树变平衡](./practice/1382.balance-a-binary-search-tree.cpp)
 
 
 ## 7.6 其他题目
 
-1. [226.翻转二叉树](./leetcode/226.invert-binary-tree.cpp)
-2. [101.对称二叉树](./leetcode/101.symmetric-tree.cpp)
-3. [100. 相同的树](./leetcode/100.same-tree.cpp)
-4. [572. 另一个树的子树](./leetcode/572.subtree-of-another-tree.cpp)
-5. [222.完全二叉树的节点个数](./leetcode/222.count-complete-tree-nodes.cpp)
-6. [110.平衡二叉树](./leetcode/110.balanced-binary-tree.cpp)
-7. [257.二叉树的所有路径](./leetcode/257.binary-tree-paths.cpp)
-8. [404.左叶子之和](./leetcode/404.sum-of-left-leaves.cpp)
-9. [513.找树左下角的值](./leetcode/513.find-bottom-left-tree-value.cpp)
-10. [112.路径总和](./leetcode/112.path-sum.cpp)
-11. [113.路径总和II](./leetcode/113.path-sum-ii.cpp)
-12. [106.从中序与后序遍历序列构造二叉树](./leetcode/106.construct-binary-tree-from-inorder-and-postorder-traversal.cpp)
-13. [105.从前序与中序遍历序列构造二叉树](./leetcode/105.construct-binary-tree-from-preorder-and-inorder-traversal.cpp)
-14. [654.最大二叉树](./leetcode/654.maximum-binary-tree.cpp)
-15. [617.合并二叉树](./leetcode/617.merge-two-binary-trees.cpp)
-16. [700.二叉搜索树中的搜索](./leetcode/700.search-in-a-binary-search-tree.cpp)
-17. [98.验证二叉搜索树](./leetcode/98.validate-binary-search-tree.cpp)
-18. [530.二叉搜索树的最小绝对差](./leetcode/530.minimum-absolute-difference-in-bst.cpp)
-19. [501.二叉搜索树中的众数](./leetcode/501.find-mode-in-binary-search-tree.cpp)
-20. [236.二叉树的最近公共节点](./leetcode/236.lowest-common-ancestor-of-a-binary-tree.cpp)
-21. [235.二叉搜索树的最近公共节点](./leetcode/235.lowest-common-ancestor-of-a-binary-search-tree.cpp)
-22. [701.二叉搜索树中的插入操作](./leetcode/701.insert-into-a-binary-search-tree.cpp)
-23. [450.删除二叉搜索树中的节点](./leetcode/450.delete-node-in-a-bst.cpp)
-24. [669.修剪二叉搜索树](./leetcode/669.trim-a-binary-search-tree.cpp)
-25. [108.将有序数组转换为二叉搜索树](./leetcode/108.convert-sorted-array-to-binary-search-tree.cpp)
-26. [538.把二叉搜索树转换为累加树](./leetcode/538.convert-bst-to-greater-tree.cpp)
+1. [226.翻转二叉树](./practice/226.invert-binary-tree.cpp)
+2. [101.对称二叉树](./practice/101.symmetric-tree.cpp)
+3. [100. 相同的树](./practice/100.same-tree.cpp)
+4. [572. 另一个树的子树](./practice/572.subtree-of-another-tree.cpp)
+5. [222.完全二叉树的节点个数](./practice/222.count-complete-tree-nodes.cpp)
+6. [110.平衡二叉树](./practice/110.balanced-binary-tree.cpp)
+7. [257.二叉树的所有路径](./practice/257.binary-tree-paths.cpp)
+8. [404.左叶子之和](./practice/404.sum-of-left-leaves.cpp)
+9. [513.找树左下角的值](./practice/513.find-bottom-left-tree-value.cpp)
+10. [112.路径总和](./practice/112.path-sum.cpp)
+11. [113.路径总和II](./practice/113.path-sum-ii.cpp)
+12. [106.从中序与后序遍历序列构造二叉树](./practice/106.construct-binary-tree-from-inorder-and-postorder-traversal.cpp)
+13. [105.从前序与中序遍历序列构造二叉树](./practice/105.construct-binary-tree-from-preorder-and-inorder-traversal.cpp)
+14. [654.最大二叉树](./practice/654.maximum-binary-tree.cpp)
+15. [617.合并二叉树](./practice/617.merge-two-binary-trees.cpp)
+16. [700.二叉搜索树中的搜索](./practice/700.search-in-a-binary-search-tree.cpp)
+17. [98.验证二叉搜索树](./practice/98.validate-binary-search-tree.cpp)
+18. [530.二叉搜索树的最小绝对差](./practice/530.minimum-absolute-difference-in-bst.cpp)
+19. [501.二叉搜索树中的众数](./practice/501.find-mode-in-binary-search-tree.cpp)
+20. [236.二叉树的最近公共节点](./practice/236.lowest-common-ancestor-of-a-binary-tree.cpp)
+21. [235.二叉搜索树的最近公共节点](./practice/235.lowest-common-ancestor-of-a-binary-search-tree.cpp)
+22. [701.二叉搜索树中的插入操作](./practice/701.insert-into-a-binary-search-tree.cpp)
+23. [450.删除二叉搜索树中的节点](./practice/450.delete-node-in-a-bst.cpp)
+24. [669.修剪二叉搜索树](./practice/669.trim-a-binary-search-tree.cpp)
+25. [108.将有序数组转换为二叉搜索树](./practice/108.convert-sorted-array-to-binary-search-tree.cpp)
+26. [538.把二叉搜索树转换为累加树](./practice/538.convert-bst-to-greater-tree.cpp)
 
 # 8. 回溯算法
 
@@ -636,46 +636,46 @@ void backtracking(参数) {
 
 ## 8.1 题目
 
-1. [77.组合](./leetcode/77.combinations.cpp)
-2. [216.组合总和III](./leetcode/216.combination-sum-iii.cpp)
-3. [17.电话号码的字母组合](./leetcode/17.letter-combinations-of-a-phone-number.cpp)
-4. [39.组合总和](./leetcode/39.combination-sum.cpp)
-5. [40.组合总和II](./leetcode/40.combination-sum-ii.cpp)
-6. [131.分割回文串](./leetcode/131.palindrome-partitioning.cpp)
-7. [93.复原IP地址](./leetcode/93.restore-ip-addresses.cpp)
-8. [78.子集](./leetcode/78.subsets.cpp)
-9. [90.子集II](./leetcode/90.subsets-ii.cpp)
-10. [491.递增子序列](./leetcode/491.increasing-subsequences.cpp)
-11. [46.全排列](./leetcode/46.permutations.cpp)
-12. [47.全排列II](./leetcode/47.permutations-ii.cpp)
-13. [332.重新安排行程](./leetcode/332.reconstruct-itinerary.cpp)
-14. [51.N皇后](./leetcode/51.n-queens.cpp)
-15. [37.数独](./leetcode/37.sudoku-solver.cpp)
-16. [52.N皇后II](./leetcode/52.n-queens-ii.cpp)
+1. [77.组合](./practice/77.combinations.cpp)
+2. [216.组合总和III](./practice/216.combination-sum-iii.cpp)
+3. [17.电话号码的字母组合](./practice/17.letter-combinations-of-a-phone-number.cpp)
+4. [39.组合总和](./practice/39.combination-sum.cpp)
+5. [40.组合总和II](./practice/40.combination-sum-ii.cpp)
+6. [131.分割回文串](./practice/131.palindrome-partitioning.cpp)
+7. [93.复原IP地址](./practice/93.restore-ip-addresses.cpp)
+8. [78.子集](./practice/78.subsets.cpp)
+9. [90.子集II](./practice/90.subsets-ii.cpp)
+10. [491.递增子序列](./practice/491.increasing-subsequences.cpp)
+11. [46.全排列](./practice/46.permutations.cpp)
+12. [47.全排列II](./practice/47.permutations-ii.cpp)
+13. [332.重新安排行程](./practice/332.reconstruct-itinerary.cpp)
+14. [51.N皇后](./practice/51.n-queens.cpp)
+15. [37.数独](./practice/37.sudoku-solver.cpp)
+16. [52.N皇后II](./practice/52.n-queens-ii.cpp)
 
 # 9. 贪心算法
 
 ## 9.1 相关题目
 
-1. [455.分发饼干](./leetcode/455.assign-cookies.cpp)
-2. [376.摆动序列](./leetcode/376.wiggle-subsequence.cpp)
-3. [53.最大子数组和](./leetcode/53.maximum-subarray.cpp)
-4. [122.买卖股票的最佳时机II](./leetcode/122.best-time-to-buy-and-sell-stock-ii.cpp)
-5. [55.跳跃游戏](./leetcode/55.jump-game.cpp)
-6. [45.跳跃游戏II](./leetcode/45.jump-game-ii.cpp)
-7. [1005.k次取反后最大化的数组和](./leetcode/1005.maximize-sum-of-array-after-k-negations.cpp)
-8. [134.加油站](./leetcode/134.gas-station.cpp)
-9. [135.分发糖果](./leetcode/135.candy.cpp)
-10. [860.柠檬水找零](./leetcode/860.lemonade-change.cpp)
-11. [406.根据身高重建队列](./leetcode/406.queue-reconstruction-by-height.cpp)
-12. [452.用最少数量的箭引爆气球](./leetcode/452.minimum-number-of-arrows-to-burst-balloons.cpp)
-13. [435.无重叠区间](./leetcode/435.non-overlapping-intervals.cpp)
-14. [763.划分字母区间](./leetcode/763.partition-labels.cpp)
-15. [56.合并区间](./leetcode/56.merge-intervals.cpp)
-16. [738.单调递增的数字](./leetcode/738.monotone-increasing-digits.cpp)
-17. [968.监控二叉树](./leetcode/968.binary-tree-cameras.cpp)
-18. [649.Dota2参议院](./leetcode/649.dota2-senate.cpp)
-19. [1221.分割平衡字符串](./leetcode/1221.split-a-string-in-balanced-strings.cpp)
+1. [455.分发饼干](./practice/455.assign-cookies.cpp)
+2. [376.摆动序列](./practice/376.wiggle-subsequence.cpp)
+3. [53.最大子数组和](./practice/53.maximum-subarray.cpp)
+4. [122.买卖股票的最佳时机II](./practice/122.best-time-to-buy-and-sell-stock-ii.cpp)
+5. [55.跳跃游戏](./practice/55.jump-game.cpp)
+6. [45.跳跃游戏II](./practice/45.jump-game-ii.cpp)
+7. [1005.k次取反后最大化的数组和](./practice/1005.maximize-sum-of-array-after-k-negations.cpp)
+8. [134.加油站](./practice/134.gas-station.cpp)
+9. [135.分发糖果](./practice/135.candy.cpp)
+10. [860.柠檬水找零](./practice/860.lemonade-change.cpp)
+11. [406.根据身高重建队列](./practice/406.queue-reconstruction-by-height.cpp)
+12. [452.用最少数量的箭引爆气球](./practice/452.minimum-number-of-arrows-to-burst-balloons.cpp)
+13. [435.无重叠区间](./practice/435.non-overlapping-intervals.cpp)
+14. [763.划分字母区间](./practice/763.partition-labels.cpp)
+15. [56.合并区间](./practice/56.merge-intervals.cpp)
+16. [738.单调递增的数字](./practice/738.monotone-increasing-digits.cpp)
+17. [968.监控二叉树](./practice/968.binary-tree-cameras.cpp)
+18. [649.Dota2参议院](./practice/649.dota2-senate.cpp)
+19. [1221.分割平衡字符串](./practice/1221.split-a-string-in-balanced-strings.cpp)
 
 # 10. 动态规划
 
@@ -693,56 +693,56 @@ void backtracking(参数) {
 
 ## 10.2 相关题目
 
-1. [509.斐波那契数](./leetcode/509.fibonacci-number.cpp)
-2. [70.爬楼梯](./leetcode/70.climbing-stairs.cpp)
-3. [746.使用最小花费爬楼梯](./leetcode/746.min-cost-climbing-stairs.cpp)
-4. [62.不同路径](./leetcode/62.unique-paths.cpp)
-5. [63.不同路径II](./leetcode/63.unique-paths-ii.cpp)
-6. [343.整数拆分](./leetcode/343.integer-break.cpp)
-7. [96.不同的二叉搜索树](./leetcode/96.unique-binary-search-trees.cpp)
-8. [416.分割等和子集](./leetcode/416.partition-equal-subset-sum.cpp)
-9. [1049.最后一块石头的重量II](./leetcode/1049.last-stone-weight-ii.cpp)
-10. [494.目标和](./leetcode/494.target-sum.cpp)
-11. [474.一和零](./leetcode/474.ones-and-zeroes.cpp)
-12. [518.零钱兑换II](./leetcode/518.coin-change-2.cpp)
-13. [377.组合总和IV](./leetcode/377.combination-sum-iv.cpp)
-14. [70.爬楼梯](./leetcode/70.climbing-stairs.cpp)
-15. [322.零钱兑换](./leetcode/322.coin-change.cpp)
-16. [279.完全平方数](./leetcode/279.perfect-squares.cpp)
-17. [139.单词拆分](./leetcode/139.word-break.cpp)
-18. [198.打家劫舍](./leetcode/198.house-robber.cpp)
-19. [213.打家劫舍II](./leetcode/213.house-robber-ii.cpp)
-20. [337.打家劫舍III](./leetcode/337.house-robber-iii.cpp)
-21. [121.买卖股票的最佳时机](./leetcode/121.best-time-to-buy-and-sell-stock.cpp)
-22. [122.买卖股票的最佳时机II](./leetcode/122.best-time-to-buy-and-sell-stock-ii.cpp)
-23. [123.买卖股票的最佳时机III](./leetcode/123.best-time-to-buy-and-sell-stock-iii.cpp)
-24. [188.买卖股票的最佳时机IV](./leetcode/188.best-time-to-buy-and-sell-stock-iv.cpp)
-25. [309.最佳买卖股票时机含冷冻期](./leetcode/309.best-time-to-buy-and-sell-stock-with-cooldown.cpp)
-26. [714.买卖股票的最佳时机含手续费](./leetcode/714.best-time-to-buy-and-sell-stock-with-transaction-fee.cpp)
-27. [300.最长递增子序列](./leetcode/300.longest-increasing-subsequence.cpp)
-28. [674.最长连续递增序列](./leetcode/674.longest-continuous-increasing-subsequence.cpp)
-29. [718.最长重复子数组](./leetcode/718.maximum-length-of-repeated-subarray.cpp)
-30. [1143.最长公共子序列](./leetcode/1143.longest-common-subsequence.cpp)
-31. [1035.不相交的线](./leetcode/1035.uncrossed-lines.cpp)
-32. [53.最大子序和](./leetcode/53.maximum-subarray.cpp)
-33. [392.判断子序列](./leetcode/392.is-subsequence.cpp)
-34. [115.不同的子序列](./leetcode/115.distinct-subsequences.cpp)
-35. [583.两个字符串的删除操作](./leetcode/583.delete-operation-for-two-strings.cpp)
-36. [72.编辑距离](./leetcode/72.edit-distance.cpp)
-37. [647.回文子串](./leetcode/647.palindromic-substrings.cpp)
-38. [516.最长回文子序列](./leetcode/516.longest-palindromic-subsequence.cpp)
-39. [5.最长回文子串](./leetcode/5.longest-palindromic-substring.cpp)
-40. [657.机器人能否返回原点](./leetcode/657.robot-return-to-origin.cpp)
+1. [509.斐波那契数](./practice/509.fibonacci-number.cpp)
+2. [70.爬楼梯](./practice/70.climbing-stairs.cpp)
+3. [746.使用最小花费爬楼梯](./practice/746.min-cost-climbing-stairs.cpp)
+4. [62.不同路径](./practice/62.unique-paths.cpp)
+5. [63.不同路径II](./practice/63.unique-paths-ii.cpp)
+6. [343.整数拆分](./practice/343.integer-break.cpp)
+7. [96.不同的二叉搜索树](./practice/96.unique-binary-search-trees.cpp)
+8. [416.分割等和子集](./practice/416.partition-equal-subset-sum.cpp)
+9. [1049.最后一块石头的重量II](./practice/1049.last-stone-weight-ii.cpp)
+10. [494.目标和](./practice/494.target-sum.cpp)
+11. [474.一和零](./practice/474.ones-and-zeroes.cpp)
+12. [518.零钱兑换II](./practice/518.coin-change-2.cpp)
+13. [377.组合总和IV](./practice/377.combination-sum-iv.cpp)
+14. [70.爬楼梯](./practice/70.climbing-stairs.cpp)
+15. [322.零钱兑换](./practice/322.coin-change.cpp)
+16. [279.完全平方数](./practice/279.perfect-squares.cpp)
+17. [139.单词拆分](./practice/139.word-break.cpp)
+18. [198.打家劫舍](./practice/198.house-robber.cpp)
+19. [213.打家劫舍II](./practice/213.house-robber-ii.cpp)
+20. [337.打家劫舍III](./practice/337.house-robber-iii.cpp)
+21. [121.买卖股票的最佳时机](./practice/121.best-time-to-buy-and-sell-stock.cpp)
+22. [122.买卖股票的最佳时机II](./practice/122.best-time-to-buy-and-sell-stock-ii.cpp)
+23. [123.买卖股票的最佳时机III](./practice/123.best-time-to-buy-and-sell-stock-iii.cpp)
+24. [188.买卖股票的最佳时机IV](./practice/188.best-time-to-buy-and-sell-stock-iv.cpp)
+25. [309.最佳买卖股票时机含冷冻期](./practice/309.best-time-to-buy-and-sell-stock-with-cooldown.cpp)
+26. [714.买卖股票的最佳时机含手续费](./practice/714.best-time-to-buy-and-sell-stock-with-transaction-fee.cpp)
+27. [300.最长递增子序列](./practice/300.longest-increasing-subsequence.cpp)
+28. [674.最长连续递增序列](./practice/674.longest-continuous-increasing-subsequence.cpp)
+29. [718.最长重复子数组](./practice/718.maximum-length-of-repeated-subarray.cpp)
+30. [1143.最长公共子序列](./practice/1143.longest-common-subsequence.cpp)
+31. [1035.不相交的线](./practice/1035.uncrossed-lines.cpp)
+32. [53.最大子序和](./practice/53.maximum-subarray.cpp)
+33. [392.判断子序列](./practice/392.is-subsequence.cpp)
+34. [115.不同的子序列](./practice/115.distinct-subsequences.cpp)
+35. [583.两个字符串的删除操作](./practice/583.delete-operation-for-two-strings.cpp)
+36. [72.编辑距离](./practice/72.edit-distance.cpp)
+37. [647.回文子串](./practice/647.palindromic-substrings.cpp)
+38. [516.最长回文子序列](./practice/516.longest-palindromic-subsequence.cpp)
+39. [5.最长回文子串](./practice/5.longest-palindromic-substring.cpp)
+40. [657.机器人能否返回原点](./practice/657.robot-return-to-origin.cpp)
 
 # 11. 单调栈
 
 ## 11.1 相关题目
 
-1. [739.每日温度](./leetcode/739.daily-temperatures.cpp)
-2. [496.下一个更大元素I](./leetcode/496.next-greater-element-i.cpp)
-3. [503.下一个更大元素II](./leetcode/503.next-greater-element-ii.cpp)
-4. [42.接雨水](./leetcode/42.trapping-rain-water.cpp)
-5. [84.柱状图中最大的矩形](./leetcode/84.largest-rectangle-in-histogram.cpp)
+1. [739.每日温度](./practice/739.daily-temperatures.cpp)
+2. [496.下一个更大元素I](./practice/496.next-greater-element-i.cpp)
+3. [503.下一个更大元素II](./practice/503.next-greater-element-ii.cpp)
+4. [42.接雨水](./practice/42.trapping-rain-water.cpp)
+5. [84.柱状图中最大的矩形](./practice/84.largest-rectangle-in-histogram.cpp)
 
 # 12. 图论
 
@@ -825,16 +825,16 @@ void backtracking(参数) {
 
 ### 12.2.1 DFS & BFS
 
-1. [797.所有可能的路径](./leetcode/797.all-paths-from-source-to-target.cpp)
-2. [695.岛屿的最大面积](./leetcode/695.max-area-of-island.cpp)
-3. [200.岛屿数量](./leetcode/200.number-of-islands.cpp)
-4. [1020.飞地的数量](./leetcode/1020.number-of-enclaves.cpp)
-5. [130.被围绕的区域](./leetcode/130.surrounded-regions.cpp)
-6. [417.太平洋大西洋水流问题](./leetcode/417.pacific-atlantic-water-flow.cpp)
-7. [827.最大人工岛](./leetcode/827.making-a-large-island.cpp)
-8. [127.单词接龙](./leetcode/127.word-ladder.cpp)
-9. [841.钥匙和房间](./leetcode/841.keys-and-rooms.cpp)
-10. [463.岛屿的周长](./leetcode/463.island-perimeter.cpp)
-11. [1971.寻找图中是否存在路径](./leetcode/1971.find-if-path-exists-in-graph.cpp)
-12. [684.冗余连接](./leetcode/684.redundant-connection.cpp)
-13. [685.冗余连接II](./leetcode/685.redundant-connection-ii.cpp)
+1. [797.所有可能的路径](./practice/797.all-paths-from-source-to-target.cpp)
+2. [695.岛屿的最大面积](./practice/695.max-area-of-island.cpp)
+3. [200.岛屿数量](./practice/200.number-of-islands.cpp)
+4. [1020.飞地的数量](./practice/1020.number-of-enclaves.cpp)
+5. [130.被围绕的区域](./practice/130.surrounded-regions.cpp)
+6. [417.太平洋大西洋水流问题](./practice/417.pacific-atlantic-water-flow.cpp)
+7. [827.最大人工岛](./practice/827.making-a-large-island.cpp)
+8. [127.单词接龙](./practice/127.word-ladder.cpp)
+9. [841.钥匙和房间](./practice/841.keys-and-rooms.cpp)
+10. [463.岛屿的周长](./practice/463.island-perimeter.cpp)
+11. [1971.寻找图中是否存在路径](./practice/1971.find-if-path-exists-in-graph.cpp)
+12. [684.冗余连接](./practice/684.redundant-connection.cpp)
+13. [685.冗余连接II](./practice/685.redundant-connection-ii.cpp)
