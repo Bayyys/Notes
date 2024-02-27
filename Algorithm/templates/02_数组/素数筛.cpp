@@ -36,3 +36,17 @@ void Prime() {
     }
   }
 }
+
+/* 求解某数是否为素数 */
+const int N = 1e5 + 5;
+vector<bool> isPrimes = vector<bool>(N + 1, true);
+void isPrimeInit() {
+  isPrimes[1] = false;
+  for (int i = 2; i * i <= N; i++) {
+    if (isPrimes[i]) {
+      for (int j = i * i; j <= N; j += i) {
+        isPrimes[j] = false;
+      }
+    }
+  }
+}
