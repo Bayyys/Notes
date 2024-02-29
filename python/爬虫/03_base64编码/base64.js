@@ -7,5 +7,5 @@ const str = "123";
 const code = Buffer.from(str, "utf-8").toString("base64");
 console.log("code :>> ", code);
 
-const encode = Buffer.from(code, "base64").toString("utf-8");
-console.log("encode :>> ", encode);
+const source = Buffer.from(code, "base64").toString("utf-8");
+console.log("source :>> ", source);
