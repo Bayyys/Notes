@@ -5,11 +5,20 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  base64:
+    specifier: ^2.1.0
+    version: 2.1.0
   crypto-js:
     specifier: ^4.2.0
     version: 4.2.0
 
 packages:
+
+  /base64@2.1.0:
+    resolution: {integrity: sha512-OMwRpdU6gPEjeru59uEBDxIho/QkyqPQVLg07pFcqzGcw2cGQ0ZCnxfL8l4+6u9YDf4ai1ut2kvhLQsk670aPA==}
+    engines: {node: '>=0.8.0'}
+    requiresBuild: true
+    dev: false
 
   /crypto-js@4.2.0:
     resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
