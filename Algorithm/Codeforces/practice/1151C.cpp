@@ -1,3 +1,5 @@
+// Problem for Nazar
+// https://codeforces.com/problemset/problem/1151/C
 #include <bits/stdc++.h>
 #define fio ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 #define int long long

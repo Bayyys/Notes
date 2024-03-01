@@ -1,3 +1,5 @@
+// Berserk Monsters
+// https://codeforces.com/problemset/problem/1922/D
 #include <bits/stdc++.h>
 using namespace std;
 #define fio ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);

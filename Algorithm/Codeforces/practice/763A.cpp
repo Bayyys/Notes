@@ -1,3 +1,5 @@
+// A: Timofey and a tree
+// https://codeforces.com/problemset/problem/763/A
 #include <iostream>
 #pragma GCC optimize("O3")
 

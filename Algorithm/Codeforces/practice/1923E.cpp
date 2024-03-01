@@ -1,3 +1,5 @@
+// Count Paths
+// https://codeforces.com/problemset/problem/1923/E
 #include <bits/stdc++.h>
 using namespace std;
 #define fio ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
@@ -14,38 +16,38 @@ inline int read() {
   return s;
 }
 
-void dfs(vector<int> &col, vector<vector<int>> &path, vector<int> &vis,
-         int from) {
-  // 递归遍历
-  cout << from << endl;
-  for (auto to : path[from]) {
-    if (vis[to]) continue;
-    vis[to] = 1;
-    dfs(col, path, vis, to);
-    vis[to] = 0;
-  }
-}
-
 inline void solve() {
-  int n = read();
-  vector<int> col(1 + n);
-  for (register int i = 1; i <= n; i++) col[i] = read();  // 读取颜色
-  vector<vector<int>> path(n + 1);                        // 路径
+  int n = read();                   // 点数  [2, 2*1e5]
+  vector<int> col(n + 1);           // 颜色
+  vector<vector<int>> path(n + 1);  // 路径
+  vector<int> cnt(n + 1);           // 每个颜色的数量
+  ll ans = 0;                       // 答案
+  for (register int i = 1; i <= n; i++) {
+    int x;
+    x = read();
+    col[i] = x;
+  }
   for (register int i = 1; i < n; i++) {
     int x, y;
-    x = read(), y = read();
+    x = read();
+    y = read();
     path[x].emplace_back(y);
     path[y].emplace_back(x);
   }
 
+  auto dfs = [&](auto f, int node, int father) -> void {
+    int cur = cnt[col[node]];
+    for (auto v : path[node]) {
+      if (v == father) continue;
+      cnt[col[node]] = 1;
+      f(f, v, node);
+    }
+    ans += cur, cnt[col[node]] = cur + 1;
+  };
+
   // 依次从每个节点开始遍历
-  for (register int i = 1; i <= n; i++) {
-    vector<int> vis(n + 1, 0);
-    vis[i] = 1;  // 标记已访问
-    dfs(col, path, vis, i);
-    cout << "----" << endl;
-  }
-  cout << "====" << endl;
+  dfs(dfs, 1, 0);
+  cout << ans << endl;
 }
 
 int main() {
