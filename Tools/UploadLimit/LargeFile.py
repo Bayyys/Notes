@@ -10,7 +10,7 @@ def check_file_size(dir: str = "../..", file_size: int = 50):
             if os.path.getsize(file_path) > file_size:
                 print(
                     f"File: {file_path} size is {os.path.getsize(file_path) / 1024 / 1024} MB"
-                )
+                )  # 显示文件路径和大小
         for dir in dirs:
             if dir.find("node_modules") == -1:
                 continue
