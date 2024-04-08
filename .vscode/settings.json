@@ -38,5 +38,6 @@
         "deque": "cpp",
         "chrono": "cpp"
     },
-    "python.analysis.autoImportCompletions": true
+    "python.analysis.autoImportCompletions": true,
+    "commentTranslate.hover.enabled": true
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="head">{{title}}</h1>
+      <div class="list">
+        <div
+          v-for="item in goods"
+          class="list-item"
+          :class="{
+          active: item.choose>0
+        }"
+        >
+          <div class="title">{{item.name}}</div>
+          <div class="controls">
+            <i @click="item.choose--" class="iconfont i-jianhao"></i>
+            <span>{{item.choose}}</span>
+            <i
+              @click="item.choose++"
+              class="iconfont i-jiajianzujianjiahao"
+            ></i>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div
+          class="car"
+          :class="{
+          active: count > 0
+        }"
+        >
+          <i class="iconfont i-gouwuchefill"></i>
+          <span class="badge">{{count}}</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/data.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+@import url('https://at.alicdn.com/t/c/font_3555577_me2a6tdmvu8.css');
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  font-family: 'Microsoft Yahei', 'sans-serif';
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.iconfont {
+  font-size: inherit;
+}
+
+.container {
+  width: 400px;
+  border: 2px solid #ccc;
+  margin: 30px auto;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  border-radius: 10px;
+}
+
+.head {
+  font-size: 1.2em;
+}
+
+.list {
+  margin: 30px 0;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  align-items: center;
+}
+.title {
+  margin-right: 30px;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.controls span {
+  margin: 0 10px;
+  visibility: hidden;
+  width: 25px;
+  text-align: center;
+}
+.controls .iconfont {
+  width: 20px;
+  height: 20px;
+  background: #5a90db;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.controls .i-jianhao {
+  border: 1px solid #4a90e1;
+  background: #fff;
+  color: #4a90e1;
+  visibility: hidden;
+}
+
+.list-item.active .i-jianhao {
+  visibility: visible;
+}
+.list-item.active span {
+  visibility: visible;
+}
+
+.footer {
+  display: flex;
+}
+.car {
+  width: 70px;
+  height: 70px;
+  border: 3px solid #444;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #3d3d3f;
+  color: #fff;
+  font-size: 40px;
+  position: relative;
+}
+.badge {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid #fff;
+  font-size: 14px;
+  background: #ec5533;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+}
+.car.active {
+  background: #4a90e1;
+  border-color: #397ecc;
+}
+.car.active .badge {
+  visibility: visible;
+}
+.price {
+  width: 150px;
+  margin-left: 10px;
+  display: flex;
+  align-items: flex-end;
+  font-size: 2em;
+  color: #f60;
+}
+.price span:first-child {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
