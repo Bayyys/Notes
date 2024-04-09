@@ -3,11 +3,11 @@ var obj = {
 };
 
 // 得到属性描述符
-// var desc = Object.getOwnPropertyDescriptor(obj, 'a');
-// console.log(desc);
+var desc = Object.getOwnPropertyDescriptor(obj, "b");
+console.log(desc); // { value: 2, writable: true, enumerable: true, configurable: true }
 
 // 设置属性描述符
-Object.defineProperty(obj, 'a', {
+Object.defineProperty(obj, "a", {
   value: 10,
   writable: false, // 不可重写
   enumerable: false, // 不可遍历
@@ -15,14 +15,15 @@ Object.defineProperty(obj, 'a', {
 });
 // Object.defineProperty(obj, 'a', {
 //   writable: true,
-// });
-obj.a = 'abc';
-console.log(obj.a);
-// for (var key in obj) {
-//   console.log(key);
-// }
+// });  // TypeError: Cannot redefine property: a
+obj.a = "abc";
+console.log(obj.a); // 10 [不会被修改]
 
-// var keys = Object.keys(obj);
-// console.log(keys);
+for (var key in obj) {
+  console.log(key); // b [a 不会被遍历]
+}
 
-// console.log(obj);
+var keys = Object.keys(obj);
+console.log(keys); // [ 'b' ] [a 不会被遍历]
+
+console.log(obj); // { b: 2}
