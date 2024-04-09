@@ -204,7 +204,7 @@ class UI {
   jump(index) {
     // 找到对应商品的加号
     var btnAdd = this.doms.goodsContainer.children[index].querySelector(
-      '.i-jiajianzujianjiahao'
+      ".i-jiajianzujianjiahao"
     );
     var rect = btnAdd.getBoundingClientRect();
     var start = {
@@ -212,10 +212,10 @@ class UI {
       y: rect.top,
     };
     // 跳吧
-    var div = document.createElement('div');
-    div.className = 'add-to-car';
-    var i = document.createElement('i');
-    i.className = 'iconfont i-jiajianzujianjiahao';
+    var div = document.createElement("div");
+    div.className = "add-to-car";
+    var i = document.createElement("i");
+    i.className = "iconfont i-jiajianzujianjiahao";
     // 设置初始位置
     div.style.transform = `translateX(${start.x}px)`;
     i.style.transform = `translateY(${start.y}px)`;
@@ -229,7 +229,7 @@ class UI {
     i.style.transform = `translateY(${this.jumpTarget.y}px)`;
     var that = this;
     div.addEventListener(
-      'transitionend',
+      "transitionend",
       function () {
         div.remove();
         that.carAnimate();
