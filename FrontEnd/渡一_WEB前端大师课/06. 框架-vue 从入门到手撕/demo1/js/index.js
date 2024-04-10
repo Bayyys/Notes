@@ -1,9 +1,9 @@
 var vm = new Vue({
   // 配置对象
-  el: '.container',
+  el: ".container",
   data: {
     // 界面数据
-    title: '淘东手机',
+    title: "淘东手机",
     goods: goods,
   },
   // 计算属性
