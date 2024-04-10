@@ -39,5 +39,6 @@
         "chrono": "cpp"
     },
     "python.analysis.autoImportCompletions": true,
-    "commentTranslate.hover.enabled": true
+    "commentTranslate.hover.enabled": true,
+    "liveServer.settings.port": 5603
 }
