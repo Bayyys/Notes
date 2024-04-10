@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>媒体标签</title>
+  </head>
+  <body>
+    <video
+      controls
+      autoplay
+      muted
+      loop
+      src="./src/video.mp4"
+      style="width: 80%"
+    ></video>
+    <audio controls autoplay muted loop src="./src/music.mp3"></audio>
+    <video controls autoplay muted loop style="width: 80%">
+      <source src="./src/video.mp4" type="video/mp4" />
+      <source src="./src/video.webm" type="video/webm" />
+      <p>您的浏览器不支持 video 标签</p>
+    </video>
+  </body>
+</html>
