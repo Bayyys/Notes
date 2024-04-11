@@ -1,0 +1,37 @@
+/* 通配符选择器 */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+[href] {
+  color: #f80;
+}
+
+[checl*="b"] {
+  color: rebeccapurple;
+}
+
+[checl~="b"] {
+  color: aqua;
+}
+
+p span::before {
+  content: "<";
+}
+
+p span::after {
+  content: ">";
+}
+
+#id, #id2 {
+  background-color: #ccc;
+}
+
+body a {
+  color: #f80;
+}
+
+body div #id .class a:link {
+  color: #f80;
+}
