@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>浮动高度坍塌</title>
+    <style>
+      .container {
+        background: pink;
+        padding: 10px 0;
+      }
+
+      .item {
+        width: 100px;
+        height: 100px;
+        background: skyblue;
+        float: left;
+        margin: 10px;
+      }
+
+      .clearfix {
+        /* 解决高度坍塌方法一 */
+        clear: both;
+      }
+
+      .container::after {
+        /* 解决高度坍塌方法二 */
+        content: "";
+        display: block;
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="clearfix"></div>
+    </div>
+  </body>
+</html>
