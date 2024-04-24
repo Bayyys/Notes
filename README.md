@@ -623,3 +623,11 @@
 
 - [x] 创建 `渡一-WEB前端大师课` (04.08.2024)
 - [x] 完成 `渡一-WEB前端大师课` (04.10.2024)
+
+## Tailwindcss - 04.24.2024
+
+> [ailwindcss](./FrontEnd/Web/Tailwindcss) Tailwindcss 学习笔记
+> [Tailwind CSS](https://tailwindcss.com/)
+> [Tailwind CSS 中文文档](https://www.tailwindcss.cn/)
+
+- [x] 创建 `Tailwindcss` 项目 (04.24.2024)
