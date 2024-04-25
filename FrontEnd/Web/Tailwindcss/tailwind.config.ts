@@ -13,8 +13,17 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        mycolor: {
+          // 绿色
+          111: "#b7d332",
+          222: "#9ebc19",
+          999: "#84a729",
+        },
+      },
     },
   },
+  darkMode: "selector",
   plugins: [],
 };
 export default config;

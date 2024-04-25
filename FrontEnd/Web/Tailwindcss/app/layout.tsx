@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Nav from "./components/Nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +16,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="dark">
+      <body className={inter.className}>
+        <main className="flex min-h-screen flex-col items-center justify-start p-24">
+          <Nav />
+          {/* 内容区域填满高度, 内容居中 */}
+          <div
+            className="flex flex-col items-center justify-center w-full flex-1
+          "
+          >
+            {children}
+          </div>
+        </main>
+      </body>
     </html>
   );
 }
