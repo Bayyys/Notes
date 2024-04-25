@@ -8,26 +8,26 @@ export default function Nav() {
     { name: "03.Typography", href: "/03.Typography" },
     { name: "04.Flex_Grid", href: "/04.Flex_Grid" },
     { name: "05.Layout", href: "/05.Layout" },
+    { name: "06.Border", href: "/06.Border" },
+    { name: "07.Effect", href: "/07.Effect" },
+    { name: "08", href: "/08" },
   ];
 
   const toggleDarkMode = () => {
     document.documentElement.classList.toggle("dark");
   };
   return (
-    <nav className="flex items-center justify-between w-full">
-      <div className="flex items-center space-x-4">
-        <ul className="flex space-x-4">
-          {navList.map((navItem) => (
-            <li key={navItem.name}>
-              <a
-                href={navItem.href}
-                className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
-              >
-                {navItem.name}
-              </a>
-            </li>
-          ))}
-        </ul>
+    <nav className="flex items-start justify-between w-full">
+      <div className="grid space-x-4 grid-cols-4">
+        {navList.map((navItem) => (
+          <a
+            key={navItem.name}
+            href={navItem.href}
+            className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-slate-900"
+          >
+            {navItem.name}
+          </a>
+        ))}
       </div>
       <div className="flex items-center space-x-4">
         <button
