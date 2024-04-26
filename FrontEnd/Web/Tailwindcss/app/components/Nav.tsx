@@ -10,7 +10,9 @@ export default function Nav() {
     { name: "05.Layout", href: "/05.Layout" },
     { name: "06.Border", href: "/06.Border" },
     { name: "07.Effect", href: "/07.Effect" },
-    { name: "08", href: "/08" },
+    { name: "08.Blur", href: "/08.Blur" },
+    { name: "09.TransitionAnimation", href: "/09.TransitionAnimation" },
+    { name: "10.DesignSystem", href: "/10.DesignSystem" },
   ];
 
   const toggleDarkMode = () => {

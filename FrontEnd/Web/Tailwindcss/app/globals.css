@@ -30,6 +30,9 @@ body {
   h1 {
     @apply font-bold text-3xl text-center;
   }
+  button {
+    @apply bg-blue-500 px-10 py-4 text-white text-2xl rounded-2xl
+  }
 }
 
 @layer utilities {
