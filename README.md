@@ -626,9 +626,19 @@
 
 ## Tailwindcss - 04.24.2024
 
-> [ailwindcss](./FrontEnd/Web/Tailwindcss) Tailwindcss 学习笔记
+> [Tailwindcss](./FrontEnd/Web/Tailwindcss) Tailwindcss 学习笔记
 > [Tailwind CSS](https://tailwindcss.com/)
 > [Tailwind CSS 中文文档](https://www.tailwindcss.cn/)
 
 - [x] 创建 `Tailwindcss` 项目 (04.24.2024)
 - [x] 完成 `Tailwindcss` 学习 (04.27.2024)
+
+
+## Next - 04.27.2024
+
+> [Next](./FrontEnd/Framework/Next/) Next 学习笔记
+> [Next.js](https://nextjs.org/)
+> [Next.js 中文文档](https://www.nextjs.cn/)
+> - 中文文档过于陈旧, 请时刻关注官方文档
+
+- [x] 创建 `Next` 项目 (04.27.2024)
