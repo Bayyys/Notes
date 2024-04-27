@@ -631,3 +631,4 @@
 > [Tailwind CSS 中文文档](https://www.tailwindcss.cn/)
 
 - [x] 创建 `Tailwindcss` 项目 (04.24.2024)
+- [x] 完成 `Tailwindcss` 学习 (04.27.2024)

@@ -28,10 +28,57 @@ body {
 
 @layer base {
   h1 {
-    @apply font-bold text-3xl text-center;
+    @apply mb-2 font-bold text-3xl text-center;
+  }
+  h2 {
+    @apply text-xl font-semibold mb-1;
+  }
+  a {
+    @apply underline text-blue-600 hover:text-purple-500 transition decoration-wavy underline-offset-2;
+  }
+  .btn {
+    @apply px-4 py-2 rounded-xl;
+  }
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-400;
+  }
+  .btn-sencondary {
+    @apply bg-gray-600 hover:bg-gray-400;
+  }
+  .btn:hover {
+    @apply transition duration-300 opacity-75;
+  }
+  .btn[disabled] {
+    @apply cursor-not-allowed transition-none opacity-30;
+  }
+  input[type="text"],
+  select {
+    @apply border border-slate-300 outline-none rounded-lg px-2 py-1 disabled:bg-slate-100 disabled:cursor-not-allowed placeholder:italic placeholder-slate-300;
+  }
+  input[type="date"] {
+    @apply border border-slate-300 outline-none rounded-lg px-2 py-1;
   }
   button {
-    @apply bg-blue-500 px-10 py-4 text-white text-2xl rounded-2xl
+    @apply bg-blue-500 px-10 py-4 text-white text-2xl rounded-2xl;
+  }
+  input[type="checkbox"] {
+    @apply accent-purple-400 p-2 m-1;
+  }
+  label {
+    @apply text-sm text-slate-700 font-semibold;
+  }
+  select {
+    @apply pr-8;
+  }
+  .Myselect {
+    @apply transition inline-block cursor-pointer p-1 m-1 rounded-lg border border-slate-500;
+  }
+
+  .Myselect .child {
+    @apply px-2 py-1;
+  }
+  .Myselect ul li {
+    @apply hover:bg-slate-200;
   }
 }
 
