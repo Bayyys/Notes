@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.myP {
+  @apply text-2xl;
+}
+
+h1 {
+  @apply italic text-indigo-300;
+}

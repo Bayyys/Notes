@@ -4,7 +4,7 @@ function Card({ name, imgUrl, profession, awards, discovered }) {
   return (
     <>
       <section className="profile">
-        <h2>{name}</h2>
+        <h2 className=" text-2xl font-semibold">{name}</h2>
         <img
           className="avatar"
           src={getImageUrl(imgUrl.getFrom)}
@@ -39,7 +39,7 @@ function Card({ name, imgUrl, profession, awards, discovered }) {
 export default function PropsTrans() {
   return (
     <div>
-      <h1>Notable Scientists</h1>
+      <h1 className="text-2xl font-bold">Notable Scientists</h1>
       <Card
         name="Maria Skłodowska-Curie"
         imgUrl={{ getFrom: "szV5sdG", altFrom: "Maria Skłodowska-Curie" }}

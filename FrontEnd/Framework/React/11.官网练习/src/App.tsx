@@ -4,6 +4,7 @@ function App() {
   return (
     <>
       <PropsTrans />
+      <p className="myP">Lorem, ipsum dolor.</p>
     </>
   );
 }
