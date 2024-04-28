@@ -3,6 +3,7 @@ import StateInsert from "./practice/02.StateInsert";
 import ParentState from "./practice/03.ParentState";
 import PreserveState from "./practice/04.PreserveState";
 import EffectDemo from "./practice/05.EffectDemo";
+import UseEffectEventDemo from "./practice/06.UseEffectEventDemo";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         {false && <StateInsert />}
         {false && <ParentState />}
         {false && <PreserveState />}
-        {true && <EffectDemo />}
+        {false && <EffectDemo />}
+        {true && <UseEffectEventDemo />}
       </div>
     </>
   );
