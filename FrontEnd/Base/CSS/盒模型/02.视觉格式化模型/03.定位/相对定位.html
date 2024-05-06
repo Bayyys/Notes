@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <title>相对定位</title>
+    <style>
+      .item {
+        height: 50px;
+        background-color: red;
+        border: 2px solid black;
+      }
+
+      .child1 {
+        margin-left: 50px;
+      }
+
+      .child2 {
+        position: relative;
+        left: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="item child1"></div>
+    <div class="item child2"></div>
+    <div class="item"></div>
+  </body>
+</html>

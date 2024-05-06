@@ -1,0 +1,121 @@
+body {
+  color: #333;
+}
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.main {
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+.main .nav {
+  height: 60px;
+  background-color: #47464a;
+  color: #999;
+  font-size: 16px;
+  text-align: center;
+  line-height: 60px;
+}
+
+.main .nav a {
+  margin: 0 38px;
+}
+
+.main .nav a:hover {
+  color: #fff;
+}
+
+.main .nav a.active {
+  color: #ef4238;
+}
+
+.main .container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.main .container .choose-area {
+  border: 1px solid #e5e5e5;
+  margin: 40px 0;
+  font-size: 14px;
+  line-height: 30px;
+  padding: 0 30px;
+}
+
+.main .container .choose-area .choose-item .left {
+  float: left;
+  color: #999;
+}
+
+.main .container .choose-area .choose-item .right {
+  float: left;
+  width: 1100px;
+}
+
+.main .container .choose-area .choose-item .right li {
+  float: left;
+  margin: 0 10px;
+  padding: 0 6px;
+}
+
+.main .container .choose-area .choose-item .right li:hover {
+  color: #ef4238;
+}
+
+.main .container .choose-area .choose-item .right li.select {
+  background: #ef4238;
+  border-radius: 15px;
+}
+
+.main .container .choose-area .choose-item {
+  margin: 1em 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.main .container .choose-area .choose-item.no-line {
+  border: none;
+}
+
+.main .container .movies {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.main .container .movies .movie-item {
+  float: left;
+  width: 160px;
+  margin: 10px 30px;
+}
+
+.main .container .movies .movie-item:nth-child(6n) {
+  margin-right: 0;
+}
+
+.main .container .movies .movie-item .poster img {
+  width: 160px;
+  height: 220px;
+}
+
+.main .container .movies .movie-item .name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 5px;
+  text-align: center;
+}
+
+.main .container .movies .movie-item .score {
+  color: #ffb400;
+  text-align: center;
+  line-height: 2;
+  font-style: italic;
+}
+
+.main .container .movies .movie-item .score::first-letter {
+  font-size: 1.5em;
+}
