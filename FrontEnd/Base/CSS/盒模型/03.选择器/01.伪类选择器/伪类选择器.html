@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>伪类选择器</title>
+    <style>
+      .child li:nth-child(4n) {
+        /* 选择第4个子元素及其倍数 */
+        color: lightblue;
+      }
+      .child li:first-child {
+        /* 选择第一个子元素 */
+        color: red;
+      }
+      .child li:last-child {
+        /* 选择最后一个子元素 */
+        color: blue;
+      }
+      .child li:nth-child(3) {
+        /* 选择第三个子元素 */
+        color: orange;
+      }
+      .type li:first-of-type {
+        /* 选择第一个同类元素 */
+        color: green;
+      }
+      .type li:last-of-type {
+        /* 选择最后一个同类元素 */
+        color: yellow;
+      }
+      .type li:nth-of-type(2) {
+        /* 选择第二个同类元素 */
+        color: pink;
+      }
+      .f-letter::first-letter {
+        /* 选择第一个字母 */
+        color: red;
+        font-size: 30px;
+      }
+      .f-line::first-line {
+        /* 选择第一行 */
+        color: blue;
+        font-size: 20px;
+      }
+      .select::selection {
+        /* 选择被选中的文本 */
+        color: white;
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="child">
+      <ul>
+        <li>Lorem, ipsum.</li>
+        <li>Ut, explicabo.</li>
+        <li>Repudiandae, quis?</li>
+        <li>Sed, commodi.</li>
+        <li>Earum, quos.</li>
+        <li>Necessitatibus, iste!</li>
+        <li>Quis, beatae.</li>
+        <li>Blanditiis, vero.</li>
+        <li>Accusantium, et!</li>
+        <li>Quasi, repudiandae.</li>
+        <li>Quidem, non.</li>
+        <li>Voluptas, corporis.</li>
+        <li>Omnis, ducimus.</li>
+        <li>Molestias, et!</li>
+        <li>Obcaecati, soluta!</li>
+        <li>Voluptate, sunt.</li>
+        <li>Iste, vitae!</li>
+        <li>Adipisci, in.</li>
+        <li>Debitis, fugit.</li>
+        <li>Dicta, placeat!</li>
+      </ul>
+    </div>
+    <div class="type">
+      <ul>
+        <p>Lorem, ipsum.</p>
+        <li>Lorem, ipsum dolor.</li>
+        <li>Optio, maxime! Minus.</li>
+        <li>Necessitatibus, nisi magnam!</li>
+        <li>Lorem, ipsum dolor.</li>
+        <li>Obcaecati, expedita eligendi.</li>
+        <li>Vitae, labore perferendis!</li>
+        <p>Lorem, ipsum dolor.</p>
+      </ul>
+    </div>
+    <p class="f-letter">Lorem, ipsum dolor.</p>
+    <p class="f-line">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
+      facilis assumenda dignissimos exercitationem. Cum atque et veritatis
+      temporibus quia, alias illo modi possimus eos perspiciatis recusandae
+      dolorem sint officiis minima?
+    </p>
+    <p class="select">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis cupiditate
+      obcaecati unde in eligendi tempore animi quis necessitatibus excepturi
+      consequatur minus provident amet voluptates dolores quod, asperiores
+      blanditiis consequuntur inventore!
+    </p>
+  </body>
+</html>
