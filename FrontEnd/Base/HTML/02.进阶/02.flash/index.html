@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flash</title>
+    <style>
+      object {
+        width: 100%;
+        height: 80vh;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- object/embed 元素 -->
+    <object data="./example.swf" type="application/x-shockwave-flash">
+      <!-- 相关参数: 起始位置, 账号信息, 声音大小... -->
+      <!-- 渲染质量 -->
+      <param name="quality" value="high" />
+    </object>
+    <embed src="./example.swf" type="application/x-shockwave-flash" />
+
+    <!-- 兼容性匹配:嵌入书写, 因embed无法作为object子元素, 若object可读, 则不会加载embed; 否则加载embed -->
+    <object data="./example.swf" type="application/x-shockwave-flash">
+      <param name="quality" value="high" />
+      <embed src="./example.swf" type="application/x-shockwave-flash" />
+    </object>
+  </body>
+</html>

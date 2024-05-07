@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表单元素</title>
+  </head>
+  <body>
+    <input type="text" placeholder="请输入账号" />
+    <input type="password" placeholder="请输入密码" />
+    <input type="date" name="" id="" />
+    <input type="search" name="" id="" />
+    <input type="range" name="" id="" />
+    <input type="color" name="" id="" />
+    <input type="number" name="" id="" />
+    <p>
+      <label for="">爱好: </label>
+      <input name="hobby" type="checkbox" name="" id="" /> 音乐
+      <input name="hobby" type="checkbox" name="" id="" /> 阅读
+      <input name="hobby" type="checkbox" name="" id="" checked /> 电影
+    </p>
+    <p>
+      <label for="">性别: </label>
+      <input type="radio" name="sex" id="rad-male" />
+      <label for="rad-male">男</label>
+      <label>
+        <input type="radio" name="sex" id="rad-female" />
+        女
+      </label>
+    </p>
+    <p>
+      <input type="file" name="" id="" />
+    </p>
+    <p>
+      <select name="city" id="">
+        <option value="">北京</option>
+        <option value="">上海</option>
+        <option value="" selected>青岛</option>
+      </select>
+    </p>
+    <p>
+      <select name="" id="">
+        <optgroup label="游戏">
+          <option value="">TheShy</option>
+          <option value="">UZI</option>
+        </optgroup>
+        <optgroup label="任务">
+          <option value="">张三</option>
+          <option value="">李四</option>
+        </optgroup>
+      </select>
+    </p>
+    <p>
+      <select name="" id="" multiple>
+        <option value="">1111</option>
+        <option value="">2222</option>
+        <option value="">3333</option>
+      </select>
+    </p>
+    <p>
+      <textarea
+        name=""
+        id=""
+        rows="10"
+        cols="100"
+        placeholder="请输入..."
+      ></textarea>
+    </p>
+    <!-- button -->
+    <p>
+      <button>提交</button>
+      <button>重置</button>
+      <button>
+        <img src="./space.jpg" alt="" style="width: 100px" />
+      </button>
+    </p>
+    <!-- datalist -->
+    <p>
+      请输入浏览器
+      <input type="text" list="userAgent" />
+    </p>
+    <datalist id="userAgent">
+      <option value="Chrome">谷歌浏览器</option>
+      <option value="Edge">Microsoft Edge</option>
+    </datalist>
+
+    <form action="www.baidu.com">
+      <fieldset>
+        <legend>账号信息</legend>
+        <label for="">
+          账号:
+          <input
+            type="text"
+            name="username"
+            id="username"
+            readonly
+            value="Bayyy"
+          />
+        </label>
+        <label for="">
+          密码:
+          <input type="password" name="password" id="password" />
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>基本信息</legend>
+        <label for="">性别: </label>
+        <label for="">
+          男
+          <input type="radio" name="sex" />
+        </label>
+        <label for="rad-male">男</label>
+        <label>
+          <input type="radio" name="sex" disabled />
+          女
+        </label>
+      </fieldset>
+      <input type="submit" value="提交" />
+      <input type="reset" value="重置" />
+    </form>
+  </body>
+</html>
