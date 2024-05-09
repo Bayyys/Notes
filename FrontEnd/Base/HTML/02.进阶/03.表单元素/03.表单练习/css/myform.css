@@ -1,0 +1,227 @@
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.form .form-group .form-item {
+  margin: 15px 0;
+  position: relative;
+}
+
+.form {
+  width: 1000px;
+  margin: 1em auto;
+}
+
+.form h2 {
+  text-align: center;
+  font-size: 40px;
+  border-bottom: 2px solid #ccc;
+  height: 20px;
+  margin-bottom: 40px;
+}
+
+.form h2 span {
+  background-color: #fff;
+  padding: 0 20px;
+}
+
+/* 通用 表单/按钮 样式 */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 3px;
+  text-indent: 1em;
+  font-size: 16px;
+  color: #606266;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+  color: #ccc;
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+  border-color: #77797d;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #56a5f5;
+  border-width: 1.5px;
+}
+
+button {
+  height: 40px;
+  color: #fff;
+  background: #00a1d6;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 20px;
+}
+
+button:hover {
+  background: #33b4de;
+}
+
+button:disabled {
+  background: #f5f5f5;
+  color: rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  border: 1px solid #ccc5;
+  cursor: not-allowed;
+}
+
+a {
+  color: #00a1d6;
+}
+
+/* 表单区域 */
+.form .form-group {
+  width: 450px;
+  margin: 0 auto;
+}
+
+/* 手机号 */
+.select .select-item,
+.select .input {
+  float: left;
+  height: 40px;
+}
+.select .select-item {
+  width: 150px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 3px 0 0 3px;
+  border-right: none;
+  position: relative;
+}
+
+.select .input {
+  width: 300px;
+}
+
+.select .input input {
+  border-radius: 0 3px 3px 0;
+}
+
+.select .select-item .title {
+  line-height: 40px;
+  box-sizing: border-box;
+  padding: 0 20px;
+  color: #606266;
+  cursor: pointer;
+}
+
+.select .select-item ul {
+  display: none;
+  max-height: 100px;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  top: 45px;
+  left: 0;
+  padding: 10px 0;
+  font-size: 14px;
+  overflow-y: scroll;
+}
+
+.select .select-item ul li {
+  height: 25px;
+  padding: 0 20px;
+  cursor: pointer;
+  line-height: 25px;
+}
+
+.select .select-item ul li:hover {
+  background-color: #f5f5f5;
+}
+
+.select .select-item ul li.selected {
+  color: #00a1d6;
+  font-weight: bold;
+}
+
+/* 短信验证码 */
+.form-group .form-item .btn-sncode {
+  width: 150px;
+  height: 40px;
+  position: absolute;
+  right: 0;
+}
+
+/* 协议 */
+.form .form-group .readme,
+.form .form-group .tip {
+  margin: -10px 0;
+  font-size: 14px;
+}
+
+.form .form-group .checkbox {
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form .form-group .readme input:checked + .checkbox {
+  border-color: #00a1d6;
+}
+
+.form .form-group .readme input:checked + .checkbox::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #00a1d6;
+  border-radius: 2px;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+
+.form .form-group .readme label input {
+  display: none;
+}
+
+/* 注册按钮 */
+.form .form-group .fill {
+  width: 100%;
+}
+
+/* 提示 */
+.form .form-group .tip {
+  text-align: right;
+}
+
+/* 错误消息 */
+.form .form-group .form-item .error {
+  display: none;
+  position: absolute;
+  width: 240px;
+  height: 40px;
+  top: 12px;
+  right: -250px;
+  margin: auto;
+  color: #f45d90;
+  font-size: 12px;
+}
+
+.form .form-group .form-item.haserror .error {
+  display: block;
+}
+
+.form .form-group .form-item.haserror input {
+  border-color: #f45d90;
+}

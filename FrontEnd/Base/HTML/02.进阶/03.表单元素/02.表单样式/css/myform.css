@@ -1,0 +1,77 @@
+body {
+  text-align: center;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+input[type="text"]:focus-visible {
+  border: 2px solid #007bff;
+}
+
+button {
+  width: 100px;
+  height: 40px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical; /* none, both, horizontal, vertical */
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: #ccc;
+}
+
+input {
+  /* 方式一 */
+  padding: 0 10px;
+  /* 方式二 */
+  text-indent: 1em;
+}
+
+p {
+  margin: 10px 0;
+}
+
+label input[type="radio"] {
+  display: none;
+}
+label input[type="radio"] + .radio {
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+}
+label input[type="radio"]:checked + .radio {
+  border-color: #007bff;
+}
+label input[type="radio"]:checked ~ span {
+  color: #007bff;
+}
+label input[type="radio"]:checked + .radio::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: #007bff;
+  border-radius: 50%;
+  margin-left: 2.5px;
+  margin-top: 2.5px;
+}

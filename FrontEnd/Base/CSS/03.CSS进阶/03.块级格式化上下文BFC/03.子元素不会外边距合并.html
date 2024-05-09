@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rule: 子元素不会外边距合并</title>
+    <style>
+      .container {
+        height: 500px;
+        background-color: pink;
+        margin-top: 100px;
+        overflow: hidden;
+      }
+      .child {
+        margin-top: 50px;
+        height: 50px;
+        width: 50px;
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="child"></div>
+    </div>
+  </body>
+</html>

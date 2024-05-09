@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/myform.css" />
+    <title>Form Practice</title>
+  </head>
+  <body>
+    <div class="form">
+      <h2 class="title">
+        <span>注册</span>
+      </h2>
+      <div class="form-group">
+        <div class="form-item haserror">
+          <input type="text" placeholder="昵称" />
+          <div class="error">该昵称已被占用</div>
+        </div>
+        <div class="form-item">
+          <input
+            type="password"
+            name=""
+            id=""
+            placeholder="密码(6-16个字符组成, 区分大小写)"
+          />
+          <div class="error">密码强度不够</div>
+        </div>
+        <div class="form-item">
+          <div class="select clearfix">
+            <div class="select-item">
+              <div class="title">中国大陆</div>
+              <ul>
+                <li class="selected">中国大陆</li>
+                <li>Quis!</li>
+                <li>Fugiat!</li>
+                <li>Sunt.</li>
+                <li>Ratione?</li>
+              </ul>
+            </div>
+            <div class="input">
+              <input type="text" placeholder="填写常用手机号" />
+            </div>
+          </div>
+        </div>
+        <div class="form-item">
+          <input type="text" placeholder="请输入短信验证码" />
+          <button class="btn-sncode">点击获取</button>
+        </div>
+        <div class="readme">
+          <label>
+            <input type="checkbox" />
+            <span class="checkbox"></span>
+            <span
+              >我已阅读并同意
+              <a href="#">《用户协议》</a>
+              和
+              <a href="#">《隐私政策》</a>
+            </span>
+          </label>
+        </div>
+        <div class="form-item">
+          <button class="fill" disabled>注册</button>
+        </div>
+        <div class="tip">
+          <a href="">已有账号, 直接登录&gt;</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

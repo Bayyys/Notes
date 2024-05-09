@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rule: 需要计算浮动元素</title>
+    <style>
+      .container {
+        background-color: #f40;
+        padding: 10px;
+        /* float: left; */
+        /* position: fixed; */
+      }
+      .clearfix {
+        overflow: hidden;
+      }
+      .item {
+        float: left;
+        width: 100px;
+        height: 100px;
+        background-color: #58f;
+        margin: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container clearfix">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+    </div>
+  </body>
+</html>

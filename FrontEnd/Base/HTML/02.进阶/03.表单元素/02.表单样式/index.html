@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表单样式</title>
+    <style>
+      input:focus-visible {
+        /* 覆盖: Edge */
+        outline: 2px auto red;
+        outline-offset: 1px;
+      }
+
+      input:checked + label {
+        /* 覆盖: Edge */
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <a tabindex="2" href="">Lorem, ipsum dolor.</a>
+    </p>
+    <p>
+      <input type="text" placeholder="请输入..." />
+    </p>
+    <p>
+      <button>提交</button>
+    </p>
+    <p>
+      <input type="radio" name="sex" id="rad-male" />
+      <label for="rad-male">男</label>
+      <input type="radio" name="sex" id="rad-female" />
+      <label for="rad-female">女</label>
+    </p>
+  </body>
+</html>

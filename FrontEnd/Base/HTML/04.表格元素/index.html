@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表格元素</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table caption {
+        font-size: 1.5em;
+        font-weight: bold;
+        padding: 5px;
+        background-color: #f0f0f0;
+        margin: 1em 0;
+      }
+      thead tr {
+        background-color: #f0f0f0;
+      }
+      table th,
+      table td {
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+      tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      tbody tr:hover {
+        background-color: #f0f0f0;
+      }
+      tbody td:first-child {
+        font-weight: bold;
+        color: chocolate;
+      }
+      table tfoot td {
+        font-weight: bold;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <caption>
+        表格标题
+      </caption>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>年龄</th>
+          <th>性别</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>张三</td>
+          <td>18</td>
+          <td>男</td>
+        </tr>
+        <tr>
+          <td>李四</td>
+          <td>20</td>
+          <td>女</td>
+        </tr>
+        <tr>
+          <td>王五</td>
+          <td>22</td>
+          <td>男</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>合计</td>
+          <td colspan="2">3人</td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>
