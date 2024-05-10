@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>堆叠上下文</title>
+    <style>
+      body {
+        background: lightblue;
+      }
+      .container {
+        background: lightgreen;
+        height: 200px;
+        width: 100%;
+        position: relative;
+        margin: 50px;
+      }
+      .item {
+        width: 100px;
+        height: 100px;
+        background: pink;
+        position: absolute;
+        z-index: -1;
+        top: -20px;
+        left: -20px;
+      }
+      .normal {
+        width: 200px;
+        height: 200px;
+        background: chocolate;
+        margin-top: -100px;
+      }
+      .float {
+        width: 200px;
+        height: 200px;
+        background: lightcoral;
+        float: left;
+        margin-top: -150px;
+      }
+      .myp {
+        background: lightyellow;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="myp">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto aperiam
+      aspernatur officiis voluptatem expedita eum illo sed nihil laborum quod!
+      Inventore quam suscipit corporis deserunt asperiores assumenda quisquam
+      sequi ipsam?
+    </p>
+    <div class="container">
+      <div class="item"></div>
+    </div>
+    <div class="float"></div>
+    <div class="normal"></div>
+  </body>
+</html>
