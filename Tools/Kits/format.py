@@ -1,3 +1,5 @@
+import logging
+import os
 import sys
 import re
 
@@ -16,15 +18,29 @@ def formatHeader(line):
   else:
     return line
 
-
-def main():
-  file = "CSS.md"
-  # 打开一个文件选择器
+def file_handler(file):
   with open(file, 'r', encoding='utf-8') as f:
     lines = f.readlines()
     lines = [formatHeader(line) for line in lines ]
     with open(file, 'w', encoding='utf-8') as f:
       f.writelines(lines)
 
+# 遍历本级目录下的所有文件, 对所有 markdown 文件进行修改
+def walk_dir(dir):
+  for root, dirs, files in os.walk(dir):
+    for file in files:
+      if file.endswith(".md"):
+        file_handler(os.path.join(root, file))
+        logging.info(f"处理文件 '{file}' 成功")
+  logging.info("处理完成")
+
+
+def main():
+  # 以当前文件夹为根目录
+  cur_dir = os.path.dirname(os.path.realpath(__file__))
+  logging.info(f"当前目录: {cur_dir}")
+  walk_dir(cur_dir)
+
 if __name__ == '__main__':
+  logging.basicConfig(level=logging.INFO)
   main()
