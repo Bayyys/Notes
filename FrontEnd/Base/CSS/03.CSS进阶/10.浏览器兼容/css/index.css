@@ -1,0 +1,31 @@
+.container {
+  width: 100px;
+  height: 100px;
+  border: 2px solid red;
+  box-sizing: border-box;
+  display: flex;
+}
+.myp {
+  width: 300px;
+  height: 500px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: red;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: blue;
+}
+
+::-webkit-scrollbar-track {
+  background-color: green;
+}
+
+body {
+  background-image: -webkit-image-set(
+    url(../img/bg.jpg) 1x,
+    url(../img/bg_small.jpg) 2x
+  );
+}
