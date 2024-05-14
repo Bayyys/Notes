@@ -1,0 +1,116 @@
+@import url(reset.css);
+@import url(common.css);
+
+/* 首页通用样式 */
+.container {
+  width: 950px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* 首页通用样式结束 */
+
+/* 页面开始 */
+.header {
+  width: 100%;
+  height: 100px;
+}
+
+/* header banner */
+.header .banner {
+  clear: both;
+  background-color: #edf4ec;
+}
+.header .banner .logo a {
+  display: inline-block;
+  background: url(../img/logo.png) no-repeat;
+  background-size: contain;
+  height: 0;
+  width: 100px;
+  margin: 7px 13px;
+  padding-top: 20px;
+  overflow: hidden;
+}
+
+/* header container */
+.header .container {
+  /* height: 70px; */
+  margin: 15px auto;
+}
+/* header container logo */
+.header .container .logo {
+  line-height: 30px;
+  margin-right: 24px;
+  width: 73px;
+  height: 30px;
+  background: url(../img/sitename.png) no-repeat left 3px;
+  background-size: contain;
+  overflow: hidden;
+}
+/* header container search */
+.header .container .search {
+  width: 270px;
+  height: 30px;
+  border: 1px solid #c3c3c3;
+  position: relative;
+  box-sizing: border-box;
+}
+.header .container .search .txt {
+  width: 240px;
+  height: 28px;
+  box-sizing: border-box;
+  padding: 5px 10px;
+}
+.header .container .search .txt::placeholder {
+  color: #c3c3c3;
+}
+.header .container .search .btn {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  color: #c3c3c3;
+}
+/* header container menu */
+.header .container .menu {
+  height: 30px;
+  margin-top: 5px;
+}
+.header .container .menu a {
+  float: left;
+  background: url(../img/header_menu.png) no-repeat left top/463px 20px;
+  height: 20px;
+  width: 40px;
+  margin-left: 17px;
+}
+
+.header .container .menu .menu_read {
+  background-position: 0 0;
+}
+.header .container .menu .menu_movie {
+  background-position: -60px 0;
+}
+.header .container .menu .menu_music {
+  background-position: -120px 0;
+}
+.header .container .menu .menu_group {
+  background-position: -180px 0;
+}
+.header .container .menu .menu_fm {
+  background-position: -240px 0;
+}
+.header .container .menu .menu_city {
+  background-position: -300px 0;
+}
+.header .container .menu .menu_dongxi {
+  background-position: -360px 0;
+}
+.header .container .menu .menu_doupin {
+  background-position: -420px 0;
+  width: 45px;
+}
+
+/* 页头结束 */

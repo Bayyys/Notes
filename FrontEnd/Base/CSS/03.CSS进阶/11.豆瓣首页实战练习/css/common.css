@@ -1,0 +1,37 @@
+@import url(//at.alicdn.com/t/c/font_4546187_gv0u5iax067.css);
+/* 多页面共享 CSS */
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+* {
+  font-family: Helvetica, Arial, Hiragino Sans GB, Microsoft YaHei,
+    WenQuanYi Micro Hei, sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+.btn {
+  background-color: #41ac52;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  background: rgba(66, 189, 86, 0.5);
+}

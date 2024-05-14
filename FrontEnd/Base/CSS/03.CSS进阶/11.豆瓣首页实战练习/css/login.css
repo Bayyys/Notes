@@ -1,0 +1,304 @@
+@import url(reset.css);
+@import url(common.css);
+
+/* 通用样式 start */
+a {
+  text-decoration: none;
+  color: #41ac52;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid #e4e6e5;
+  border-radius: 3px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* 通用样式 end */
+
+.container {
+  width: 300px;
+  height: 300px;
+  line-height: 2;
+  padding: 10px;
+  padding-top: 30px;
+  color: #9b9b9b;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 短信/密码 登录 */
+.container .login .switch-menu {
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 13p;
+}
+
+.container .login .switch-menu span {
+  display: left;
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.container .login .switch-menu span.selected {
+  color: #333;
+  font-weight: bold;
+  border-bottom: 1px solid #494949;
+  margin-bottom: -1px;
+}
+
+.container .login .form .form-item {
+  font-size: 13px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.container .login .form .form-item .txt {
+  font-size: 12px;
+}
+
+.container .login .form .form-item .tel {
+  padding-left: 60px;
+  padding-right: 40px;
+}
+
+.container .login .form .form-item .area-code {
+  position: absolute;
+  width: 50px;
+  height: 26px;
+  left: 0;
+  top: 2px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border-right: 1px solid #e5e5e5;
+  font-size: 15px;
+  line-height: 26px;
+  text-align: center;
+}
+
+.container .login .form .form-item .area-code span {
+  font-weight: bold;
+}
+
+.container .login .form .form-item .area-code .choose-area {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+.container .login .form .form-item .area-code .choose-area .center {
+  width: 285px;
+  height: 225px;
+  position: absolute;
+  box-sizing: border-box;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  cursor: auto;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.container .login .form .form-item .area-code .choose-area .center .title {
+  height: 40px;
+  width: 100%;
+  line-height: 40px;
+  background-color: #ebf5eb;
+  text-align: left;
+  text-indent: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #060;
+}
+
+.container .login .form .form-item .area-code .choose-area .center ul {
+  height: 180px;
+  overflow: auto;
+  padding: 5px 15px 20px 15px;
+}
+
+.container .login .form .form-item .area-code .choose-area .center ul li {
+  border-bottom: 1px solid #e5e5e5;
+  color: #494949;
+  cursor: pointer;
+  line-height: 2.2;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.container
+  .login
+  .form
+  .form-item
+  .area-code
+  .choose-area
+  .center
+  ul
+  li:first-child {
+  border-top: 1px solid #e5e5e5;
+}
+
+.container
+  .login
+  .form
+  .form-item
+  .area-code
+  .choose-area
+  .center
+  ul
+  li
+  .right {
+  color: #9b9b9b;
+  font-weight: normal;
+}
+
+.container
+  .login
+  .form
+  .form-item
+  .area-code
+  .choose-area
+  .center
+  ul
+  li.selected {
+  color: #41ac52;
+}
+.container
+  .login
+  .form
+  .form-item
+  .area-code
+  .choose-area
+  .center
+  ul
+  li.selected
+  .left
+  i {
+  margin-left: 10px;
+}
+
+.container
+  .login
+  .form
+  .form-item
+  .area-code
+  .choose-area
+  .center
+  ul
+  li.selected
+  .right {
+  color: inherit;
+}
+
+.container .login .form .form-item .ab-right {
+  position: absolute;
+  top: 0;
+  right: 5px;
+}
+
+.container .login .form .form-item .btn {
+  width: 100%;
+  height: 30px;
+  font-size: 15px;
+}
+.container .login .bottom {
+  border-top: 1px solid #e5e5e5;
+}
+
+.container .login .bottom .msg {
+  display: inline-block;
+  font-size: 11px;
+  vertical-align: 2px;
+}
+
+.container .login .bottom .icon {
+  display: inline-block;
+}
+.container .login .bottom .icon i {
+  margin-left: 5px;
+}
+
+.container .login .bottom .icon i.icon-weixinmw {
+  color: #41ac52;
+}
+.container .login .bottom .icon i.icon-weibo {
+  color: rgba(255, 0, 0, 0.73);
+}
+
+.container .qrcode {
+  font-size: 13px;
+}
+
+.container .qrcode .title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.container .qrcode .code {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.container .qrcode .code img {
+  width: 170px;
+  height: 170px;
+}
+
+.container .qrcode .tip {
+  width: 185px;
+  height: 25px;
+  line-height: 25px;
+  background: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+.container .change {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.container .change .icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+
+.container .change .icon.icon-qrcode {
+  background: url(../img/icon-qrcode.png) no-repeat left top/100% 100%;
+}
+
+.container .pointer {
+  position: absolute;
+  height: 20px;
+  line-height: 20px;
+  border: 1px solid #e4e6e5;
+  color: #666;
+  font-size: 13px;
+  background-color: #f5faf9;
+  right: 50px;
+  top: 0;
+  padding: 0 5px;
+  border-radius: 4px;
+}
