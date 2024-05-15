@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>index</title>
+    <style>
+      .cleaerfix::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .box {
+        float: left;
+        width: 400px;
+        height: 400px;
+        background-color: lightblue;
+        margin: 10px;
+        font-size: 60px;
+        padding: 50px;
+        border: 50px dashed black;
+        background: url(img/dunk.jpg);
+      }
+      .box1 {
+        background-clip: border-box;
+        /* background-origin: border-box; */
+      }
+      .box2 {
+        /* background-origin: padding-box; */
+        background-clip: padding-box;
+      }
+      .box3 {
+        /* background-origin: content-box; */
+        background-clip: content-box;
+      }
+      .box4 {
+        background-clip: text;
+        font-size: 200px;
+        font-weight: bolder;
+        color: transparent;
+      }
+      .box5 {
+        width: 500px;
+        height: 200px;
+        background-image: url(./img/wm.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .box6 {
+        width: 500px;
+        height: 500px;
+        background: url(./img/dunk.jpg) no-repeat left top,
+          url(./img/dunk.jpg) no-repeat right top,
+          url(./img/dunk.jpg) no-repeat left bottom,
+          url(./img/dunk.jpg) no-repeat right bottom;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box5"></div>
+    <div class="box6"></div>
+    <div class="clearfix">
+      <div class="box box1">border-box</div>
+      <div class="box box2">padding-box</div>
+      <div class="box box3">content-box</div>
+      <div class="box box4">text</div>
+    </div>
+  </body>
+  <script></script>
+</html>

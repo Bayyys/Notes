@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>新增表单相关项</title>
+  </head>
+  <body>
+    <form action="#" style="display: none">
+      <div>
+        账号:
+        <input
+          type="text"
+          placeholder="账号"
+          required
+          autofocus
+          autocomplete="on"
+          pattern="[a-zA-Z0-9]{6,12}"
+        />
+      </div>
+      <div>密码: <input type="password" placeholder="密码" /></div>
+      <div>
+        性别:
+        <label> <input type="radio" name="sex" value="male" />男</label>
+        <label><input type="radio" name="sex" value="female" />女</label>
+      </div>
+      <div>
+        爱好:
+        <label>
+          <input type="checkbox" name="hobby" value="football" />抽烟</label
+        >
+        <label>
+          <input type="checkbox" name="hobby" value="basketball" />喝酒</label
+        >
+        <label>
+          <input type="checkbox" name="hobby" value="swimming" />烫头</label
+        >
+      </div>
+      <div>
+        <label for="">
+          其他:
+          <textarea name="other" id=""></textarea>
+        </label>
+      </div>
+      <div>
+        <button>提交</button>
+      </div>
+    </form>
+    <form action="#" novalidate>
+      <div>邮箱: <input type="email" name="email" required /></div>
+      <div>网址: <input type="url" name="url" /></div>
+      <div>
+        数值: <input type="number" name="number" step="2" max="100" min="0" />
+      </div>
+      <div>搜索: <input type="search" name="keyword" id="" /></div>
+      <div>电话: <input type="tel" /></div>
+      <div>
+        范围: <input type="range" name="" id="" min="0" max="100" value="50" />
+      </div>
+      <div>颜色: <input type="color" name="" id="" /></div>
+      <div>日期: <input type="date" name="" id="" /></div>
+      <div>月份: <input type="month" name="" id="" /></div>
+      <div>周期: <input type="week" name="" id="" /></div>
+      <div>时间: <input type="time" name="" id="" /></div>
+      <div>日期+时间: <input type="datetime-local" name="" id="" /></div>
+      <div><button>提交</button></div>
+    </form>
+  </body>
+</html>
