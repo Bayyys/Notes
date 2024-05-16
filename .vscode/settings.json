@@ -40,5 +40,6 @@
     },
     "python.analysis.autoImportCompletions": true,
     "commentTranslate.hover.enabled": true,
-    "liveServer.settings.port": 5603
+    "liveServer.settings.port": 5603,
+    "compile-hero.disable-compile-files-on-did-save-code": false
 }

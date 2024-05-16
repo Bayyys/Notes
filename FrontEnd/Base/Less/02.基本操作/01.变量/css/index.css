@@ -1,0 +1,36 @@
+/* 会被保留 */
+* {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  width: 100vw;
+  height: 100px;
+  background-color: #00c8c8;
+  display: flex;
+  justify-content: space-evenly;
+}
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.box {
+  width: 100px;
+  height: 100px;
+  color: #f00;
+  text-align: center;
+  line-height: 100px;
+  background-color: lightblue;
+  opacity: 0.5;
+}
+.box {
+  height: 80px;
+  width: 200px;
+  border: 1px solid #111;
+  color: #222222;
+  color: #777777;
+}

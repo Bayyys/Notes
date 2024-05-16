@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  height: 200px;
+  background-color: lightblue;
+  margin: 0 auto;
+  padding: 0 15px;
+
+  @media screen {
+    // 768px以下的屏幕
+    @media (max-width: 768px) {
+      background-color: blue;
+    }
+  }
+
+  @media tv {
+    background-color: green;
+  }
+}

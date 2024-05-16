@@ -1,0 +1,54 @@
+// 不会被保留
+/* 会被保留 */
+@my-color: #00c8c8; // 马尔斯绿
+@my-box-color: lightblue; // 浅蓝色
+@my-font-color: #f00; // 红色
+@Rule: {
+  width: 100px;
+  height: 100px;
+  color: @my-font-color;
+  text-align: center;
+  line-height: 100px;
+};
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100vw;
+  height: 100px;
+  background-color: @my-color;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.clearfix {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.box {
+  @Rule();
+  background-color: @my-box-color;
+  opacity: 0.5;
+}
+
+// 变量运算
+@height: 100px;
+@color: #111;
+.box {
+  height: @height - 20;
+  width: @height * 2;
+  border: (@height / 100) solid @color;
+  color: @color * 2;
+  color: @color + #666;
+}
+
