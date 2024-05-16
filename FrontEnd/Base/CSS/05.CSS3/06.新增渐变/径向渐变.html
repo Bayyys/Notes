@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>径向渐变</title>
+    <style>
+      .box {
+        width: 20vh;
+        height: 20vh;
+        float: left;
+        margin: 10px 10px;
+        border: 5px solid chocolate;
+        font-size: 20px;
+        text-align: center;
+        color: #fff;
+      }
+      .box1 {
+        background-image: radial-gradient(red, yellow, green);
+      }
+      .box2 {
+        background-image: radial-gradient(circle, red, yellow, green);
+      }
+      .box3 {
+        background-image: radial-gradient(at right bottom, red, yellow, green);
+      }
+      .box4 {
+        background-image: radial-gradient(at 0 0, red, yellow, green);
+      }
+      .box5 {
+        background-image: radial-gradient(200px 200px, red, yellow, green);
+      }
+      .box6 {
+        background-image: radial-gradient(
+          circle,
+          red 20px,
+          yellow 50px,
+          green 20px
+        );
+      }
+      .box7 {
+        background-image: radial-gradient(
+          150px 100px at 50% 10px,
+          red 20px,
+          yellow 40px,
+          green 100px
+        );
+      }
+      .box8 {
+        background-image: radial-gradient(
+          farthest-corner at 50% 50%,
+          red,
+          yellow,
+          green
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box box1">default</div>
+    <div class="box box2">shape: circle</div>
+    <div class="box box3">at right bottom</div>
+    <div class="box box4">at 0 0</div>
+    <div class="box box5">size 200px 200px</div>
+    <div class="box box6"></div>
+    <div class="box box7"></div>
+    <div class="box box8"></div>
+  </body>
+  <script></script>
+</html>

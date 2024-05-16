@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>重复渐变</title>
+    <style>
+      .box {
+        width: 200px;
+        height: 200px;
+        border: 5px solid chocolate;
+        float: left;
+        margin: 10px;
+        font-size: 40px;
+        color: #fff;
+      }
+      .box1 {
+        background-image: repeating-linear-gradient(45deg, blue, red);
+      }
+      .box2 {
+        background-image: repeating-linear-gradient(to left top, blue, red);
+      }
+      .box3 {
+        background-image: repeating-linear-gradient(0deg, blue, green 40%, red);
+      }
+      .box4 {
+        background-image: repeating-radial-gradient(
+          red 20%,
+          yellow 40%,
+          green 60%
+        );
+      }
+      .box5 {
+        background-image: repeating-linear-gradient(
+          transparent 0,
+          transparent 29px,
+          black 30px
+        );
+        padding: 0 10px;
+        background-clip: content-box;
+      }
+      .box6 {
+        border-radius: 50%;
+        border: none;
+        background-image: repeating-radial-gradient(at 40px 80px, white, #333);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+    <div class="box box3"></div>
+    <div class="box box4"></div>
+    <div class="box box5"></div>
+    <div class="box box6"></div>
+    <div class="box box7"></div>
+    <div class="box box8"></div>
+    <div class="box box9"></div>
+    <div class="box box10"></div>
+  </body>
+  <script></script>
+</html>

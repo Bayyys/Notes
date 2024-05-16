@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>3D 变换</title>
+    <style>
+      .outer {
+        width: 200px;
+        height: 200px;
+        border: 2px solid chocolate;
+        background-color: pink;
+        margin: 50px;
+        float: left;
+        /* 开启3D空间 */
+        transform-style: preserve-3d;
+        /* 设置景深 */
+        perspective: 300px;
+        /* 透视点的位置 */
+        /* perspective-origin: 200px 200px; */
+      }
+      .box {
+        width: 200px;
+        height: 200px;
+        background: lightblue;
+      }
+      .box1 {
+        transform: translate(10px, 10px, 10px);
+        opacity: 0.7;
+      }
+      .box2 {
+        transform: rotate3d(1, 1, 1, 60deg);
+      }
+      .box3 {
+        transform: scaleZ(2) rotateX(60deg);
+      }
+      .box4 {
+        transform-origin: right;
+        transform: rotateY(15deg);
+      }
+      .box5 {
+        transform: rotateY(100deg);
+        backface-visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="box box1"></div>
+    </div>
+    <div class="outer">
+      <div class="box box2"></div>
+    </div>
+    <div class="outer">
+      <div class="box box3"></div>
+    </div>
+    <div class="outer">
+      <div class="box box4"></div>
+    </div>
+    <div class="outer">
+      <div class="box box5"></div>
+    </div>
+    <div class="outer">
+      <div class="box box6"></div>
+    </div>
+  </body>
+</html>

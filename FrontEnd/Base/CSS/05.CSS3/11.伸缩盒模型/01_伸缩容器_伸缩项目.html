@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>01_伸缩容器_伸缩项目</title>
+    <style>
+      .outer {
+        width: 800px;
+        height: 600px;
+        background-color: #888;
+        margin: 0 auto;
+        /* 伸缩盒模型 */
+        display: flex; /* 伸缩容器 */
+
+        /* 调整主轴方向 */
+        /* flex-direction: row; /* row(default) | row-reverse | column | column-reverse */
+        flex-wrap: wrap; /* nowrap(default) | wrap | wrap-reverse
+        /* = flex-flow: row wrap; /* flex-direction + flex-wrap */
+
+        /* 主轴对齐方式 */
+        justify-content: space-evenly; /* flex-start(default) | flex-end | center | space-between | space-around */
+
+        /*  侧轴对齐方式 */
+        /* 单行 */
+        /* align-items: center; */
+
+        /* 多行 */
+        align-content: start;
+      }
+      .inner {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+        border: 1px solid black;
+        box-sizing: border-box;
+      }
+      .box2 {
+        /* flex-basis: 300px; /* 伸缩基准值 */
+        flex-basis: content; /* 伸缩基准值: 自动 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner box1">1</div>
+      <div class="inner box2">2</div>
+      <div class="inner box3">3</div>
+      <div class="inner">4</div>
+      <div class="inner">5</div>
+      <div class="inner">6</div>
+      <div class="inner">7</div>
+    </div>
+  </body>
+</html>

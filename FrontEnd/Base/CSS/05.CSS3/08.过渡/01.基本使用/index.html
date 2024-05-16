@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>index</title>
+    <style>
+      .clearfix:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .outer {
+        border: 2px solid chocolate;
+        background-color: pink;
+        margin: 50px;
+        transform-style: preserve-3d;
+        perspective: 300px;
+      }
+      .box {
+        float: left;
+        width: 200px;
+        height: 200px;
+        background: lightblue;
+        margin-right: 40px;
+        transition: all 1s cubic-bezier(0.17, 0.67, 0.97, 1.29) 50ms;
+      }
+      .box1 {
+        background-color: lightcoral;
+      }
+      .box2 {
+        background-color: lightgoldenrodyellow;
+      }
+      .outer:hover .box {
+        transform: scale(0.8);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer clearfix">
+      <div class="box1 box"></div>
+      <div class="box2 box"></div>
+    </div>
+
+  </body>
+  <script></script>
+</html>

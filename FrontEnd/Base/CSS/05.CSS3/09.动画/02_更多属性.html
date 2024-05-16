@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>02_更多属性</title>
+    <style>
+      .outer {
+        width: 100vw;
+        height: 100px;
+        border: 1px solid chocolate;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+        /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+        animation: to-right 3s ease 1s infinite alternate forwards paused;
+        /* animation-name: to-right; /* 动画名称
+        animation-duration: 3s;
+        animation-timing-function: ease;
+        animation-delay: 1s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        animation-fill-mode: forwards; */
+        /* animation-play-state: paused; */
+      }
+      .outer:hover .box {
+        animation-play-state: running;
+      }
+      @keyframes to-right {
+        /* 第一帧 */
+        from {
+          transform: translateX(0);
+        }
+        /* 最后一帧 */
+        to {
+          background-color: lightcoral;
+          transform: translateX(900px) rotate(360deg) scale(0.8);
+          border-radius: 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="box"></div>
+    </div>
+  </body>
+  <script></script>
+</html>

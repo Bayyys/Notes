@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>2D 变换</title>
+    <style>
+      .outer {
+        width: 200px;
+        height: 200px;
+        border: 2px solid chocolate;
+        background-color: pink;
+        margin: 50px;
+        float: left;
+      }
+      .box {
+        width: 200px;
+        height: 200px;
+        background: lightblue;
+      }
+      .box1 {
+        transform: translate(50px, 50px);
+      }
+      .box2 {
+        transform: scale(0.5);
+      }
+      .box3 {
+        transform: rotateZ(30deg);
+      }
+      .box4 {
+        transform: skew(20deg, 10deg);
+      }
+      .box5 {
+        transform: scale(0.5) translate(50px, 50px) rotateZ(30deg)
+          skew(20deg, 10deg);
+      }
+      .box6 {
+        transform-origin: 0 0;
+        transform: rotate(45deg) scale(0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="box box1">平移</div>
+    </div>
+    <div class="outer">
+      <div class="box box2">缩放</div>
+    </div>
+    <div class="outer">
+      <div class="box box3">旋转</div>
+    </div>
+    <div class="outer">
+      <div class="box box4">扭曲</div>
+    </div>
+    <div class="outer">
+      <div class="box box5">多重变换</div>
+    </div>
+    <div class="outer">
+      <div class="box box6">多重变换</div>
+    </div>
+  </body>
+</html>

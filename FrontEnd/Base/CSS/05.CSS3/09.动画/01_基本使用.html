@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>01_基本使用</title>
+    <style>
+      .outer {
+        width: 100vw;
+        height: 100px;
+        border: 1px solid chocolate;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+        /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+        animation-name: to-right2; /* 动画名称 */
+        animation-duration: 1s;
+        animation-delay: 1s;
+      }
+      @keyframes to-right {
+        /* 第一帧 */
+        from {
+          transform: translateX(0);
+        }
+        /* 最后一帧 */
+        to {
+          background-color: lightcoral;
+          transform: translateX(900px);
+        }
+      }
+
+      @keyframes to-right2 {
+        0% {
+          transform: translateX(0);
+        }
+        50% {
+          background-color: lightcoral;
+          transform: translateX(900px);
+        }
+        100% {
+          background-color: lightgoldenrodyellow;
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="box"></div>
+    </div>
+  </body>
+  <script></script>
+</html>

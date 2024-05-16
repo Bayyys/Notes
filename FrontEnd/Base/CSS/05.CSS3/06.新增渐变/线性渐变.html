@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>index</title>
+    <style>
+      .box {
+        float: left;
+        margin-left: 50px;
+        width: 300px;
+        height: 300px;
+        border: 5px solid chocolate;
+        font-size: 50px;
+        font-weight: bolder;
+        text-align: center;
+        color: #fff;
+      }
+      .box1 {
+        background-image: linear-gradient(red, yellow, green);
+      }
+      .box2 {
+        background-image: linear-gradient(to right, red, yellow, green);
+      }
+      .box3 {
+        background-image: linear-gradient(to right top, red, yellow, green);
+      }
+      .box4 {
+        background-image: linear-gradient(20deg, red, yellow, green);
+      }
+      .box5 {
+        background-image: linear-gradient(red 20%, yellow 40%, green 60%);
+      }
+      .box6 {
+        background-image: linear-gradient(to right, red, yellow, green);
+        color: transparent;
+        background-clip: text;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box1 box">default: to bottom</div>
+    <div class="box2 box">to right</div>
+    <div class="box3 box">to right top</div>
+    <div class="box4 box">angle: 20deg</div>
+    <div class="box5 box">color length</div>
+    <div class="box box6">text transparent</div>
+  </body>
+  <script></script>
+</html>
