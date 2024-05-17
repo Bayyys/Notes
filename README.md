@@ -642,3 +642,13 @@
 > - 中文文档过于陈旧, 请时刻关注官方文档
 
 - [x] 创建 `Next` 项目 (04.27.2024)
+
+
+## Less - 05.16.2024
+
+> [Less](./FrontEnd/Base/Less) Less 学习笔记
+> [Less.js](http://lesscss.org/)
+> [Less - CN](https://less.bootcss.com/)
+> - Less 是一门 CSS 预处理语言，它扩展了 CSS 语言，增加了变量、Mixin、函数等特性，使 CSS 更易维护和扩展。
+
+- [x] 创建 `Less` 项目 (05.16.2024)

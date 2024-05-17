@@ -1,0 +1,22 @@
+// 返回变量
+.outer() {
+  @width: 100px;
+  @height: 90vh;
+}
+.inner {
+  .outer();
+  width: @width;
+  height: @height;
+}
+
+// 返回 mixin
+.outer2(@val) {
+  .inner2() {
+    width: @val;
+  }
+}
+
+.use2 {
+  .outer2(200px);
+  .inner2();
+}

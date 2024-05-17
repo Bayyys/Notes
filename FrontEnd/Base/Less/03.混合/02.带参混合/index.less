@@ -1,0 +1,35 @@
+// 参数分隔符
+.outer1(@border: 1px solid red;@color: blue) {
+  border: @border;
+  color: @color;
+}
+
+.inner1 {
+  // 方法1
+  .outer1(2px, dashed,green; yellow);
+  // 方法2
+  .outer1(2px dashed green; yellow);
+  // 方法3
+  .outer1(@border: 2px dashed green; @color: yellow);
+}
+
+// 命名参数
+.outer2(@width: 100px, @height, @color: red) {
+  width: @width;
+  height: @height;
+  color: @color;
+}
+
+.inner2 {
+  .outer2(@color: blue, 300px, 100px);
+}
+
+// @arguments 变量
+.outer3(@x: 0; @y: 0;@blue: 1px; @color: red) {
+  --webkit-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+.inner3 {
+  .outer3(2px, 2px, 3px, blue);
+}

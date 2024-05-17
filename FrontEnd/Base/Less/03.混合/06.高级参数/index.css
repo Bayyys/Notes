@@ -1,0 +1,20 @@
+.use {
+  border: 2px red solid;
+  border: 1px solid;
+}
+.use2 {
+  height: 200px;
+  border: 10px, red, solid;
+}
+.column-1 {
+  width: 25%;
+}
+.column-2 {
+  width: 50%;
+}
+.column-3 {
+  width: 75%;
+}
+.column-4 {
+  width: 100%;
+}

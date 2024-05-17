@@ -1,0 +1,15 @@
+.inner1 {
+  border: 2px, dashed, green;
+  border: 2px dashed green;
+  color: yellow;
+}
+.inner2 {
+  width: 300px;
+  height: 100px;
+  color: blue;
+}
+.inner3 {
+  --webkit-box-shadow: 2px 2px 3px blue;
+  -moz-box-shadow: 2px 2px 3px blue;
+  box-shadow: 2px 2px 3px blue;
+}

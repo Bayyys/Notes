@@ -1,0 +1,19 @@
+// 命名空间筛选
+.outer {
+  .border(@width, @color, @style) when(@width>100px) {
+    border: @arguments;
+  }
+}
+
+.use {
+  .outer.border(100px, red, solid); // 不会被调用
+  .outer.border(200px, red, solid); // 会被调用
+}
+
+.outer2 {
+  background-color: #fff;
+}
+
+.use2 {
+  .outer2() !important;
+}

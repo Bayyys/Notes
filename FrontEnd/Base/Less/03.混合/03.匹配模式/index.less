@@ -1,0 +1,16 @@
+// 匹配模式
+.outer4 (light; @color) {
+  color: lighten(@color, 10%);
+}
+.outer4(drak; @color) {
+  color: darken(@color, 10%);
+}
+.outer4(@_; @color: red) {
+  background-color: @color;
+}
+
+@theme-color: #888;
+@theme: drak;
+.inner4 {
+  .outer4(@theme, @theme-color); // 即匹配第二个, 传入参数为 drak, #888; 同时匹配第三个, 传入参数为 #888
+}

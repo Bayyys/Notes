@@ -1,0 +1,9 @@
+.use {
+  border: 200px red solid;
+}
+.outer2 {
+  background-color: #fff;
+}
+.use2 {
+  background-color: #fff !important;
+}

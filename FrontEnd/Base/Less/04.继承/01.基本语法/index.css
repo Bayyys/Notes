@@ -1,0 +1,7 @@
+.outer {
+  background-color: #fff;
+}
+.ex,
+.outer {
+  color: red;
+}

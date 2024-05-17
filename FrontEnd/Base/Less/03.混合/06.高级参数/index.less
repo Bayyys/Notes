@@ -1,0 +1,28 @@
+// 高级参数
+.outer(@size; ...) {
+  border: @arguments;
+}
+
+.use {
+  .outer(2px, red, solid); // border: 2px red solid;
+  .outer(1px,solid); // border: 1px solid;
+}
+
+// @rest
+.outer2(@height; @rest...) {
+  height: @height;
+  border: @rest;
+}
+
+.use2 {
+  .outer2(200px; 10px, red, solid);
+}
+
+// 循环的实现
+.generate-columns(4);
+.generate-columns(@n, @i:1) when(@i<=@n) {
+  .column-@{i} {
+    width: (@i * 100% / @n);
+  }
+  .generate-columns(@n, (@i+1));
+}
