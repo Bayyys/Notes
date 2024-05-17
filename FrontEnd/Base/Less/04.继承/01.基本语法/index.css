@@ -1,7 +1,14 @@
-.outer {
-  background-color: #fff;
-}
 .ex,
 .outer {
   color: red;
+}
+.ex2,
+.outer2 {
+  color: blue;
+}
+.e .ex2 {
+  background-color: lightblue;
+}
+.ex2 .x {
+  width: 100px;
 }

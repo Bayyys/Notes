@@ -1,8 +1,22 @@
 .outer {
   &:extend(.ex);
-  background-color: #fff;
 }
 
 .ex {
   color: red;
+}
+
+.outer2:extend(.ex2) {
+}
+
+.ex2 {
+  color: blue;
+}
+
+.e .ex2 {
+  background-color: lightblue;
+}
+
+.ex2 .x {
+  width: 100px;
 }
