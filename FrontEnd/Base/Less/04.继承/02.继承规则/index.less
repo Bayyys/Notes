@@ -1,0 +1,83 @@
+// // 继承附加到选择器
+// pre:hover:extend(div pre):extend(.some-class tr) {
+// }
+
+// div pre {
+//   color: red;
+// }
+
+// .come-class tr {
+//   color: blue;
+// }
+
+// // 继承内部规则集
+// pre:hover,
+// .some-class {
+//   &:extend(div pre);
+// }
+
+// div pre {
+//   color: red;
+// }
+
+// a h1 {
+//   color: blue;
+// }
+
+// //继承嵌套选择器
+// .c1 {
+//   h1 {
+//     color: pink;
+//   }
+// }
+
+// .e1:extend(.c1 h1) {
+// }
+
+// // 精确匹配继承
+// pre[type="checked"] {
+//   color: lightblue;
+//   &:extend(.e2);
+// }
+// .e2[type="checked"] {
+//   width: 100px;
+// }
+
+// div:nth-child(1n + 3) {
+//   color: red;
+// }
+// // 无法选中继承
+// .child:extend(div:nth-child(n + 3)) {
+// }
+// // 可以选中继承
+// .child2:extend(div:nth-child(1n + 3)) {
+// }
+
+// // 带有变量的选择器不会被匹配
+// @val-invalid: .invalid;
+// @{val-invalid} {
+//   color: red;
+// }
+// .invalid-extend:extend(@{val-invalid}) {
+// }
+
+// // 附加到变量的继承可以被匹配
+// .valid {
+//   color: blue;
+// }
+// @{val-valid}:extend(.valid) {
+// }
+// @val-valid: .valid;
+
+@media screen {
+  .screen-class:extend(.selector) {
+  }
+  @media (min-width: 1023px) {
+    .selector {
+      color: blue;
+    }
+  }
+}
+
+.top-lecel:extend(.selector) {
+}

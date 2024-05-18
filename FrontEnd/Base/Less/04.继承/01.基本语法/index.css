@@ -2,6 +2,9 @@
 .outer {
   color: red;
 }
+.outer2 {
+  background-color: #fff;
+}
 .ex2,
 .outer2 {
   color: blue;
