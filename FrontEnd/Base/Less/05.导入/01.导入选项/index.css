@@ -1,0 +1,8 @@
+.demo {
+  color: palegreen;
+}
+
+.ex {
+  &:extend(.demo);
+}
+
