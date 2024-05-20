@@ -20,7 +20,6 @@ export const GET = async () => {
 
 export const POST = async (req: NextRequest) => {
   let data = await req.json();
-  data = {};
   const params = req.nextUrl.searchParams;
 
   console.log("🚀 ~ POST ~ data:", req.url, params.get("1"));
