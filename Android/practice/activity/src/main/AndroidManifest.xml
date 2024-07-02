@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Practice"
+        tools:targetApi="31">
+        <activity
+            android:name="com.bayyy.activity.DialogActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+        <activity
+            android:name="com.bayyy.activity.WholeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.bayyy.activity.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- name: 指定启动的Activity -->
+        <!-- exported: 是否允许其他应用启动该Activity -->
+        <!-- label: 显示在应用启动器中的名称 -->
+        <activity
+            android:name="com.bayyy.activity.FirstActivity"
+            android:exported="true"
+            android:label="My First Activity">
+
+            <!-- intent-filter: 指定Activity的启动方式 -->
+            <intent-filter>
+
+                <!-- action: 指定Activity的启动方式(MAIN: 主Activity, VIEW: 浏览器) -->
+                <action android:name="android.intent.action.MAIN" />
+                <!-- category: 指定Activity的启动方式(LAUNCHER: 主Activity, DEFAULT: 默认Activity) -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.bayyy.activity.SecondActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.bayyy.activity.SECOND_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.bayyy.activity.MY_CATEGORY" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.bayyy.activity.ThirdActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

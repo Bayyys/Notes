@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">practice-01-start</string>
+    <string name="btn_1_1">Show Msg</string>
+    <string name="btn_1_2">Exit</string>
+    <string name="btn_1_3">To Act2</string>
+    <string name="btn_1_4">Open URL Baidu</string>
+    <string name="btn_1_5">Send data to Act3</string>
+    <string name="btn_1_6">Send and Receive Data</string>
+    <string name="btn_1_7">Send and Receive Data via New Method</string>
+    <string name="btn_2_1">To Act1</string>
+    <string name="btn_3_1">Exit</string>
+    <string name="btn_3_2">Show Msg</string>
+    <string name="btn_3_3">Resend Msg</string>
+</resources>
