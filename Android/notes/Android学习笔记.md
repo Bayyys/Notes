@@ -1686,3 +1686,165 @@ class LocalReceiver extends BroadcastReceiver {
 }
 ```
 
+## 持久化技术 Storage
+
+### 持久化技术简介
+
+- 文件存储
+- SharedPreference 存储
+- 数据库存储
+
+### 文件存储
+
+- 不对文件进行任何格式化处理
+  - 适合简单的文本数据或二进制数据
+
+#### 将数据存储到文件中
+
+- `Context` 类中提供了 `openFileOutput(filename, mode)` 方法
+  - `filename` 文件名，不带完整路径
+    - 默认存储到 `/data/data/<package name>/files`
+  - `mode` 文件操作模式
+    - `MODE_PRIVATE`
+    - `MODE_APPEND`
+
+```java
+public class SaveData extends AppCompatActivity {
+  private EditText edit;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    edit = (EditText) findViewById(R.id.et_data);
+    findViewById(R.id.btn_save).setOnClickListener(v -> {
+      save();
+    });
+  }
+
+  public void save() {
+    String inputText = edit.getText().toString();
+    FileOutputStream out = null;
+    BufferedWriter writer = null;
+    try {
+      out = openFileOutput("data", MODE_PRIVATE);
+      writer = new BufferedWriter(new OutputStreamWriter(out));
+      writer.write(inputText);
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        if (writer != null) {
+          writer.close();
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}
+```
+
+![image-20240703202955401](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/03/image-20240703202955401-1720009795.png)
+
+#### 读取文件
+
+```java
+private void load() {
+  FileInputStream in = null;
+  BufferedReader read = null;
+  StringBuilder content = new StringBuilder();  // 新建一个StringBuilder对象(content)用于存放读取的数据
+  try {
+    in = openFileInput("data"); // 通过openFileInput()方法获取FileInputStream对象
+    read = new BufferedReader(new InputStreamReader(in)); // 通过 FileInputStream 对象构建 BufferedReader 对象
+    String line = "";
+    while ((line = read.readLine()) != null) {  // 逐行读取文件内容
+      content.append(line);
+    }
+  } catch (Exception e) {
+    e.printStackTrace();
+  } finally {
+    if (read != null) {
+      try {
+        read.close();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+  edit.setText(content.toString());
+  edit.setSelection(content.length());
+}
+```
+
+### SharedPreferences 存储
+
+- 使用键值对进行数据存储
+- 支持不同的数据类型存储
+
+#### 存储
+
+- 获取 `SharedPreferences` 对象
+
+| 方法                                                         | 说明                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `Context` 类中的 `getSharedPreferences()`                    | 参数 `文件名称, 操作模式`<br />只有 `MODE_PRIVATE` 一种模式可选 |
+| `Activity` 类中的 `getPreferences()`                         | 与上述类似，只接受 `操作模式` 参数, 默认以当前活动类名作为文件名 |
+| `PreferenceManager` 类中的 `getDefaultSharedPreferences().edit()` | 接受 Context 参数，自动以当前应用程序包名作为前缀命名文件    |
+
+- 数据存储过程
+  1. 调用 `edit()` 方法获取 `SharedPreferences.Editor` 对象
+  2. 向该对象中添加数据，添加字符串使用 `putString()` 方法，以此类推
+  3. 调用 `apply()` 方法将添加的数据提交，完成数据存储
+
+```java
+findViewById(R.id.btn_con).setOnClickListener(v -> {
+  // Context 类中的 getSharedPreferences() 方法用于获取 SharedPreferences 对象
+  // 可以指定包名
+  SharedPreferences.Editor editor = getSharedPreferences("context_data", MODE_PRIVATE).edit();
+  editor.putString("method", "Context");
+  editor.putString("name", "Bay");
+  editor.putInt("age", 18);
+  editor.putBoolean("sex", true);
+  editor.apply();
+});
+
+findViewById(R.id.btn_act).setOnClickListener(v -> {
+  // Activity 类中的 getPreferences() 方法用于获取 SharedPreferences 对象
+  // 自动将 Activity 的类名作为 SharedPreferences 的文件名: SharedData.xml
+  SharedPreferences.Editor editor = this.getPreferences(MODE_PRIVATE).edit();
+  editor.putString("method", "Activity");
+  editor.putString("name", "Bay");
+  editor.putInt("age", 18);
+  editor.putBoolean("sex", true);
+  editor.apply();
+});
+
+findViewById(R.id.btn_pre).setOnClickListener(v -> {
+  // PreferenceManager 类中的 getDefaultSharedPreferences() 方法用于获取 SharedPreferences 对象
+  // 自动将包名作为 SharedPreferences 的文件名: com.bayyy.storage_preferences.xml
+  SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+  editor.putString("method", "PreferenceManager");
+  editor.putString("name", "Bay");
+  editor.putInt("age", 18);
+  editor.putBoolean("sex", true);
+  editor.apply();
+});
+```
+
+![image-20240703203753144](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/03/image-20240703203753144-1720010273.png)
+
+#### 读取
+
+```java
+findViewById(R.id.btn_con_load).setOnClickListener(v -> {
+  SharedPreferences preferences = getSharedPreferences("context_data", MODE_PRIVATE);
+  String method = preferences.getString("method", "null");
+  String name = preferences.getString("name", "null");
+  int age = preferences.getInt("age", 0);
+  boolean sex = preferences.getBoolean("sex", true);
+  Toast.makeText(this, "Method: " + method + "\nName: " + name + "\nAge: " + age + "\nSex: " + sex, Toast.LENGTH_SHORT).show();
+});
+
+SharedPreferences preferences = this.getPreferences(MODE_PRIVATE);
+SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+```
+
