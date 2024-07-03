@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Practice">
         <activity
+            android:name=".MessageDemo"
+            android:exported="false" />
+        <activity
             android:name=".RecyclerViewLayout"
             android:exported="false" />
         <activity

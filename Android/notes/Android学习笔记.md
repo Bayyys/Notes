@@ -1268,3 +1268,421 @@ public class ReFruitAdapter extends RecyclerView.Adapter {
 - 加载布局
   - 需要 `layoutManager` 指定布局方式
   - 需要 `adapter` 指定列表适配器
+
+```java
+RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+recyclerView.setLayoutManager(linearLayoutManager);
+ReFruitAdapter fruitAdapter = new ReFruitAdapter(fruitList);
+recyclerView.setAdapter(fruitAdapter);
+```
+
+#### 横向滚动和瀑布流布局
+
+- 横向滚动
+  - 设置布局管理器 `LayoutManager` 为 `HORIZONTAL`
+
+```java
+LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+recyclerView.setLayoutManager(linearLayoutManager);
+```
+
+- 瀑布流布局
+
+```java
+StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+recyclerView.setLayoutManager(manager);
+```
+
+#### 点击事件
+
+- 由子项 View 注册点击事件
+  - 修改 `ViewHolder` 增加 `View` 保存布局的实例
+  - 对子项的内容注册点击事件
+
+```java
+public class ReFruitAdapter extends RecyclerView.Adapter {
+  private List<Fruit> mFruitList;
+
+  static class ViewHolder extends RecyclerView.ViewHolder {
+    View fruitView;	// 保存布局实例
+    ImageView fruitImage;
+    TextView fruitName;
+
+    public ViewHolder(@NonNull View itemView) {
+      super(itemView);
+      fruitView = itemView;
+      fruitImage = itemView.findViewById(R.id.fruit_image);
+      fruitName = itemView.findViewById(R.id.fruit_name);
+    }
+  }
+
+  // ...
+  
+  @NonNull
+  @Override
+  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fruit_item, parent, false);
+    // 提取 ViewHolder, 并注册点击事件
+    final ViewHolder holder = new ViewHolder(view);
+    holder.fruitView.setOnClickListener(v ->
+        {
+          int position = holder.getAdapterPosition();
+          Fruit fruit = mFruitList.get(position);
+          Toast.makeText(v.getContext(), "You clicked view " + fruit.getName(), Toast.LENGTH_SHORT).show();
+        }
+    );
+    holder.fruitImage.setOnClickListener(v -> {
+      int position = holder.getAdapterPosition();
+      Fruit fruit = mFruitList.get(position);
+      Toast.makeText(v.getContext(), "You clicked image " + fruit.getName(), Toast.LENGTH_SHORT).show();
+    });
+    return holder;
+  }
+  
+  // ...
+}
+```
+
+## Fragment
+
+> **Fragment** 是一种嵌入在 Activity 中的 UI 片段
+>
+> - 更加适配大屏使用
+
+### 简单应用
+
+- 创建左右布局 `left_fragment.xml / right_fragment.xml`
+- 分别创建左右布局子类，并实现 `Fragment`
+
+```java
+public class LeftFragment extends Fragment {
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.left_fragment, container, false);
+    return view;
+  }
+}
+
+```
+
+- 总布局引入两个布局
+
+```xml
+<LinearLayout>
+  <fragment
+            android:id="@+id/left_fragment"
+            android:name="com.bayyy.fragment.view.LeftFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+  <fragment
+            android:id="@+id/right_fragment"
+            android:name="com.bayyy.fragment.view.RightFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+</LinearLayout>
+```
+
+### 添加动态碎片
+
+#### 基本使用
+
+- 更改 `fragment` 为 `FragmentLayout`
+
+```xml
+<FrameLayout
+             android:id="@+id/right_layout"
+             android:layout_width="0dp"
+             android:layout_height="match_parent"
+             android:layout_weight="1" />
+```
+
+- 调用 `replaceFragment()` 进行 fragment 替换
+  - 创建 fragment 实例
+  - 获取 `FragmentManager`  调用 `replace()` 方法
+  - 启动事务并提交
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  Button btn_jump = (Button) findViewById(R.id.btn_left_fragment);
+  btn_jump.setOnClickListener(v -> {
+    replaceFragment(new AnotherRightFragment());
+  });
+  replaceFragment(new RightFragment());
+}
+
+private void replaceFragment(Fragment fragment) {
+  FragmentManager fragmentManager = getSupportFragmentManager();
+  FragmentTransaction transaction = fragmentManager.beginTransaction();
+  transaction.replace(R.id.right_layout, fragment);
+  transaction.commit();
+}
+```
+
+- 优化后的添加方式 （避免 IDE 报错）
+
+```java
+FragmentManager fragmentManager = this.getSupportFragmentManager();
+LeftFragment fragment = (LeftFragment) fragmentManager.findFragmentById(R.id.left_fragment);
+Button btn_jump = fragment.getView().findViewById(R.id.btn_left_fragment);
+```
+
+#### 模拟返回栈
+
+```java
+private void replaceFragment(Fragment fragment) {
+  FragmentManager fragmentManager = getSupportFragmentManager();
+  FragmentTransaction transaction = fragmentManager.beginTransaction();
+  transaction.replace(R.id.right_layout, fragment);
+  transaction.addToBackStack(null);	// 将事务添加到返回栈中，接受名字描述返回栈的状态，一般传入 null 即可
+  transaction.commit();
+}
+```
+
+### 通信
+
+- 获取 Fragment 实例
+
+```java
+FragmentManager fragmentManager = this.getSupportFragmentManager();
+LeftFragment fragment = (LeftFragment) fragmentManager.findFragmentById(R.id.left_fragment);
+```
+
+- 获取 Activity 实例
+  - 获取到的 Activity 是一个 Context 对象
+
+```java
+MainActivity activity = (MainActivity) getActivity();
+```
+
+### 生命周期
+
+#### 状态
+
+| 状态     | 解释                                                         |
+| -------- | ------------------------------------------------------------ |
+| 运行状态 | Fragment 可见，并且所关联活动处于运行状态                    |
+| 暂停状态 | 所关联活动进入暂停状态                                       |
+| 停止状态 | 所关联的活动进入停止状态，或者调用 FragmentTransction 的 `remove()/replace()` 方法将 Fragment 从活动中移除，但在事务提交之前调用 `addToBackStack()` 方法 |
+| 销毁状态 | 所依附的活动被销毁；或者调用 FragmentTransction 的 `remove()/replace()` 方法将 Fragment 从活动中移除，但在事务提交之前**并未**调用 `addToBackStack()` 方法 |
+
+![Fragment 与 Activity 之间的通信_fragment activity通信-CSDN博客](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/03/20201005193727278-20240703125000376-1719982200.png)
+
+#### 回调
+
+- 除了包括与 Activity 类似的回调以外还包括一下回调方法
+
+| 回调                  | 解释                                         |
+| --------------------- | -------------------------------------------- |
+| `onAttach()`          | Fragment 和 Activity 建立关联时使用          |
+| `onCreateView()`      | 为 Fragment 创建视图(加载布局时) 调用        |
+| `onActivityCreated()` | 确保与 Fragment 关联的活动一定创建完毕时调用 |
+| `onDestroyView()`     | 当与 Fragment 关联的视图被移除时调用         |
+| `onDetach()`          | 当 Fragment 和 Activity 解除关联时调用       |
+
+### 动态加载布局
+
+#### 使用限定词
+
+- `Qualifiers` 限定词
+  - 使用限定词来根据 **屏幕尺寸、分辨率、方向** 等进行动态加载布局
+
+- 相关限定词分类
+  - 屏幕大小：`small/normal/large/xlarge`
+  - 分辨率：`ldpi/mdpi/hdpi/xhdpi/xxhdpi`
+    - `120dpi/160dpi/240dpi/320dpi/480dpi`
+  - 方向：`land/port`
+    - `横屏/竖屏`
+- 最小宽度限定词
+  - 以指定屏幕宽度的最小值进行限定（以dp为单位）
+
+![image-20240703130456808](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/03/image-20240703130456808-1719983097.png)
+
+#### 判断时机
+
+- 可以在 `onActivityCreated` 中进行判断
+
+## 广播 Broadcast
+
+### 基本概念
+
+- Android 每个应用程序都可以对自身感兴趣的广播进行注册
+  - 该程序只会接受注册的广播
+  - 广播可以来自系统，也可以来自其他应用程序
+
+- 广播类型
+  - 标准广播 (Normal broadcasts)
+    - 完全异步执行广播，所有广播接收器几乎同时接收到该广播消息
+    - 无法被截断
+  - 有序广播 (Ordered broadcasts)
+    - 同步执行广播
+    - 同一时间只有一个广播接收器能够接收到这条广播消息，其逻辑执行完毕后才会继续接受传递
+    - 存在先后顺序 **接受优先级**
+    - 可以截断正在传递的广播
+- 创建广播接收器方式
+  - 创建继承 `BroadcastReceiver` 的类
+  - 并重写 `onReceive()`方法
+
+### 接受系统广播
+
+> - **动态注册** 在代码中注册
+> - **静态注册** 在 AndroidManifest.xml 中注册
+
+- `onReceive()` 中不应该进行过复杂或耗时操作，其执行过程过长会产生运行时错误
+
+#### 动态注册监听网络变化
+
+> 必须要在程序启动时应用
+
+- `IntentFilter` “意图过滤器”，主要用来过滤隐式意图
+- `BroadcastReceiver`广播接收器
+  - 动态注册需要动态取消注册
+
+```java
+public class BaseUse extends AppCompatActivity {
+  private IntentFilter intentFilter;
+  private NetworkChangeReceiver networkChangeReceiver;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    intentFilter = new IntentFilter();
+    // 网络状态发生变化时会发送一条值为 android.net.conn.CONNECTIVITY_CHANGE 的广播
+    // 此处作过滤器，只接收值为 android.net.conn.CONNECTIVITY_CHANGE 的广播
+    intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+    networkChangeReceiver = new NetworkChangeReceiver();
+    // 注册广播接收器
+    // 此时 NetworkChangeReceiver 会接受到值为 android.net.conn.CONNECTIVITY_CHANGE 的广播
+    // Notice: 动态注册的广播接收器一定要取消注册，否则会导致内存泄漏
+    registerReceiver(networkChangeReceiver, intentFilter);
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    // 取消注册广播接收器
+    unregisterReceiver(networkChangeReceiver);
+  }
+
+  class NetworkChangeReceiver extends BroadcastReceiver {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      // 1. 简单提示网络状态发生变化
+      // Toast.makeText(context, "Network is changed", Toast.LENGTH_SHORT).show());
+
+      // 2. 获取网络连接管理器, 通过网络连接管理器获取网络连接信息
+      ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+      // 访问系统等操作, 必须在 AndroidManifest.xml 中声明权限
+      NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+      if (activeNetworkInfo != null && activeNetworkInfo.isAvailable()) {
+        Toast.makeText(context, "Network is available", Toast.LENGTH_SHORT).show();
+      } else {
+        Toast.makeText(context, "Network is unavailable", Toast.LENGTH_SHORT).show();
+      }
+    }
+  }
+}
+```
+
+#### 静态注册实现开机启动
+
+- 实现开机启动的功能
+- 使用快速创建 `Broadcast Receiver` 来实现
+  - 自动创建类并继承 `BroadcastReceiver`
+  - 自动在 `Androidmanifet.xml` 进行注册
+- 监听系统开关机需要进一步的权限
+  - ` <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />`
+
+![image-20240703165738732](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/03/image-20240703165738732-1719997059.png)
+
+### 自定义广播
+
+#### 发送标准广播
+
+- 接收器注册
+
+```xml
+<receiver
+          android:name=".MyNormalReceiver"
+          android:enabled="true"
+          android:exported="true">
+  <intent-filter>
+    <action android:name="com.bayyy.MY_NORMAL" />
+  </intent-filter>
+</receiver>
+```
+
+- 发送标准广播
+  - 从Android 8.0（API级别26）开始，该系统对声明清单的接收者施加了额外的限制
+  - 如果你的应用目标是Android 8.0或更高版本，你不能使用清单为大多数隐式广播（不是专门针对你的应用的广播）声明接收器。当用户正在使用你的应用程序时，你仍然可以使用上下文注册的接收器
+  - 定义的静态广播必须指定范围（应用），类似于生活中广播要在指定频道才能收到
+    - 通过 `setPackage` 指定包名
+    - `setComponent` 指定完整应用名+接收器名
+
+```java
+findViewById(R.id.btn_send).setOnClickListener(v -> {
+  Log.d(TAG, "onCreate: send broadcast");
+  Intent intent = new Intent("com.bayyy.MY_NORMAL");
+  // Android 8.0 之后，静态注册的广播接收器无法接收隐式广播，需要指定包名
+  intent.setPackage(getPackageName());  // 1. 指定包名, 使得广播只能被本应用接收
+  intent.setComponent(new ComponentName("com.bayyy.broadcastreceiver", "com.bayyy.broadcastreceiver.OtherAppReceiver"));  // 2. 指定接收器, 完整应用名+接收器名, 适用于跨应用广播
+  sendBroadcast(intent);
+});
+```
+
+#### 发送有序广播
+
+- 修改发送命令 `sendOrderedBroadcast`
+
+```java
+sendOrderedBroadcast(intent, null);	// intent, 权限相关字符串
+```
+
+- 设定先后次序 `AndroidManifest.xml` 中指定 `priority`
+
+```xml
+<intent-filter android:priority="100"> ... </intent-filter>
+```
+
+- 截断通知 `abortBroadcast()`
+
+### 本地广播
+
+- 使用 `LocalBroadcastManager` 进行广播管理
+  - 注意及时注销
+
+```java
+private LocalBroadcastManager localBroadcastManager;
+private LocalReceiver localReceiver;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  localBroadcastManager = LocalBroadcastManager.getInstance(this);
+
+  findViewById(R.id.btn_send_local).setOnClickListener(v -> {
+    Intent intent = new Intent("com.bayyy.MY_LOCAL");
+    localBroadcastManager.sendBroadcast(intent);
+  });
+  localReceiver = new LocalReceiver();
+  localBroadcastManager.registerReceiver(localReceiver, new IntentFilter("com.bayyy.MY_LOCAL"));
+}
+
+@Override
+protected void onDestroy() {
+  super.onDestroy();
+  localBroadcastManager.unregisterReceiver(localReceiver);
+}
+
+class LocalReceiver extends BroadcastReceiver {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    Toast.makeText(context, "LocalReceiver", Toast.LENGTH_SHORT).show();
+  }
+}
+```
+

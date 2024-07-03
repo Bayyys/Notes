@@ -22,3 +22,6 @@ dependencyResolutionManagement {
 rootProject.name = "practice"
 include ':activity'
 include ':ui'
+include ':fragment'
+include ':broadcast'
+include ':broadcastreceiver'

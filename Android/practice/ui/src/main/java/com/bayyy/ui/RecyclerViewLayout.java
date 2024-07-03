@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bayyy.ui.controller.ReFruitAdapter;
 import com.bayyy.ui.pojo.Fruit;
@@ -31,8 +32,9 @@ public class RecyclerViewLayout extends AppCompatActivity {
     });
     initFruits();
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-    recyclerView.setLayoutManager(linearLayoutManager);
+//    LinearLayoutManager manager = new LinearLayoutManager(this);
+    StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+    recyclerView.setLayoutManager(manager);
     ReFruitAdapter fruitAdapter = new ReFruitAdapter(fruitList);
     recyclerView.setAdapter(fruitAdapter);
 

@@ -48,5 +48,8 @@ public class MainActivity extends AppCompatActivity {
     findViewById(R.id.btn_recyclerview).setOnClickListener(v -> {
       startActivity(new Intent(this, RecyclerViewLayout.class));
     });
+    findViewById(R.id.btn_message).setOnClickListener(v -> {
+      startActivity(new Intent(this, MessageDemo.class));
+    });
   }
 }
