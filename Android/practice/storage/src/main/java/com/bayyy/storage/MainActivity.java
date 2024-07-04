@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -26,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
     });
     findViewById(R.id.btn_shared_save).setOnClickListener(v -> {
       startActivity(new Intent(this, SharedData.class));
+    });
+    findViewById(R.id.btn_sqllite).setOnClickListener(v -> {
+      startActivity(new Intent(this, SQLUse.class));
+    });
+    findViewById(R.id.btn_litepal).setOnClickListener(v -> {
+      startActivity(new Intent(this, LitePalUse.class));
     });
   }
 }

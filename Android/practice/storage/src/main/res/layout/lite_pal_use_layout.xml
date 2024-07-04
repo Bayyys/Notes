@@ -1,43 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".LitePalUse">
 
     <Button
-        android:id="@+id/btn_file_save"
+        android:id="@+id/btn_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Save To File"
-        android:textAllCaps="false" />
+        android:text="Create LitePal Database" />
 
     <Button
-        android:id="@+id/btn_shared_save"
+        android:id="@+id/btn_insert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Save SharedPreferences Data"
-        android:textAllCaps="false" />
+        android:text="Insert Data" />
 
     <Button
-        android:id="@+id/btn_sqllite"
+        android:id="@+id/btn_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="SQLite DB Use"
-        android:textAllCaps="false" />
+        android:text="Update Data" />
 
     <Button
-        android:id="@+id/btn_litepal"
+        android:id="@+id/btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="LitePal Use"
-        android:textAllCaps="false" />
+        android:text="Delete Data" />
+
+    <Button
+        android:id="@+id/btn_query"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Query Data" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Create LitePal Database" />
 
 </LinearLayout>

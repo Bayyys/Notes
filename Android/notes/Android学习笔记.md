@@ -1848,3 +1848,321 @@ SharedPreferences preferences = this.getPreferences(MODE_PRIVATE);
 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 ```
 
+### SQLite 数据库
+
+#### SQL 实现增删改查
+
+- 增 `db.exec(“db.execSQL("insert into Book (name, author, pages, price) values(?, ?, ?, ?)", new String[]{"The Da Vinci Code", "Dan Brown", "454", "16.96"});`
+- 删 `db.execSQL("delete from Book where pages < ?", new String[]{"500"});`
+- 改 `db.execSQL("update Book set price = ? where pages > ?", new String[]{"10.99", "500"});`
+- 查 `Cursor cursor = db.rawQuery("select * from Book where pages > ?", new String[]{"400"});`
+
+#### 创建数据库
+
+- 提供了 `SQLiteOpenHelper` 帮助类进行数据库的创建和升级
+  - 实现抽象方法 `onCreate()` 和 `onUpgrade()`
+  - 实例方法 `getReadableDatabase()` 和 `getWritableDatabase()`
+    - 获取数据库实例时，会执行 `onCreate()` 方法
+- 创建数据库一般存储在 `/data/data/<package name>/databases/` 目录下
+
+```java
+public class MyDatabaseHelper extends SQLiteOpenHelper {
+  public static final String CREATE_BOOK = "create table Book ("
+    + "id integer primary key autoincrement, "
+    + "author text, "
+    + "price real, "
+    + "pages integer, "
+    + "name text)";
+  private Context mContext;
+
+  public MyDatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    super(context, name, factory, version);
+    mContext = context;
+  }
+
+  @Override
+  public void onCreate(SQLiteDatabase db) {
+    db.execSQL(CREATE_BOOK);
+    Toast.makeText(mContext, "Create databases succeed!", Toast.LENGTH_SHORT).show();
+
+  }
+
+  @Override
+  public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+  }
+}
+
+```
+
+```java
+dbHelper = new MyDatabaseHelper(this, "BookStore.db", null, 1);
+findViewById(R.id.btn_create_db).setOnClickListener(v -> {
+  dbHelper.getWritableDatabase();
+});
+```
+
+
+
+![image-20240704193039009](/Users/bayyy/Library/Application Support/typora-user-images/image-20240704193039009.png)
+
+#### 升级数据库
+
+- 注意已存在数据库并不会重复创建/重写
+  - 需要先drop掉已存在数据库的表
+- 更新时需要更新版本号
+
+```java
+public class MyDatabaseHelper extends SQLiteOpenHelper {
+  public static final String CREATE_CATEGORY = "create table Category (" +
+    "id integer primary key autoincrement, " +
+    "category_name text, " +
+    "category_code integer)";
+
+
+  @Override
+  public void onCreate(SQLiteDatabase db) {
+    db.execSQL(CREATE_BOOK);
+    db.execSQL(CREATE_CATEGORY);
+    Toast.makeText(mContext, "Create databases succeed!", Toast.LENGTH_SHORT).show();
+
+  }
+
+  @Override
+  public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    db.execSQL("drop table if exists Book");
+    db.execSQL("drop table if exists Category");
+    onCreate(db);
+  }
+}
+
+// Main.java
+dbHelper = new MyDatabaseHelper(this, "BookStore.db", null, 2); // 更新版本号
+```
+
+#### 添加数据
+
+- `insert()` 进行数据插入
+  - `(表名, 未指定数据自动赋值， ContentValues对象)`
+  - 使用 `ContentValues` 作为数据存储对象
+
+```java
+SQLiteDatabase db = dbHelper.getWritableDatabase();
+ContentValues values = new ContentValues();
+// 装载第一组数据
+values.put("name", "The Da Vinci Code");
+values.put("author", "Dan Brown");
+values.put("pages", 454);
+values.put("price", 16.96);
+db.insert("Book", null, values);
+values.clear(); // 清空ContentValues对象
+// 装载第二组数据
+values.put("name", "The Lost Symbol");
+values.put("author", "Dan Brown");
+values.put("pages", 510);
+values.put("price", 19.95);
+db.insert("Book", null, values);
+```
+
+#### 更新数据
+
+```java
+SQLiteDatabase db = dbHelper.getWritableDatabase();
+ContentValues values = new ContentValues();
+values.put("price", 10);
+db.update("Book", values, "name = ?", new String[] {"The Da Vinci Code"});
+```
+
+#### 删除数据
+
+```java
+db.delete("Book", "pages > ?", new String[] {"500"});
+```
+
+#### 查询数据
+
+| query() 方法参数 | 对应 SQL 部分              | 描述                   |
+| ---------------- | -------------------------- | ---------------------- |
+| table            | from table_name            | 表名                   |
+| columns          | Select column1, column2, … | 查询列，默认查询所有列 |
+| selection        | where column = value       | 约束查询对象           |
+| selectionArgs    | -                          | 具体约束值             |
+| groupBy          | group by column            | 过滤列                 |
+| having           | having column = value      | 排序约束               |
+| orderBy          | order by column1, column2  | 指定排序方式           |
+
+```java
+SQLiteDatabase db = dbHelper.getWritableDatabase();
+Cursor cursor = db.query("Book", null, null, null, null, null, null);
+if (cursor.moveToFirst()) {
+  do {
+    // 遍历Cursor对象，取出数据并打印
+    String name = cursor.getString(cursor.getColumnIndex("name"));
+    String author = cursor.getString(cursor.getColumnIndex("author"));
+    int pages = cursor.getInt(cursor.getColumnIndex("pages"));
+    double price = cursor.getDouble(cursor.getColumnIndex("price"));
+    System.out.println("Book name is " + name);
+    System.out.println("Book author is " + author);
+    System.out.println("Book pages is " + pages);
+    System.out.println("Book price is " + price);
+  } while (cursor.moveToNext());
+}
+cursor.close();
+```
+
+### LitePal
+
+- 关系型数据库
+  - 对象关系映射 ORM
+
+#### 配置过程
+
+- 引入依赖 `runtimeOnly group: 'org.litepal.guolindev', name: 'core', version: '3.2.3'`
+  - 引入报错，无法下载
+  - 解决方法：在 `settings.gradle` 加入 `jcenter()` 的库
+
+![image-20240704203602063](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/04/image-20240704203602063-1720096562.png)
+
+- 创建 litepal 配置文件 `assets/litepal.xml`
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="BookStore" />
+    <version value="1" />
+    <list></list>
+</litepal>
+```
+
+- 修改 `AndroidManifest.xml` 中 `Application.name`  为 `org.litepal.LitePalApplication`
+
+![image-20240704204206681](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/04/image-20240704204206681-1720096926.png) 
+
+#### 创建和升级
+
+- 新建实体类 Book
+  - 为了实现增删改查，需要继承自 `LitePalSupport` 类
+
+```java
+public class Book extends LitePalSupport {
+  @Column(unique = true)
+  private int id;
+  @Column(defaultValue = "unknown", nullable = false)
+  private String author;
+  @Column(index = true)
+  private double price;
+  private int pages;
+  @Column(ignore = true)
+  private String name;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(String author) {
+    this.author = author;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+  public int getPages() {
+    return pages;
+  }
+
+  public void setPages(int pages) {
+    this.pages = pages;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+}
+```
+
+- 添加映射模型
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+  <dbname value="BookStore" />
+  <version value="1" />
+  <list>
+    <mapping class="com.bayyy.storage.pojo.Book" />
+  </list>
+</litepal>
+```
+
+- 只需要任意执行一次数据库操作即可创建
+  - 增加实体类后进行版本更新即可
+
+#### 增删改查
+
+- 增
+
+```java
+Book book = new Book();
+book.setAuthor("Bayyy");
+book.setName("Android");
+book.setPages(454);
+book.setPrice(16.96);
+book.save();
+```
+
+- 改
+
+```java
+Book book = new Book();
+book.setPrice(14.95);
+book.updateAll("name = ?", "Android");
+
+// 设置为数据类型默认值 0,null..
+book.setToDefault("prices");
+```
+
+- 删
+
+```java
+LitePal.deleteAll(Book.class, "pages < ?", "500");
+
+// 不指定约束，即删除所有数据
+```
+
+- 查
+
+```java
+Book bookFirst = LitePal.findFirst(Book.class);  // 查询第一条数据
+Book bookLast = LitePal.findLast(Book.class);  // 查询第一条数据
+List<Book> books1 = LitePal.findAll(Book.class);	// 查询所有数据
+List<Book> books2 = LitePal.select("name", "author").find(Book.class);
+List<Book> books3 = LitePal.where("pages > ?", "400").find(Book.class);
+List<Book> books4 = LitePal.order("pages desc").find(Book.class);
+List<Book> books5 = LitePal.limit(3).find(Book.class);
+List<Book> books6 = LitePal.limit(3).offset(1).find(Book.class);
+// 完整查询语句
+List<Book> books7 = LitePal.select("name", "author", "pages")
+  .where("pages > ?", "400")
+  .order("pages desc")
+  .limit(3)
+  .offset(1)
+  .find(Book.class);
+// 原生 SQL 查询
+Cursor cursor = LitePal.findBySQL("select * from Book where pages > ?", "400");
+```
+
