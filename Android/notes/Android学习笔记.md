@@ -2166,3 +2166,603 @@ List<Book> books7 = LitePal.select("name", "author", "pages")
 Cursor cursor = LitePal.findBySQL("select * from Book where pages > ?", "400");
 ```
 
+## 内容提供器 Content Provider
+
+- 提供跨应用的数据共享
+
+### 运行时权限
+
+#### 机制详解
+
+| 权限分类 | 说明                                                         |
+| -------- | ------------------------------------------------------------ |
+| 普通权限 | 不会直接威胁到用户的安全和隐私权限，授权后使用时系统会自动申请 |
+| 危险权限 | 可能会触及到用户隐私，或者对设备安全性造成影响的权限，如获取设备联系人信息、定位设备的地理位置等，必须由用户手动点击授权 |
+
+#### 危险权限
+
+- 除了危险权限剩下全都是普通权限
+  - 危险权限一共 **9组24个权限**
+- 同意单一权限时，该权限所属权限组也会被授权
+
+| 权限组名   | 权限名                                                       |
+| ---------- | ------------------------------------------------------------ |
+| CALENDAR   | READ_CALENDAR<br />WRITE_CALENDAR                            |
+| CAMERA     | CAMERA                                                       |
+| CONTACTS   | READ_CONTACTS<br />WRITE_CONTACTS<br />GET_ACCOUNTS          |
+| LOCATION   | ACCESS_FINE_LAOCATION<br />ACCESS_COARSE_LOCATION            |
+| MICROPHONE | RECORAD_AUDIO                                                |
+| PHNONE     | READ_PHONE_STATE<br />CALL_PHONE<br />READ_CALL_LOG<br />WRITE_CALL_LOG<br />ADD_COICEMAIL<br />USE_SIP<br />PROCESS_OUTGOING_CALLS |
+| SENSORS    | BODY_SENSORS                                                 |
+| SMS        | SEND_SMS<br />RECEIVE_SMS<br />READ_SMS<br />RECEIVE_WAP_PUSH<br />RECEIVE_MMS |
+| STORAGE    | READ_EXTERNAL_STORAGE<br />WRITE_EXTERNAL_STORAGE            |
+
+#### 申请方式
+
+```java
+if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+  ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+} else {
+  call();
+}
+```
+
+- 设置权限申请的回调，重写 `onRequestPermissionsResult`
+
+```java
+@Override
+public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+  super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+  switch (requestCode) {
+    case 1:
+      if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        call();
+      } else {
+        Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+      }
+      break;
+    default:
+  }
+}
+```
+
+### 跨应用访问数据 ContentResolver
+
+#### 获取访问对象
+
+- 访问内容提供器中共享的数据需要借助 `ContentResolver` 类
+  - 通过 `Context` 中的 `getContentResolver()` 获取该类的实例
+  - 使用 `insert()/delete()/update()/query()` 实现增删改查
+- 访问对象由 `Uri` 提供
+  - 由 `authority` 和 `path`  组成
+  - `authority` 作为不同应用程序的区分，通常由程序包名命名
+  - `path` 用作对同一应用程序中不同表进行区分，通常会添加到 `authority` 后
+  - 如 `com.bayyy.oneapp/table1` 和 `com.bayyy.oneapp/table2`
+- `Uri` 进行组合
+  - `content://com.bayyy.oneapp/table1`
+
+```java
+Uri uri = Uri.parse("content://com.bayyy.oneapp/table1");
+CUrsor cursor = getContentResolver().query(
+	uri,
+  projection,	// 指定查询的列名
+  selection,	// 指定 where 的约束条件
+  selectionArgs,	// 指定 wherre 占位符的具体值
+  sortOrder	// 指定查询结果的排序方式
+);
+```
+
+#### 读取系统联系人
+
+```java
+try (Cursor c = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null)) {
+  contactList.clear();
+  if (c != null) {
+    while (c.moveToNext()) {
+      // 获取联系人姓名
+      String displayName = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+      // 获取联系人手机号
+      String number = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
+      contactList.add(new MyContact(displayName, number));
+    }
+    adapter.clear();
+    adapter.addAll(contactList);
+  }
+} catch (Exception e) {
+  e.printStackTrace();
+}
+```
+
+### 自定义内容提供器
+
+#### 创建过程
+
+- 创建类继承 `ContentProvider` 
+  - 重写其中6个方法
+- `AndroidManifest.xml` 中实现注册 
+
+```xml
+<provider
+          android:name=".provider.DBProvider"
+          android:authorities="com.bayyy.db.provider"
+          android:enabled="true"
+          android:exported="true" />
+```
+
+- 标准 Uri
+  - `content://com.bayyy.app/table1` table1表
+  - `content://com.bayyy.app/table1/1` table1表中id为1的数据
+  - `content://com.bayyy.app/table1/*` 任意长度字符
+  - `content://com.bayyy.app/table1/#` 任意长度数字
+
+| 方法       | 说明                                                         |
+| ---------- | ------------------------------------------------------------ |
+| onCreate() | 初始化内容提供器，可以完成创建和升级过程，返回值代表成功与否（只有在 `ContentResolver` 尝试访问数据时会被初始化 |
+| query()    | 查询数据                                                     |
+| Insert()   | 添加数据                                                     |
+| update()   | 更新数据                                                     |
+| delete()   | 删除数据                                                     |
+| getType()  | 根据 Uri 返回对应的 MIME 类型                                |
+
+#### Uri 匹配
+
+- 使用 `UriMatcher` 进行匹配内容 `Uri` 
+
+```java
+public class MyProvider extends ContentProvider {
+  public static final int TABLE1_DIR = 0;
+  public static final int TABLE1_ITEM = 1;
+  public static final int TABLE2_DIR = 2;
+  public static final int TABLE2_ITEM = 3;
+  public static UriMatcher uriMatcher;
+
+  static {
+    uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    uriMatcher.addURI("com.bayyy.contentprovider", "table1", TABLE1_DIR);
+    uriMatcher.addURI("com.bayyy.contentprovider", "table1/#", TABLE1_ITEM);
+    uriMatcher.addURI("com.bayyy.contentprovider", "table2", TABLE2_DIR);
+    uriMatcher.addURI("com.bayyy.contentprovider", "table2/#", TABLE2_ITEM);
+  }
+
+  @Nullable
+  @Override
+  public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+    switch (uriMatcher.match(uri)) {
+      case TABLE1_DIR:
+        break;
+      case TABLE1_ITEM:
+        break;
+      case TABLE2_DIR:
+        break;
+      case TABLE2_ITEM:
+        break;
+      default:
+        break;
+    }
+    return null;
+  }
+}
+
+```
+
+#### MIME 类型
+
+- `getType()`返回 `Uri`  对象所对应的 MIMR 类型
+
+- 格式规定
+  - 必须以 `vnd` 开头
+  - 若内容以路径结尾，则后接 `android.cursor.dir/`；若内容以 id 结尾，则后接 `android.cursor.item/`
+  - 最后接上 `vnd.<authority>.<path>`
+- 对于 `content://com.bayyy.app.provider/table1` 则对应的 MIME 类型为 `vnd.android.cursor.dir/vnd.com.bayyy.app.provider.table1`
+- 对于 `content://com.bayyy.app.provider/table1/1` 则对应的 MIME 类型为 `vnd.android.cursor.item/vnd.com.bayyy.app.provider.table1`
+
+```java
+@Nullable
+@Override
+public String getType(@NonNull Uri uri) {
+  switch (uriMatcher.match(uri)) {
+    case TABLE1_DIR:
+      return "vnd.android.cursor.dir/vnd.com.bayyy.contentprovider.table1";
+    case TABLE1_ITEM:
+      return "vnd.android.cursor.item/vnd.com.bayyy.contentprovider.table1";
+    case TABLE2_DIR:
+      return "vnd.android.cursor.dir/vnd.com.bayyy.contentprovider.table2";
+    case TABLE2_ITEM:
+      return "vnd.android.cursor.item/vnd.com.bayyy.contentprovider.table2";
+    default:
+      break;
+  }
+  return null;
+}
+```
+
+#### 跨应用访问限制
+
+- 被访问后台应用过程应该产生任何弹窗等消息，如 `Toast` 等
+- 访问者需要声明访问包
+
+```xml
+<queries>
+  <package android:name="com.bayyy.storage" />
+</queries>
+```
+
+## 运用手机多媒体
+
+### 通知 Notification
+
+#### 使用通知
+
+- `Android 8.0` 以上使用需要建立消息通道
+
+```java
+// 获取通知管理器
+NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+String channelId;
+// Android 8.0及以上需要建立消息通道, 否则会报错: No channel found for notification
+if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+  Log.d(TAG, "onCreate: Crete Channel");
+  channelId = "1";
+  CharSequence channelName = "channel1";
+  String channelDescription = "This is channel 1";
+  int channelImportance = android.app.NotificationManager.IMPORTANCE_HIGH;
+  NotificationChannel channel = new NotificationChannel(channelId, channelName, channelImportance);
+  channel.setDescription(channelDescription);
+  Log.d(TAG, "onCreate: Create Channel" + channel);
+  manager.createNotificationChannel(channel);
+}
+// 创建通知
+Notification notify = new NotificationCompat.Builder(this, channelId)	// 此处需要给定通知通道号
+  .setContentTitle("Title")
+  .setContentText("This is the content")
+  .setWhen(System.currentTimeMillis())
+  .setSmallIcon(R.mipmap.ic_launcher)
+  .build();
+manager.notify(1, notify);
+```
+
+#### 通知点击意图
+
+- `PendingIntent` 可以理解为延时执行的 Intent
+
+```java
+PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, JumpPage.class), PendingIntent.FLAG_IMMUTABLE);
+// 创建通知
+Notification notify = new NotificationCompat.Builder(this, channelId)
+  // ...
+  .setContentIntent(pi)
+  .build();
+manager.notify(1, notify);
+```
+
+- `setAutoCancel` 点击后主动取消
+- 也可以通过 `manager.cancel(notifyId)` 取消指定编号的通知
+
+#### 进阶用法
+
+| API                 | 描述                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| setContentTitle     | 标题                                                         |
+| setContentText      | 内容                                                         |
+| setSubText          | 子标题                                                       |
+| setLargeIcon        | 大图标                                                       |
+| setSmallIcon        | 小图标                                                       |
+| setContentIntent    | 点击时意图                                                   |
+| setDeleteIntent     | 删除时意图                                                   |
+| setFullScreenIntent | 全屏通知点击意图，来电、响铃                                 |
+| setAutoCancel       | 点击自动取消                                                 |
+| setCategory         | 通知类别，适用“勿扰模式”                                     |
+| setVisibility       | 屏幕可见性，适用“锁屏状态”                                   |
+| setNumber           | 通知项数量                                                   |
+| setWhen             | 通知时间                                                     |
+| setShowWhen         | 是否显示通知时间                                             |
+| setSound            | 提示音                                                       |
+| setVibrate          | 震动                                                         |
+| setLights           | 呼吸灯                                                       |
+| setPriority         | 优先级，7.0                                                  |
+| setTimeoutAfter     | 定时取消，8.0及以后                                          |
+| setProgress         | 进度                                                         |
+| setStyle            | 通知样式，BigPictureStyle、BigTextStyle、MessagingStyle、InboxStyle、DecoratedCustomViewStyle |
+| addAction           | 通知上的操作，10.0                                           |
+| setGroup            | 分组                                                         |
+| setColor            | 背景颜色                                                     |
+
+### 调用摄像头和相册
+
+#### 摄像头
+
+- 调用摄像头拍摄照片 `android.media.action.IMAGE_CAPTURE`
+- 存储在应用关联缓存中 `putExtra(MediaStore.EXTRA_OUTPUT, imageUri)`
+  - 即指定图片的输出目录
+- 文件读取，加载缓存图片
+
+```java
+public class CameraUse extends AppCompatActivity {
+  public static final int TAKE_PHOTO = 1;
+  private ImageView photo;
+  private Button btn_take;
+  private Uri imageUri;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    btn_take = (Button) findViewById(R.id.btn_take);
+    photo = (ImageView) findViewById(R.id.img_show);
+    btn_take.setOnClickListener(v -> {
+      // 1.创建File对象，用于存储拍照后的图片
+      // getExternalCacheDir()方法用于获取应用关联缓存目录 (/sdcard/Android/data/包名/cache/)
+      File outputImage = new File(getExternalCacheDir(), "output_image.jpg");
+      try {
+        if (outputImage.exists()) {
+          outputImage.delete();
+        }
+        outputImage.createNewFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      // 2.将File对象转换成Uri对象
+      if (Build.VERSION.SDK_INT >= 24) {
+        // 如果Android版本大于等于7.0, 则使用FileProvider获取Uri
+        imageUri = FileProvider.getUriForFile(CameraUse.this, "com.bayyy.media.fileprovider", outputImage);
+      } else {
+        // 否则使用Uri.fromFile()方法获取Uri
+        imageUri = Uri.fromFile(outputImage);
+      }
+      // 3.启动相机程序
+      Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+      // 指定图片的输出地址
+      intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+      startActivityForResult(intent, TAKE_PHOTO);
+    });
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    switch (requestCode) {
+      case TAKE_PHOTO:
+        if (resultCode == RESULT_OK) {
+          try {
+            Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+            photo.setImageBitmap(bitmap);
+          } catch (FileNotFoundException e) {
+            e.printStackTrace();
+          }
+          // 将拍摄的照片显示出来
+          photo.setImageURI(imageUri);
+        }
+        break;
+    }
+  }
+}
+```
+
+- 权限声明+FileProvider声明
+  - SD 权限声明是为了适配老版本机器 （4.4）
+  - 此处指定了输出目录，需要额外创建
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <application>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.bayyy.media.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+</manifest>
+```
+
+- 文件创建 `external-path`
+  - `path='.'` 表明整个SD空间
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path
+        name="my_images"
+        path="." />
+</paths>
+```
+
+#### 加载相册
+
+> - 最新方法：直接使用 `ImageView.setImageURI(data.getData())`
+
+1. 动态申请访问存储器的权限 `WRITE_EXTERNAL_STORAGE`
+2. 构建打开相册的意图，并等待返回结果
+3. 根据 Android 4.4 版本号分割选择不同的处理方式
+   - Android4.4 后，选中相册不返回真是Uri，而是进行了一定的封装
+     - 被封装为 `Document`，需要取出 `document id` 进行处理
+       - 若`authority`为`media`，还需要对id进行解析，分割后半部分才是真正的数字id
+     - 否则，使用普通方式
+     - 
+   - Android4.4以前，Uri未经封装，可以直接传入获取真实路径
+4. 展示图像
+
+
+
+```java
+public class CameraUse extends AppCompatActivity {
+  public static final int CHOOSE_PHOTO = 2;
+  public static final int REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE = 1;
+  private ImageView photo;
+  private Button btn_load;
+  private Uri imageUri;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    btn_load = (Button) findViewById(R.id.btn_load);
+    photo = (ImageView) findViewById(R.id.img_show);
+    btn_load.setOnClickListener(v -> {
+      // 需要动态申请权限: 读取外部存储器的权限
+      if (ContextCompat.checkSelfPermission(CameraUse.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        ActivityCompat.requestPermissions(CameraUse.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE);
+      } else {
+        openAlbum();
+      }
+    });
+  }
+
+  /**
+   * 打开相册, 选择图片
+   */
+  private void openAlbum() {
+    Intent intent = new Intent("android.intent.action.GET_CONTENT");
+    intent.setType("image/*");
+    startActivityForResult(intent, CHOOSE_PHOTO);
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    switch (requestCode) {
+      case CHOOSE_PHOTO:
+        if (resultCode == RESULT_OK) {
+          // 判断手机系统版本号
+          if (Build.VERSION.SDK_INT >= 19) {
+            // 4.4及以上系统使用这个方法处理图片
+            handleImageOnKitKat(data);
+          } else {
+            // 4.4以下系统使用这个方法处理图片
+            handleImageBeforeKitKat(data);
+          }
+        }
+        break;
+    }
+  }
+
+  @TargetApi(19)
+  private void handleImageOnKitKat(Intent data) {
+    // 1.获取图片的Uri
+    String imagePath = null;
+    Uri uri = data.getData();
+    // 2.判断Uri的Authority是不是DocumentsContract
+    if (DocumentsContract.isDocumentUri(this, uri)) {
+      // 如果是Document类型的Uri, 则通过Document的Id处理
+      String docId = DocumentsContract.getDocumentId(uri);
+      if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+        // 判断Uri的Authority是不是MediaProvider
+        String id = docId.split(":")[1]; // 解析出数字格式的id
+        String selection = MediaStore.Images.Media._ID + "=" + id;
+        imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+      } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+        // 判断Uri的Authority是不是DownloadsProvider
+        Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+        imagePath = getImagePath(contentUri, null);
+      }
+    } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+      // 如果是Content类型的Uri, 则使用普通方式处理
+      imagePath = getImagePath(uri, null);
+    } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+      // 如果是File类型的Uri, 直接获取图片路径即可
+      imagePath = uri.getPath();
+    }
+    displayImg(imagePath); // 根据图片路径显示图片
+  }
+
+  /**
+   * 根据图片路径显示图片
+   *
+   * @param imagePath 图片路径
+   */
+  private void displayImg(String imagePath) {
+    if (imagePath != null) {
+      Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+      photo.setImageBitmap(bitmap);
+    } else {
+      Toast.makeText(this, "Failed to get image", Toast.LENGTH_SHORT).show();
+    }
+  }
+
+  /**
+   * 根据Uri和selection来获取图片的真实路径
+   */
+  private String getImagePath(Uri uri, String selection) {
+    String path = null;
+    Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
+    if (cursor != null) {
+      if (cursor.moveToFirst()) {
+        path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+      }
+      cursor.close();
+    }
+    return path;
+  }
+
+  /**
+   * 4.4以下系统使用这个方法处理图片
+   */
+  private void handleImageBeforeKitKat(Intent data) {
+    Uri uri = data.getData();
+    String imagePath = getImagePath(uri, null);
+    displayImg(imagePath);
+  }
+}
+```
+
+### 播放多媒体
+
+#### 播放音频
+
+- 使用 MediaPlayer 类实现
+- 流程
+  1. 创建 MediaPlayer 对象
+  2. 调用 `getDataSource()` 方法设置播放音频路径
+  3. 调用 `prepare()` 进入准备状态
+  4. `start()/pause()/reset()` 分别进行开始、暂停、停止状态
+
+```java
+File file = new File(Environment.getExternalStorageDirectory(), "music.mp3");
+media.setDataSource(file.getPath());
+```
+
+| 方法                          | 说明                                    |
+| ----------------------------- | --------------------------------------- |
+| MediaPlayer                   | 构造方法                                |
+| create                        | 创建一个要播放的多媒体                  |
+| getCurrentPosition            | 得到当前播放位置                        |
+| getDuration                   | 得到文件的时间                          |
+| getVideoHeight                | 得到视频的高度                          |
+| getVideoWidth                 | 得到视频的宽度                          |
+| isLooping                     | 是否循环播放                            |
+| isPlaying                     | 是否正在播放                            |
+| pause                         | 暂停                                    |
+| prepare                       | 准备（同步）                            |
+| prepareAsync                  | 准备（异步）                            |
+| release                       | 释放MediaPlayer对象相关的资源           |
+| reset                         | 重置MediaPlayer对象为刚刚创建的状态     |
+| seekTo                        | 指定播放的位置（以毫秒为单位的时间）    |
+| setAudioStreamType            | 设置流媒体的类型                        |
+| setDataSource                 | 设置多媒体数据来源(位置)                |
+| setDisplay                    | 设置用SurfaceHolder来显示多媒体         |
+| setLooping                    | 设置是否循环播放                        |
+| setOnButteringUpdateListener  | 网络流媒体的缓冲监听                    |
+| setOnErrorListener            | 设置错误信息监听                        |
+| setOnVideoSizeChangedListener | 视频尺寸监听                            |
+| setScreenOnWhilePlaying       | 设置是否使用SurfaceHolder来保持屏幕显示 |
+| setVolume                     | 设置音量                                |
+| start                         | 开始播放                                |
+| stop                          | 停止播放                                |
+
+#### 播放视频
+
+- 使用` VideoView` 实现
+
+```java
+videoView.setVideoURI(<Uri>);
+```
+
+| 方法         | 说明               |
+| ------------ | ------------------ |
+| setVideoPath | 设置播放视频的位置 |
+| starat       | 开始               |
+| pause        | 暂停               |
+| resume       | 从头播放           |
+| seekTo       | 从指定位置开始     |
+| isPlaying    | 判断是否正在播放   |
+| getDuration  | 获取载入数据的时长 |
+

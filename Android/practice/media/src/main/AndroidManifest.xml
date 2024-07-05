@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
-        android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Practice">
+        <activity
+            android:name=".VideoUse"
+            android:exported="false" />
+        <activity
+            android:name=".MediaUse"
+            android:exported="false" />
+
         <provider
-            android:name=".provider.DBProvider"
-            android:authorities="com.bayyy.dataset.provider"
-            android:enabled="true"
-            android:exported="true" />
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.bayyy.media.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <activity
-            android:name=".LitePalUse"
+            android:name=".CameraUse"
             android:exported="false" />
         <activity
-            android:name=".SQLUse"
+            android:name=".JumpPage"
             android:exported="false" />
         <activity
-            android:name=".SharedData"
-            android:exported="false" />
-        <activity
-            android:name=".SaveData"
+            android:name=".ShowNotify"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
