@@ -2766,3 +2766,104 @@ videoView.setVideoURI(<Uri>);
 | isPlaying    | 判断是否正在播放   |
 | getDuration  | 获取载入数据的时长 |
 
+## 网络请求
+
+### WebView 
+
+- 申请权限 `android.permission.INTERNET`
+
+```java
+WebView web = findViewById(R.id.web_view);
+web.getSettings().setJavaScriptEnabled(true); // 设置支持JavaScript
+web.setWebViewClient(new WebViewClient());  // 设置WebViewClient (网页跳转仍在当前WebView中显示)
+web.loadUrl("https://www.baidu.com");
+```
+
+### HTTP 协议访问
+
+#### HttpURLConnection
+
+- 构建 HttpURLConnection 实例实现网络请求
+  - 可以设置METHOD、TIMEOUT等
+- 使用 getInputStream 将获取服务器返回的输入流
+- 构建多线程操作
+  - 注意：子线程无法操作UI界面，需要切换到主线程操作 `runOnUiThread()`
+
+```java
+private void sendHttpRequest() {
+  new Thread(new Runnable() {
+    @Override
+    public void run() {
+      // send http request
+      HttpURLConnection connection = null;
+      BufferedReader reader = null;
+      try {
+        URL url = new URL("https://www.baidu.com");
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(8000);
+        connection.setReadTimeout(8000);
+        InputStream in = connection.getInputStream();
+        // read response
+        reader = new BufferedReader(new InputStreamReader(in));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+          response.append(line);
+        }
+        // show response
+        runOnUiThread(() -> {
+          res_text.setText(response.toString());
+        });
+      } catch (Exception e) {
+        e.printStackTrace();
+      } finally {
+        if (reader != null) {
+          try {
+            reader.close();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+        if (connection != null) {
+          connection.disconnect();
+        }
+      }
+    }
+  }).start();
+}
+```
+
+#### OkHttp (开源库)
+
+- 添加依赖 `implementation("com.squareup.okhttp3:okhttp:4.12.0")`
+  - 自动添加 `OkHttp + Okio` 
+
+```java
+new Thread(new Runnable() {
+  @Override
+  public void run() {
+    try {
+      // 发送GET请求
+      OkHttpClient client = new OkHttpClient();
+      Request req = new Request.Builder().url("https://www.baidu.com").build();
+      try (Response res = client.newCall(req).execute()) {
+        String data = res.body() != null ? res.body().string() : null;
+        updateUI(data);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
+}).start();
+
+// POST 请求
+RequestBody body = new FormBody.Builder().add("username", "admin").add("password", "123456").build();
+Request req_post = new Request.Builder().url("https://www.baidu.com").post(body).build();
+```
+
+### 解析XML格式数据
+
+#### Pull 解析方式
+
