@@ -1,6 +1,7 @@
 package com.bayyy.web;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import okhttp3.Response;
 
 public class ParseUse extends AppCompatActivity {
 
+  private static final String TAG = "MyLog";
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -36,7 +39,7 @@ public class ParseUse extends AppCompatActivity {
     new Thread(() -> {
       try {
         OkHttpClient client = new OkHttpClient();
-        Request req = new Request.Builder().url("http://127.0.0.1:5500/test.xml").build();
+        Request req = new Request.Builder().url("http://10.0.2.2:5500/test.xml").build();
         Response res = client.newCall(req).execute();
         String data = res.body().string();
         parseXMLWithPull(data);
@@ -72,15 +75,16 @@ public class ParseUse extends AppCompatActivity {
           // 完成解析某个节点
           case XmlPullParser.END_TAG: {
             if ("person".equals(nodeName)) {
-              System.out.println("id is " + id);
-              System.out.println("name is " + name);
-              System.out.println("age is " + age);
+              Log.d(TAG, "parseXMLWithPull: id = " + id);
+              Log.d(TAG, "parseXMLWithPull: name = " + name);
+              Log.d(TAG, "parseXMLWithPull: age = " + age);
             }
             break;
           }
           default:
             break;
         }
+        eventType = xmlPullParser.next();
       }
     } catch (Exception e) {
       e.printStackTrace();

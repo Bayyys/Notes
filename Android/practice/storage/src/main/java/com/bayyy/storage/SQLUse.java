@@ -66,7 +66,7 @@ public class SQLUse extends AppCompatActivity {
     findViewById(R.id.btn_delete).setOnClickListener(v -> {
       SQLiteDatabase db = dbHelper.getWritableDatabase();
       db.delete("Book", "pages > ?", new String[]{"500"});
-//      db.execSQL("delete from Book where pages < ?", new String[]{"500"});
+      // db.execSQL("delete from Book where pages < ?", new String[]{"500"});
     });
     // Select data
     findViewById(R.id.btn_query).setOnClickListener(v -> {
@@ -75,10 +75,10 @@ public class SQLUse extends AppCompatActivity {
       if (cursor.moveToFirst()) {
         do {
           // 遍历Cursor对象，取出数据并打印
-          String name = cursor.getString(cursor.getColumnIndex("name"));
-          String author = cursor.getString(cursor.getColumnIndex("author"));
-          int pages = cursor.getInt(cursor.getColumnIndex("pages"));
-          double price = cursor.getDouble(cursor.getColumnIndex("price"));
+          String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+          String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+          int pages = cursor.getInt(cursor.getColumnIndexOrThrow("pages"));
+          double price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"));
           System.out.println("Book name is " + name);
           System.out.println("Book author is " + author);
           System.out.println("Book pages is " + pages);
