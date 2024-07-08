@@ -2865,5 +2865,53 @@ Request req_post = new Request.Builder().url("https://www.baidu.com").post(body)
 
 ### 解析XML格式数据
 
+- Android 模拟器中 `127.0.0.1` 指代模拟器本身
+- 需要通过 `10.0.2.2` 桥接到所在电脑
+
 #### Pull 解析方式
 
+```java
+private void parseXMLWithPull(String xmlData) {
+  try {
+    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+    XmlPullParser xmlPullParser = factory.newPullParser();
+    xmlPullParser.setInput(new StringReader(xmlData));
+    int eventType = xmlPullParser.getEventType();
+    String id = "";
+    String name = "";
+    String age = "";
+    while (eventType != XmlPullParser.END_DOCUMENT) {
+      String nodeName = xmlPullParser.getName();
+      switch (eventType) {
+          // 开始解析某个节点
+        case XmlPullParser.START_TAG: {
+          if ("id".equals(nodeName)) {
+            id = xmlPullParser.nextText();
+          } else if ("name".equals(nodeName)) {
+            name = xmlPullParser.nextText();
+          } else if ("age".equals(nodeName)) {
+            age = xmlPullParser.nextText();
+          }
+          break;
+        }
+          // 完成解析某个节点
+        case XmlPullParser.END_TAG: {
+          if ("person".equals(nodeName)) {
+            Log.d(TAG, "parseXMLWithPull: id = " + id);
+            Log.d(TAG, "parseXMLWithPull: name = " + name);
+            Log.d(TAG, "parseXMLWithPull: age = " + age);
+          }
+          break;
+        }
+        default:
+          break;
+      }
+      eventType = xmlPullParser.next();
+    }
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+}
+```
+
+#### SAX 解析方式asdas  asdsadsdaasd
