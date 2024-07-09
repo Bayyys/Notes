@@ -2914,4 +2914,120 @@ private void parseXMLWithPull(String xmlData) {
 }
 ```
 
-#### SAX 解析方式asdas  asdsadsdaasd
+#### SAX 解析方式
+
+- 新建 `MyParserSAXHandler` 类继承 `DefaultHandler`
+- 使用过程
+  - 创建 `SAXParserFactory` 对象，获取 `XMLReader` 对象
+  - 编写的 Handler 实例设置到 `XMLReader` 对象中
+  - 调用 `parse()` 方法进行解析
+
+```java
+public class MyParseSAXHandler extends DefaultHandler {
+  private String nodeName;
+  private StringBuilder id;
+  private StringBuilder name;
+  private StringBuilder version;
+
+  @Override
+  public void startDocument() throws SAXException {
+    id = new StringBuilder();
+    name = new StringBuilder();
+    version = new StringBuilder();
+  }
+
+  @Override
+  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    nodeName = localName;
+  }
+
+  @Override
+  public void characters(char[] ch, int start, int length) throws SAXException {
+    if ("id".equals(nodeName)) {
+      id.append(ch, start, length);
+    } else if ("name".equals(nodeName)) {
+      name.append(ch, start, length);
+    } else if ("version".equals(nodeName)) {
+      version.append(ch, start, length);
+    }
+  }
+
+  @Override
+  public void endElement(String uri, String localName, String qName) throws SAXException {
+    if ("app".equals(localName)) {
+      System.out.println("id is " + id.toString().trim());
+      System.out.println("name is " + name.toString().trim());
+      System.out.println("version is " + version.toString().trim());
+      // 最后要将StringBuilder清空掉
+      id.setLength(0);
+      name.setLength(0);
+      version.setLength(0);
+    }
+  }
+
+  @Override
+  public void endDocument() throws SAXException {
+    super.endDocument();
+  }
+}
+```
+
+```java
+private void parseXMLWithSAX(String data) {
+  try {
+    SAXParserFactory factory = SAXParserFactory.newInstance();
+    XMLReader xmlReader = factory.newSAXParser().getXMLReader();
+    ContentHandler handler = new MyParseSAXHandler();
+    // 将ContentHandler的实例设置到XMLReader中
+    xmlReader.setContentHandler(handler);
+    // 开始执行解析
+    xmlReader.parse(new org.xml.sax.InputSource(new StringReader(data)));
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+}
+```
+
+### 解析 JSON 格式数据
+
+#### 使用 JSONObject
+
+```java
+private void parseJSONWithJSONObject(String data) {
+  try {
+    JSONArray jsonArray = new JSONArray(data);
+    for (int i = 0; i < jsonArray.length(); i++) {
+      JSONObject jsonObject = jsonArray.getJSONObject(i);
+      String id = jsonObject.getString("id");
+      String name = jsonObject.getString("name");
+      String age = jsonObject.getString("age");
+      Log.d(TAG, "parseJSONWithJSONObject: id = " + id);
+      Log.d(TAG, "parseJSONWithJSONObject: name = " + name);
+      Log.d(TAG, "parseJSONWithJSONObject: age = " + age);
+    }
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+}
+```
+
+#### 使用 GSON
+
+- 添加依赖 `implementation group: 'com.google.code.gson', name: 'gson', version: '2.11.0'`
+- 新建对应的实体类
+- 解析单段数据 `Person person = gson.fromJson(data, Person.class)`
+- 解析JSON数组 `List<Person> people = son.fromJson(data, new TypeToken<List<Person>>>())`
+
+```java
+private void parseJSONWithGSON(String data) {
+  Gson gson = new Gson();
+  List<Person> people = gson.fromJson(data, new TypeToken<List<Person>>() {
+  }.getType());
+  for (Person p : people) {
+    Log.d(TAG, "parseJSONWithGSON: id = " + p.getId());
+    Log.d(TAG, "parseJSONWithGSON: name = " + p.getName());
+    Log.d(TAG, "parseJSONWithGSON: age = " + p.getAge());
+  }
+}
+```
+
