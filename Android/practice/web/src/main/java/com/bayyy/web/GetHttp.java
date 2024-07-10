@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.bayyy.web.utils.HttpUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -117,5 +121,21 @@ public class GetHttp extends AppCompatActivity {
         }
       }
     }).start();
+  }
+
+  private void sendRequest() {
+    HttpUtil.sendOkHttpRequest("http://www.baidu.com", new okhttp3.Callback() {
+
+      @Override
+      public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+        String data = response.body() != null ? response.body().string() : null;
+        updateUI(data);
+      }
+
+      @Override
+      public void onFailure(@NonNull Call call, @NonNull IOException e) {
+        e.printStackTrace();
+      }
+    });
   }
 }

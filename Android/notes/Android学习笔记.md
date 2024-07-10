@@ -3031,3 +3031,105 @@ private void parseJSONWithGSON(String data) {
 }
 ```
 
+### 网络编程实践
+
+#### 设置通用类
+
+- 创建接口 `HttpCallbackListener` 作为线程返回数据处理
+  - 成功数据在 `onFinish` 返回
+  - 异常报错在 `onError` 处理
+
+```java
+public interface HttpCallbackListener {
+  void onFinish(String response);
+  void onError(Exception e);
+}
+```
+
+- 通用类中实现网络通信
+
+```java
+public class HttpUtil {
+  private static void sendHttpRequest(String address, HttpCallbackListener listener) {
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        HttpURLConnection connection = null;
+        try {
+          URL url = new URL(address);
+          connection = (HttpURLConnection) url.openConnection();
+          connection.setRequestMethod("GET");
+          connection.setConnectTimeout(8000);
+          connection.setReadTimeout(8000);
+          connection.setDoInput(true);  // 设置这个连接是否可以写入数据
+          connection.setDoOutput(true);  // 设置这个连接是否可以输出数据
+          InputStream in = connection.getInputStream();
+          BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+          StringBuilder response = new StringBuilder();
+          String line;
+          while ((line = reader.readLine()) != null) {
+            response.append(line);
+          }
+          if (listener != null) {
+            listener.onFinish(response.toString());
+          }
+        } catch (Exception e) {
+          if (listener != null) {
+            listener.onError(e);
+          }
+        } finally {
+          if (connection != null) {
+            connection.disconnect();
+          }
+        }
+      }
+    }).start();
+  }
+}
+```
+
+- 实际使用，传入地址并重写接口两个方法即可
+
+```java
+HttpUtil.sendHttpRequest(address, new HttpCallbackListener(){
+  @override
+  public void onFinish(String response) { // 返回内容处理逻辑
+  };
+
+  @override
+  public void onError(Exception e) { // 异常处理
+  }
+})
+```
+
+#### OkHttp
+
+- OkHttp库中自带回调接口 `okhttp3.Callback`
+  - 会在 `enqueue()` 中开启子线程
+
+```java
+private static void sendOkHttpRequest(String address, okhttp3.Callback callback) {
+  OkHttpClient client = new OkHttpClient();
+  Request request = new Request.Builder()
+    .url(address)
+    .build();
+  client.newCall(request).enqueue(callback);
+}
+```
+
+- 调用时可以使用
+
+```java
+HttpUtil.sendOkHttpRequest("http://www.baidu.com", new okhttp3.Callback() {
+  @Override
+  public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+    String data = response.body() != null ? response.body().string() : null;
+    updateUI(data);
+  }
+  @Override
+  public void onFailure(@NonNull Call call, @NonNull IOException e) {
+    e.printStackTrace();
+  }
+});
+```
+
