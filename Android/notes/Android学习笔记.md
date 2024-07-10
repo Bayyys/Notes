@@ -54,7 +54,7 @@
 - 活动（Activity）
 - 服务（Service）
 - 广播接收器（Broadcast Receiver）
-- 活动提供器（Content Provider）
+- 内容提供器（Content Provider）
 
 #### 项目资源引用
 
@@ -3131,5 +3131,295 @@ HttpUtil.sendOkHttpRequest("http://www.baidu.com", new okhttp3.Callback() {
     e.printStackTrace();
   }
 });
+```
+
+## 服务 Service
+
+- 服务是 Android 中实现程序后台运行的解决方案
+  - 适合执行不需要和用户交互且需要长期运行的任务
+  - 不依赖任何用户界面，即便在后台，或者切换到其他应用程序
+  - **注意** 其并非独立进程，而是依赖创建服务时所在的应用程序
+
+### 多线程
+
+#### 基本用法
+
+```java
+package com.bayyy.services.basic;
+
+public class MyThread {
+  public static void main(String[] args) {
+    // Thread
+    UseThread useThread = new UseThread();
+    useThread.start();
+
+    // Runnable
+    new Thread(new UseRunnable()).start();
+
+    // 匿名类
+    new Thread(() -> {
+      // 实现逻辑
+    }).start();
+  }
+
+  static class UseThread extends Thread {
+    @Override
+    public void run() {
+      super.run();
+      // 实现逻辑
+    }
+  }
+
+  static class UseRunnable implements Runnable {
+    @Override
+    public void run() {
+      // 实现逻辑
+    }
+  }
+}
+```
+
+#### 子线程更新UI
+
+```java
+public class UpdateUI extends AppCompatActivity {
+  public static final int UPDATE_TEXT = 1;
+  private TextView tv_content;
+
+  private Handler handler = new Handler(Looper.getMainLooper()) {
+    // 添加 Looper.getMainLooper() 解决隐式选择 Looper 的报错
+    public void handleMessage(android.os.Message msg) {
+      switch (msg.what) {
+        case UPDATE_TEXT:
+          tv_content.setText("Now, update the content!");
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    tv_content = findViewById(R.id.tv_content);
+    findViewById(R.id.btn_change_text).setOnClickListener(v -> {
+      new Thread(() -> {
+        Message message = new Message();
+        message.what = UPDATE_TEXT;
+        handler.sendMessage(message);
+      }).start();
+    });
+  }
+}
+```
+
+#### 异步消息处理机制
+
+- Message 线程间传递的消息
+  - 可以在内部携带少量信息
+  - 其中 `arg1, arg2` 可以携带整型数据，`obj` 字段可以携带 `Object` 对象
+- Handler 用于发送和处理消息
+  - `sendMessage()` 发送数据
+  - `handleMessage()` 处理数据
+- MessageQueue 消息队列
+  - 存放所有通过 Handler 发送的消息
+  - 每个线程仅有一个 MessageQueue 对象
+- Looper 线程中 MessageQueue 的管理对象
+  - 调用 `Looper.loop()` 会进入无限循环，每当 MessageQueue 中存在消息，会取出并传递到 Handler 的 handleMessage 方法
+
+#### 使用 AsyncTask
+
+- AsyncTask 作为抽象类，能够方便的从子线程切换到主线程
+  - 实现原理：异步消息处理机制
+  - 执行`AsyncTask`的`execute`，首先触发`onPreExecute`回调，然后交给线程池`sDefaultExecutor`调度，`mFuture`配合`mWorker`开启子线程，触发`doInBackground`回调，然后交给内部单例`InternalHandler`处理返回结果并返回到主线程，最后根据`Message`处理`onProgressUpdate`或`onPostExecute`
+- 三个泛型参数
+  - `Params` 执行 AsyncTask 的传入参数
+  - `Progress` 当前进度
+  - `Result` 返回结果
+
+- 重写方法
+  - `onPreExecute()` 任务执行前调用，可以进行界面初始化，例如进度条对话框等
+  - `doInBackground(Params...)` 子线程任务，可以进行 `return` 返回结果
+    - **在此过程执行耗时任务**
+    - 此过程无法进行UI操作
+    - 更新UI需要使用 `publishProgress(Progress...)` 完成
+      - 实际是启动 `onProgressUpdate(Progress...)` 方法
+  - `onProgressUpdate(Progress...)` 进行UI操作
+  - `onPostExecute(Result)`  子线程任务的返回值会传入该函数，可以进行收尾操作，例如关闭进度条、开启提醒任务等
+
+```java
+class SampleAsyncTask extends AsyncTask<Void, Void, Void> {
+  @Override
+  protected void onPreExecute() {
+    super.onPreExecute();
+  }
+  @Override
+  protected Void doInBackground(Void... voids) {
+    return null;
+  }
+  @Override
+  protected void onProgressUpdate(Void... values) {
+    super.onProgressUpdate(values);
+  }
+  @Override
+  protected void onPostExecute(Void aVoid) {
+    super.onPostExecute(aVoid);
+  }
+}
+
+
+// 启动
+new SampleAsyncTask().execute();
+```
+
+> 存在问题：由于`AsyncTask`与`Activity`或`Fragment`的生命周期无关而导致的内存泄漏等
+>
+> 替代方法：使用 `Executor` 或 `ThreadPoolExecutor` 或 `FutureTask`
+
+### 服务基本用法
+
+#### 服务定义
+
+- `New -> Service -> Service`
+
+```java
+public class MyService extends Service {
+  public MyService() {
+  }
+  @Override
+  public IBinder onBind(Intent intent) {
+    // TODO: Return the communication channel to the service.
+    throw new UnsupportedOperationException("Not yet implemented");
+  }
+}
+```
+
+- 同时在 `AndroidManifest.xml` 中注册
+
+```xml
+<service
+         android:name=".MyService"
+         android:enabled="true"
+         android:exported="true"></service>
+```
+
+### 服务启动和停止
+
+- `onStart()` 仅在第一次创建时候调用
+- `onStartCommand()` 每次启动都调用，多次点击启动都输出
+
+```java
+// 活动的启停
+findViewById(R.id.btn_start).setOnClickListener(v -> {
+  startService(new Intent(this, MyService.class));
+});
+findViewById(R.id.btn_stop).setOnClickListener(v -> {
+  stopService(new Intent(this, MyService.class));
+});
+
+// 服务注册输出
+public class MyService extends Service {
+  private static final String TAG = "MyLog";
+
+  public MyService() {
+  }
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    Log.d(TAG, "MyService onCreate");
+  }
+
+  @Override
+  public int onStartCommand(Intent intent, int flags, int startId) {
+    Log.d(TAG, "MyService onStartCommand");
+    return super.onStartCommand(intent, flags, startId);
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    Log.d(TAG, "MyService onDestroy");
+  }
+
+  @Override
+  public IBinder onBind(Intent intent) {
+    // TODO: Return the communication channel to the service.
+    throw new UnsupportedOperationException("Not yet implemented");
+  }
+}
+```
+
+### 活动和服务的通信
+
+- 创建 Binder 对象进行服务绑定管理
+
+```java
+package com.bayyy.services;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
+import android.util.Log;
+
+public class MyService extends Service {
+  private static final String TAG = "MyLog";
+  private DownloadBinder mBinder = new DownloadBinder();
+
+  class DownloadBinder extends Binder {
+    public void startDownload() {
+      Log.d(TAG, "startDownload executed");
+    }
+
+    public int getProgress() {
+      Log.d(TAG, "getProgress executed");
+      return 0;
+    }
+  }
+
+  @Override
+  public IBinder onBind(Intent intent) {
+    return mBinder;
+  }
+  
+  // ...
+}
+```
+
+- 创建 ServiceConnection 类
+- 重写 `onServiceConnected()` 和 `onServiceDisconnected()`
+  - 分别在活动与服务绑定以及解除绑定时调用
+- 可以在活动中使用 `bindService()` 以及 `unbindService()` 绑定和解除绑定服务
+  - `BIND_AUTO_CREATE` 进行绑定后自动创建服务，并使 Service 中 `onCrete()` 方法得到执行， `onStartCommand()` 不执行
+
+```java
+public class StartService extends AppCompatActivity {
+  private MyService.DownloadBinder downloadBinder;
+  private ServiceConnection connection = new ServiceConnection() {
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+      downloadBinder = (MyService.DownloadBinder) service;
+      downloadBinder.startDownload();
+      downloadBinder.getProgress();
+    }
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+    }
+  };
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    findViewById(R.id.btn_bind_service).setOnClickListener(v -> {
+      // 绑定服务
+      // 第一个参数是Intent对象，第二个参数是ServiceConnection对象, 第三个参数是一个标志位(这里传入BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service)
+      bindService(new Intent(this, MyService.class), connection, BIND_AUTO_CREATE);
+    });
+    findViewById(R.id.btn_unbind_service).setOnClickListener(v -> {
+      // 解绑服务
+      unbindService(connection);
+    });
+  }
+}
 ```
 
