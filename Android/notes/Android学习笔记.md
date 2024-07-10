@@ -3303,7 +3303,7 @@ public class MyService extends Service {
          android:exported="true"></service>
 ```
 
-### 服务启动和停止
+#### 服务启动和停止
 
 - `onStart()` 仅在第一次创建时候调用
 - `onStartCommand()` 每次启动都调用，多次点击启动都输出
@@ -3350,7 +3350,7 @@ public class MyService extends Service {
 }
 ```
 
-### 活动和服务的通信
+#### 活动和服务的通信
 
 - 创建 Binder 对象进行服务绑定管理
 
@@ -3419,6 +3419,66 @@ public class StartService extends AppCompatActivity {
       // 解绑服务
       unbindService(connection);
     });
+  }
+}
+```
+
+#### 服务的生命周期
+
+| 手动调用方法      | 作用 |
+| ----------------- | ---- |
+| `startService()`  | 启动 |
+| `stopService()`   | 停止 |
+| `bindService()`   | 绑定 |
+| `unbindService()` | 解绑 |
+
+![服务的生命周期](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/10/275343c1510d1d4c4779a14be59c6d36-20240710212407185-1720617847.png)
+
+### 服务的高级用法
+
+#### 调用前台通知
+
+> 具体参照 8.1 Notification
+
+#### IntentService
+
+- 服务中启动多线程
+  - 调用 `stopService()` 或者 `stopSelf()` 进行服务停止
+
+```java
+@override
+public int onStartCommand(Intent intent, int flags, int startId) {
+  new Thread(new Runnable() {
+    @override
+    public void run() {
+      // 处理逻辑
+      stopSelf();
+    }
+  }
+  ).start();
+}
+```
+
+- 使用 `IntentService` 类进行自动线程处理
+
+```java
+public class MyIntentService extends IntentService {
+  private static final String TAG = "MyLog";
+  public MyIntentService(String name) {
+    super(name);
+  }
+
+  @Override
+  protected void onHandleIntent(@Nullable Intent intent) {
+    Log.d(TAG, "onHandleIntent: Thread is " + Thread.currentThread().getId());
+    // 该部分代码会在子线程中执行
+    // 并且会自动停止服务
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    Log.d(TAG, "onDestroy");
   }
 }
 ```
