@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.bayyy.services'
+    namespace 'com.example.lbs'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.bayyy.services"
+        applicationId "com.example.lbs"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -34,8 +34,8 @@ dependencies {
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
+    implementation files('libs/BaiduLBS_Android.jar')
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    implementation(libs.okhttp)
 }
