@@ -3483,3 +3483,20 @@ public class MyIntentService extends IntentService {
 }
 ```
 
+## 基于位置的服务
+
+- LBS(Location Based Service) 基于位置的服务
+- 定位技术：
+  - GPS定位
+  - 通过网络定位
+
+### 百度 LBS
+
+- 根据官网流程进行 [百度-AndroidSDK-使用准备](https://lbsyun.baidu.com/faq/api?title=androidsdk/prepare)
+
+- 获取 SHA1
+  - 调试版本和发布版本命令不同
+  - 调试版： `keytool -list -v -keystore debug.keystore`
+  - 发布版：`keytool -list -v -keystore release.keystore`
+
+![image-20240711232453984](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/11/image-20240711232453984-1720711494.png)
