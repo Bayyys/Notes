@@ -39,4 +39,6 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     implementation libs.gson
+    implementation libs.kms
+    implementation 'com.amazonaws:mss-java-sdk-s3:1.10.0'
 }

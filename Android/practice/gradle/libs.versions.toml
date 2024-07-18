@@ -11,6 +11,7 @@ navigationFragment = "2.6.0"
 navigationUi = "2.6.0"
 constraintlayout = "2.1.4"
 okhttp = "4.12.0"
+kms = "0.15.0"
 
 [libraries]
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
@@ -27,7 +28,9 @@ percentlayout = { module = "androidx.percentlayout:percentlayout", version = "1.
 recyclerview = { module = "androidx.recyclerview:recyclerview", version = "1.3.2" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 litepal = { group = "org.litepal.guolindev", name = "core", version = "3.2.3" }
+kms = {group = "com.meituan.service.inf", name = "kms-java-client", version.ref = "kms"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 
