@@ -4,15 +4,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".SimpleLocation">
 
-    <Button
-        android:id="@+id/simple_location"
+    <TextView
+        android:id="@+id/tv_position"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20sp"
-        android:text="Simple Location" />
+        android:layout_height="wrap_content" />
 
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true" />
 
 </LinearLayout>

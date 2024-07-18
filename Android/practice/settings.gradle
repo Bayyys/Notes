@@ -1,12 +1,12 @@
 pluginManagement {
     repositories {
-        maven {
-            url "http://depot.sankuai.com/nexus/content/groups/public"
-            allowInsecureProtocol = true
-        }
-        maven {
-            url "https://pixel.sankuai.com/repository/mtdp"
-        }
+//        maven {
+//            url "http://depot.sankuai.com/nexus/content/groups/public"
+//            allowInsecureProtocol = true
+//        }
+//        maven {
+//            url "https://pixel.sankuai.com/repository/mtdp"
+//        }
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -21,13 +21,13 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven {
-            url "http://depot.sankuai.com/nexus/content/groups/public"
-            allowInsecureProtocol = true
-        }
-        maven {
-            url "https://pixel.sankuai.com/repository/mtdp"
-        }
+//        maven {
+//            url "http://depot.sankuai.com/nexus/content/groups/public"
+//            allowInsecureProtocol = true
+//        }
+//        maven {
+//            url "https://pixel.sankuai.com/repository/mtdp"
+//        }
         google()
         mavenCentral()
         jcenter()

@@ -3500,3 +3500,105 @@ public class MyIntentService extends IntentService {
   - 发布版：`keytool -list -v -keystore release.keystore`
 
 ![image-20240711232453984](https://cdn.jsdelivr.net/gh/Bayyys/PicX/img/2024/07/11/image-20240711232453984-1720711494.png)
+
+### 确定自身经纬度
+
+```java
+public class SimpleLocation extends AppCompatActivity {
+  private static final String TAG = "MYLOG";
+  public LocationClient mLocationClient;
+  private TextView et_location;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    // ...
+    LocationClient.setAgreePrivacy(true);	// 定位的隐私授权
+    try {
+      mLocationClient = new LocationClient(getApplicationContext());
+      mLocationClient.registerLocationListener(new MyLocationListener());
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+    et_location = findViewById(R.id.tv_position);
+    List<String> permissionList = new ArrayList<>();
+    if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+      permissionList.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+    if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+      permissionList.add(android.Manifest.permission.READ_PHONE_STATE);
+    }
+    if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+      permissionList.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+    if (!permissionList.isEmpty()) {
+      String[] permissions = permissionList.toArray(new String[0]);
+      requestPermissions(permissions, 1);
+    } else {
+      requestLocation();  // 请求位置信息
+    }
+  }
+
+  private void requestLocation() {
+    initLocation(5000); // 需要动态更新 (s)
+    mLocationClient.start();
+  }
+
+  private void initLocation(Integer seconds) {
+    LocationClientOption option = new LocationClientOption();
+    option.setScanSpan(seconds);  // 设置更新位置信息的间隔
+    mLocationClient.setLocOption(option);
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mLocationClient.stop();
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    switch (requestCode) {
+      case 1:
+        if (grantResults.length > 0) {
+          for (int result : grantResults) {
+            if (result != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+              throw new RuntimeException("You must grant all permissions");
+            }
+          }
+          requestLocation();
+        } else {
+          throw new RuntimeException("You must grant all permissions");
+        }
+      default:
+        break;
+    }
+  }
+
+  // 定位监听器: 获取到位置信息后的处理
+  public class MyLocationListener implements BDLocationListener {
+
+    @Override
+    public void onReceiveLocation(BDLocation bdLocation) {
+      Log.d(TAG, "onReceiveLocation: onReceiveLocation");
+      StringBuilder currentPosition = new StringBuilder();
+      currentPosition.append("纬度: ").append(bdLocation.getLatitude()).append("\n");
+      currentPosition.append("经度: ").append(bdLocation.getLongitude()).append("\n");
+      currentPosition.append("国家: ").append(bdLocation.getCountry()).append("\n");
+      currentPosition.append("省: ").append(bdLocation.getProvince()).append("\n");
+      currentPosition.append("市: ").append(bdLocation.getCity()).append("\n");
+      currentPosition.append("区: ").append(bdLocation.getDistrict()).append("\n");
+      currentPosition.append("街道: ").append(bdLocation.getStreet()).append("\n");
+      currentPosition.append("定位方式: ");
+      if (bdLocation.getLocType() == BDLocation.TypeGpsLocation) {
+        currentPosition.append("GPS");
+      } else if (bdLocation.getLocType() == BDLocation.TypeNetWorkLocation) {
+        currentPosition.append("网络");
+      }
+      Log.d(TAG, "onReceiveLocation: cur" + currentPosition);
+      et_location.setText(currentPosition);
+    }
+  }
+}
+```
+

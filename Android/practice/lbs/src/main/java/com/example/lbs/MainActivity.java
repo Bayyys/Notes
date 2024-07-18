@@ -1,5 +1,6 @@
 package com.example.lbs;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -20,5 +21,6 @@ public class MainActivity extends AppCompatActivity {
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
       return insets;
     });
+    findViewById(R.id.simple_location).setOnClickListener(v -> startActivity(new Intent(this, SimpleLocation.class)));
   }
 }
