@@ -662,4 +662,4 @@
 > [example](http://mockjs.com/examples.html)
 > `mock` 生成随机数据, 拦截 Ajax 请求
 
-- [x] 创建 `mock` 项目 (07/29/2024)
+- [x] 完成 `mock` 项目 (07/29/2024)
