@@ -5,8 +5,8 @@ const xml2js = require("xml2js");
 
 export default function Home() {
   const handlerClick = async () => {
-    const res = await axios.get("/user/list");
-    console.log("🚀 ~ handlerClick ~ res:", res.data.data);
+    const res = await axios.get("/data?name=张三&age=18");
+    console.log("🚀 ~ handlerClick ~ res:", res);
   };
   // xml 虚拟数据
   const xmldata = `

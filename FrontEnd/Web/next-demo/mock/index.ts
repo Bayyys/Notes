@@ -21,3 +21,12 @@ export const userData = Mock.mock("/user/list", "get", {
     },
   ],
 });
+
+export const queryData = Mock.mock(/\/data/, "get", (req: any) => {
+  const { url, type, body } = req;
+  return {
+    url,
+    type,
+    body,
+  };
+});
