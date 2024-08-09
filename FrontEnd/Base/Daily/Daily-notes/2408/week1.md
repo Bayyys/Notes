@@ -305,3 +305,202 @@ window.addEventListener('...', ()=>{}, {
 > `CSS`
 
 - `aspect-ratio: w/h` 宽高比
+
+## 空心文字效果
+
+> `CSS`
+
+- 使用盒子阴影实现空心文字效果
+
+```css
+h1 {
+  color: #000;
+  font-size: 6em;
+  text-shadow:
+  1px 0 #fff,
+  1px 1px #fff,
+  1px -1px #fff,
+  0 1px #fff,
+  0 -1px #fff,
+  -1px 0 #fff,
+  -1px 1px #fff,
+  -1px -1px #fff;
+}
+```
+
+![image-20240810005526744](https://bitiful.bayyys.cn/notes/mac/2024/08/image-20240810005526744-1723222526.png)
+
+## 倾斜按钮
+
+> `CSS`
+
+```css
+button {
+  background-color: #000;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  /* 开始倾斜部分书写 */
+  border-radius: 15px 0;	/* 左上右下增加圆角 */
+  position: relative;
+  transform: skew(-20deg);	/* 增加倾斜 */
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  background: radial-gradient(
+    circle at 0 0,
+    transparent,
+    transparent 20px,
+    #000 20px
+  );
+  width: 20px;
+  height: 20px;
+  bottom: 0;
+  left: -20px;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  background: radial-gradient(
+    circle at 100% 100%,
+    transparent,
+    transparent 20px,
+    #000 20px
+  );
+  width: 20px;
+  height: 20px;
+  top: 0;
+  right: -20px;
+}
+```
+
+
+
+![image-20240810010547855](https://bitiful.bayyys.cn/notes/mac/2024/08/image-20240810010547855-1723223147.png)
+
+## 手写 Promise.all
+
+> `JS` `基础`
+
+```js
+/**
+ * 手写 Promise.all 函数
+ */
+Promise.myAll = function (proms) {
+  let res, rej;
+  const p = new Promise((resolve, reject) => {
+    res = resolve;
+    rej = reject;
+  });
+  // 设置 p 的状态
+  const result = [];
+  let count = 0;
+  let fulFilled = 0; // 记录已经完成的 promise 数量
+  for (const prom of proms) {
+    const i = count;
+    count++;
+    Promise.resolve(prom).then((data) => {
+      // 将数据存入 result
+      result[i] = data;
+      // 判断是否全部完成
+      fulFilled++;
+      if (fulFilled === count) {
+        res(result);
+      }
+    }, rej);
+  }
+  if (count === 0) {
+    res(result);
+  }
+  return p;
+};
+
+// Promise.all 方法解释
+// 1. 接收一个 promise 数组
+// 2. 返回一个新的 promise
+// 3. 当所有的 promise 都 resolve 时，新 promise resolve
+// 4. 当有一个 promise reject 时，新 promise reject
+// 5. 返回的 promise 的 resolve 值是所有 promise 的 resolve 值组成的数组
+Promise.myAll([]).then((res) => {
+  console.log(res);
+});
+```
+
+## 翻转卡片效果
+
+> `CSS`
+
+```css
+.card .face,
+.card .back {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+/* 空间翻转, 背部不可见 */
+/* 注意父容器需要设置透视 
+  perspective: 500px; */
+.card:hover .face {
+  transform: rotateY(-180deg);
+}
+
+.face {
+  transition: 0.5s;
+  backface-visibility: hidden;
+}
+
+.card:hover .back {
+  transform: rotateY(0deg);
+}
+
+.back {
+  transition: 0.5s;
+  transform: rotateY(-180deg);
+  backface-visibility: hidden;
+}
+```
+
+
+
+![未命名](https://bitiful.bayyys.cn/notes/mac/2024/08/%E6%9C%AA%E5%91%BD%E5%90%8D-1723224812.gif)
+
+## 迭代器进行字符串分割
+
+> `JS` `基础`
+
+```js
+function* walk(str) {
+  let res = "";
+  const split = [".", "-"];
+  for (let i = 0; i < str.length; i++) {
+    if (split.includes(str[i])) {
+      yield res;
+      res = "";
+    } else {
+      res += str[i];
+    }
+  }
+  if (res) {
+    yield res;
+  }
+}
+
+const version = "v2.1.12.alpha.1";
+for (let v of walk(version)) {
+  console.log(v); // v2 1 12 alpha 1
+}
+```
+

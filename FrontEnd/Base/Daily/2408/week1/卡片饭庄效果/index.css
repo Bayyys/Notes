@@ -1,0 +1,45 @@
+.card {
+  width: 105px;
+  height: 105px;
+  display: flex;
+  position: relative;
+  perspective: 500px;
+  color: white;
+}
+
+.card .face,
+.card .back {
+  position: absolute;
+  background: rgb(53, 158, 53);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.card .back {
+  /* 文字居中 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card:hover .face {
+  transform: rotateY(-180deg);
+}
+
+.face {
+  transition: 0.5s;
+  backface-visibility: hidden;
+}
+
+.card:hover .back {
+  transform: rotateY(0deg);
+}
+
+.back {
+  transition: 0.5s;
+  transform: rotateY(-180deg);
+  backface-visibility: hidden;
+}
